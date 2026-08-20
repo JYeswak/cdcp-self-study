@@ -196,15 +196,6 @@ owner_bead = "bd-coverage-counts-retired-items-49jh"
 verdict_shape_leg = true
 
 [[harness]]
-file = "diff_verify_doc_consistency.rs"
-gate = "verify-doc-consistency"
-comparators = ["assert_byte_exact"]
-cases = 28
-agreement_only = 0
-verdict_shape_leg = false
-verdict_shape_skip_reason = "not a measured instance (lt7/qm65/rk9n); LEG D covers the gate; instance helper is the fourth-patch shape this bead forbids"
-
-[[harness]]
 file = "diff_verify_injection_count.rs"
 gate = "verify-injection-count"
 comparators = ["assert_identical", "check"]

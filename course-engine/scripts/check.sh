@@ -1993,8 +1993,7 @@ else
 fi
 
 # Roadmap doc truth — the prose a stranger reads first must not contradict
-# itself. Hard-required: an absent checker is a fooled certificate, not a skip.
-[ -f scripts/verify_doc_consistency.py ] || fail "missing scripts/verify_doc_consistency.py (roadmap-truth gate required)"
+# itself. The Rust registry-check implementation owns the assertion logic.
 echo "==> cdcp_gate verify-doc-consistency (CHARTER §9 · README roadmap · PHASE-NEXT)"
 run_cdcp_gate verify-doc-consistency || fail "roadmap doc consistency"
 ok "roadmap milestone status agrees across docs; publication truth holds"

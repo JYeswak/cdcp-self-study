@@ -132,11 +132,6 @@ disposition = "cargo_test_differential"
 why = "check.sh/selftest_injection_count.sh no longer invoke python3; cargo test still diffs vs tests/diff_verify_injection_count.rs (bd-substrate-rust-migration-jhd.25)"
 
 [[oracle_inventory.file]]
-path = "scripts/verify_doc_consistency.py"
-disposition = "cargo_test_differential"
-why = "check.sh/selftest_doc_consistency.sh no longer invoke python3; cargo test still diffs vs tests/diff_verify_doc_consistency.rs (bd-substrate-rust-migration-jhd.26)"
-
-[[oracle_inventory.file]]
 path = "scripts/verify_coverage.py"
 disposition = "cargo_test_differential"
 why = "check.sh/selftest_l6_coverage.sh no longer invoke python3; cargo test still diffs vs tests/diff_verify_coverage.rs (bd-substrate-rust-migration-jhd.23)"
@@ -164,12 +159,6 @@ why = "check.sh/selftest_l7_objectives.sh no longer invoke python3; cargo test s
 path = "scripts/verify_injection_count.py"
 reason = "Differential oracle for `cdcp_gate verify-injection-count` (bd-substrate-rust-migration-jhd.3, ported 2026-08-14). L4 drift guard: advertised known-bad count vs measured. Retained so tests/diff_verify_injection_count.rs can compare both implementations. check.sh presence-checks only; cargo test still diffs. Known-bad plants run via $CDCP_BIN_DIR/cdcp_gate verify-injection-count (bd-substrate-rust-migration-jhd.25)."
 migration_bead = "bd-substrate-rust-migration-jhd.3"
-expires = "2026-10-31"
-
-[[allow]]
-path = "scripts/verify_doc_consistency.py"
-reason = "Differential oracle for `cdcp_gate verify-doc-consistency` (bd-substrate-rust-migration-jhd.4, ported 2026-08-14). Roadmap/publication truth across CHARTER, README and PHASE-NEXT. Retained so tests/diff_verify_doc_consistency.rs can compare both implementations. check.sh presence-checks only; cargo test still diffs. Known-bad plants run via $CDCP_BIN_DIR/cdcp_gate verify-doc-consistency (bd-substrate-rust-migration-jhd.26)."
-migration_bead = "bd-substrate-rust-migration-jhd.4"
 expires = "2026-10-31"
 
 # =============================================================================

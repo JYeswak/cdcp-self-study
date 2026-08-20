@@ -196,7 +196,10 @@ fn scan_targets(root: &Path) -> Vec<(PathBuf, String, bool)> {
             oracles += 1;
         }
     }
-    assert!(oracles >= 5, "oracle glob found {oracles}; scan is ERROR");
+    // Two oracles (`verify_orphans.py` and `validate_grounding.py`) were
+    // deliberately retired into Rust in the current migration slices. Four
+    // remain; zero is still an ERROR, so this cannot silently become vacuous.
+    assert!(oracles >= 4, "oracle glob found {oracles}; scan is ERROR");
     out.sort_by(|a, b| a.1.cmp(&b.1));
     out
 }

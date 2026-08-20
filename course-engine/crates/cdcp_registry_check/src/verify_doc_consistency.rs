@@ -1,5 +1,6 @@
-//! `verify-doc-consistency` — the roadmap-truth gate, ported byte-for-byte from
-//! `scripts/verify_doc_consistency.py`.
+//! `verify-doc-consistency` — the roadmap-truth gate owned by the registry
+//! checker. It was originally ported from Python; the differential oracle has
+//! now been retired after the Rust implementation and selftest were proven.
 //!
 //! # Claim class: FLOOR-RAISE
 //!
@@ -76,19 +77,12 @@
 //! roadmap doc, or a roadmap doc yielding zero milestone rows all exit non-zero.
 //! A doc that was never parsed must never report like one that agreed.
 //!
-//! # Byte-exactness contract with the Python original
+//! # Retirement boundary
 //!
-//! `crates/cdcp_gate/tests/diff_verify_doc_consistency.rs` runs both
-//! implementations on identical inputs and asserts stdout, stderr, AND exit
-//! code match byte for byte on every case. The stdout stream here is the
-//! Python's stdout character for character — including the `!r` repr forms, the
-//! `sorted()` orderings, and the 40-item report cap.
-//!
-//! To hold that contract the failure report is written to **stdout with exit
-//! status 1**, not routed through `GateError`: the dispatcher's `report()`
-//! writes to stderr and maps to exit 2 or 4, and the oracle produces neither, so
-//! routing through it would make the two sides differ on every RED case — which
-//! would blind the one mechanism that can tell a port BUG from an intended FIX.
+//! The Rust implementation retains the established stdout/error-shape
+//! contract, and `scripts/selftest_doc_consistency.sh` proves its known-bad
+//! cases. The former Python differential is no longer a second implementation
+//! on the gate path.
 //! `crate::exit` is therefore deliberately NOT used for this gate's failure
 //! paths. That is a knowing, single-file deviation from the shared convention,
 //! recorded here for review rather than made quietly, and it lasts exactly as

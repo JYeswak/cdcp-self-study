@@ -10,7 +10,8 @@
 #   cannot silently no-op the way `git apply` does on an index mismatch.
 #
 # Plants run the Rust binary (same helper contract as check.sh).
-# scripts/verify_doc_consistency.py is the cargo-test differential oracle only.
+# The Rust registry-check implementation is the sole gate-path implementation;
+# its selftest retains the known-bad roadmap cases.
 #
 # Cases:
 #   a) clean specimen                       → GREEN (baseline; injections are the only defect)
