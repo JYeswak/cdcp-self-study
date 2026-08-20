@@ -5,12 +5,16 @@
 # DRIFT (expected vs actual) before downstream suites assert on these values.
 # A correct source count can still be wrong from the first commit; this guard
 # detects movement, not an initially bad observation.
+# `kind = "exact"` is fail-closed: every movement is RED.  `kind = "floor"`
+# is reserved for a scan-domain anti-vacuity size and requires a positive min;
+# it does not assert that the observed domain size is correct.
 schema_version = 1
 
 [[derived]]
 id = "bank.file-count"
 source = "bank/items"
 metric = "file_count"
+kind = "exact"
 expected = 957
 reason = "The manifest and bank verifier measure the complete TOML file set, including retired content."
 
@@ -18,6 +22,7 @@ reason = "The manifest and bank verifier measure the complete TOML file set, inc
 id = "bank.approved-count"
 source = "bank/items"
 metric = "status_count"
+kind = "exact"
 status = "approved"
 expected = 931
 reason = "The learner pool and approved-only exports must agree on the status-qualified source pool."
@@ -26,6 +31,7 @@ reason = "The learner pool and approved-only exports must agree on the status-qu
 id = "bank.retired-count"
 source = "bank/items"
 metric = "status_count"
+kind = "exact"
 status = "retired"
 expected = 26
 reason = "Retired files remain in the source tree and must not silently disappear from lifecycle accounting."
@@ -34,6 +40,7 @@ reason = "Retired files remain in the source tree and must not silently disappea
 id = "bank.module-14.file-count"
 source = "bank/items"
 metric = "module_file_count"
+kind = "exact"
 module = 14
 expected = 48
 reason = "The differential verify-bank harness keeps scanned and approved module populations distinct."
@@ -42,6 +49,7 @@ reason = "The differential verify-bank harness keeps scanned and approved module
 id = "bank.module-14.approved-count"
 source = "bank/items"
 metric = "module_status_count"
+kind = "exact"
 module = 14
 status = "approved"
 expected = 46
@@ -51,6 +59,7 @@ reason = "The differential verify-bank harness asserts the drawable module popul
 id = "bank.module-15.file-count"
 source = "bank/items"
 metric = "module_file_count"
+kind = "exact"
 module = 15
 expected = 106
 reason = "The module-15 expansion must be visible in the scanned population before any module-floor assertion runs."
@@ -59,6 +68,7 @@ reason = "The module-15 expansion must be visible in the scanned population befo
 id = "bank.module-15.approved-count"
 source = "bank/items"
 metric = "module_status_count"
+kind = "exact"
 module = 15
 status = "approved"
 expected = 106
@@ -68,6 +78,7 @@ reason = "The module-15 learner population is a status-qualified count used by v
 id = "units-index.bank-item-count"
 source = "web/data/units_index.json"
 metric = "units_index_field"
+kind = "exact"
 field = "bank_item_count"
 expected = 957
 reason = "The generated learner index must advertise the same complete file set as bank/items."
@@ -76,6 +87,7 @@ reason = "The generated learner index must advertise the same complete file set 
 id = "units-index.approved-item-count"
 source = "web/data/units_index.json"
 metric = "units_index_field"
+kind = "exact"
 field = "approved_item_count"
 expected = 931
 reason = "The generated learner index must advertise the same approved pool used by exports and assembly."
@@ -84,6 +96,7 @@ reason = "The generated learner index must advertise the same approved pool used
 id = "units-index.unit-count"
 source = "web/data/units_index.json"
 metric = "units_index_field"
+kind = "exact"
 field = "unit_count"
 expected = 134
 reason = "The learner surface's unit inventory is generated data and must not silently drift from its advertised count."
@@ -92,6 +105,7 @@ reason = "The learner surface's unit inventory is generated data and must not si
 id = "bank.approved-pool-multiplier-tenths"
 source = "bank/items"
 metric = "approved_pool_multiplier_tenths"
+kind = "exact"
 denominator = 40
 expected = 233
 reason = "The documented exam multiplier derives from the approved pool over the fixed 40-question mock size."
@@ -100,12 +114,14 @@ reason = "The documented exam multiplier derives from the approved pool over the
 id = "key-contradiction.numeric-claims"
 source = "bank/items"
 metric = "key_contradiction_numeric_claims"
-expected = 366
-reason = "The contradiction gate's numeric scan domain must be observed before its downstream verdict is trusted."
+kind = "floor"
+min = 1
+reason = "Anti-vacuity: prevents zero numeric claims from certifying an unrun contradiction scan; min=1 proves only that the scan domain did not collapse, not that the observed 345 claims is the correct number."
 
 [[derived]]
 id = "key-contradiction.numeric-contradictions"
 source = "bank/items"
 metric = "key_contradiction_numeric_contradictions"
+kind = "exact"
 expected = 0
 reason = "A new bank-internal contradiction is a changed count and must be named before the contradiction test reports."
