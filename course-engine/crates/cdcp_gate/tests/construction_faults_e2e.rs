@@ -10,7 +10,12 @@ fn the_gate_is_registered_and_reports_both_populations() {
         cdcp_gate::root::resolve(Path::new(env!("CARGO_MANIFEST_DIR"))).expect("engine root");
     let (code, output) = support::run_gate(&root, &["construction-faults"]);
     assert_eq!(code, 2, "{output}");
-    assert!(output.contains("live-approved: items=931"), "{output}");
+    let approved =
+        cdcp_registry_check::count_pins::expected_value(&root, "bank.approved-count").unwrap();
+    assert!(
+        output.contains(&format!("live-approved: items={approved}")),
+        "{output}"
+    );
     assert!(output.contains("damaged-corpus: items=448"), "{output}");
     assert!(output.contains("length-rank-uniformity"), "{output}");
 }

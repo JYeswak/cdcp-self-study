@@ -48,6 +48,11 @@ mod tests {
     use super::*;
     use std::path::{Path, PathBuf};
 
+    fn count_pin(root: &Path, id: &str) -> u64 {
+        cdcp_registry_check::count_pins::expected_value(root, id)
+            .unwrap_or_else(|error| panic!("count pin {id:?}: {error}"))
+    }
+
     #[test]
     fn the_gate_takes_no_arguments() {
         let ctx = GateCtx::new(PathBuf::from("/tmp"), vec!["--bank".into()]);
@@ -63,17 +68,21 @@ mod tests {
         let pass = out.stdout.as_str();
         assert!(pass.starts_with("PASS\n"), "{pass}");
         assert!(pass.contains("  source_class=original\n"));
+        let file_count = count_pin(&root, "bank.file-count");
+        let approved_count = count_pin(&root, "bank.approved-count");
         assert!(
-            pass.contains(
-                // 904/879 -> 957/931: the MANIFEST was corrected to the real file set in
-                // fd4d6d8; the old pin predated that and had been red since.
-                "  items=957 scanned, 931 approved (floors count the approved pool only)\n"
-            ),
+            pass.contains(&format!(
+                "  items={file_count} scanned, {approved_count} approved (floors count the approved pool only)\n"
+            )),
             "{pass}"
         );
+        let m14_approved = count_pin(&root, "bank.module-14.approved-count");
+        let m15_approved = count_pin(&root, "bank.module-15.approved-count");
+        let m14_files = count_pin(&root, "bank.module-14.file-count");
+        let m15_files = count_pin(&root, "bank.module-15.file-count");
         assert!(
-            // m15 56 -> 106: module 15 grew with the CDFOS/CDFOM track.
-            pass.contains("14: 46, 15: 106}") && pass.contains("14: 48, 15: 106}"),
+            pass.contains(&format!("14: {m14_approved}, 15: {m15_approved}}}"))
+                && pass.contains(&format!("14: {m14_files}, 15: {m15_files}}}")),
             "{pass}"
         );
         assert!(

@@ -70,8 +70,18 @@ pub const DEFAULT_OUT_REL: &str = "dist/anki";
 pub const DEFAULT_FORMAT: &str = "tsv,apkg";
 /// Default `--deck-name`.
 pub const DEFAULT_DECK_NAME: &str = "CDCP Study";
-/// Live-tree approved-card pin. A drift here is a bank decision, not a test fix.
-pub const EXPECTED_APPROVED_LIVE: usize = 931;
+
+/// Read the approved-card observation from the source-derived count registry.
+///
+/// The count-pin gate compares this observation with bank/items before the
+/// Anki tests run.  Keeping the consumer on the registry means a legitimate
+/// pool change is reported as count drift instead of an opaque card assertion.
+pub fn expected_approved_live(root: &Path) -> Result<usize, AnkiError> {
+    let value = cdcp_registry_check::count_pins::expected_value(root, "bank.approved-count")
+        .map_err(AnkiError::msg)?;
+    usize::try_from(value)
+        .map_err(|_| AnkiError::msg(format!("approved count {value} does not fit usize")))
+}
 
 /// Note type / deck ids (stable for re-import friendliness).
 pub const MODEL_ID: i64 = 1_699_990_001_001;

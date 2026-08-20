@@ -389,42 +389,52 @@ fn negation_conflict(
         .at_least(policy.negation_answer_similarity_pct)
 }
 
-/// Evaluate the approved pool for bank-internal contradiction evidence.
-pub fn evaluate(root: &Path) -> Eval {
-    let policy = match policy(root) {
-        Ok(policy) => policy,
-        Err(message) => return Eval::Error(message),
-    };
-    let bank = match Bank::load_dir(&root.join("bank/items")) {
-        Ok(bank) => bank,
-        Err(error) => return Eval::Error(format!("load bank/items: {error}")),
-    };
+/// Counts produced by the contradiction scan before a verdict is applied.
+///
+/// This is public so a source-derived count pin can observe the same scan that
+/// the gate reports.  It deliberately carries no opinion about whether the
+/// keyed claims are true; it only exposes the mechanically computed evidence.
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct Measurement {
+    pub approved_items: usize,
+    pub numeric_domain_items: usize,
+    pub numeric_domain_claims: usize,
+    pub numeric_claims: usize,
+    pub compared_topic_pairs: usize,
+    pub numeric_contradictions: usize,
+    pub explicit_negation_pairs: usize,
+    pub numeric_domain_coverage_pct: u32,
+    pub findings: Vec<String>,
+}
+
+/// Scan the approved pool and return the raw, source-derived measurements.
+///
+/// This is separate from [`evaluate`] so drift guards and the gate share one
+/// implementation.  An unreadable, empty, or below-domain bank is an error,
+/// not a zero-valued measurement that could look like a clean scan.
+pub fn measure(root: &Path) -> Result<Measurement, String> {
+    let policy = policy(root)?;
+    let bank = Bank::load_dir(&root.join("bank/items"))
+        .map_err(|error| format!("load bank/items: {error}"))?;
     let approved = bank
         .items
         .values()
         .filter(|item| item.is_approved() && item.kind.is_letter_form())
         .map(|item| view(item, &policy))
         .collect::<Result<Vec<_>, _>>();
-    let approved = match approved {
-        Ok(approved) => approved,
-        Err(message) => return Eval::Error(message),
-    };
+    let approved = approved?;
     if approved.is_empty() {
-        return Eval::Error(
-            "zero approved single-select items (vacuous contradiction scan)".into(),
-        );
+        return Err("zero approved single-select items (vacuous contradiction scan)".into());
     }
     if approved.len() < 2 {
-        return Eval::Error(
-            "fewer than two approved single-select items (zero comparisons)".into(),
-        );
+        return Err("fewer than two approved single-select items (zero comparisons)".into());
     }
     let numeric_claims = approved
         .iter()
         .map(|item| item.numeric.len())
         .sum::<usize>();
     if numeric_claims == 0 {
-        return Eval::Error(
+        return Err(
             "zero numeric claims extracted from approved single-select items (vacuous numeric contradiction scan)"
                 .into(),
         );
@@ -435,7 +445,7 @@ pub fn evaluate(root: &Path) -> Eval {
         .count();
     if numeric_domain_items * 100 < policy.numeric_domain_coverage_pct as usize * approved.len() {
         let coverage = percent_tenths(numeric_domain_items, approved.len());
-        return Eval::Error(format!(
+        return Err(format!(
             "numeric domain coverage {numeric_domain_items}/{} = {}.{}% is below configured floor {}% (ERROR/UNRUN)",
             approved.len(),
             coverage / 10,
@@ -492,26 +502,55 @@ pub fn evaluate(root: &Path) -> Eval {
         }
     }
     findings.sort();
-    let report = format!(
-        "approved single-select={}; numeric-domain-items={}/{} ({}.{}%; floor={}%); numeric-domain-claims={}; numeric-claims={}; compared topic-pairs={}; numeric-contradictions={}; explicit-negation-pairs={}",
-        approved.len(),
+    Ok(Measurement {
+        approved_items: approved.len(),
         numeric_domain_items,
-        approved.len(),
-        percent_tenths(numeric_domain_items, approved.len()) / 10,
-        percent_tenths(numeric_domain_items, approved.len()) % 10,
-        policy.numeric_domain_coverage_pct,
         numeric_domain_claims,
         numeric_claims,
-        comparisons,
-        numeric_count,
-        negation_count,
+        compared_topic_pairs: comparisons,
+        numeric_contradictions: numeric_count,
+        explicit_negation_pairs: negation_count,
+        numeric_domain_coverage_pct: policy.numeric_domain_coverage_pct,
+        findings,
+    })
+}
+
+/// Evaluate the approved pool for bank-internal contradiction evidence.
+pub fn evaluate(root: &Path) -> Eval {
+    let measurement = match measure(root) {
+        Ok(measurement) => measurement,
+        Err(message) => return Eval::Error(message),
+    };
+    let report = format!(
+        "approved single-select={}; numeric-domain-items={}/{} ({}.{}%; floor={}%); numeric-domain-claims={}; numeric-claims={}; compared topic-pairs={}; numeric-contradictions={}; explicit-negation-pairs={}",
+        measurement.approved_items,
+        measurement.numeric_domain_items,
+        measurement.approved_items,
+        percent_tenths(
+            measurement.numeric_domain_items,
+            measurement.approved_items
+        ) / 10,
+        percent_tenths(
+            measurement.numeric_domain_items,
+            measurement.approved_items
+        ) % 10,
+        measurement.numeric_domain_coverage_pct,
+        measurement.numeric_domain_claims,
+        measurement.numeric_claims,
+        measurement.compared_topic_pairs,
+        measurement.numeric_contradictions,
+        measurement.explicit_negation_pairs,
     );
-    if findings.is_empty() {
+    if measurement.findings.is_empty() {
         Eval::Ok(format!(
             "{NAME}: PASS: {report}; no bank-internal contradictions"
         ))
     } else {
-        Eval::Violation(std::iter::once(report).chain(findings).collect::<Vec<_>>())
+        Eval::Violation(
+            std::iter::once(report)
+                .chain(measurement.findings)
+                .collect::<Vec<_>>(),
+        )
     }
 }
 

@@ -512,7 +512,16 @@ else
   CDCP_BIN_DIR="$ROOT/target/debug"
 fi
 require_cdcp_bins
-ok "cargo build -p cdcp_gate -p cdcp_cli -p cdcp_registry_check --locked (debug binaries in $CDCP_BIN_DIR)"
+
+# Count pins run immediately after the binaries exist and BEFORE any downstream
+# suite can assert on a hardcoded population.  A source change is reported as
+# DRIFT with expected-vs-actual here, rather than as an opaque Anki/verify-bank/
+# doc-facts test failure.  The command prints tree=worktree; the registry is an
+# observation of bank/items and web/data/units_index.json, not a second source
+# of truth.
+echo "==> cdcp_registry_check count-pins (source-derived count pins; tree=worktree)"
+run_cdcp_registry_check count-pins || fail "source-derived count pin drift (downstream tests not run)"
+ok "cargo build -p cdcp_gate -p cdcp_cli -p cdcp_registry_check --locked + count pins (debug binaries in $CDCP_BIN_DIR)"
 
 # Process/observability floor: unfiltered suites must still contain every
 # load-bearing test named by registries/required_tests.toml. This measures the
@@ -1653,7 +1662,7 @@ ok "V11 Anki planted all-retired is RED and writes nothing"
 
 echo "==> cdcp export-anki (V11 · learner .apkg, pinned clock, approved-only)"
 run_cdcp_cli export-anki --format tsv,csv,apkg --out dist/anki || fail "V11 Anki export"
-ok "V11 Anki export tsv/csv/apkg (879 approved, pinned crt)"
+ok "V11 Anki export tsv/csv/apkg (approved count checked by count-pin-drift, pinned crt)"
 echo "==> cdcp export-anki --check (planted clock leak RED, two-run identity GREEN)"
 run_cdcp_cli export-anki --check || fail "V11 Anki .apkg not byte-reproducible"
 ok "V11 Anki .apkg deck"

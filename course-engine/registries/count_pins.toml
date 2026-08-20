@@ -1,0 +1,111 @@
+# Source-derived count observations.
+#
+# The expected value is a checked-in observation, not a source of truth.  The
+# count-pin-drift gate recomputes every row from the named source and reports
+# DRIFT (expected vs actual) before downstream suites assert on these values.
+# A correct source count can still be wrong from the first commit; this guard
+# detects movement, not an initially bad observation.
+schema_version = 1
+
+[[derived]]
+id = "bank.file-count"
+source = "bank/items"
+metric = "file_count"
+expected = 957
+reason = "The manifest and bank verifier measure the complete TOML file set, including retired content."
+
+[[derived]]
+id = "bank.approved-count"
+source = "bank/items"
+metric = "status_count"
+status = "approved"
+expected = 931
+reason = "The learner pool and approved-only exports must agree on the status-qualified source pool."
+
+[[derived]]
+id = "bank.retired-count"
+source = "bank/items"
+metric = "status_count"
+status = "retired"
+expected = 26
+reason = "Retired files remain in the source tree and must not silently disappear from lifecycle accounting."
+
+[[derived]]
+id = "bank.module-14.file-count"
+source = "bank/items"
+metric = "module_file_count"
+module = 14
+expected = 48
+reason = "The differential verify-bank harness keeps scanned and approved module populations distinct."
+
+[[derived]]
+id = "bank.module-14.approved-count"
+source = "bank/items"
+metric = "module_status_count"
+module = 14
+status = "approved"
+expected = 46
+reason = "The differential verify-bank harness asserts the drawable module population, not just files on disk."
+
+[[derived]]
+id = "bank.module-15.file-count"
+source = "bank/items"
+metric = "module_file_count"
+module = 15
+expected = 106
+reason = "The module-15 expansion must be visible in the scanned population before any module-floor assertion runs."
+
+[[derived]]
+id = "bank.module-15.approved-count"
+source = "bank/items"
+metric = "module_status_count"
+module = 15
+status = "approved"
+expected = 106
+reason = "The module-15 learner population is a status-qualified count used by verify-bank output assertions."
+
+[[derived]]
+id = "units-index.bank-item-count"
+source = "web/data/units_index.json"
+metric = "units_index_field"
+field = "bank_item_count"
+expected = 957
+reason = "The generated learner index must advertise the same complete file set as bank/items."
+
+[[derived]]
+id = "units-index.approved-item-count"
+source = "web/data/units_index.json"
+metric = "units_index_field"
+field = "approved_item_count"
+expected = 931
+reason = "The generated learner index must advertise the same approved pool used by exports and assembly."
+
+[[derived]]
+id = "units-index.unit-count"
+source = "web/data/units_index.json"
+metric = "units_index_field"
+field = "unit_count"
+expected = 134
+reason = "The learner surface's unit inventory is generated data and must not silently drift from its advertised count."
+
+[[derived]]
+id = "bank.approved-pool-multiplier-tenths"
+source = "bank/items"
+metric = "approved_pool_multiplier_tenths"
+denominator = 40
+expected = 233
+reason = "The documented exam multiplier derives from the approved pool over the fixed 40-question mock size."
+
+[[derived]]
+id = "key-contradiction.numeric-claims"
+source = "bank/items"
+metric = "key_contradiction_numeric_claims"
+expected = 366
+reason = "The contradiction gate's numeric scan domain must be observed before its downstream verdict is trusted."
+
+[[derived]]
+id = "key-contradiction.numeric-contradictions"
+source = "bank/items"
+metric = "key_contradiction_numeric_contradictions"
+expected = 0
+reason = "A new bank-internal contradiction is a changed count and must be named before the contradiction test reports."

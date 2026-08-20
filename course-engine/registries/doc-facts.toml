@@ -169,28 +169,30 @@ trigger = "deny_unknown_fields"
 id = "fact-bank-item-count-804"
 class = "pool_size"
 artifact = { kind = "generated_ledger", path = "web/data/units_index.json" }
-question = "Does the generated units index report `bank_item_count` 957 (file-set size, retired included)?"
-probe = { kind = "file_contains", path = "web/data/units_index.json", needle = '"bank_item_count": 957' }
-trigger = "957 files / 931"
+question = "Does the generated units index report the registered source-derived bank file count?"
+probe = { kind = "file_contains", path = "web/data/units_index.json", needle = '"bank_item_count": {{count}}', count_pin = "units-index.bank-item-count" }
+trigger = "{{count}} files /"
+trigger_pin = "bank.file-count"
 
 [[fact]]
 id = "fact-bank-approved-count-779"
 class = "pool_size"
 artifact = { kind = "generated_ledger", path = "web/data/units_index.json" }
-question = "Does the generated units index report `approved_item_count` 931?"
-probe = { kind = "file_contains", path = "web/data/units_index.json", needle = '"approved_item_count": 931' }
-trigger = "931 approved"
+question = "Does the generated units index report the registered source-derived approved pool count?"
+probe = { kind = "file_contains", path = "web/data/units_index.json", needle = '"approved_item_count": {{count}}', count_pin = "units-index.approved-item-count" }
+trigger = "indexed learner pool"
 
 [[fact]]
 id = "fact-learn-unit-count-134"
 class = "pool_size"
 artifact = { kind = "generated_ledger", path = "web/data/units_index.json" }
-question = "Does the generated units index report `unit_count` 134?"
-probe = { kind = "file_contains", path = "web/data/units_index.json", needle = '"unit_count": 134' }
-trigger = "134 Learn units"
+question = "Does the generated units index report the registered Learn-unit count?"
+probe = { kind = "file_contains", path = "web/data/units_index.json", needle = '"unit_count": {{count}}', count_pin = "units-index.unit-count" }
+trigger = "{{count}} Learn units"
+trigger_pin = "units-index.unit-count"
 
 # Sampling claims must quote the approved pool (bd-docs-advertise-file-count-as-pool-99sw).
-# 929/40 = 23.225, advertised as ~23.2×. The file set is 957 (23.925×) and is
+# 931/40 = 23.275, advertised as ~23.3×. The file set is 957 (23.925×) and is
 # not the drawable pool. A site that writes "~20× exam" without this marker
 # is quoting the file set; the trigger is the approved-pool multiplier so a
 # stale ~20× cannot satisfy it.
@@ -199,9 +201,10 @@ trigger = "134 Learn units"
 id = "fact-approved-pool-multiplier-19-5"
 class = "pool_size"
 artifact = { kind = "generated_ledger", path = "web/data/units_index.json" }
-question = "Does the generated units index report `approved_item_count` 931, i.e. the drawable pool whose exam multiplier is ~23.3× (931/40)?"
-probe = { kind = "file_contains", path = "web/data/units_index.json", needle = '"approved_item_count": 931' }
-trigger = "23.3× exam"
+question = "Does the generated units index report the approved pool used for the registered exam multiplier?"
+probe = { kind = "file_contains", path = "web/data/units_index.json", needle = '"approved_item_count": {{count}}', count_pin = "units-index.approved-item-count" }
+trigger = "{{multiplier}}× exam"
+trigger_pin = "bank.approved-pool-multiplier-tenths"
 
 [[fact]]
 id = "fact-assemble-rng-is-chacha12"

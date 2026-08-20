@@ -166,6 +166,7 @@ dependencies = [
 name = "cdcp_anki"
 version = "0.1.0"
 dependencies = [
+ "cdcp_registry_check",
  "cdcp_root",
  "hex",
  "rusqlite",
@@ -341,10 +342,12 @@ dependencies = [
 name = "cdcp_registry_check"
 version = "0.1.0"
 dependencies = [
+ "cdcp_bank",
  "cdcp_core",
  "cdcp_root",
  "regex",
  "serde",
+ "serde_json",
  "tempfile",
  "thiserror 1.0.69",
  "toml",

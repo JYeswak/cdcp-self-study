@@ -1427,6 +1427,9 @@ mod tests {
         assert_eq!(py_percent0(0.705), "70%");
         assert_eq!(py_percent0(29.0 / 41.0), "71%");
         assert_eq!(py_percent0(1.0), "100%");
+        // Deliberately frozen formatter input, not a live-bank population pin:
+        // this proves Python's one-decimal rendering for the historical 804/40
+        // example without pretending that the current pool has that size.
         assert_eq!(py_fixed1(804.0 / 40.0), "20.1");
     }
 

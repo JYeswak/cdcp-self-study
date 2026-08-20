@@ -24,6 +24,11 @@ fn engine_root() -> PathBuf {
     cdcp_gate::root::resolve(Path::new(env!("CARGO_MANIFEST_DIR"))).expect("engine root")
 }
 
+fn count_pin(root: &Path, id: &str) -> u64 {
+    cdcp_registry_check::count_pins::expected_value(root, id)
+        .unwrap_or_else(|error| panic!("count pin {id:?}: {error}"))
+}
+
 #[derive(Debug, Clone, PartialEq, Eq)]
 struct Run {
     code: i32,
@@ -191,21 +196,38 @@ fn live_repo_tree_is_byte_identical() {
         "{}",
         py.stdout
     );
-    // BOTH populations, and they differ: 804 files, 779 drawable. Asserting
-    // only the file count is exactly what let bd-8exw hide for a day.
+    // BOTH populations, and they differ: the file set and the drawable pool.
+    // Asserting only the file count is exactly what let bd-8exw hide for a day.
+    // The count-pin gate has already compared these registry observations with
+    // bank/items; this remains the load-bearing oracle-output assertion.
+    let file_count = count_pin(&root, "bank.file-count");
+    let approved_count = count_pin(&root, "bank.approved-count");
     assert!(
-        py.stdout
-            // 804/779 -> 957/931: the MANIFEST was corrected to the real file set
-            // (fd4d6d8). Python and Rust AGREE at 957/931; only this pin was stale.
-            .contains("  items=957 scanned, 931 approved (floors count the approved pool only)\n"),
+        py.stdout.contains(&format!(
+            "  items={file_count} scanned, {approved_count} approved (floors count the approved pool only)\n"
+        )),
         "{}",
         py.stdout
     );
     // m14 carries 48 files and 46 approved — the pair the old single map
     // collapsed into one number. 42/44 and m15 39 were the pre-manifest-fix
     // counts; m15 grew to 106 with the CDFOS/CDFOM track.
-    assert!(py.stdout.contains("14: 46, 15: 106}"), "{}", py.stdout);
-    assert!(py.stdout.contains("14: 48, 15: 106}"), "{}", py.stdout);
+    let m14_approved = count_pin(&root, "bank.module-14.approved-count");
+    let m15_approved = count_pin(&root, "bank.module-15.approved-count");
+    let m14_files = count_pin(&root, "bank.module-14.file-count");
+    let m15_files = count_pin(&root, "bank.module-15.file-count");
+    assert!(
+        py.stdout
+            .contains(&format!("14: {m14_approved}, 15: {m15_approved}}}")),
+        "{}",
+        py.stdout
+    );
+    assert!(
+        py.stdout
+            .contains(&format!("14: {m14_files}, 15: {m15_files}}}")),
+        "{}",
+        py.stdout
+    );
     assert!(
         py.stdout
             .contains("  domain_floors=15 checked (approved pool)\n"),

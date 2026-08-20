@@ -225,6 +225,11 @@ pub struct Fact {
     /// Substring; any non-excluded markdown file containing it must cite this row.
     #[serde(default)]
     pub trigger: String,
+    /// Optional source-derived trigger pin. When present, trigger is a
+    /// template containing {{count}} or {{multiplier}}; the number is read
+    /// from registries/count_pins.toml instead of being repeated here.
+    #[serde(default)]
+    pub trigger_pin: String,
     /// Claim class the inventory groups this row under (`pool_size`, `check_steps`, …).
     #[serde(default)]
     pub class: String,
@@ -257,6 +262,9 @@ pub struct Probe {
     pub key: String,
     #[serde(default)]
     pub value: String,
+    /// Optional count pin used to expand {{count}} in a file_contains needle.
+    #[serde(default)]
+    pub count_pin: String,
 }
 
 /// A file, or — when `path` ends in `/` — a directory prefix.
@@ -295,7 +303,16 @@ impl Probe {
     /// One line, printable next to a finding, so a reader can rerun it by hand.
     pub fn describe(&self) -> String {
         match self.kind.as_str() {
-            "file_contains" => format!("file_contains {} needle {:?}", self.path, self.needle),
+            "file_contains" => {
+                if self.count_pin.trim().is_empty() {
+                    format!("file_contains {} needle {:?}", self.path, self.needle)
+                } else {
+                    format!(
+                        "file_contains {} needle {:?} from count pin {:?}",
+                        self.path, self.needle, self.count_pin
+                    )
+                }
+            }
             "fn_defined" => format!("fn_defined {} fn {}", self.path, self.symbol),
             "symbol_body_contains" => format!(
                 "symbol_body_contains {} item {} needle {:?}",
@@ -408,6 +425,15 @@ pub fn schema_errors(r: &Registry) -> Vec<String> {
             ));
         }
 
+        if !f.trigger_pin.trim().is_empty()
+            && !trig.contains("{{count}}")
+            && !trig.contains("{{multiplier}}")
+        {
+            v.push(format!(
+                "{where_}: trigger_pin requires a {{count}} or {{multiplier}} placeholder in trigger"
+            ));
+        }
+
         let class = f.class.trim();
         if class.is_empty() {
             v.push(format!(
@@ -451,6 +477,14 @@ pub fn schema_errors(r: &Registry) -> Vec<String> {
         }
         match kind {
             "file_contains" => {
+                if !p.count_pin.trim().is_empty()
+                    && !p.needle.contains("{{count}}")
+                    && !p.needle.contains("{{multiplier}}")
+                {
+                    v.push(format!(
+                        "{where_}: count_pin requires a {{count}} or {{multiplier}} placeholder in needle"
+                    ));
+                }
                 if p.needle.is_empty() {
                     v.push(format!(
                         "{where_}: `file_contains` needs a non-empty `needle` — every file contains the empty string"
@@ -794,6 +828,60 @@ pub struct World<'a> {
     pub read: &'a dyn Fn(&str) -> Option<String>,
 }
 
+fn count_pin_expected(w: &World<'_>, id: &str) -> Result<u64, String> {
+    let text = (w.read)(crate::count_pins::REGISTRY_PATH).ok_or_else(|| {
+        format!(
+            "{} is not readable for count pin {id:?}",
+            crate::count_pins::REGISTRY_PATH
+        )
+    })?;
+    let registry = crate::count_pins::parse_registry(&text)?;
+    let errors = crate::count_pins::schema_errors(&registry);
+    if !errors.is_empty() {
+        return Err(format!(
+            "{} has schema errors: {}",
+            crate::count_pins::REGISTRY_PATH,
+            errors.join("; ")
+        ));
+    }
+    registry
+        .derived
+        .iter()
+        .find(|row| row.id.trim() == id.trim())
+        .and_then(|row| row.expected)
+        .ok_or_else(|| {
+            format!(
+                "{} has no expected value for count pin {id:?}",
+                crate::count_pins::REGISTRY_PATH
+            )
+        })
+}
+
+fn expand_count_template(template: &str, expected: u64) -> Result<String, String> {
+    let mut out = template.replace("{{count}}", &expected.to_string());
+    let multiplier = format!("{}.{}", expected / 10, expected % 10);
+    out = out.replace("{{multiplier}}", &multiplier);
+    if out == template {
+        return Err(format!(
+            "count template {template:?} has no {{count}} or {{multiplier}} placeholder"
+        ));
+    }
+    if out.contains("{{") {
+        return Err(format!(
+            "count template {template:?} has an unknown placeholder"
+        ));
+    }
+    Ok(out)
+}
+
+fn resolved_trigger(f: &Fact, w: &World<'_>) -> Result<String, String> {
+    if f.trigger_pin.trim().is_empty() {
+        return Ok(f.trigger.trim().to_string());
+    }
+    let expected = count_pin_expected(w, &f.trigger_pin)?;
+    expand_count_template(f.trigger.trim(), expected)
+}
+
 /// Answer a probe against the tree. `Err` is an ERROR, never `Ok(false)`: a
 /// probe that could not run must not report the way a probe that ran and said
 /// "no" does, or deleting a file would turn every "omits" claim in the corpus
@@ -825,7 +913,15 @@ pub fn eval_probe(p: &Probe, w: &World<'_>) -> Result<bool, String> {
                 return Err(format!("{path} is not readable in this tree"));
             };
             match kind {
-                "file_contains" => Ok(text.contains(&p.needle)),
+                "file_contains" => {
+                    let needle = if p.count_pin.trim().is_empty() {
+                        p.needle.clone()
+                    } else {
+                        let expected = count_pin_expected(w, &p.count_pin)?;
+                        expand_count_template(&p.needle, expected)?
+                    };
+                    Ok(text.contains(&needle))
+                }
                 "fn_defined" => Ok(defines_fn(&text, p.symbol.trim())),
                 "symbol_body_contains" => {
                     let sym = p.symbol.trim();
@@ -979,6 +1075,18 @@ pub fn evaluate_with_reserved(
 
     let by_id: BTreeMap<&str, &Fact> = reg.fact.iter().map(|f| (f.id.trim(), f)).collect();
     let is_excluded = |rel: &str| reg.exclude.iter().any(|e| e.matches(rel));
+    let mut resolved_triggers = BTreeMap::new();
+    for f in &reg.fact {
+        match resolved_trigger(f, w) {
+            Ok(trigger) => {
+                resolved_triggers.insert(f.id.trim().to_string(), trigger);
+            }
+            Err(error) => rep.errors.push(format!(
+                "[[fact]] {}: trigger count pin could not be evaluated: {error}",
+                f.id.trim()
+            )),
+        }
+    }
 
     // An exclusion is measured against the paths the walk PRODUCED, never
     // against its own spelling: the primary doc surface stays in scope whatever
@@ -1086,7 +1194,8 @@ pub fn evaluate_with_reserved(
         let names: BTreeSet<&str> = markers.iter().map(|m| m.id.as_str()).collect();
         for f in &reg.fact {
             let id = f.id.trim();
-            if !stripped.contains(f.trigger.trim()) {
+            let trigger = resolved_triggers.get(id).map(String::as_str).unwrap_or("");
+            if trigger.is_empty() || !stripped.contains(trigger) {
                 continue;
             }
             if let Some(h) = trigger_hits.get_mut(id) {
@@ -1100,7 +1209,7 @@ pub fn evaluate_with_reserved(
                 rep.violations.push(format!(
                     "{}: mentions {:?} but carries no {MARKER_OPEN}{id}=yes|no{MARKER_CLOSE}. question: {} · A present-tense claim about code with no polarity cannot go stale. Add the marker, or exclude the file WITH A REASON in {REGISTRY_PATH}",
                     d.rel,
-                    f.trigger.trim(),
+                    trigger,
                     f.question.trim(),
                 ));
             }
@@ -1117,7 +1226,7 @@ pub fn evaluate_with_reserved(
     }
     for (id, n) in &trigger_hits {
         if *n == 0 {
-            let t = by_id.get(id).map(|f| f.trigger.trim()).unwrap_or("");
+            let t = resolved_triggers.get(*id).map(String::as_str).unwrap_or("");
             rep.errors.push(format!(
                 "[[fact]] {id}: trigger {t:?} matches zero of the {} scanned markdown files — either the subject left the corpus or the walk lost the directory it lived in. ERROR, not a pass",
                 docs.len()
@@ -1319,8 +1428,10 @@ mod tests {
                 needle: "needle".into(),
                 key: "workspace.members".into(),
                 value: "fuzz".into(),
+                count_pin: String::new(),
             },
             trigger: trigger.into(),
+            trigger_pin: String::new(),
             class: "fixture".into(),
             artifact: Artifact {
                 kind: "test".into(),

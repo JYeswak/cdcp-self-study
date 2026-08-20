@@ -5,10 +5,10 @@
 //! sqlite3 header.
 
 use cdcp_anki::{
-    approved_only, deck_clock, evaluate, load_live_bank, note_count_in_apkg, peek_apkg,
-    planted_clock_leak_trips, resolve_engine_root, retired_ids_in_apkg, run, write_apkg,
-    zip_date_time, Request, Source, EXPECTED_APPROVED_LIVE, ITEMS_DIR_REL, PINNED_EPOCH,
-    WEB_DATA_REL,
+    approved_only, deck_clock, evaluate, expected_approved_live, load_live_bank,
+    note_count_in_apkg, peek_apkg, planted_clock_leak_trips, resolve_engine_root,
+    retired_ids_in_apkg, run, write_apkg, zip_date_time, Request, Source, ITEMS_DIR_REL,
+    PINNED_EPOCH, WEB_DATA_REL,
 };
 use std::fs;
 use std::path::PathBuf;
@@ -97,6 +97,7 @@ fn two_rust_exports_are_byte_identical() {
 #[test]
 fn live_export_is_approved_and_ships_no_retired() {
     let root = engine_root();
+    let expected = expected_approved_live(&root).expect("approved count pin");
     let bank = load_live_bank(&root).expect("live bank");
     assert!(
         !bank.is_empty(),
@@ -105,8 +106,8 @@ fn live_export_is_approved_and_ships_no_retired() {
     let approved = approved_only(&bank);
     assert_eq!(
         approved.len(),
-        EXPECTED_APPROVED_LIVE,
-        "approved-only pin drifted (bank decision, not a test fix)"
+        expected,
+        "count-pin gate should report approved-count drift before this assertion"
     );
     let retired_n = bank.len() - approved.len();
     assert!(
@@ -120,11 +121,9 @@ fn live_export_is_approved_and_ships_no_retired() {
     req.format = "tsv,apkg".into();
     let o = run(&req);
     assert_eq!(o.code, 0, "{}", o.stderr);
-    assert_eq!(o.cards, EXPECTED_APPROVED_LIVE);
+    assert_eq!(o.cards, expected);
     assert!(o.stdout.contains("export_anki ok"), "{}", o.stdout);
-    assert!(o
-        .stdout
-        .contains(&format!("cards={EXPECTED_APPROVED_LIVE}")));
+    assert!(o.stdout.contains(&format!("cards={expected}")));
     assert!(
         o.stdout.contains("unresolvable=0"),
         "green path must print the count: {}",
@@ -133,7 +132,7 @@ fn live_export_is_approved_and_ships_no_retired() {
 
     let apkg_path = td.path().join("dist/anki/cdcp_bank.apkg");
     let apkg = fs::read(&apkg_path).expect("wrote apkg");
-    assert_eq!(note_count_in_apkg(&apkg).unwrap(), EXPECTED_APPROVED_LIVE);
+    assert_eq!(note_count_in_apkg(&apkg).unwrap(), expected);
     let leaked = retired_ids_in_apkg(&apkg, &bank).unwrap();
     assert!(
         leaked.is_empty(),
@@ -144,6 +143,7 @@ fn live_export_is_approved_and_ships_no_retired() {
 #[test]
 fn check_plants_clock_leak_then_asserts_live_identity() {
     let root = engine_root();
+    let expected = expected_approved_live(&root).expect("approved count pin");
     let mut req = Request::default_for(&root);
     req.check = true;
     let o = run(&req);
@@ -159,8 +159,7 @@ fn check_plants_clock_leak_then_asserts_live_identity() {
         o.stdout
     );
     assert!(
-        o.stdout
-            .contains(&format!("ok cards={EXPECTED_APPROVED_LIVE}")),
+        o.stdout.contains(&format!("ok cards={expected}")),
         "{}",
         o.stdout
     );

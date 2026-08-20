@@ -13,6 +13,7 @@ use std::path::{Path, PathBuf};
 use thiserror::Error;
 
 pub mod anti_vacuous;
+pub mod count_pins;
 pub mod doc_facts;
 mod gate_shrink;
 pub mod scratch;

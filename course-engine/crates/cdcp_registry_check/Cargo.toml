@@ -11,9 +11,11 @@ name = "cdcp_registry_check"
 path = "src/main.rs"
 
 [dependencies]
+cdcp_bank = { workspace = true }
 cdcp_core = { workspace = true }
 cdcp_root = { workspace = true }
 serde = { workspace = true }
+serde_json = { workspace = true }
 thiserror = { workspace = true }
 toml = { workspace = true }
 regex = "1"
