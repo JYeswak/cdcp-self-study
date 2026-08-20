@@ -629,6 +629,25 @@ echo "==> cdcp_gate required-tests (named load-bearing tests; tree=worktree)"
 run_cdcp_gate required-tests || fail "required test identities"
 ok "required test identities ran unfiltered in the worktree"
 
+# Tick-ledger reconciliation. Every bead closed since registries/tick_reconcile.toml's
+# baseline must be named by a row in .flywheel/tick-ledger.jsonl.
+#
+# ORDERED EARLY ON PURPOSE. The natural home for a bookkeeping check is the end
+# of the chain, and that is precisely where it would be worthless: this chain has
+# never completed a run, so a gate at step 99 sits behind a step-36 failure and
+# never executes. A gate the chain cannot reach is not a gate.
+#
+# It exists because the emitter was BUILT, tested, and closed — then invoked zero
+# times across 154 commits and 18 bead closes, while watchdog.sh (an observer by
+# design, correctly) wrote 111 STALL rows nobody read. This puts the ledger on an
+# edge that BLOCKS: you cannot hold a green chain over undeclared closes.
+#
+# Floor-raise, not proof: it enforces that a close is DECLARED. It cannot decide
+# whether a receipt is TRUE — a hollow value_added still passes here.
+echo "==> cdcp_gate tick-reconcile (closes since baseline carry a tick receipt)"
+run_cdcp_gate tick-reconcile || fail "tick-ledger reconciliation (a closed bead has no receipt)"
+ok "every bead closed since the baseline is named by a tick receipt"
+
 # ── L4: snapshot re-exec is proven to isolate [bd-o4bc] ─────────────────
 # Plants run against a PRIVATE tree that contains only scripts/check.sh.
 # The live scripts/check.sh is never sheared. CHARTER pair: (1) skip exec

@@ -1,0 +1,26 @@
+# TICK RECONCILIATION BASELINE
+#
+# Every bead whose closed_at is at or after baseline_utc must be named by the
+# `bead` field of some row in .flywheel/tick-ledger.jsonl, or `cdcp_gate
+# tick-reconcile` goes RED and the chain cannot be green.
+#
+# WHY A BASELINE EXISTS AT ALL
+#
+# The ledger stopped at T11 on 2026-08-18 and 154 commits with 18 bead closes
+# landed before anyone noticed. Those 18 are accounted for in AGGREGATE by the
+# T12 reconciliation row, which names the window and refuses to fabricate
+# retroactive ticks. Re-litigating them one by one would only produce 18 rows of
+# invented evidence, which is worse than an honest hole.
+#
+# The amnesty is therefore declared, dated, and one-time. It is not a path
+# exclusion and it does not grow.
+#
+# MOVING THIS VALUE FORWARD IS WEAKENING A GATE — ESCALATION-ONLY.
+# Advancing baseline_utc forgives every close between the old and new value.
+# That is exactly the bypass this gate exists to prevent, so it is not an
+# autonomous edit no matter how convenient. There is no legitimate reason to
+# advance it: the correct response to an unreconciled close is a tick receipt.
+#
+# Anchored to the T12 row, which pinned commit cd376176.
+
+baseline_utc = "2026-08-20T15:10:00Z"

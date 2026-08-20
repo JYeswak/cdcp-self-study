@@ -27,6 +27,7 @@ pub mod orphans;
 pub mod paraphrase;
 pub mod required_tests;
 pub mod tick_emitter;
+pub mod tick_reconcile;
 pub mod validate_grounding;
 pub mod verify_bank;
 pub mod verify_content_lock;
