@@ -148,13 +148,64 @@ impl Violation {
     }
 }
 
-/// Resolve repo root: walk up from `start` until `registries/claims.toml` exists.
+/// Resolve the engine root from an engine path, an engine subdirectory, or the
+/// workspace root that contains the engine as a direct child.
 ///
 /// No env-overridable repo root (that was D6). No compile-time crate-directory
 /// fallback. Walk budget is the unified [`cdcp_root::WALK_LEVELS`] (12), not
 /// the old 8-level cut.
 pub fn resolve_repo_root(start: &Path) -> Result<PathBuf, CheckError> {
-    cdcp_root::walk_engine_root(start).map_err(|e| CheckError::msg(e.to_string()))
+    match cdcp_root::walk_engine_root(start) {
+        Ok(root) => Ok(root),
+        Err(walk_error) => match find_nested_engine_root(start)? {
+            Some(root) => Ok(root),
+            None => Err(CheckError::msg(walk_error.to_string())),
+        },
+    }
+}
+
+/// A source checkout may be nested below the git workspace root. The shared
+/// resolver intentionally walks *up* for the engine anchor; registry-check is
+/// also invoked from the workspace root, so look only at that directory's
+/// direct children and accept exactly one anchored engine. This avoids guessing
+/// across arbitrary descendants while keeping missing and ambiguous trees RED.
+fn find_nested_engine_root(start: &Path) -> Result<Option<PathBuf>, CheckError> {
+    let start_dir = if start.is_file() {
+        start.parent().unwrap_or(start)
+    } else {
+        start
+    };
+    let entries = match fs::read_dir(start_dir) {
+        Ok(entries) => entries,
+        Err(_) => return Ok(None),
+    };
+    let mut candidates = Vec::new();
+    for entry in entries {
+        let entry = entry.map_err(|e| {
+            CheckError::msg(format!(
+                "could not inspect workspace {} while resolving course-engine: {e}",
+                start_dir.display()
+            ))
+        })?;
+        let path = entry.path();
+        if path.is_dir() && path.join(cdcp_root::ENGINE_ANCHOR).is_file() {
+            candidates.push(path);
+        }
+    }
+    candidates.sort();
+    match candidates.as_slice() {
+        [] => Ok(None),
+        [root] => Ok(Some(root.clone())),
+        _ => Err(CheckError::msg(format!(
+            "ambiguous course-engine roots under {}: {}",
+            start_dir.display(),
+            candidates
+                .iter()
+                .map(|p| p.display().to_string())
+                .collect::<Vec<_>>()
+                .join(", ")
+        ))),
+    }
 }
 
 pub fn load_toml<T: for<'de> Deserialize<'de>>(path: &Path) -> Result<T, CheckError> {
@@ -1059,6 +1110,41 @@ must_cite = ["claim-not-epi-certified"]
         let dir = tempfile::tempdir().unwrap();
         let v = check_repo(dir.path()).unwrap();
         assert!(v.iter().any(|x| x.code == "missing_registry"));
+    }
+
+    #[test]
+    fn resolve_repo_root_accepts_engine_workspace_and_nested_paths() {
+        let dir = tempfile::tempdir().unwrap();
+        let engine = dir.path().join("course-engine");
+        let nested = engine.join("crates/cdcp_registry_check");
+        fs::create_dir_all(engine.join("registries")).unwrap();
+        fs::create_dir_all(&nested).unwrap();
+        fs::write(
+            engine.join("registries/claims.toml"),
+            "schema_version = 1\n",
+        )
+        .unwrap();
+
+        assert_eq!(resolve_repo_root(&engine).unwrap(), engine);
+        assert_eq!(resolve_repo_root(&nested).unwrap(), engine);
+        assert_eq!(resolve_repo_root(dir.path()).unwrap(), engine);
+    }
+
+    #[test]
+    fn resolve_repo_root_rejects_missing_and_ambiguous_workspace_roots() {
+        let missing = tempfile::tempdir().unwrap();
+        let err = resolve_repo_root(missing.path()).unwrap_err().to_string();
+        assert!(err.contains("course-engine root"), "{err}");
+        assert!(err.contains("registries/claims.toml"), "{err}");
+
+        let ambiguous = tempfile::tempdir().unwrap();
+        for name in ["engine-a", "engine-b"] {
+            let root = ambiguous.path().join(name).join("registries");
+            fs::create_dir_all(&root).unwrap();
+            fs::write(root.join("claims.toml"), "schema_version = 1\n").unwrap();
+        }
+        let err = resolve_repo_root(ambiguous.path()).unwrap_err().to_string();
+        assert!(err.contains("ambiguous course-engine roots"), "{err}");
     }
 
     #[test]
