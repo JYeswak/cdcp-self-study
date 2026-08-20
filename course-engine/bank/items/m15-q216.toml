@@ -15,7 +15,7 @@ choices = [
   "Disabling safety interlocks for speed"
 ]
 correct = "A"
-explanation = "LOTO, PPE, training, and energized boundaries control the hazards; working alone on unfamiliar gear, using water near electrical faults, or disabling interlocks removes rather than supplies those protections. The public eCFR anchors this bounded safety decision."
+explanation = "LOTO, PPE, training and defined energized-work boundaries are the controls; working alone on unfamiliar gear, using water near an electrical fault, or defeating an interlock each remove a control rather than supply one. Mind the boundary between the two standards: 1910.147 governs hazardous-energy control generally and does not cover work on electric utilization equipment such as switchgear, which falls under Subpart S -- so the electrical safe-work-practice authority is 1910.333, not 147."
 topic_ids = ["m15-ops-security"]
 objective_ids = []
 bloom = "remember"
