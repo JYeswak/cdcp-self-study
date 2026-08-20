@@ -7,7 +7,7 @@ kind = "single-select"
 module = 6
 stem = "Power quality concerns relevant to IT loads include:"
 choices = [
-  "Only the colour of busway housings",
+  "Only the colour of busway housings affects power quality",
   "Power quality events",
   "Whether blanking panels are plastic or metal only",
   "DNS TTL values",

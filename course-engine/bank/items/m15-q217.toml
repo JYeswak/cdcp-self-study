@@ -8,7 +8,7 @@ module = 15
 stem = "A slide of logos titled “service catalog,” with no SKU, no owner, no SLO pointer, and no OLA or underpinning contract underneath, is:"
 choices = [
   "The exam-weight section of the public 2.1 heading — invent a percentage so the brochure can be scored",
-  "The CMMS asset register under another name, so facilities can skip owners",
+  "The service catalog is the CMMS asset register, so owner, SLO, OLA, and underpinning contract pointers are unnecessary",
   "Sufficient if sales published it this quarter and the logos are current",
   "A brochure, not a catalog. The catalog is the owned list of delivered services (SKU, owner, SLO pointer, OLA or UC underneath); a 40 kW liquid SKU sitting on a 10 kW air-hall OLA is how the org-split starts"
 ]

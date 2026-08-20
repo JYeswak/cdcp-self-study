@@ -9,7 +9,7 @@ kind = "single-select"
 module = 15
 stem = "A maintenance vendor's contract ended Friday, but its badge still appears on the facility access list Monday. What control action should the CDFOM manager take?"
 choices = [
-  "Leave it active because a signed contract is the access authorization",
+  "Leave the vendor badge active because a signed contract is the access authorization",
   "Remove the vendor from the access list when access is no longer required",
   "Keep the badge active until the next quarterly security review",
   "Move the badge to a shared visitor account so the audit trail stays short"

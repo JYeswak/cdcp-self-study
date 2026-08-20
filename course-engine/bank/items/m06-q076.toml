@@ -8,7 +8,7 @@ kind = "single-select"
 module = 6
 stem = "Three-phase distribution is preferred in plant and high-density racks mainly because:"
 choices = [
-  "IT equipment never uses single-phase branches",
+  "IT equipment never uses single-phase branches in three-phase distribution",
   "Grounding becomes optional",
   "PUE is defined only for single-phase",
   "Efficient, balanced three-phase loading",

@@ -7,7 +7,7 @@ kind = "single-select"
 module = 15
 stem = "MTBF (Mean Time Between Failures) is best described as:"
 choices = [
-  "How long repair takes after a failure and diagnosis",
+  "How long repair takes after failures and diagnosis",
   "The same as SLA credits always",
   "A contractual penalty fee only",
   "Reliability metric for average operating time"

@@ -8,7 +8,7 @@ module = 6
 stem = "A dual-corded server has both cords plugged into the same rack PDU on path A. What is the operational impact?"
 choices = [
   "Path diversity is lost at rack edge",
-  "The design automatically becomes 2N end-to-end",
+  "The rack PDU design automatically becomes 2N end-to-end",
   "UPS autonomy doubles regardless of load or battery size",
   "Generator wet stacking risk is eliminated"
 ]

@@ -10,7 +10,7 @@ choices = [
   "CRAC uses DX; CRAH uses chilled-water coils",
   "CRAH always includes a diesel generator, regardless of cooling plant",
   "CRAC only cools network MMRs",
-  "They are identical acronyms with no difference"
+  "CRAC and CRAH are identical acronyms with no difference"
 ]
 correct = "A"
 explanation = "Industry shorthand: CRAC is typically a computer room air conditioner (often DX); CRAH is typically a computer room air handler (often chilled water)."

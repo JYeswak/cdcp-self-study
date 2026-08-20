@@ -10,7 +10,7 @@ kind = "single-select"
 module = 4
 stem = "Which loading concept matters when rolling a heavy UPS battery cart across tiles?"
 choices = [
-  "Only uniform load rating",
+  "Only a uniform floor load rating matters when rolling a heavy UPS battery cart",
   "Rolling load (and concentrated load) ratings of the floor system",
   "PUE only",
   "Lux level",

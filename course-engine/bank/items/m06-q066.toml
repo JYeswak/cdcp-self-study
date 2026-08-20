@@ -7,7 +7,7 @@ kind = "single-select"
 module = 6
 stem = "Load-bank testing of generators is valued because:"
 choices = [
-  "It permanently disables emissions controls",
+  "Load-bank testing permanently disables generator emissions controls",
   "It removes the need for fuel contracts",
   "Proves the set under real load",
   "It replaces weekly UPS battery checks entirely",

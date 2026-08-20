@@ -7,7 +7,7 @@ kind = "single-select"
 module = 9
 stem = "Seasonal Thermal Energy Storage (STER) concepts in cooling context generally involve:"
 choices = [
-  "Storing only network packets for later routing",
+  "Storing seasonal thermal energy as network packets for later routing",
   "Ice only",
   "Eliminate pumps",
   "Store seasonal thermal energy"

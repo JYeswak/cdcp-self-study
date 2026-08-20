@@ -9,7 +9,7 @@ stem = "A change-window packet treats “floor management” as the weekly clean
 choices = [
   "Refuse: floor management is work control on the live floor — who is on the floor, the PTW board, and the heat/power/liquid budget of the change — not a synonym for cleaning. Two MOPs on one loop and an uncounted N+1 are the heading failing",
   "Convert the missing N+1 into an invented outage percentage so the packet can be scored",
-  "Approve: cleaning is the 2.1 heading, so the rota is the programme; simultaneous MOPs and an unlisted vendor are housekeeping details",
+  "Approve: cleaning is the 2.1 heading, so the rota is the programme; simultaneous MOPs on one CDU loop, an unlisted vendor, and the N+1 count are housekeeping details",
   "Send everyone to an EPI / certification class; a credential hour-count substitutes for the PTW board"
 ]
 correct = "A"

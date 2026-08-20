@@ -7,7 +7,7 @@ kind = "single-select"
 module = 15
 stem = "MTTR (Mean Time To Repair/Restore) focuses on:"
 choices = [
-  "Marketing",
+  "Marketing metrics for recovery time",
   "How rarely a component fails",
   "Recovery time after failure",
   "Fuel"

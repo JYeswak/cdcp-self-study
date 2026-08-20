@@ -8,7 +8,7 @@ kind = "single-select"
 module = 15
 stem = "Labels should remain accurate after changes because stale labels:"
 choices = [
-  "Automatically update via magnetism",
+  "Automatically update labels via magnetism",
   "Are harmless decoration",
   "Only matter for marketing tours",
   "Are worse than no labels when they create false confidence"

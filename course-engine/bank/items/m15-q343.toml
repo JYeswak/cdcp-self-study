@@ -11,7 +11,7 @@ module = 15
 stem = "A controller is sent off-site for repair. The maintenance record has a work order, but no approval for removal and no post-repair control check. Which CDFOM review finding is supported?"
 choices = [
   "Open a purchase order even when the controller is repaired",
-  "Close the record when the vendor returns the controller",
+  "Close the controller record when the vendor returns it after removal approval",
   "Delete the old record when the replacement arrives",
   "Add removal approval and a post-repair control check"
 ]

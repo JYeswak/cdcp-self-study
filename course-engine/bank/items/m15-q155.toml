@@ -9,7 +9,7 @@ module = 15
 stem = "Mixing cleaning chemicals or using conductive liquids carelessly near IT and electrical gear is hazardous because it can:"
 choices = [
   "Cause equipment damage and electrical incidents",
-  "Raise MTBF by definition",
+  "Raise MTBF by applying cleaning chemicals",
   "Automatically improve labels and housekeeping records",
   "Only improve PUE and never create residues or safety controls"
 ]

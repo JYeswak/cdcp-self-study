@@ -7,8 +7,8 @@ kind = "single-select"
 module = 15
 stem = "A tenant restore-in-four-hours SLA is said to be “covered” by a vendor four-hour onsite-response clause that someone filed as the operational level agreement. The distinction is:"
 choices = [
-  "Accept the filing: any written response time is an operational level agreement, and the vendor is an internal team",
-  "The operational level agreement is the customer credit schedule under another name, so the vendor clause is the SLA",
+  "Accept the SLA filing: any written response time is an operational level agreement, and the vendor is an internal team",
+  "The operational level agreement is the customer SLA credit schedule under another name, so the vendor four-hour clause is the SLA",
   "Collapse the operational level agreement into the SLA and invent a new nines table so SLM owns availability",
   "The operational level agreement is an internal team-to-team hand-off (facilities ↔ NOC ↔ security ↔ floor) that makes the customer SLA possible; the vendor clause is an underpinning contract, not the operational level agreement and not the tenant SLA"
 ]

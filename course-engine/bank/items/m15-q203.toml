@@ -8,7 +8,7 @@ module = 15
 stem = "A maintenance contract SLA should clearly define:"
 choices = [
   "Define response/restore times and escalation",
-  "That no one may ever touch equipment",
+  "That no one may ever touch equipment under the SLA",
   "Unlimited scope with zero measurement or service boundaries",
   "Only the vendor logo color and marketing identity"
 ]

@@ -7,7 +7,7 @@ kind = "single-select"
 module = 9
 stem = "Which statement best reflects energy conversion in IT equipment for cooling design?"
 choices = [
-  "Most UPS output energy leaves the building as useful work with no heat",
+  "IT equipment creates useful work with no heat load for cooling",
   "IT equipment creates a heat load that the cooling system must remove",
   "Only CPUs produce heat; PSUs do not",
   "Heat is only produced during boot"

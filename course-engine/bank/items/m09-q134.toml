@@ -7,7 +7,7 @@ kind = "single-select"
 module = 9
 stem = "In a raised-floor cooling design, the underfloor plenum mainly serves as:"
 choices = [
-  "A storage vault for diesel fuel, unrelated to airflow distribution",
+  "An underfloor plenum is a storage vault for diesel fuel, unrelated to airflow distribution",
   "The only return path for hot air always",
   "Supply air to floor grilles",
   "A substitute for grounding and electrical bonding"

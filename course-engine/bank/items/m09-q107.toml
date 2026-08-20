@@ -8,8 +8,8 @@ kind = "single-select"
 module = 9
 stem = "If supply air is colder than the dew point of local air near cold surfaces, a practical risk is:"
 choices = [
-  "Faster fiber splicing",
-  "Automatic increase of UPS kVA rating",
+  "Condensation makes fiber splicing faster",
+  "Automatic increase of UPS kVA rating near cold surfaces",
   "Elimination of need for filters",
   "Condensation on coils, pipes, or poorly insulated surfaces"
 ]

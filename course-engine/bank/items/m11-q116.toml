@@ -9,7 +9,7 @@ module = 11
 stem = "Fiber testing commonly uses insertion loss measurement (and often OTDR for diagnostics) to:"
 choices = [
   "Verify loss budgets and locate optical faults",
-  "Measure only rack U-height and cabinet dimensions",
+  "Measure optical loss budgets only through rack U-height and cabinet dimensions",
   "Increase PoE wattage",
   "Calibrate CRAH humidifiers"
 ]

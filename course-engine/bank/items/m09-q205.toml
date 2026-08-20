@@ -8,7 +8,7 @@ module = 9
 stem = "A perforated tile delivers less cold air while nearby open floor tiles discharge conditioned air into the plenum. The first operational interpretation is:"
 choices = [
   "A bypass path is diverting conditioned air away from the IT intake",
-  "Hot exhaust always enters every inlet",
+  "A bypass path makes hot exhaust always enter every IT intake",
   "Only the cable tray has lost bonding",
   "The UPS has lost its battery autonomy"
 ]

@@ -7,7 +7,7 @@ kind = "single-select"
 module = 11
 stem = "EoR/MoR (end or middle of row) designs typically:"
 choices = [
-  "Never use any fiber uplinks, even when aggregation requires them",
+  "EoR/MoR designs never use fiber uplinks, even when aggregation requires them",
   "Abolish patch panels and structured cabling administration",
   "More horizontal copper to row switches",
   "Only apply to outdoor plant"

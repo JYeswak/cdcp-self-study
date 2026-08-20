@@ -8,7 +8,7 @@ module = 6
 stem = "A dual-corded server on A-B feeds is intended so that:"
 choices = [
   "Both cords must fail together to lose the server (assuming healthy PSUs and independent paths)",
-  "Power draw doubles for free cooling",
+  "A dual-corded server doubles power draw for free cooling",
   "STS is never needed anywhere",
   "Grounding is unnecessary",
 ]

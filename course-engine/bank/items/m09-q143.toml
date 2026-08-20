@@ -7,7 +7,7 @@ kind = "single-select"
 module = 9
 stem = "A reason some high-density rooms move away from pure raised-floor perimeter cooling is:"
 choices = [
-  "Raised floors always provide infinite airflow capacity",
+  "Perimeter cooling with raised floors provides infinite airflow capacity",
   "Slab floors cannot support racks ever",
   "CRAH units cannot run on chilled water",
   "Air delivery limits challenge perimeter-only cooling"

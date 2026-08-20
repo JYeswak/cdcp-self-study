@@ -4,7 +4,7 @@ kind = "single-select"
 module = 9
 stem = "Qualitatively, operating continuously at the extreme edge of an ASHRAE allowable envelope (versus recommended) is generally associated with:"
 choices = [
-  "Guaranteed free cooling year-round with no tradeoffs",
+  "Guaranteed free cooling year-round with no reliability or life trade-offs at the envelope edge",
   "Reliability or life trade-offs at the envelope edge",
   "Automatic compliance with every electrical code",
   "Elimination of humidity control forever"

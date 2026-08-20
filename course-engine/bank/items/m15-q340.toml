@@ -9,7 +9,7 @@ kind = "single-select"
 module = 15
 stem = "The skills matrix for a data-center facilities team lists HVAC, power, and fire-detection roles. A control-system change is approved, but no role-based training update is planned. What manager action is directly supported?"
 choices = [
-  "Keep the matrix because the vendor sent a change notice",
+  "Keep the role-based training matrix because the vendor sent a change notice",
   "Update role training before the changed duty begins",
   "Wait for an incident, then train only the person who changed it",
   "Replace the matrix with one annual attendance total"

@@ -7,7 +7,7 @@ kind = "single-select"
 module = 11
 stem = "OM versus OS fiber discussions mainly distinguish:"
 choices = [
-  "Only jacket color without performance meaning or media distinction",
+  "Only jacket color distinguishes multimode and single-mode ecosystems",
   "Multimode versus single-mode ecosystems",
   "Power cable types and their conductor ampacity",
   "CRAC refrigerants"

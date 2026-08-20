@@ -4,7 +4,7 @@ kind = "single-select"
 module = 9
 stem = "Operating continuously at the extreme edge of an allowable envelope versus recommended is generally associated with:"
 choices = [
-  "Guaranteed higher hardware reliability always under every load",
+  "Guaranteed higher hardware reliability headroom at every allowable envelope load",
   "Less reliability headroom at the envelope edge",
   "Elimination of all hot spots by definition",
   "No impact on fans or component stress"

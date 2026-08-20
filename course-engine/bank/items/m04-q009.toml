@@ -12,7 +12,7 @@ stem = "A raised-floor plenum is often used to:"
 choices = [
   "Store diesel fuel",
   "Deliver cold air and/or route cabling beneath the IT floor",
-  "Replace the need for UPS",
+  "Replace the need for UPS beneath the IT floor",
   "Eliminate grounding",
 ]
 correct = "B"

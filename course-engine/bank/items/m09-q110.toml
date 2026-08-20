@@ -7,7 +7,7 @@ kind = "single-select"
 module = 9
 stem = "Air bypass (as opposed to recirculation) typically means:"
 choices = [
-  "Hot exhaust re-entering server inlets",
+  "Air bypass routes hot exhaust back into server inlets",
   "Complete liquid immersion of servers, without any airflow path",
   "Cold supply air returns without cooling IT",
   "Loss of utility power only"

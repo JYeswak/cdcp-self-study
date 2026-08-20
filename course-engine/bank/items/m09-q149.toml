@@ -7,7 +7,7 @@ kind = "single-select"
 module = 9
 stem = "Cold-aisle containment (CAC) primarily aims to:"
 choices = [
-  "Flood the entire room with uncontrolled hot air and mixing",
+  "Cold-aisle containment floods the entire room with uncontrolled hot air and mixing",
   "Keep cold supply in the aisle and prevent mixing",
   "Replace humidity sensors with pressure only",
   "Cool only generators and ignore all IT equipment in the room"

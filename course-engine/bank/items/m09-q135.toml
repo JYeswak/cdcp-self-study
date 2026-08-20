@@ -7,7 +7,7 @@ kind = "single-select"
 module = 9
 stem = "Placing perforated tiles in the hot aisle (in a classic hot/cold aisle raised-floor scheme) is generally:"
 choices = [
-  "Ideal for maximum cooling efficiency always",
+  "Perforated tiles in the hot aisle are ideal for maximum cooling efficiency always",
   "Required by every electrical code",
   "The only way to cool batteries",
   "Counterproductive in classic aisle layouts"

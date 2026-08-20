@@ -8,7 +8,7 @@ kind = "single-select"
 module = 6
 stem = "Battery autonomy is sized for a short design window at design load, but present load is substantially higher. Qualitatively, autonomy will:"
 choices = [
-  "Increase proportionally with load, even when stored energy is fixed",
+  "Battery autonomy increases proportionally with load, even when stored energy is fixed",
   "Become infinite",
   "Autonomy decreases with higher load",
   "Only affect PUE, not runtime"

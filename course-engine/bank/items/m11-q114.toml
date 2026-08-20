@@ -8,7 +8,7 @@ kind = "single-select"
 module = 11
 stem = "Permanent link versus channel testing awareness means:"
 choices = [
-  "Only patch cords are ever tested, regardless of link definition",
+  "Only patch cords in fixed cabling are ever tested, regardless of link definition",
   "Testing is optional if cables look neat",
   "Testing distinguishes fixed cabling from the complete channel",
   "Only outdoor plant needs tests"

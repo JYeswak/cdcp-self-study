@@ -7,7 +7,7 @@ kind = "single-select"
 module = 6
 stem = "BESS (Battery Energy Storage System) differs from classic UPS batteries in that BESS often:"
 choices = [
-  "Is only a 30-second flywheel, with no role in grid services",
+  "Is only a 30-second flywheel for UPS ride-through, with no plant-scale role",
   "Replaces generators with no interconnection study",
   "Is banned from microgrids",
   "Plant-scale roles beyond UPS ride-through",

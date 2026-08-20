@@ -7,7 +7,7 @@ kind = "single-select"
 module = 9
 stem = "CRAC versus CRAH at a conceptual level:"
 choices = [
-  "CRAH always means immersion tanks and liquid loops",
+  "CRAC and CRAH always mean immersion tanks and chilled-water refrigeration loops",
   "CRAC refrigeration versus CRAH chilled water",
   "CRAC never cools air in any operating mode or design",
   "They differ only in paint color and equipment branding"

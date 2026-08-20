@@ -17,6 +17,10 @@ const HEDGED_MEAN_MIN: f64 = 9.0;
 const HEDGED_MEAN_MAX: f64 = 11.0;
 const HEDGED_APPLICABLE_HIT_MIN: f64 = 0.20;
 const HEDGED_APPLICABLE_HIT_MAX: f64 = 0.30;
+const STEM_OVERLAP_MEAN_MIN: f64 = 9.0;
+const STEM_OVERLAP_MEAN_MAX: f64 = 11.5;
+const STEM_OVERLAP_APPLICABLE_HIT_MIN: f64 = 0.20;
+const STEM_OVERLAP_APPLICABLE_HIT_MAX: f64 = 0.30;
 const HEDGES: &[&str] = &[
     "can",
     "could",
@@ -149,6 +153,20 @@ fn stem_overlap(item: &cdcp_assemble::AssembledItem) -> usize {
         .expect("assembled item has choices")
 }
 
+fn unique_stem_overlap_option(item: &cdcp_assemble::AssembledItem) -> Option<usize> {
+    let stem = content_words(&item.stem);
+    let scores: Vec<_> = item
+        .choices
+        .iter()
+        .map(|choice| content_words(choice).intersection(&stem).count())
+        .collect();
+    let max = scores.iter().copied().max()?;
+    if max == 0 || scores.iter().filter(|&&score| score == max).count() != 1 {
+        return None;
+    }
+    scores.iter().position(|&score| score == max)
+}
+
 fn choice(strategy: Strategy, item: &cdcp_assemble::AssembledItem, rng: &mut impl Rng) -> usize {
     match strategy {
         Strategy::Longest => longest(item),
@@ -205,6 +223,8 @@ fn main() {
     let mut exact_hedged_total = 0;
     let mut exact_hedged_hits = 0;
     let mut exact_avoid_hits = 0;
+    let mut stem_applicable_total = 0;
+    let mut stem_applicable_hits = 0;
 
     println!(
         "PREDECLARED_SEEDS first={SEED_FIRST} count={SEED_COUNT} inclusive_end={} pass_bar={PASS_BAR}",
@@ -242,6 +262,12 @@ fn main() {
                 }
                 if avoid_hedged(item) == correct_index(item) {
                     exact_avoid_hits += 1;
+                }
+            }
+            if let Some(index) = unique_stem_overlap_option(item) {
+                stem_applicable_total += 1;
+                if index == correct_index(item) {
+                    stem_applicable_hits += 1;
                 }
             }
         }
@@ -295,6 +321,8 @@ fn main() {
     assert!(failures.is_empty(), "all predeclared seeds must assemble");
     let hedged_values = &scores[5];
     let hedged_mean = hedged_values.iter().sum::<u32>() as f64 / hedged_values.len() as f64;
+    let stem_values = &scores[7];
+    let stem_mean = stem_values.iter().sum::<u32>() as f64 / stem_values.len() as f64;
     let any_hedged_rate = any_hedged_hits as f64 / any_hedged_total as f64;
     assert!(
         (HEDGED_MEAN_MIN..=HEDGED_MEAN_MAX).contains(&hedged_mean),
@@ -321,5 +349,19 @@ fn main() {
     println!(
         "HEDGED_AVOID_EXACTLY_ONE total={exact_hedged_total} key_hits={exact_avoid_hits} hit_rate={:.1}% target=20-30%",
         exact_avoid_rate * 100.0
+    );
+    let stem_applicable_rate = stem_applicable_hits as f64 / stem_applicable_total as f64;
+    assert!(
+        (STEM_OVERLAP_MEAN_MIN..=STEM_OVERLAP_MEAN_MAX).contains(&stem_mean),
+        "stem-overlap mean {stem_mean:.2} is outside control band {STEM_OVERLAP_MEAN_MIN:.1}..={STEM_OVERLAP_MEAN_MAX:.1}"
+    );
+    assert!(
+        (STEM_OVERLAP_APPLICABLE_HIT_MIN..=STEM_OVERLAP_APPLICABLE_HIT_MAX)
+            .contains(&stem_applicable_rate),
+        "stem-overlap applicable hit rate {stem_applicable_rate:.1} is outside {STEM_OVERLAP_APPLICABLE_HIT_MIN:.1}..={STEM_OVERLAP_APPLICABLE_HIT_MAX:.1}"
+    );
+    println!(
+        "STEM_OVERLAP_APPLICABLE total={stem_applicable_total} key_hits={stem_applicable_hits} hit_rate={:.1}% target=20-30%",
+        stem_applicable_rate * 100.0
     );
 }

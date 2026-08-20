@@ -7,7 +7,7 @@ kind = "single-select"
 module = 11
 stem = "A ZDA (zone distribution area) concept is used to:"
 choices = [
-  "Eliminate all patching flexibility",
+  "A ZDA eliminates patching flexibility in a zone",
   "Store only fire extinguishers",
   "Provide an intermediate flexible consolidation point within a zone",
   "Meter only chilled water"

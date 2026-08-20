@@ -9,7 +9,7 @@ module = 6
 stem = "When interviewing, a strong answer to “ATS vs STS?” is:"
 choices = [
   "ATS source transfer; STS fast live-source transfer",
-  "They are identical devices with different stickers and transfer characteristics",
+  "ATS and STS are identical devices with different transfer characteristics",
   "STS only starts engines and never transfers an electrical load",
   "ATS is only for DC plants",
 ]

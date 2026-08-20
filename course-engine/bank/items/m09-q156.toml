@@ -8,7 +8,7 @@ module = 9
 stem = "A Coolant Distribution Unit (CDU) in liquid-cooled designs typically:"
 choices = [
   "Circulate and condition coolant",
-  "Routes only carrier fiber cross-connects",
+  "A CDU routes only carrier fiber cross-connects",
   "Replace physical access control and leak detection",
   "Measures only illuminance in lux"
 ]

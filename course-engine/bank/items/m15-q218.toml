@@ -7,7 +7,7 @@ kind = "single-select"
 module = 15
 stem = "Reviewer is handed an SLM packet: “Tenant restore-in-four-hours is the SLA; the NOC pages facilities when we can; the vendor clock starts when the part ships; the maintenance agreement’s four-hour onsite response IS the customer SLA; write a new nines table so SLM can own availability.” You should:"
 choices = [
-  "Treat the vendor clause as an OLA because any written commitment is internal",
+  "Treat the vendor clause as an OLA because any written SLA commitment is an internal customer instrument and UC term",
   "Approve: four-hour onsite response is the customer SLA, and SLM invents its own nines table",
   "Reject the packet: SLA is the customer instrument, OLA is internal team-to-team, UC is the vendor — four-hour onsite response is a UC term, not the tenant SLA; three documents that cannot add up are not SLM; availability clocks stay as in Module 01, not a new nines table",
   "Collapse OLA and underpinning contract into one synonym so the stack has fewer documents"

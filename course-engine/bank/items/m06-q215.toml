@@ -7,7 +7,7 @@ kind = "single-select"
 module = 6
 stem = "Fuel quality, day-tank design, and transfer pumps matter as much as genset kW because:"
 choices = [
-  "Fuel systems can set the UPS inverter topology",
+  "Fuel quality systems can set the UPS inverter topology for genset support",
   "Fuel specification sets the generator alternator voltage",
   "Day tanks define thermal envelopes for IT",
   "Fuel delivery and quality can stop support",

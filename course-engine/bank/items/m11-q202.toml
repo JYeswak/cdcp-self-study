@@ -9,7 +9,7 @@ stem = "A fiber pair is routed through one shared conduit. The reliability conce
 choices = [
   "Different fiber colors can make the route diverse",
   "Optical power eliminates a common physical cut",
-  "VLAN configuration creates a second physical path",
+  "VLAN configuration creates a second physical path through the shared conduit",
   "A shared conduit can let one cut remove both nominally redundant paths"
 ]
 correct = "D"

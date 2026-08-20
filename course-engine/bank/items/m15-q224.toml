@@ -8,7 +8,7 @@ kind = "single-select"
 module = 15
 stem = "A BMS/DCIM point with no defined operator response, and a procurement that prices the job by monitored-point count, should be read as:"
 choices = [
-  "Evidence the floor is healthy whenever the point stays silent — absence of alarm is health",
+  "A BMS/DCIM point proves the floor is healthy whenever the point stays silent — absence of alarm is health",
   "A reason to raise the integrator’s invoice until every status bit is an alarm",
   "A status indicator, not an alarm. HSE: process status indicators should not be designated as alarms; delete or downgrade, do not acknowledge forever. Point count and operator-actionable alarms per hour move in opposite directions",
   "A high-priority alarm so it is never missed, and more points always mean better monitoring"
