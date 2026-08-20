@@ -18,7 +18,7 @@ choices = [
   "Post-discharge actions may wait when power availability is high because low PUE suggests the system remains ready"
 ]
 correct = "B"
-explanation = "The current eCFR requires notification and temporary precautions when a fixed system is inoperable, correction by trained personnel, annual inspection, and readiness checks for refillable containers. A discharge is therefore not complete until the protection system is restored and verified."
+explanation = "After discharge the system may be depleted or impaired, so notification, temporary precautions, trained restoration, and verification are required; it does not self-restore or become ready because the panel resets. The current eCFR supports this readiness boundary."
 topic_ids = ["m12-gas-suppression", "m12-best-practices"]
 objective_ids = []
 bloom = "apply"

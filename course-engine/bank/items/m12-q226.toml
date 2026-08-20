@@ -18,7 +18,7 @@ choices = [
   "Reject the packet: chemistry changes the playbook — indoor room is off-gas / deflagration (detect gas, explosion control, ask what the EOP says); yard is setbacks and the next enclosure; NFPA 855 is installation (confirm adopted edition); UL 9540A is test data, not a listing; LSFT is system-level evidence, not a number from memory; water-on-Li-ion is controversy, not always-water law; interconnect stays in Module 06; EOP craft is Module 15; do not invent a fire percent or an agent mass",
 ]
 correct = "D"
-explanation = "Analyze the collapse. White-space gas dump is the wrong playbook for thermal runaway. 9540A is not a listing. 855 is not automatically law. BESS-as-UPS-batteries is the Module 06 interconnect error. A fire percent and an agent mass are invented. Confirm adopted edition, 9540A/LSFT data, listing, and the site EOP — then evacuate."
+explanation = "Thermal runaway needs its own chemistry, gas, setback, re-ignition, responder, and EOP analysis; a white-space gas dump, invented fire percent, or remembered agent mass is not a design basis. UL 9540A is test data, NFPA 855 requires an adopted edition, and BESS interconnect belongs elsewhere."
 topic_ids = ["m12-standards", "m12-suppression-reqs", "m12-regulatory"]
 objective_ids = ["obj-m12-liion-855"]
 bloom = "analyze"

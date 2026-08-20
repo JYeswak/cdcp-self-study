@@ -16,7 +16,7 @@ choices = [
   "Investigate per staged thresholds (verify panel zone, walk-down, smell/visual, check recent work/hot spots) while preparing to escalate if conditions worsen — do not skip human verification when the design provides investigation time"
 ]
 correct = "D"
-explanation = "Staged ASD thresholds exist so operators can investigate dilute early indications before full alarm or suppression logic. A responsible runbook balances early warning with controlled verification, not automatic full release or silencing detection."
+explanation = "Staged ASD thresholds allow panel verification, walk-down, and escalation before full alarm or suppression; immediate release, silencing detection, or opening doors and fans skips the designed investigation window."
 topic_ids = ["m12-detection", "m12-best-practices"]
 objective_ids = []
 bloom = "apply"

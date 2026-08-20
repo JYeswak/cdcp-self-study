@@ -16,7 +16,7 @@ choices = [
   "Heat the room faster to improve airflow, then use a water system after the gas concentration stabilizes"
 ]
 correct = "A"
-explanation = "The current NFPA 2001 catalog identifies the clean-agent fire-extinguishing-systems standard. That supports the distinction from water damage, while the item remains bounded: detection, enclosure/design controls, maintenance, and life safety are not removed."
+explanation = "Clean agent can extinguish with less residual water damage, but it does not raise oxygen, remove detection, or heat the room; enclosure, maintenance, and life safety remain required. The current NFPA 2001 catalog supports the clean-agent boundary."
 topic_ids = ["m12-gas-suppression"]
 objective_ids = []
 bloom = "remember"

@@ -14,7 +14,7 @@ choices = [
   "Control PDU branch breakers during a power event"
 ]
 correct = "A"
-explanation = "Pull stations are life-safety interfaces placed for occupant use on egress, not security bottlenecks."
+explanation = "Manual pulls let occupants initiate an alarm along designed egress paths; they do not wait behind biometric review, replace automatic detection, or control PDU breakers."
 topic_ids = ["m12-signage", "m12-suppression-reqs"]
 objective_ids = []
 bloom = "remember"

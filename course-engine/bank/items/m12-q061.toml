@@ -14,7 +14,7 @@ choices = [
   "Permanently impair the gas release system"
 ]
 correct = "A"
-explanation = "Hand extinguishers are first-aid for small fires; evacuate and use automatic systems/FD for growth beyond that."
+explanation = "Portable extinguishers are for incipient fires and trained users; a developed fire, replacement of detection, or intentional impairment of suppression requires escalation rather than one-person intervention."
 topic_ids = ["m12-extinguishers"]
 objective_ids = []
 bloom = "remember"

@@ -13,7 +13,7 @@ choices = [
   "Improve cable Category ratings near the affected fitting"
 ]
 correct = "A"
-explanation = "Wet pipe is simple but accidental mechanical damage or leaks can flood spaces without fire."
+explanation = "Wet pipe stores water continuously, so a broken fitting can discharge onto equipment without a fire heat event; it does not trigger ASD, restore enclosure integrity, or improve cable ratings."
 topic_ids = ["m12-water-suppression"]
 objective_ids = []
 bloom = "understand"

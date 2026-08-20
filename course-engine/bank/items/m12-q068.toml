@@ -14,7 +14,7 @@ choices = [
   "The Authority Having Jurisdiction (AHJ), e.g. fire marshal, with applicable codes"
 ]
 correct = "D"
-explanation = "AHJ and code govern acceptance; insurers/owner standards may add stricter requirements."
+explanation = "The AHJ, such as the fire marshal, controls local acceptance and variances; a vendor, cabling contractor, or marketing team cannot replace adopted-code review."
 topic_ids = ["m12-regulatory"]
 objective_ids = []
 bloom = "remember"

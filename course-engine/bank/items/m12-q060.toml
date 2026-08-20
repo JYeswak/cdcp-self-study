@@ -13,7 +13,7 @@ choices = [
   "Residue can severely damage electronics"
 ]
 correct = "D"
-explanation = "Particulate/corrosive residue can destroy IT equipment; CO2 or clean-agent portables are often preferred in IT areas per policy."
+explanation = "Dry-chemical residue can severely damage electronics, unlike low-residue choices often used under policy; the agent is not selected because of quietness, smoke color, or a metal-fire label alone."
 topic_ids = ["m12-extinguishers", "m12-best-practices"]
 objective_ids = []
 bloom = "understand"

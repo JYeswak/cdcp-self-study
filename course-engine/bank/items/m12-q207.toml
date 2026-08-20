@@ -16,7 +16,7 @@ choices = [
   "Decorate customer areas with branded signs that identify equipment zones and improve visitor orientation during normal operations"
 ]
 correct = "A"
-explanation = "The current NFPA 101 catalog identifies the Life Safety Code and its means-of-egress/fire-protection scope. Clear signage supports usable life-safety systems, but it does not replace training or determine local adoption."
+explanation = "Clear extinguisher, exit, and discharge warnings guide occupants and responders under stress; signage does not replace training, create confusion, or merely decorate customer space. The NFPA 101 catalog supports the life-safety scope."
 topic_ids = ["m12-signage", "m12-best-practices"]
 objective_ids = []
 bloom = "remember"

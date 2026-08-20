@@ -13,7 +13,7 @@ choices = [
   "C"
 ]
 correct = "C"
-explanation = "The current OSHA public standard defines Class A as a fire involving ordinary combustible materials such as paper, wood, cloth, and some rubber and plastic materials."
+explanation = "Paper, wood, cloth, and some rubber or plastic are ordinary combustibles, so they are Class A; Class D is combustible metals, Class K is cooking media, and Class C is energized electrical equipment under the cited OSHA classification."
 topic_ids = ["m12-classes", "m12-causes"]
 objective_ids = []
 bloom = "remember"

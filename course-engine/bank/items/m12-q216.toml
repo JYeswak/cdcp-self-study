@@ -15,7 +15,7 @@ choices = [
   "Lock doors without egress planning"
 ]
 correct = "B"
-explanation = "Uncontrolled airflow can dilute agent or move smoke against the design intent."
+explanation = "HVAC interlock prevents airflow from diluting agent concentration or moving smoke against the design; maximum cooling, generator starting, or locked doors without egress planning are not the objective."
 topic_ids = ["m12-gas-suppression", "m12-suppression-reqs"]
 objective_ids = []
 bloom = "apply"

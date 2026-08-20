@@ -13,7 +13,7 @@ choices = [
   "Detection and sprinkler-head operation logic before water fills/discharges as designed"
 ]
 correct = "D"
-explanation = "Double-interlock maximizes accidental-discharge resistance by tying fill/discharge to detection plus head operation."
+explanation = "Double-interlock requires detection plus sprinkler-head operation before water fills or discharges; keeping water present, substituting gas cylinders, or relying on manual release alone changes the arrangement."
 topic_ids = ["m12-water-suppression"]
 objective_ids = []
 bloom = "understand"

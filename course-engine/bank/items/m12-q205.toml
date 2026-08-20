@@ -14,7 +14,7 @@ choices = [
   "Assume a voluntary guideline overrides adopted law when the preferred international practice is more convenient"
 ]
 correct = "C"
-explanation = "Fire protection is heavily AHJ-driven; voluntary guides inform but do not legalize noncompliance."
+explanation = "The operator follows the AHJ and adopted code while documenting design intent; a vendor preference, removed detection, or voluntary guideline cannot override local law."
 topic_ids = ["m12-regulatory", "m12-standards"]
 objective_ids = []
 bloom = "apply"

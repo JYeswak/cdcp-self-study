@@ -14,7 +14,7 @@ choices = [
   "Disabling exit signs during routine testing"
 ]
 correct = "B"
-explanation = "Leakage paths defeat gaseous systems; room integrity testing and hold time are non-negotiable."
+explanation = "Clean-agent flooding depends on enclosure integrity and hold time; cylinder paint, cardboard patches, and disabled exit signs do not make a leaking room effective."
 topic_ids = ["m12-gas-suppression", "m12-suppression-reqs"]
 objective_ids = []
 bloom = "understand"

@@ -14,7 +14,7 @@ choices = [
   "Cardboard fuel loads disappear when the fit-out team stages materials carefully"
 ]
 correct = "A"
-explanation = "Hot work needs permits, watches, and controlled impairments—classic prevention culture."
+explanation = "Welding and cutting introduce open ignition near combustibles, so permits, fire watch, and impairment controls matter; they do not improve cables, agent integrity, or erase cardboard fuel."
 topic_ids = ["m12-causes", "m12-best-practices"]
 objective_ids = []
 bloom = "apply"

@@ -13,7 +13,7 @@ choices = [
   "Prop doors open during an alarm response"
 ]
 correct = "B"
-explanation = "PASS is the standard portable technique: pull pin, aim at base, squeeze, sweep."
+explanation = "PASS means pull, aim at the base, squeeze, and sweep; it is an extinguisher-use sequence, not power isolation, alarm silencing, or propping doors."
 topic_ids = ["m12-extinguishers"]
 objective_ids = []
 bloom = "remember"

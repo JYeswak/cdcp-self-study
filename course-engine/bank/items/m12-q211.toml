@@ -16,7 +16,7 @@ choices = [
   "Measure underfloor pressure rather than smoke so the system can predict cable heating before a visible event develops"
 ]
 correct = "A"
-explanation = "The current NFPA 72 preview covers fire-alarm/signaling systems and inspection, testing, and maintenance. That supports early warning as an alarm function; it does not make detection suppression or define a site-specific response sequence."
+explanation = "Aspirating detection can find dilute smoke early enough for investigation before growth; it does not extinguish, replace suppression, or measure underfloor pressure. The current NFPA 72 preview supports this alarm-function boundary."
 topic_ids = ["m12-detection"]
 objective_ids = []
 bloom = "apply"

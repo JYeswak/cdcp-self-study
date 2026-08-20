@@ -13,7 +13,7 @@ choices = [
   "Are required by cabling topology when technical rooms share an access path"
 ]
 correct = "B"
-explanation = "Housekeeping and staging discipline are fire engineering controls, not mere tidiness."
+explanation = "Cardboard and pallets add ordinary combustible fuel near IT; they do not improve airflow, reduce detection need, or belong to cabling topology."
 topic_ids = ["m12-causes", "m12-best-practices"]
 objective_ids = []
 bloom = "understand"

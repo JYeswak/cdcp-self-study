@@ -14,7 +14,7 @@ choices = [
   "Supports mantrap interlocks during access"
 ]
 correct = "B"
-explanation = "Rated doors must remain functional; propping is a classic fire and security defect."
+explanation = "Propping a rated door defeats compartmentation and security; a camera, improved ASD sampling, or mantrap interlock cannot make an open fire door safe."
 topic_ids = ["m12-best-practices", "m12-signage"]
 objective_ids = []
 bloom = "understand"

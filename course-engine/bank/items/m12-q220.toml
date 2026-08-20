@@ -16,7 +16,7 @@ choices = [
   "Require no training for portable-agent use"
 ]
 correct = "B"
-explanation = "The current NFPA 10 catalog identifies the portable-fire-extinguisher standard. The item keeps agent choice tied to hazard, site policy, and trained use, with CO2 personnel-safety caveats; it does not replace building suppression or authorize untrained intervention."
+explanation = "Low-residue agents can suit electronics when correctly selected and used, but CO2 has oxygen-displacement hazards; corrosive powder, replacing building suppression, and untrained use are not equivalent benefits. The current NFPA 10 catalog supports the trained-use boundary."
 topic_ids = ["m12-extinguishers", "m12-classes"]
 objective_ids = []
 bloom = "apply"

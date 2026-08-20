@@ -13,7 +13,7 @@ choices = [
   "Requires dry chemical agents for server rooms regardless of site design or agent listing"
 ]
 correct = "B"
-explanation = "EN classes focus on fuel types; electrical safety is agent selection and de-energization, not a separate class letter."
+explanation = "EN classes focus on fuel types, so electrical safety is handled through agent suitability and isolation rather than a separate electrical class; it does not erase ordinary-combustible classes or mandate dry chemical."
 topic_ids = ["m12-classes"]
 objective_ids = []
 bloom = "understand"

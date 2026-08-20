@@ -16,7 +16,7 @@ choices = [
   "Empty cable trays provide the primary combustible load"
 ]
 correct = "B"
-explanation = "Electrical energy, ignition sources, and fuel load drive fire risk in technical facilities."
+explanation = "Electrical faults, hot work, and combustible storage combine energy, ignition, and fuel; fiber dust, low-temperature LEDs, and empty trays are not the primary pattern described."
 topic_ids = ["m12-causes"]
 objective_ids = []
 bloom = "remember"

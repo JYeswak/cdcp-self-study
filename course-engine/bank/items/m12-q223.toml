@@ -16,7 +16,7 @@ choices = [
   "Disable detection zones during cable work so the contractor can finish the penetration before testing"
 ]
 correct = "A"
-explanation = "Compartmentation fails when penetrations and combustibles are uncontrolled."
+explanation = "Cable selection and firestopping limit flame and smoke spread while preserving compartmentation; crosstalk, UPS loading, and disabled detection are not fire strategy."
 topic_ids = ["m12-best-practices", "m12-causes"]
 objective_ids = []
 bloom = "apply"

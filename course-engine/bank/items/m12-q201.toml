@@ -16,7 +16,7 @@ choices = [
   "It monitors outdoor air pollution rather than indoor smoke"
 ]
 correct = "C"
-explanation = "The current NFPA 72 preview covers fire-alarm/signaling systems and inspection, testing, and maintenance. That supports early detection as an alarm function; it does not turn detection into suppression or define a site-specific response sequence."
+explanation = "Early smoke detection finds dilute smoke before large flaming growth, enabling investigation and staged response; it does not extinguish, replace suppression, or monitor outdoor pollution. The current NFPA 72 preview supports the alarm-function boundary."
 topic_ids = ["m12-detection"]
 objective_ids = []
 bloom = "understand"

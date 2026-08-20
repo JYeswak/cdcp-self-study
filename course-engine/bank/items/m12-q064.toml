@@ -13,7 +13,7 @@ choices = [
   "Battery thermal events / energy storage hazards"
 ]
 correct = "D"
-explanation = "VRLA thermal runaway and lithium energy storage create distinct fire risks needing dedicated strategies."
+explanation = "Battery thermal events and energy-storage systems create distinct fire hazards needing dedicated strategies; floor static and fiber bend radius are assessment details, not the primary category named here."
 topic_ids = ["m12-causes"]
 objective_ids = []
 bloom = "remember"

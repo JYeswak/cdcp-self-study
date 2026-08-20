@@ -16,7 +16,7 @@ choices = [
   "Skip extinguishers when a gas system exists in the protected building"
 ]
 correct = "B"
-explanation = "The current NFPA 10 catalog identifies the portable-fire-extinguisher standard. The item therefore keeps selection tied to the hazard, applicable site policy, and trained use; it does not authorize a universal agent choice or untrained intervention."
+explanation = "Portable agents must suit energized-electrical hazards under site policy and standards; water on live switchgear, a random extinguisher, or skipping portables because building suppression exists are unsafe shortcuts. The current NFPA 10 catalog supports the trained-use boundary."
 topic_ids = ["m12-extinguishers", "m12-classes"]
 objective_ids = []
 bloom = "apply"

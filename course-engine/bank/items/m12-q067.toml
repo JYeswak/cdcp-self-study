@@ -15,7 +15,7 @@ choices = [
   "Disable smoke detection overnight during maintenance"
 ]
 correct = "C"
-explanation = "Loose lugs, overload, and arc faults remain leading electrical fire causes; maintenance culture matters."
+explanation = "Torque discipline, load management, and thermography address loose lugs, overload, and hot connections; ignoring inspections, propping doors, or disabling detection increases rather than reduces fire risk."
 topic_ids = ["m12-causes", "m12-best-practices"]
 objective_ids = []
 bloom = "apply"

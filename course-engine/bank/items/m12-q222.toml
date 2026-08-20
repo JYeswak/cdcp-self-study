@@ -13,7 +13,7 @@ choices = [
   "Local code officials can require measures beyond or differing from a voluntary standard alone"
 ]
 correct = "D"
-explanation = "Codes and AHJ decisions govern; voluntary standards do not waive them."
+explanation = "Local code officials can require measures beyond a voluntary standard; vendor preference, an engineer's preferred guideline, or a project schedule cannot override the adopted code path."
 topic_ids = ["m12-regulatory", "m12-standards"]
 objective_ids = []
 bloom = "apply"

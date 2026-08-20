@@ -13,7 +13,7 @@ choices = [
   "Use water mist primarily for metal fires without engineering the enclosure"
 ]
 correct = "C"
-explanation = "Water mist is a growing engineered option with less water mass; still requires proper listing/design."
+explanation = "Water mist uses fine droplets to cool and control fire with less water volume than many traditional systems; it is not detection, an ordinary leak, or a universal metal-fire solution."
 topic_ids = ["m12-water-suppression"]
 objective_ids = []
 bloom = "remember"

@@ -14,7 +14,7 @@ choices = [
   "Can cool the room after a confirmed suppression discharge",
 ]
 correct = "B"
-explanation = "Aspirating/VESDA-style systems can detect smoke at very low concentrations via continuous sampling."
+explanation = "Aspirating detection samples continuously at very low concentrations, before a conventional spot detector reaches its threshold; it does not wait for flames, cool a room, or replace suppression."
 topic_ids = ["m12-detection"]
 objective_ids = []
 bloom = "understand"

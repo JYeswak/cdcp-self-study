@@ -16,7 +16,7 @@ choices = [
   "Cool CRAHs with the sprinkler system during an alarm, using open heads to move water through the air path before responders arrive"
 ]
 correct = "C"
-explanation = "The current NFPA 13 catalog identifies the sprinkler-installation standard. The item keeps pre-action as a design distinction that can reduce accidental release risk versus wet pipe; it does not claim that water is never used or establish a universal arrangement."
+explanation = "Pre-action keeps pipes dry or supervised until detection conditions are met, reducing accidental release risk versus wet pipe; it does not replace detection, cool CRAHs, or make water universally unsuitable. The current NFPA 13 catalog supports the installation distinction."
 topic_ids = ["m12-water-suppression"]
 objective_ids = []
 bloom = "understand"

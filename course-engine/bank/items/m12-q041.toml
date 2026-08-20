@@ -15,7 +15,7 @@ choices = [
   "Replace egress signage with an alarm panel"
 ]
 correct = "A"
-explanation = "High air-change rates dilute smoke; ASD samples continuously at very low concentrations for earlier warning."
+explanation = "High airflow dilutes smoke and can delay a spot detector, so ASD samples continuously for earlier warning; it does not concentrate smoke, remove ignition sources, or replace egress."
 topic_ids = ["m12-detection"]
 objective_ids = []
 bloom = "understand"

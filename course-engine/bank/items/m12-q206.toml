@@ -16,7 +16,7 @@ choices = [
   "Unsealed penetrations can defeat fire-rated barriers and allow smoke/fire spread between zones"
 ]
 correct = "D"
-explanation = "The current NFPA 1 preview supports treating fire protection and compartmentation as code-governed concerns. An unsealed penetration can compromise a rated barrier and permit smoke or fire spread; the item does not prescribe a project-specific firestop detail or AHJ ruling."
+explanation = "Unsealed penetrations defeat rated barriers and let smoke or fire spread; openings do not improve suppression, and supervision or visual preference cannot waive firestopping. The current NFPA 1 preview supports the code-governed compartmentation boundary."
 topic_ids = ["m12-best-practices", "m12-suppression-reqs"]
 objective_ids = []
 bloom = "understand"

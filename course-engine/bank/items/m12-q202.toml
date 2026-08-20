@@ -16,7 +16,7 @@ choices = [
   "Water can damage equipment even while controlling fire; pre-action and zoning strategies are often considered"
 ]
 correct = "D"
-explanation = "The current NFPA 13 catalog identifies the sprinkler-installation standard. That supports treating water-based protection as an engineered installation subject to design and review; it does not promise zero equipment impact or establish a universal IT-space arrangement."
+explanation = "Water can control fire while damaging equipment, so pre-action and zoning are engineered strategies subject to AHJ review; water is not harmless, and sprinkler design is not automatically unnecessary in electronics rooms. The current NFPA 13 catalog supports this installation boundary."
 topic_ids = ["m12-water-suppression", "m12-suppression-reqs"]
 objective_ids = []
 bloom = "understand"

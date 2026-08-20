@@ -16,7 +16,7 @@ choices = [
   "Mute exit signs while the watch team checks the alarm panel and waits for a replacement part"
 ]
 correct = "C"
-explanation = "Impairments elevate risk and require formal controls and compensatory measures."
+explanation = "An impaired system needs tags, logs, and compensatory controls such as fire watch; leaving it nominally active, propping doors, or muting signs is not mitigation."
 topic_ids = ["m12-best-practices", "m12-regulatory", "m12-signage"]
 objective_ids = []
 bloom = "apply"

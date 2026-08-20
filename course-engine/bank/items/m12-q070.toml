@@ -16,7 +16,7 @@ choices = [
   "Fiber polarity is a cabling test"
 ]
 correct = "B"
-explanation = "NFPA 2001 is the named standard family for clean-agent systems in US practice awareness."
+explanation = "NFPA 2001 covers clean-agent extinguishing systems; extinguisher placement, generator fuel, and fiber polarity are separate controls."
 topic_ids = ["m12-standards", "m12-gas-suppression"]
 objective_ids = []
 bloom = "remember"

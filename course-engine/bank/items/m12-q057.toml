@@ -13,7 +13,7 @@ choices = [
   "Flammable liquids and gases near the equipment"
 ]
 correct = "A"
-explanation = "The current OSHA public standard defines Class C as a fire involving energized electrical equipment where employee safety requires electrically nonconductive extinguishing media."
+explanation = "Class C covers energized electrical equipment where electrically nonconductive media are needed; ordinary combustibles, flammable liquids, and combustible metals belong to different hazard classes. The current OSHA public standard defines this distinction."
 topic_ids = ["m12-classes"]
 objective_ids = []
 bloom = "remember"

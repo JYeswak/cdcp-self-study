@@ -15,7 +15,7 @@ choices = [
   "Investigate early smoke indications before full evacuation or discharge logic"
 ]
 correct = "D"
-explanation = "Staged ASD thresholds create time to investigate dilute smoke before full fire alarm/suppression actions."
+explanation = "Staged ASD thresholds create time to investigate dilute smoke before evacuation or discharge; treating an alert as routine scheduling, waiting for heat, or bypassing investigation loses that early-warning value."
 topic_ids = ["m12-detection"]
 objective_ids = []
 bloom = "understand"

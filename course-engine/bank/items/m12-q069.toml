@@ -16,7 +16,7 @@ choices = [
   "Copper Category testing only"
 ]
 correct = "A"
-explanation = "NFPA 72 is the widely referenced US fire alarm code/standard family name for educational awareness."
+explanation = "NFPA 72 is associated with fire alarm and signaling systems; clean-agent chemistry, raised-floor loading, and copper testing belong to other subjects."
 topic_ids = ["m12-standards"]
 objective_ids = []
 bloom = "remember"

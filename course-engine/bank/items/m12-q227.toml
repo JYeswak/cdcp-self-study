@@ -18,7 +18,7 @@ choices = [
   "Accept because UL 9540 references UL 9540A: acceptable test results automatically establish the product listing, and the reviewer may treat NFPA 855 as an optional installation note once the vendor confirms the enclosure and battery chemistry.",
 ]
 correct = "B"
-explanation = "9540A is a test method: the packet is data, not a listing. UL 9540 is the listing path. 9540 pointing at 9540A does not make a 9540A report a listing. NFPA 855 is installation (confirm adopted edition), not the product listing. No invented fire percent."
+explanation = "UL 9540A is test data, not a listing; UL 9540 is the product-safety listing path, and NFPA 855 is installation. Referencing a test, an installation standard, or an invented fire percentage cannot turn the packet into a product listing."
 topic_ids = ["m12-standards", "m12-regulatory"]
 objective_ids = ["obj-m12-liion-855"]
 bloom = "apply"

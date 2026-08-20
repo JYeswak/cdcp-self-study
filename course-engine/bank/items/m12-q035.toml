@@ -13,7 +13,7 @@ choices = [
   "It removes detection requirements when the release panel is supervised",
 ]
 correct = "B"
-explanation = "Gaseous agents can extinguish without wet-system water damage, with design-specific trade-offs."
+explanation = "Clean agent can suppress without wet-system water damage, but it still needs enclosure integrity, detection, and life-safety controls; lower installation cost or an open room does not make it effective."
 topic_ids = ["m12-gas-suppression"]
 objective_ids = []
 bloom = "understand"

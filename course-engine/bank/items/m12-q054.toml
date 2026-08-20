@@ -13,7 +13,7 @@ choices = [
   "Disable temperature sensors during maintenance so the panel focuses on smoke signals"
 ]
 correct = "B"
-explanation = "Fan stop/smoke-control modes and dampers preserve agent concentration and limit smoke spread per design."
+explanation = "HVAC interlock preserves agent concentration and limits smoke movement; increasing free cooling, charging sprinkler pipes, or disabling sensors works against the designed sequence."
 topic_ids = ["m12-gas-suppression", "m12-suppression-reqs"]
 objective_ids = []
 bloom = "understand"

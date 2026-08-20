@@ -14,7 +14,7 @@ choices = [
   "Evacuate on alarm and understand agent/system warnings"
 ]
 correct = "D"
-explanation = "Signage supports life safety: evacuate-on-alarm messaging, agent type, and control locations."
+explanation = "Clean-agent signage tells occupants to evacuate and explains warnings and controls; observing a release, disabling strobes, or opening dampers defeats the life-safety message."
 topic_ids = ["m12-signage"]
 objective_ids = []
 bloom = "understand"

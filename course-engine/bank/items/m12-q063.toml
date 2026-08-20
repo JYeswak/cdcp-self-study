@@ -13,7 +13,7 @@ choices = [
   "Automatically restore room integrity after discharge"
 ]
 correct = "C"
-explanation = "CO2 is common for electrical/B hazards with low residue; still short range and asphyxiation risk in pits."
+explanation = "CO2 leaves little residue and suits many listed energized-electrical uses, but it is not a hose stream, a Class K default, or a way to restore room integrity; oxygen-displacement risk remains."
 topic_ids = ["m12-extinguishers", "m12-classes"]
 objective_ids = []
 bloom = "understand"

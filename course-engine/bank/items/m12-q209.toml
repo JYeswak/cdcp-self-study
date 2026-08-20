@@ -16,7 +16,7 @@ choices = [
   "Smoke from hot work is harmless to detection systems"
 ]
 correct = "C"
-explanation = "The current eCFR hot-work rule requires controlling nearby fire hazards, authorization, suitable extinguishing equipment, and fire-watch conditions. This item stays at that control boundary and does not invent a site-specific permit form or universal stand-off."
+explanation = "Hot work adds ignition near cables, packaging, and dust, so authorization, controls, extinguishing equipment, and fire watch matter; sparks do not polish fiber, a supervisor alone does not waive permits, and smoke is not harmless to detection. The current eCFR supports this control boundary."
 topic_ids = ["m12-causes", "m12-best-practices"]
 objective_ids = []
 bloom = "analyze"

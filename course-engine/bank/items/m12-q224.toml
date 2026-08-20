@@ -18,7 +18,7 @@ choices = [
   "Leave agent cylinders empty until an emergency because inspection records can verify readiness after a discharge begins and the alarm panel confirms the release"
 ]
 correct = "B"
-explanation = "The current eCFR requires fire detection systems to remain operable, be tested and maintained by knowledgeable personnel, and be restored promptly after testing or alarm; fixed extinguishing systems must also be inspected and restored when impaired."
+explanation = "Fire readiness means detection and suppression stay inspected, tested, restored, and operable; taping strobes, blocking egress, or leaving cylinders empty creates an impairment rather than readiness. The current eCFR supports this maintenance boundary."
 topic_ids = ["m12-best-practices", "m12-suppression-reqs", "m12-detection"]
 objective_ids = []
 bloom = "apply"

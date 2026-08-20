@@ -16,7 +16,7 @@ choices = [
   "Exterior monument signs provide the main life-safety information while interior egress markings are being updated"
 ]
 correct = "C"
-explanation = "The current eCFR requires exit routes to be unobstructed, exits to be clearly marked and adequately lighted, and emergency safeguards such as alarms, sprinklers, fire doors, and exit lighting to remain operable."
+explanation = "Signage and unobstructed egress help people find and use exits while safeguards remain operable; signs do not cool aisles, replace detection, or make exterior branding the life-safety system. The current eCFR sets the egress boundary."
 topic_ids = ["m12-signage", "m12-best-practices"]
 objective_ids = []
 bloom = "understand"

@@ -16,7 +16,7 @@ choices = [
   "Energized electrical equipment as a fire class consideration"
 ]
 correct = "D"
-explanation = "The current eCFR definition describes a Class C fire as involving energized electrical equipment where employee safety requires electrically nonconductive extinguishing media. That is the awareness distinction tested here; site selection still requires the applicable plan, equipment approval, and training."
+explanation = "Class C concerns energized electrical equipment requiring electrically nonconductive media; cooking oil, combustible metals, and ordinary paper describe other hazards. The current eCFR definition supports this awareness distinction, subject to site plans and training."
 topic_ids = ["m12-classes"]
 objective_ids = []
 bloom = "understand"

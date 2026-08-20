@@ -16,7 +16,7 @@ choices = [
   "Overloaded connections, failed components, and poor workmanship creating ignition sources"
 ]
 correct = "D"
-explanation = "The current NFPA 921 preview includes electricity-and-fire investigation scope. That supports treating overloaded connections, failed components, and workmanship defects as qualitative electrical ignition hazards; it does not establish a universal frequency ranking or site finding."
+explanation = "Overloaded connections, failed components, and poor workmanship create electrical ignition sources; fiber polarity, humidity alone, and empty trays are not equivalent fire causes. The current NFPA 921 preview supports this qualitative investigation boundary."
 topic_ids = ["m12-causes", "m12-best-practices"]
 objective_ids = []
 bloom = "understand"

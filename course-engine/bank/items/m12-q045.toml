@@ -14,7 +14,7 @@ choices = [
   "Public seating and visitor storage below the floor"
 ]
 correct = "A"
-explanation = "Raised-floor voids carry cable fuel loads and smoke movement; designs often place detection underfloor."
+explanation = "Raised-floor voids carry energized cable fuel and can move smoke, so underfloor detection matters; they are not merely clean-air space, cylinder storage, or public storage."
 topic_ids = ["m12-detection", "m12-best-practices"]
 objective_ids = []
 bloom = "understand"

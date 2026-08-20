@@ -15,7 +15,7 @@ choices = [
   "Clean agent provides unlimited releases without a restoration plan"
 ]
 correct = "C"
-explanation = "Gas systems need integrity, egress timing, HVAC/damper interlocks, and agent logistics after use."
+explanation = "Clean agent trades water damage for sealability, alarms, HVAC interlock, and refill planning; low residue does not remove life-safety or AHJ review, and one discharge is not unlimited."
 topic_ids = ["m12-gas-suppression", "m12-water-suppression"]
 objective_ids = []
 bloom = "analyze"

@@ -16,7 +16,7 @@ choices = [
   "Risk profiles and water sensitivity differ by space—design is space-specific under AHJ and standards"
 ]
 correct = "D"
-explanation = "Fire protection strategy is tailored by room risk and content sensitivity."
+explanation = "Room risk and water sensitivity drive space-specific protection under AHJ and standards; identical agents, a ban on detection, or humidity control by sprinkler flow ignores that design distinction."
 topic_ids = ["m12-water-suppression", "m12-regulatory"]
 objective_ids = []
 bloom = "apply"

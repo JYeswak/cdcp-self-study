@@ -15,7 +15,7 @@ choices = [
   "Multi-threshold ASD alert stages"
 ]
 correct = "B"
-explanation = "Heat detectors typically respond after significant fire growth; they are backup or specialty uses, not primary IT-space protection."
+explanation = "Heat detection can respond after significant growth, unlike layered ASD and spot-smoke stages that provide earlier warning; the other smoke technologies are not the too-late primary method."
 topic_ids = ["m12-detection"]
 objective_ids = []
 bloom = "understand"

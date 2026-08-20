@@ -15,7 +15,7 @@ choices = [
   "Open doors on the first beep"
 ]
 correct = "B"
-explanation = "Confirming detectors reduces false release while preserving protection intent."
+explanation = "Confirmatory detection conditions reduce accidental discharge while preserving release intent; a single dirty sensor, permanent maintenance disable, or first-beep door opening defeats that balance."
 topic_ids = ["m12-detection", "m12-suppression-reqs"]
 objective_ids = []
 bloom = "apply"
