@@ -7,10 +7,10 @@ kind = "single-select"
 module = 14
 stem = "Environmental Monitoring Systems (EMS) typically focus on:"
 choices = [
-  "Only stock prices",
-  "Temperature, humidity, leaks, and related facility environment points that threaten IT",
-  "Only application code deploys",
-  "Only outdoor traffic cameras"
+  "Share price and market data for the operator",
+  "Temperature, humidity, leaks, and related facility points",
+  "Application code deployments to the production estate",
+  "Outdoor traffic camera feeds around the site perimeter fence line",
 ]
 correct = "B"
 explanation = "EMS watches the physical environment that makes IT survivable."

@@ -9,10 +9,10 @@ kind = "single-select"
 module = 14
 stem = "DCIM quality in practice equals:"
 choices = [
-  "The marketing brochure page count",
-  "Data hygiene, integration depth, and process discipline—not the license alone",
-  "Automatic replacement of BMS plant control always",
-  "Guaranteed correct dashboards without inventory updates"
+  "The page count of the vendor's marketing brochure",
+  "Data hygiene, integration depth, and process discipline",
+  "Automatic replacement of BMS plant control",
+  "Correct dashboards guaranteed without keeping the inventory updated",
 ]
 correct = "B"
 explanation = "Bought DCIM without clean data and live feeds is a pretty CMDB."

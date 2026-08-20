@@ -8,10 +8,10 @@ kind = "single-select"
 module = 14
 stem = "Local annunciation at plant panels still matters because:"
 choices = [
-  "Cloud dashboards always work without power",
-  "FACP logic should move entirely to email",
-  "NTP is unnecessary if LEDs exist",
-  "Network outages must not silence critical local alarms"
+  "Cloud dashboards remain available when site power is lost",
+  "Fire alarm panel logic is better delivered entirely by email",
+  "Time synchronisation is unnecessary where panel LEDs exist",
+  "A network outage must not silence local alarms",
 ]
 correct = "D"
 explanation = "Life/availability critical spaces need local indication when northbound links fail."

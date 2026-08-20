@@ -7,10 +7,10 @@ kind = "single-select"
 module = 14
 stem = "Thresholds set without hysteresis or seasonality awareness often cause:"
 choices = [
-  "Perfect silence forever",
-  "Automatic root-cause analysis",
-  "Chattering alarms and operator desensitization",
-  "Higher MTBF by definition"
+  "Complete silence from the alarm system in all conditions",
+  "Automatic root-cause analysis of the underlying condition",
+  "Chattering alarms and desensitisation",
+  "A higher mean time between failures for the plant",
 ]
 correct = "C"
 explanation = "Poor threshold design creates alarm fatigue and missed real events."

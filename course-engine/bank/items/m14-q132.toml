@@ -7,10 +7,10 @@ kind = "single-select"
 module = 14
 stem = "Escalation ladders for unacked P1 alarms exist to:"
 choices = [
-  "Hope someone eventually sees an email",
-  "Delete the alarm from history",
-  "Lower all severities after five minutes automatically",
-  "Bound secondary on-call/manager response when primary does not acknowledge in time"
+  "Ensure that someone eventually notices the original email",
+  "Remove the unacknowledged alarm from the event history",
+  "Automatically lower every severity tier after the first five minutes elapse",
+  "Bound secondary on-call response when the primary does not acknowledge",
 ]
 correct = "D"
 explanation = "Escalation is human reliability engineering for critical pages."

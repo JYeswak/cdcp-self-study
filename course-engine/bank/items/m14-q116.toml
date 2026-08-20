@@ -8,10 +8,10 @@ kind = "single-select"
 module = 14
 stem = "Life-safety alarm logic and supervisory integration should:"
 choices = [
-  "Be fully rewritten inside DCIM for convenience",
-  "Exist only as unauthenticated SNMP on the corporate Wi-Fi",
-  "Be muted during all maintenance without process",
-  "Keep alarm generation in the alarm/safety system while external operations tools may consume alarm information"
+  "Be rewritten inside DCIM so operators have one pane of glass",
+  "Run as unauthenticated SNMP traps on the corporate wireless network",
+  "Be muted for the whole duration of any maintenance window, without process",
+  "Stay in the alarm system, with operations tools consuming the information",
 ]
 correct = "D"
 explanation = "IEC 62682 covers alarms from basic control, annunciator, packaged, and safety-instrumented systems, with operator notification/response and external systems able to use alarm data. This bounded item does not claim a fire-code listing or authorize replacing life-safety logic."

@@ -8,10 +8,10 @@ kind = "single-select"
 module = 14
 stem = "DCIM tools add most value when asset, power, and capacity data are:"
 choices = [
-  "Entered once and never updated",
-  "Invented by marketing",
-  "Stored only on paper under a random desk",
-  "Kept accurate through process so decisions use real inventory and load information"
+  "Entered once at handover and never updated at any point afterwards",
+  "Produced by marketing from the design intent",
+  "Held only on paper at an unspecified desk",
+  "Kept accurate through process, so decisions use real load data",
 ]
 correct = "D"
 explanation = "DCIM quality equals data hygiene plus workflow, not the logo on the UI."

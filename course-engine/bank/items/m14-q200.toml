@@ -9,9 +9,9 @@ module = 14
 stem = "A core monitoring challenge in data centres is:"
 choices = [
   "Integrating diverse systems (power, cooling, security, IT) without drowning operators in noise",
-  "Too few signals to ever cause alert fatigue",
-  "That nothing ever fails",
-  "That SNMP is illegal"
+  "There are too few signals for alert fatigue to be possible",
+  "Modern infrastructure does not fail in practice",
+  "SNMP is prohibited on facilities networks",
 ]
 correct = "A"
 explanation = "Heterogeneous telemetry plus alert quality is the hard problem—not sensor scarcity alone."

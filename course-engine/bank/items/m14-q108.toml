@@ -8,10 +8,10 @@ kind = "single-select"
 module = 14
 stem = "If BMS plant graphics look green but a rack inlet is hot, the better first trust is usually:"
 choices = [
-  "Ignore the rack because plant average is fine",
-  "Shut the entire campus chilled-water plant immediately without diagnosis",
-  "Disable EMS because it disagrees",
-  "The measurement closest to the IT inlet/airflow path, then reconcile systems"
+  "The plant average, since the graphics are green across the board",
+  "Shut the campus chilled-water plant immediately, before any diagnosis",
+  "Disable the EMS because it disagrees with the plant graphics",
+  "The measurement closest to the IT inlet, then reconcile the systems",
 ]
 correct = "D"
 explanation = "Local airflow/containment faults can overheat racks while plant still looks normal—verify near the load."

@@ -8,10 +8,10 @@ kind = "single-select"
 module = 14
 stem = "Alarm severity tiers are useful because they:"
 choices = [
-  "Force every informational state change to page executives",
-  "Map response urgency (e.g., P1 multi-channel page vs P3 ticket) to human capacity",
-  "Eliminate the need for runbooks",
-  "Replace sensor calibration"
+  "Force every informational state change to page the executive team on call",
+  "Map response urgency to human capacity, from P1 page to P3 ticket",
+  "Remove the need to maintain written runbooks for the plant",
+  "Substitute for periodic sensor calibration on critical points",
 ]
 correct = "B"
 explanation = "Tiered severity, escalation, and role routing combat fatigue and clarify action."

@@ -7,10 +7,10 @@ kind = "single-select"
 module = 14
 stem = "Sensing cable (rope) leak detection under raised floor should be zoned so that:"
 choices = [
-  "One zone covers the entire campus only",
-  "Zones map to findable physical areas matching response SLAs",
-  "It replaces condensate drip pans entirely",
-  "It is never retested after floor work"
+  "One zone covers the entire campus",
+  "Zones map to findable areas matching response SLAs",
+  "It removes the need for condensate drip pans under the units",
+  "It never has to be retested after raised-floor work is complete",
 ]
 correct = "B"
 explanation = "Granular zones let techs locate wet areas quickly; reconnect/test after tile work."

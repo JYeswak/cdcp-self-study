@@ -8,10 +8,10 @@ kind = "single-select"
 module = 14
 stem = "Electrical Power Monitoring System (EPMS) is most associated with:"
 choices = [
-  "Only underfloor rope leak zones",
-  "Visitor badge printing",
-  "Meters, power quality events, and electrical distribution status—often separate from pure BMS",
-  "Fiber OTDR only"
+  "Underfloor rope leak zones beneath the raised floor",
+  "Printing and issuing badges at the visitor reception desk",
+  "Meters, power quality events, and electrical distribution status, often separate from pure BMS",
+  "Fibre OTDR traces taken during link commissioning",
 ]
 correct = "C"
 explanation = "EPMS focuses on electrical telemetry; may integrate to DCIM/BMS but is a distinct panel family."

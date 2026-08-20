@@ -7,10 +7,10 @@ kind = "single-select"
 module = 14
 stem = "Which system most typically implements chiller lead/lag sequences and chilled-water setpoint control?"
 choices = [
-  "EMS environmental probes only",
-  "DCIM asset inventory alone",
+  "Environmental probes reporting room conditions",
+  "The DCIM asset inventory database",
   "Fire alarm control panel logic",
-  "BMS/BAS plant control"
+  "BMS/BAS plant control",
 ]
 correct = "D"
 explanation = "BMS/BAS owns building plant sequences and setpoints; EMS senses space; DCIM manages capacity/assets."

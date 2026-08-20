@@ -7,10 +7,10 @@ kind = "single-select"
 module = 14
 stem = "Spot leak sensors are especially appropriate:"
 choices = [
-  "Only on the roof with no plant connection",
-  "Inside sealed fiber splice trays only",
-  "Under CRAH/CRAC bases, drip pans, and valve manifolds as point hazards",
-  "As a full replacement for all rope zones always"
+  "On the roof, with no plant connection",
+  "Inside sealed fibre splice trays in the entrance room",
+  "Under CRAH bases, drip pans, and valve manifolds",
+  "As a complete replacement for every rope zone on the floor",
 ]
 correct = "C"
 explanation = "Spots catch known drip points; ropes cover distributed underfloor paths."

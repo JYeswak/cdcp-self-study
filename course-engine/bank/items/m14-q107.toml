@@ -7,10 +7,10 @@ kind = "single-select"
 module = 14
 stem = "A practical BMS vs DCIM distinction is that BMS focuses on plant control/monitoring while DCIM focuses on:"
 choices = [
-  "Only diesel fuel valve control",
-  "Replacing all network monitoring tools",
-  "Data-centre IT/facilities inventory, power, environment overlays, and capacity views",
-  "Being always the identical product with one logo"
+  "Diesel fuel valve control at the generator yard",
+  "Replacing the network monitoring tools already in place",
+  "IT and facilities inventory, power, and capacity views",
+  "Being the identical product to BMS under a different vendor logo",
 ]
 correct = "C"
 explanation = "BMS = building plant; DCIM = DC capacity/assets/ops picture (integrations vary)."

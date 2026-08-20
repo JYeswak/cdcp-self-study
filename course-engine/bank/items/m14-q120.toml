@@ -8,10 +8,10 @@ kind = "single-select"
 module = 14
 stem = "Best first instrumentation for IT thermal risk at the rack is typically:"
 choices = [
-  "Only outdoor wet-bulb temperature",
-  "Only generator jacket water temperature",
-  "Only UPS battery room ambient",
-  "Cold-aisle / equipment inlet temperature aligned to thermal guideline practice"
+  "Outdoor wet-bulb temperature at the condenser water intake",
+  "Jacket-water temperature on the standby generator engines",
+  "Ambient temperature measured in the UPS battery room",
+  "Equipment inlet temperature in the cold aisle",
 ]
 correct = "D"
 explanation = "Inlet conditions drive equipment risk; plant-only metrics can miss local hotspots."

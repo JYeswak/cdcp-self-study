@@ -8,10 +8,10 @@ kind = "single-select"
 module = 14
 stem = "Heterogeneous protocols (BACnet, Modbus, SNMP, dry contacts) contribute to monitoring challenges by:"
 choices = [
-  "Guaranteeing a single vendor forever",
-  "Creating integration and multi-truth-source complexity across plant and IT tools",
-  "Eliminating the need for time sync",
-  "Making alarm fatigue impossible"
+  "They guarantee a single vendor relationship for the site's lifetime",
+  "They create integration and multi-truth-source complexity across tools",
+  "They remove the need for time synchronisation between systems",
+  "They make alarm fatigue impossible by spreading the load across protocols",
 ]
 correct = "B"
 explanation = "Multiple protocols/owners produce conflicting truths and integration debt."

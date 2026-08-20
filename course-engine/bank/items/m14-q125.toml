@@ -8,10 +8,10 @@ kind = "single-select"
 module = 14
 stem = "Correlation of related points (utility fail + ATS transfer + UPS on battery) before fan-out helps:"
 choices = [
-  "Present one coherent incident instead of alarm storms",
-  "Maximize duplicate texts for the same incident",
-  "Disable escalation ladders",
-  "Remove all P1 severity"
+  "One coherent incident instead of an alarm storm",
+  "Duplicate notifications for the same underlying incident",
+  "Escalation ladders can be disabled",
+  "The P1 severity tier is removed from the notification policy",
 ]
 correct = "A"
 explanation = "Correlate related telemetry into incidents to protect on-call attention."

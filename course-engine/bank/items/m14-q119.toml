@@ -7,10 +7,10 @@ kind = "single-select"
 module = 14
 stem = "Sensor offline / missing heartbeat on a critical row should be treated as:"
 choices = [
-  "Safe to ignore if the last value looked fine",
-  "Proof that cooling is healthy",
-  "A monitoring fault that can hide real conditions—ticket/page per policy",
-  "A reason to disable all alarms site-wide"
+  "Safe to ignore while the last reported value looked normal enough",
+  "Evidence that the cooling in that row is currently healthy",
+  "A monitoring fault that can hide real conditions",
+  "Grounds for disabling alarms site-wide",
 ]
 correct = "C"
 explanation = "Blindness is itself a fault mode; dead sensors create false confidence."

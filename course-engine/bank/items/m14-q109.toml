@@ -8,10 +8,10 @@ kind = "single-select"
 module = 14
 stem = "Underfloor leak detection is installed mainly to:"
 choices = [
-  "Alarm on water near electrical/IT spaces before major damage",
-  "Measure EMF around PDUs",
-  "Increase humidity setpoints always",
-  "Unlock security cages"
+  "Water near electrical and IT space",
+  "Electromagnetic field strength in the vicinity of the floor PDUs",
+  "Humidity setpoint drift across the raised-floor plenum zones",
+  "Physical access state of the security cages on the row",
 ]
 correct = "A"
 explanation = "Leak sensing buys response time before water reaches critical gear."

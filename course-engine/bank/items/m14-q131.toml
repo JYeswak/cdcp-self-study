@@ -8,10 +8,10 @@ kind = "single-select"
 module = 14
 stem = "After raised-floor work, leak ropes should be:"
 choices = [
-  "Assumed intact without testing",
-  "Removed permanently to speed airflow",
-  "Verified reconnected and tested to avoid false negatives from cable breaks",
-  "Replaced with cardboard dams only"
+  "Assumed intact and returned to service without testing",
+  "Removed permanently so airflow through the plenum improves",
+  "Verified reconnected and tested",
+  "Replaced with cardboard dams at the row boundaries",
 ]
 correct = "C"
 explanation = "Floor work commonly breaks or disconnects sensing cable—retest is mandatory ops hygiene."

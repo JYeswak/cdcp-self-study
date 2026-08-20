@@ -8,10 +8,10 @@ kind = "single-select"
 module = 14
 stem = "Monitoring requirements should be derived from:"
 choices = [
-  "Only whichever free sensor was in a marketing kit",
-  "Ignoring mechanical systems entirely",
-  "Measuring only PUE once a year",
-  "What operators need to detect degradation and failures in time to protect SLAs and safety"
+  "Whichever free sensor happened to arrive in a vendor kit",
+  "A scope that excludes the mechanical systems entirely",
+  "An annual PUE measurement taken once each year",
+  "What operators need to detect degradation in time",
 ]
 correct = "D"
 explanation = "Requirements trace to failure modes and response time needs."

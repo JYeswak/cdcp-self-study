@@ -13,7 +13,7 @@ stem = "An operator proposes: “Our EMS samples the GPU row every few seconds, 
 choices = [
   "Let EMS replace the FACU whenever its sample rate is faster",
   "Keep the fast EMS page supplemental; preserve the listed FACU path",
-  "Disable fixed-temperature detection after EMS commissioning",
+  "Disable fixed-temperature detection once EMS is commissioned",
   "Publish one EMS threshold as the universal fire-code setting for every GPU row",
 ]
 correct = "B"

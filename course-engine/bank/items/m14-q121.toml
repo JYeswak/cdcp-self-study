@@ -5,9 +5,9 @@ module = 14
 stem = "Integrated Systems Testing (IST) is valuable primarily because it:"
 choices = [
   "Validates power, cooling, and controls failovers as a combined system under planned scenarios",
-  "Only tests a single breaker nameplate in isolation forever",
-  "Replaces daily VM backups",
-  "Is optional marketing text with no technical meaning"
+  "Tests a single breaker against its nameplate rating in isolation",
+  "Substitutes for the daily virtual machine backup schedule",
+  "Is marketing language with no defined technical scope",
 ]
 correct = "A"
 explanation = "IST proves coupled system behavior—not just component bench tests."

@@ -7,10 +7,10 @@ kind = "single-select"
 module = 14
 stem = "Leak detection without known isolation valves and drills is incomplete because:"
 choices = [
-  "Alarms alone always shut valves magically",
-  "Water never damages IT equipment",
-  "BMS cannot display digital inputs",
-  "Sensing must pair with who can isolate and how, under time pressure"
+  "An alarm by itself closes the isolation valve automatically",
+  "Water has never been shown to damage IT equipment in service",
+  "A BMS cannot display digital input points on its graphics",
+  "Sensing must pair with who isolates",
 ]
 correct = "D"
 explanation = "Response design (authority, labeled valves, runbooks) is as important as sensors."

@@ -9,9 +9,9 @@ module = 14
 stem = "A primary risk of routing every critical facility alarm only by email is:"
 choices = [
   "Alarm fatigue and missed events",
-  "Higher PUE automatically",
-  "Always faster mean time to acknowledge",
-  "Automatic correct valve isolation"
+  "A lower facility PUE",
+  "Consistently faster mean time to acknowledge",
+  "Automatic isolation of the correct valve",
 ]
 correct = "A"
 explanation = "Email is not a reliable on-call system; noise trains people to ignore pages."

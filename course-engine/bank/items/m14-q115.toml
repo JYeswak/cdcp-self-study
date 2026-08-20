@@ -7,10 +7,10 @@ kind = "single-select"
 module = 14
 stem = "Monitoring should show loss of redundancy (not only total failure) because:"
 choices = [
-  "N+1 designs never need sensors",
-  "Total failure pages are always early enough",
-  "Redundancy-loss alarms create time to repair under load before an outage",
-  "Capacity planning forbids intermediate alarms"
+  "N+1 designs do not require intermediate sensing",
+  "A total-failure page always arrives early enough to act on",
+  "They create time to repair under load before an outage",
+  "Capacity planning prohibits intermediate alarm states entirely",
 ]
 correct = "C"
 explanation = "If you only page when the last unit dies, maintainable faults become outages."

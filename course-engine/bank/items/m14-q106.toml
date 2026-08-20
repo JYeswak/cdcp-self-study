@@ -8,10 +8,10 @@ kind = "single-select"
 module = 14
 stem = "DCIM’s strongest differentiator versus pure EMS is usually:"
 choices = [
-  "Listed fire suppression release authority",
-  "Asset/capacity/workflow context tied to infrastructure telemetry",
-  "Replacing the automatic transfer switch",
-  "Providing utility medium-voltage protection relays"
+  "Authority to release the listed fire suppression system",
+  "Asset, capacity, and workflow context tied to infrastructure telemetry",
+  "Direct control of the automatic transfer switch during a utility failure",
+  "Protection relaying on the utility medium-voltage service entrance",
 ]
 correct = "B"
 explanation = "DCIM ties inventory, power capacity, and change workflows to facilities data—not just environment sensing."

@@ -8,10 +8,10 @@ kind = "single-select"
 module = 14
 stem = "Building Management Systems (BMS) are primarily used to:"
 choices = [
-  "Replace all DCIM asset databases automatically without configuration",
-  "Route BGP sessions",
-  "Supervise and control building mechanical/electrical plant such as HVAC and related equipment",
-  "Issue visitor badges only"
+  "Replace every DCIM asset database automatically, without configuration",
+  "Route BGP sessions between the site and its transit providers",
+  "Supervise and control building mechanical and electrical plant such as HVAC and related equipment",
+  "Issue and track visitor badges at the reception desk",
 ]
 correct = "C"
 explanation = "BMS is plant-centric control/monitoring of building systems."
