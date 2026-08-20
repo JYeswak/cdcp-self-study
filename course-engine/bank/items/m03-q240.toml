@@ -11,11 +11,11 @@ module = 3
 stem = "An AI-campus site selection shows 500 MW available 'once the interconnection is complete' but does not state the queue position or study timeline. The review gap is:"
 choices = [
   "Queue position and study timeline are irrelevant because grid operators process all requests simultaneously, regardless of upgrade scope or project size",
-  "The gap is critical: energization depends on queue position, study phases, and upgrade scope, not an unsupported availability claim",
-  "Acceptable if the site has a signed PPA, since a PPA guarantees immediate interconnection without a completed study or transmission upgrade",
   "Acceptable if the site uses behind-the-meter generation, which bypasses every queue, study, and permitting process universally and guarantees energization without upgrades",
+  "Acceptable if the site has a signed PPA, since a PPA guarantees immediate interconnection without a completed study or transmission upgrade",
+  "The gap is critical: energization depends on queue position, study phases, and upgrade scope, not an unsupported availability claim",
 ]
-correct = "B"
+correct = "D"
 explanation = "LBNL's 'Queued Up' reports document multi-year interconnection backlogs in U.S. grids. Queue position determines when studies begin; study phases (feasibility, system impact, facilities) each take months to years; identified upgrades add construction time. A site that shows 500 MW 'available' without queue position, study phase, or upgrade scope cannot commit to an energization date. PPAs do not guarantee interconnection; BTM does not universally bypass queue processes."
 topic_ids = ["m03-site-selection"]
 objective_ids = []

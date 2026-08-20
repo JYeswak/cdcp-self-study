@@ -10,12 +10,12 @@ kind = "single-select"
 module = 4
 stem = "A general raised-floor guideline for cutouts and cable openings is to:"
 choices = [
-  "Leave all openings unsealed to maximize leakage always",
-  "Maximize uncontrolled bypass airflow for higher inlet temperatures",
   "Manage openings to control leakage and snags",
-  "Cut openings only after equipment is powered with no planning"
+  "Maximize uncontrolled bypass airflow for higher inlet temperatures",
+  "Leave all openings unsealed to maximize leakage always",
+  "Cut openings only after equipment is powered with no planning",
 ]
-correct = "C"
+correct = "A"
 explanation = "Opening control protects both airflow performance and personnel/cable safety."
 topic_ids = ["m04-guidelines", "m04-cooling-impact"]
 objective_ids = []

@@ -11,12 +11,12 @@ kind = "single-select"
 module = 3
 stem = "An internal auditor accepts 'we follow the maintenance schedule' as evidence of compliance. According to ISO 19011, the defect is:"
 choices = [
-  "A verbal claim is not audit evidence — evidence requires records, observations, or verifiable statements",
+  "Acceptable if the claim is consistent with what other staff members also assert verbally, because repeated statements substitute for records and observation",
   "No defect — verbal confirmation from the facility manager is sufficient audit evidence, even without records, observations, or another verifiable statement",
   "Acceptable if the auditor documents the verbal claim in the audit report as management attestation, because recording a claim converts it into objective evidence",
-  "Acceptable if the claim is consistent with what other staff members also assert verbally, because repeated statements substitute for records and observation",
+  "A verbal claim is not audit evidence — evidence requires records, observations, or verifiable statements",
 ]
-correct = "A"
+correct = "D"
 explanation = "ISO 19011:2018 §3.9 defines audit evidence as 'records, statements of fact or other information which are relevant to the audit criteria and verifiable.' A verbal claim ('we follow the schedule') is not verifiable on its own. The auditor must request the maintenance log, work orders, or other records that corroborate the claim. Accepting unverified assertions undermines the audit's objectivity."
 topic_ids = ["m03-audit", "m03-evidence"]
 objective_ids = []

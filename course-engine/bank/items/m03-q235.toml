@@ -11,12 +11,12 @@ kind = "single-select"
 module = 3
 stem = "A marketing sheet says 'Designed to TIA-942-B Rated-3.' A due-diligence reviewer asks for the assessment report. The distinction is:"
 choices = [
-  "'Designed to' is a self-declaration — it does not imply third-party assessment of compliance",
+  "No distinction — the phrase 'Designed to' is legally equivalent to 'Certified by TIA'",
   "No distinction — TIA issues compliance certificates for every design that follows the standard",
   "'Designed to' requires a registered TIA assessor signature before the claim can be published",
-  "No distinction — the phrase 'Designed to' is legally equivalent to 'Certified by TIA'",
+  "'Designed to' is a self-declaration — it does not imply third-party assessment of compliance",
 ]
-correct = "A"
+correct = "D"
 explanation = "TIA-942-B §1.2 defines requirements but does not mandate or provide an assessment program. 'Designed to TIA-942-B Rated-3' is a self-declaration by the designer or owner — it may or may not have been verified by a third party. A due-diligence reviewer should ask whether an independent assessor validated the claim and, if so, request the assessment report. Self-declaration and third-party assessment are distinct; the marketing phrase does not prove either."
 topic_ids = ["m03-tia942", "m03-assessment"]
 objective_ids = []

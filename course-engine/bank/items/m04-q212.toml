@@ -8,11 +8,11 @@ module = 4
 stem = "Row 18 is in cooling alarm. The walkdown finds one pulled tile two aisles away in an underfloor-supply hall. The diagnostic is:"
 choices = [
   "The alarm is local; a missing tile cannot starve a distant row",
-  "Raise the CRAH setpoint here; Module 04 owns the plant and containment",
   "Diagnose the leak: the missing tile dumps plenum static so distant perforated tiles deliver less air — monitoring can alarm on a row that is not even next to the opening",
+  "Raise the CRAH setpoint here; Module 04 owns the plant and containment",
   "The hall failed a universal 250 psf statute; raise the number and the alarm clears",
 ]
-correct = "C"
+correct = "B"
 explanation = "In underfloor supply, a missing tile is an uncontrolled leak. Nearby pressure drops and a distant row can starve. Module 09 owns plant/containment; do not invent a psf statute."
 topic_ids = ["m04-cooling-impact", "m04-guidelines"]
 objective_ids = ["obj-m04-floor-types"]

@@ -12,10 +12,10 @@ stem = "Stringered vs corner-lock (or similar) access-floor systems differ mainl
 choices = [
   "The brand of UPS exclusively",
   "Whether copper or fibre may be used in the building",
-  "How panels are laterally supported and how the understructure behaves under load and access",
   "The colour of emergency lights only",
+  "How panels are laterally supported and how the understructure behaves under load and access",
 ]
-correct = "C"
+correct = "D"
 explanation = "Understructure type changes lateral stability, access patterns, and structural behaviour."
 topic_ids = ["m04-floor-types"]
 objective_ids = []

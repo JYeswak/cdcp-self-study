@@ -9,12 +9,12 @@ kind = "single-select"
 module = 4
 stem = "Which is a general raised-floor guideline for day-2 operations?"
 choices = [
-  "Remove tiles freely without airflow review",
+  "Control openings and cable bulk during moves",
   "Never bond metallic structures",
   "Ignore concentrated loads if uniform rating is high",
-  "Control openings and cable bulk during moves",
+  "Remove tiles freely without airflow review",
 ]
-correct = "D"
+correct = "A"
 explanation = "Day-2 raised-floor work must control openings, manage cable bulk, and respect load ratings so airflow and structural design intent survive changes."
 topic_ids = ["m04-guidelines", "m04-loading"]
 objective_ids = []

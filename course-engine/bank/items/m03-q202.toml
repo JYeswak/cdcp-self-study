@@ -11,10 +11,10 @@ stem = "Which facility criterion most directly affects whether heavy power and c
 choices = [
   "Only the color of exterior cladding, because structural loading, clearances, delivery paths, and service access do not constrain plant",
   "Only the brand of lobby coffee",
+  "Only the number of visitor parking stickers",
   "Structural loading, clearances, delivery paths, and service access for large equipment",
-  "Only the number of visitor parking stickers"
 ]
-correct = "C"
+correct = "D"
 explanation = "Plant installability and maintainability hinge on structure, access, and clearances."
 topic_ids = ["m03-facility-criteria"]
 objective_ids = []

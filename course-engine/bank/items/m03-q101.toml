@@ -11,10 +11,10 @@ stem = "Why is generator yard space a supporting-facility concern during site se
 choices = [
   "Generators need indoor placement at this site",
   "Yards store marketing banners rather than fuel equipment",
-  "Fuel storage, clearances, acoustics, and maintenance access require real estate that a tight urban parcel may lack",
   "AHJs prohibit generator installations at this site",
+  "Fuel storage, clearances, acoustics, and maintenance access require real estate that a tight urban parcel may lack",
 ]
-correct = "C"
+correct = "D"
 explanation = "Plant yards need area, clearances, and access—often a go/no-go for dense sites."
 topic_ids = ["m03-supporting-facilities", "m03-site-selection"]
 objective_ids = []

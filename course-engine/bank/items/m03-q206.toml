@@ -13,10 +13,10 @@ stem = "When comparing a greenfield build to retrofitting an existing building, 
 choices = [
   "Retrofits have ample floor-to-floor height and plant space, so existing constraints do not affect design",
   "Greenfield projects bypass life-safety, planning, and utility approvals",
+  "Neither needs life-safety systems",
   "Existing buildings may constrain floor loading, slab-to-slab height, risers, and plant yard space",
-  "Neither needs life-safety systems"
 ]
-correct = "C"
+correct = "D"
 explanation = "Brownfield constraints on structure and plant space frequently dominate retrofit feasibility."
 topic_ids = ["m03-facility-criteria"]
 objective_ids = []

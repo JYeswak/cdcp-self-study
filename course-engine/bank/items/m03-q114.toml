@@ -10,12 +10,12 @@ kind = "single-select"
 module = 3
 stem = "Which statement is most accurate about facility criteria vs pure IT architecture?"
 choices = [
-  "Software defines floor loading while building limits follow IT architecture",
-  "IT architecture overrides building physics in this project",
   "Facility criteria (structure, utilities, envelopes, plant space) bound what IT architectures can reliably deploy",
+  "IT architecture overrides building physics in this project",
+  "Software defines floor loading while building limits follow IT architecture",
   "Network diagrams set flood elevations",
 ]
-correct = "C"
+correct = "A"
 explanation = "Building and site physics set hard bounds on deployable IT density and resilience."
 topic_ids = ["m03-facility-criteria"]
 objective_ids = []

@@ -11,12 +11,12 @@ kind = "single-select"
 module = 3
 stem = "An audit finds that the site has no documented procedure for generator load-bank testing — tests are performed ad-hoc by individual technicians. The lead auditor classification is:"
 choices = [
-  "Major nonconformity — missing a required procedure is systemic and affects the site's ability to demonstrate compliance",
+  "No finding — ad-hoc testing by experienced technicians is an acceptable alternative to documented procedures and controlled evidence",
   "Minor nonconformity — tests are still being performed, so the gap is procedural rather than operational and does not affect demonstrated compliance",
   "Observation only — procedural documentation is a recommendation, not a requirement under TIA-942, even when evidence depends on repeatable records",
-  "No finding — ad-hoc testing by experienced technicians is an acceptable alternative to documented procedures and controlled evidence",
+  "Major nonconformity — missing a required procedure is systemic and affects the site's ability to demonstrate compliance",
 ]
-correct = "A"
+correct = "D"
 explanation = "ISO 19011:2018 §6.4.8 distinguishes major from minor nonconformities. A major nonconformity is systemic — it affects the organization's ability to meet requirements or indicates a breakdown in the management system. Missing a documented procedure entirely (not just a gap in one instance) is systemic: the site cannot demonstrate repeatable, auditable compliance. Minor nonconformities are isolated deviations from an otherwise functioning system."
 topic_ids = ["m03-audit", "m03-nonconformity"]
 objective_ids = []

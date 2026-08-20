@@ -10,12 +10,12 @@ kind = "single-select"
 module = 4
 stem = "Which loading scenario is most likely to damage an underspecified access floor?"
 choices = [
-  "Light foot traffic with correct ratings, even for concentrated cabinets",
+  "Heavy battery cabinets need checked rolling and concentrated ratings",
   "Closing perforated tiles per design, regardless of equipment loading",
   "Installing blanking panels",
-  "Heavy battery cabinets need checked rolling and concentrated ratings",
+  "Light foot traffic with correct ratings, even for concentrated cabinets",
 ]
-correct = "D"
+correct = "A"
 explanation = "Heavy wheeled moves stress rolling and concentrated load limits."
 topic_ids = ["m04-loading"]
 objective_ids = []

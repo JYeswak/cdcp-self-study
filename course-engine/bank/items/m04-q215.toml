@@ -13,12 +13,12 @@ kind = "single-select"
 module = 4
 stem = "The project specification leaves the raised-floor understructure blank. The next review question should be:"
 choices = [
-  "Name the understructure: stringered or free-standing/stringerless",
   "Use a panel finish as the understructure type",
+  "Name the understructure: stringered or free-standing/stringerless",
   "Use the site's Tier plaque as the floor type",
   "Insert a numeric floor class from a vendor summary without the product standard",
 ]
-correct = "A"
+correct = "B"
 explanation = "The November 2024 UFGS §2.1 type axis is stringer versus stringerless; a panel finish, a site rating label, and an unsupported product-class number answer different questions. The paywalled product-class boundary is deliberately not crossed."
 topic_ids = ["m04-floor-types", "m04-floor-standards"]
 objective_ids = ["obj-m04-floor-types"]
