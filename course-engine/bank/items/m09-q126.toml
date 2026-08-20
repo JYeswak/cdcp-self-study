@@ -6,9 +6,9 @@ kind = "single-select"
 module = 9
 stem = "A DX CRAC unit characteristically:"
 choices = [
-  "Never has fans",
+  "Never has fans, even when the unit must move air",
   "Can only cool using pure nitrogen",
-  "Uses a refrigeration circuit with compressor and refrigerant at the unit (or close-coupled DX)",
+  "Uses a compressor and refrigerant circuit",
   "Eliminates all need for outdoor heat rejection"
 ]
 correct = "C"

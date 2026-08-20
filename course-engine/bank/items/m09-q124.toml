@@ -7,8 +7,8 @@ kind = "single-select"
 module = 9
 stem = "The common educational distinction between CRAC and CRAH units is:"
 choices = [
-  "CRAC typically uses DX/refrigerant refrigeration; CRAH typically uses chilled water coils",
-  "CRAH always includes a diesel generator",
+  "CRAC uses DX; CRAH uses chilled-water coils",
+  "CRAH always includes a diesel generator, regardless of cooling plant",
   "CRAC only cools network MMRs",
   "They are identical acronyms with no difference"
 ]

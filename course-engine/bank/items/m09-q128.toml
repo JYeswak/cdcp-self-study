@@ -7,10 +7,10 @@ kind = "single-select"
 module = 9
 stem = "Rear-door heat exchangers primarily:"
 choices = [
-  "Remove heat at the rack exhaust using a cooled door heat exchanger",
-  "Replace all UPS modules",
-  "Provide only humidification steam",
-  "Route carrier fiber only"
+  "Removes rack-exhaust heat through a cooled door",
+  "Replace all UPS modules, regardless of rack heat rejection",
+  "Provide only humidification steam, without heat removal",
+  "Route carrier fiber only, not rack exhaust"
 ]
 correct = "A"
 explanation = "Rear-door heat exchangers capture rack exhaust heat before it enters the room air volume."

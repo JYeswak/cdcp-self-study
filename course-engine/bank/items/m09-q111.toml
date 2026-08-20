@@ -10,8 +10,8 @@ stem = "For cooling design, IT electrical power is often treated as a heat load 
 choices = [
   "Power and heat are unrelated physically",
   "Only lighting contributes heat",
-  "Heat load equals only battery float current",
-  "Electrical energy consumed by IT appears as heat in the space"
+  "Heat load equals only battery float current, regardless of IT power",
+  "Electrical energy consumed by IT becomes heat"
 ]
 correct = "D"
 explanation = "Conservation of energy: IT power draw becomes thermal load the HVAC plant must remove (plus other room loads)."

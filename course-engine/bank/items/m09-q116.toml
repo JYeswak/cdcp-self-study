@@ -8,7 +8,7 @@ kind = "single-select"
 module = 9
 stem = "Relative humidity control in white space is important partly because extremes can contribute to:"
 choices = [
-  "Electrostatic risk when too dry, and condensation/corrosion risk when too wet",
+  "Humidity extremes cause static or condensation risk",
   "Only brighter lighting",
   "Faster copper oxidation exclusively when RH is perfect",
   "Automatic generator start"

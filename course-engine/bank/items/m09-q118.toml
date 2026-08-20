@@ -9,9 +9,9 @@ module = 9
 stem = "Server inlet temperature is generally preferred over room return temperature as a health metric because:"
 choices = [
   "Return temperature is always higher than outdoor wet-bulb",
-  "Inlet sensors are illegal",
-  "IT reliability depends on air entering the equipment, not only on CRAH return mixed air",
-  "Return air never contains heat"
+  "Inlet sensors are illegal in every data hall, regardless of monitoring policy",
+  "Inlet conditions reflect health",
+  "Return air never contains heat, regardless of airflow"
 ]
 correct = "C"
 explanation = "Equipment reliability depends on the air entering the server; mixed CRAH return air can hide an inlet hot spot, so inlet temperature is the more actionable health metric."

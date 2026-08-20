@@ -8,9 +8,9 @@ module = 9
 stem = "Perimeter CRAC/CRAH layout with raised floor commonly supplies air:"
 choices = [
   "Only from the ceiling into hot aisles exclusively",
-  "Underfloor into cold aisles via perforated tiles or grilles",
-  "Directly into diesel day tanks",
-  "Only through battery rooms"
+  "Underfloor supply to cold aisles",
+  "Directly into diesel day tanks, instead of supplying IT air",
+  "Only through battery rooms, not through the raised-floor plenum"
 ]
 correct = "B"
 explanation = "Classic underfloor supply: CRAH discharges to plenum; perforated tiles deliver cold air to cold aisles."

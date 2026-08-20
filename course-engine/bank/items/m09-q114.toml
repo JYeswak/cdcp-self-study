@@ -4,9 +4,9 @@ kind = "single-select"
 module = 9
 stem = "A correct educational statement about ASHRAE recommended versus allowable guidance is:"
 choices = [
-  "Allowable is always stricter than recommended",
+  "Allowable is always stricter than recommended by class and jurisdiction",
   "They are legally identical to fire codes",
-  "Recommended is a preferred band; allowable is a broader acceptance band by class",
+  "Recommended is preferred; allowable is broader by class",
   "Only humidity is specified; temperature is ignored"
 ]
 correct = "C"

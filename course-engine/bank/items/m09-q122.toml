@@ -8,9 +8,9 @@ kind = "single-select"
 module = 9
 stem = "Dehumidification in a CRAC/CRAH often occurs when:"
 choices = [
-  "Fans are turned off permanently",
+  "Fans are turned off permanently, so the coil cannot exchange heat",
   "Only when free cooling is disabled by law",
-  "Coil surface temperature is below the dew point of the airstream",
+  "Coil surface is below airstream dew point",
   "Servers produce large amounts of steam"
 ]
 correct = "C"

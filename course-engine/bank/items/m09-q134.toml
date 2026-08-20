@@ -7,10 +7,10 @@ kind = "single-select"
 module = 9
 stem = "In a raised-floor cooling design, the underfloor plenum mainly serves as:"
 choices = [
-  "A storage vault for diesel fuel",
+  "A storage vault for diesel fuel, unrelated to airflow distribution",
   "The only return path for hot air always",
-  "A pressurized supply-air distribution volume to perforated tiles or grilles",
-  "A substitute for grounding"
+  "Supply air to floor grilles",
+  "A substitute for grounding and electrical bonding"
 ]
 correct = "C"
 explanation = "Cold air is pushed into the plenum and delivered through controlled openings; cable congestion and leaks hurt performance."

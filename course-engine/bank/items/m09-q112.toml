@@ -4,7 +4,7 @@ kind = "single-select"
 module = 9
 stem = "ASHRAE TC 9.9 thermal guidelines for IT equipment distinguish recommended envelopes from allowable envelopes primarily to:"
 choices = [
-  "Separate preferred operating ranges from wider ranges equipment may tolerate",
+  "Separate preferred and tolerable operating ranges",
   "Replace all local building codes",
   "Define only generator outdoor temperatures",
   "Mandate a single global setpoint for every facility"

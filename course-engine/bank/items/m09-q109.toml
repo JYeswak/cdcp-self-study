@@ -8,7 +8,7 @@ module = 9
 stem = "Which best describes recirculation as a cooling airflow problem?"
 choices = [
   "Cold supply air short-cycling back to CRAH without cooling IT",
-  "Hot exhaust mixing back into IT intakes instead of returning cleanly",
+  "Hot exhaust mixing into IT intakes, not clean return",
   "Perfect isolation of hot and cold streams",
   "Only a generator exhaust issue"
 ]

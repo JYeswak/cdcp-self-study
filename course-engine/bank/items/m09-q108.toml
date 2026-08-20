@@ -12,10 +12,10 @@ kind = "single-select"
 module = 9
 stem = "Free cooling / economization concepts aim to:"
 choices = [
-  "Integrate favorable airside, waterside, or refrigerant pathways to reduce compressor hours and mechanical cooling demand",
+  "Uses favorable airside or waterside economization",
   "Always run compressors at maximum load",
   "Replace all redundancy with a single fan",
-  "Eliminate the need for any heat rejection path"
+  "Eliminate the need for any heat rejection path, regardless of cooling mode"
 ]
 correct = "A"
 explanation = "The current ASHRAE framework describes airside, waterside, and refrigerant economizers as pathways to reduce compressor hours and mechanical cooling demand. It does not set a universal economizer mode, climate limit, or facility-availability claim."

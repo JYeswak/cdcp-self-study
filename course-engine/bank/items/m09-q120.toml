@@ -4,9 +4,9 @@ kind = "single-select"
 module = 9
 stem = "When comparing environmental guidance classes for IT, the educational takeaway is:"
 choices = [
-  "Different equipment classes may have different recommended/allowable environmental ranges",
+  "Equipment classes have different envelopes",
   "All equipment classes share one identical envelope worldwide by law",
-  "Only tape libraries have envelopes; servers do not",
+  "Only tape libraries have envelopes; servers do not, regardless of class",
   "Classes only define rack U-height"
 ]
 correct = "A"

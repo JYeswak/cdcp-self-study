@@ -7,10 +7,10 @@ kind = "single-select"
 module = 9
 stem = "Redundancy in cooling plant (N+1, 2N, and similar) is intended to:"
 choices = [
-  "Allow intentional continuous fire in the hall",
-  "Remove the need for any monitoring",
-  "Maintain cooling capacity during maintenance or unit failure within the design intent",
-  "Guarantee zero energy use"
+  "Allow intentional continuous fire in the hall, without alarm or suppression controls",
+  "Remove need for monitoring despite unit failure",
+  "Maintain cooling through maintenance or failure",
+  "Guarantee zero energy use through cooling redundancy"
 ]
 correct = "C"
 explanation = "Cooling redundancy keeps heat removal available when equipment is offline or failed—aligned to availability goals."

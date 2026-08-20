@@ -7,7 +7,7 @@ choices = [
   "To force more latent dehumidification always",
   "Because higher temperature always reduces IT power to zero",
   "To dry out batteries faster",
-  "To improve cooling efficiency / economizer hours while respecting equipment guidance"
+  "Improve cooling efficiency and economizer hours"
 ]
 correct = "D"
 explanation = "Higher supply/inlet temperatures (within guidance) can cut mechanical cooling energy and extend free cooling—balanced against reliability."

@@ -7,9 +7,9 @@ kind = "single-select"
 module = 9
 stem = "Close-coupled cooling approaches (in-row, overhead, rear-door) share the idea of:"
 choices = [
-  "Cooling only the parking lot",
-  "Moving cooling nearer the IT heat source to improve capture and reduce mixing",
-  "Removing all fans from the facility",
+  "Cooling only the parking lot, not the equipment heat source",
+  "Moves cooling near the IT heat",
+  "Removing all fans from the facility, regardless of airflow needs",
   "Using only natural convection with zero design"
 ]
 correct = "B"

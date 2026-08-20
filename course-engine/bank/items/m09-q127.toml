@@ -7,10 +7,10 @@ kind = "single-select"
 module = 9
 stem = "In-row cooling is often chosen when:"
 choices = [
-  "The site has no electrical power",
-  "Only outdoor weather stations need cooling",
-  "Cabling pathways must be eliminated",
-  "Heat density is high and cooling is needed closer to the load"
+  "The site has no electrical power, so no cooling design is needed",
+  "Only outdoor weather stations need cooling, not IT rooms",
+  "Cabling pathways must be eliminated before cooling is designed",
+  "High heat density needs cooling near the load"
 ]
 correct = "D"
 explanation = "In-row units sit near racks to handle higher density and shorter airflow paths than room-only perimeter cooling."

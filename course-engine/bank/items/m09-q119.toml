@@ -8,10 +8,10 @@ kind = "single-select"
 module = 9
 stem = "A hot spot in a data hall typically means:"
 choices = [
-  "A deliberately heated cold aisle",
-  "Only an outdoor weather station reading",
+  "A deliberately heated cold aisle caused by airflow failure",
+  "Only an outdoor weather station reading, not an IT inlet condition",
   "A battery room at float voltage",
-  "Localized elevated inlet temperatures from poor airflow management"
+  "Localized inlet hot spot"
 ]
 correct = "D"
 explanation = "Hot spots are local thermal problems—often recirculation, blocked tiles, or uneven loads—not necessarily whole-room average failure."

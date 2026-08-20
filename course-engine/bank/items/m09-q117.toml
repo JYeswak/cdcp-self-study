@@ -8,9 +8,9 @@ kind = "single-select"
 module = 9
 stem = "Dew point is often a more useful moisture metric than RH alone because:"
 choices = [
-  "Dew point ignores moisture completely",
-  "It indicates absolute moisture content related to condensation risk independent of dry-bulb alone",
-  "It only measures raised-floor height",
+  "Dew point ignores moisture completely, despite being a moisture metric",
+  "Dew point indicates moisture and condensation risk",
+  "It only measures raised-floor height, not air moisture",
   "It is identical to wet-bulb always in every climate"
 ]
 correct = "B"

@@ -7,9 +7,9 @@ kind = "single-select"
 module = 9
 stem = "Evaporative cooling towers improve heat rejection efficiency primarily by:"
 choices = [
+  "Eliminating all water use forever, regardless of tower design",
   "Using evaporation so leaving water can approach wet-bulb-limited conditions",
-  "Eliminating all water use forever",
-  "Replacing chillers with fiber switches",
+  "Replacing chillers with fiber switches, not heat-rejection equipment",
   "Heating the condenser water intentionally always"
 ]
 correct = "A"

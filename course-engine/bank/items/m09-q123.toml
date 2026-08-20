@@ -9,10 +9,10 @@ kind = "single-select"
 module = 9
 stem = "A qualitative reason operators trend both temperature and humidity is that:"
 choices = [
-  "Humidity never affects electronics",
-  "Only temperature meters are ever installed",
+  "Humidity never affects electronics, condensation, or corrosion",
+  "Only temperature meters are ever installed in a data hall",
   "Humidity replaces the need for fire detection",
-  "Thermal and moisture conditions jointly affect reliability, condensation risk, and cooling efficiency"
+  "Temperature and moisture jointly affect reliability"
 ]
 correct = "D"
 explanation = "Environment is multi-parameter; temperature alone misses moisture-driven risks and control interactions."
