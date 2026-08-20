@@ -418,6 +418,17 @@ digest = "a796fce9e69cb4ffc8cf30fe2710091d05eb2678f7f3451cdd7df0106c43275f"
 # not prose must appear here; the three web/data packs (check.sh L6 cmp) and
 # web/assets/wasm/cdcp_wasm.wasm (check.sh L5 only `[ -f ]`s it — this row is
 # the B2 pin) are goldens by function, so they are declared too.
+#
+# INCIDENT SCOPE — ac65c94 (2026-08-18 19:36) pinned eleven artifacts while the
+# grounding-wave restoration was still in flight, at an intermediate 37.4%-A
+# bank. That snapshot was never an intended baseline. The eleven paths were:
+# content.lock; goldens/bank_hash.txt; goldens/fixtures/mock40_seed42.json;
+# goldens/mock40_seed42_all_correct.sha256;
+# goldens/mock40_seed42_all_wrong.sha256; goldens/PROVENANCE.md;
+# registries/goldens-couplings.toml; web/data/bank_items_seed42.json;
+# web/data/keys_seed42.json; web/data/mock40_seed42.json; and
+# web/data/units_index.json. The 2026-08-19 re-freeze covers all eleven after
+# 407 grounding-wave restorations and 35 m10 rank-uniformity choice-text edits.
 
 [[golden]]
 id = "fixture.mock40-seed42"

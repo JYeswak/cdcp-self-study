@@ -288,36 +288,44 @@ the first `u64`).
 would move `item_ids` and then this fixture is re-frozen once, through the
 block above, with a new row here.
 
-## Learner export freshness re-freeze — `bd-0cjy`, 2026-08-18
+## Learner export freshness re-freeze — `bd-0cjy` / `bd-2qvn`, 2026-08-19
 
-The tracked learner-facing seed-42 export was stale: `web/data/bank_items_seed42.json` contained
-904 records and 879 approved items. After the concurrent restoration batches settled, the final
-bank snapshot contained 957 records, 929 approved items [[fact:fact-bank-approved-count-779=yes]],
-2 draft items, and 26 retired items.
-This tick did not edit `bank/items`; it refreshed the generated learner surfaces and
-`units_index.json` against that snapshot. The measured defect was freshness of the shipped
-artifact, not a claim that the remaining grounding findings are resolved.
+Commit `ac65c94` (2026-08-18 19:36) regenerated **eleven** artifacts while the grounding-wave
+restoration was still in flight, at an intermediate 37.4%-A bank. That snapshot was never an
+intended baseline and is not evidence about the finished bank. The eleven paths were:
 
-The seed-42 fixture draw changed 24 ids out and 24 ids in (48 ids in the symmetric difference),
-and all 40 presentation positions changed. The bank address moved from `990c5974…` to
-`c330628a…`.
+`content.lock`, `goldens/bank_hash.txt`, `goldens/fixtures/mock40_seed42.json`,
+`goldens/mock40_seed42_all_correct.sha256`, `goldens/mock40_seed42_all_wrong.sha256`,
+`goldens/PROVENANCE.md`, `registries/goldens-couplings.toml`,
+`web/data/bank_items_seed42.json`, `web/data/keys_seed42.json`,
+`web/data/mock40_seed42.json`, and `web/data/units_index.json`.
+
+The current bank snapshot contains 957 records, 931 approved items
+[[fact:fact-bank-approved-count-779=yes]], 0 draft items, and 26 retired items. The current
+re-freeze follows 407 grounding-wave restorations and 35 m10 rank-uniformity choice-text edits.
+This refresh does not edit `bank/items`; it refreshes generated learner surfaces against that
+snapshot. The measured defect was artifact freshness, not a claim that the bank is correct.
+
+The seed-42 fixture draw changed 7 ids at 7 presentation positions, and the bank address moved
+from `c330628a…` to `50fec2eb…`.
 
 The following were regenerated together through the documented Rust path (`goldens fixture`,
 `goldens generate`, `export-web`, `build-units`, then `content-lock`):
 
-| Pin | Before | After |
-|-----|--------|-------|
-| `goldens/fixtures/mock40_seed42.json` | `c7f77bbf…` | `72ba4474…` |
-| `goldens/mock40_seed42_all_correct.sha256` | `633d4df4…` | `04cebb99…` |
-| `goldens/mock40_seed42_all_wrong.sha256` | `433e821b…` | `767cdb53…` |
-| `goldens/bank_hash.txt` | `d3e2ffd7…` | `04ab4820…` |
-| `web/data/mock40_seed42.json` | `1e04d52f…` | `4fffa005…` |
-| `web/data/keys_seed42.json` | `22ebe6ad…` | `7d3a9ce3…` |
-| `web/data/bank_items_seed42.json` | `b272c531…` | `5755900b…` |
-| `web/data/units_index.json` | `931/957` | `929/957` |
+| Pin | Current value |
+|-----|---------------|
+| `goldens/fixtures/mock40_seed42.json` | `6b8f4a8b…` |
+| `goldens/mock40_seed42_all_correct.sha256` | `9b859b3f…` |
+| `goldens/mock40_seed42_all_wrong.sha256` | `b1836453…` |
+| `goldens/bank_hash.txt` | `05abedf9…` |
+| `content.lock` | `cfdd5acb…` |
+| `web/data/mock40_seed42.json` | `0da62f08…` |
+| `web/data/keys_seed42.json` | `54794426…` |
+| `web/data/bank_items_seed42.json` | `fac40f67…` |
+| `web/data/units_index.json` | `931/957`, `8f334dc6…` |
 
-The corresponding rows in `registries/goldens-couplings.toml` were re-stated in this change.
-`cdcp goldens check`, `goldens-couplings`, `verify-bank`, `verify-content-lock`, and a fresh
-byte-comparison of all three export packs are the verification receipts for the regenerated
-surfaces. `grounding-wave` remains intentionally RED; this export refresh does not cover the
-residual bucket-(c) or stem-only findings.
+The corresponding rows and incident scope are recorded in
+`registries/goldens-couplings.toml`. `cdcp goldens check`, `goldens-couplings`,
+`verify-content-lock`, `docs sync --check`, and a fresh byte-comparison of all three export packs
+are the verification receipts for the regenerated surfaces. `grounding-wave` remains outside
+this artifact-freshness claim; generated artifacts say nothing about bank correctness.
