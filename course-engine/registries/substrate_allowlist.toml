@@ -522,6 +522,12 @@ migration_bead = "bd-substrate-rust-migration-jhd"
 expires = "2027-06-30"
 
 [[allow]]
+path = ".flywheel/scripts/local-ci.sh"
+reason = "Operator entry point for the local CI driver: it delegates to scripts/check.sh, which pins one detached SHA, hashes declared consumed-input scopes, and preserves the diagnostic chain exit. It is process glue rather than product law; migrate the driver to Rust under bd-substrate-rust-migration-jhd when the local orchestration surface is ported."
+migration_bead = "bd-substrate-rust-migration-jhd"
+expires = "2027-06-30"
+
+[[allow]]
 path = "hooks/pre-commit"
 reason = "THE SHIM, and it legitimately stays shell: git executes a file at .git/hooks/pre-commit, so the entry point cannot itself be a cargo target. Its whole body is one exec of the Rust gate and it holds no decision logic — asserted mechanically by install_hooks::tests::committed_shim_exists_and_is_thin, which rejects if/case/for/test/grep/sed/awk/python and any &&, ||, pipe or subshell. Caught here by the shebang leg (no extension), not by a filename rule. Dated for annual re-affirmation; there are no permanent exemptions, only renewed ones."
 migration_bead = "bd-substrate-rust-migration-jhd"

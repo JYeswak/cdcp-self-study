@@ -1,0 +1,51 @@
+# local-ci-inputs.tsv — conservative consumed-input roots for local-ci.sh
+#
+# The first column is a stable scope name.  The second is an engine-relative
+# file or directory.  A scope is hashed as sorted path + file-digest records,
+# including untracked files under the declared directories.  The mapping is
+# intentionally conservative: an extra rerun is safe; skipping a consumer of
+# changed bytes is not.  check.sh remains one stateful, fail-fast transaction,
+# so the driver uses these scopes to decide whether to rerun the transaction,
+# while recording the applicable scope hash beside every logical slot.
+
+bank	bank/items
+bank	bank/MANIFEST.toml
+bank	knowledge/domains.toml
+bank	knowledge/topics.toml
+bank	knowledge/bank_policy.toml
+bank	registries/bank_policy.toml
+bank	registries/paraphrase_pairs.toml
+bank	registries/grounding_wave.toml
+bank	crates/cdcp_bank
+bank	crates/cdcp_gate/src
+
+registry	registries
+registry	crates/cdcp_registry_check
+registry	crates/cdcp_gate/src
+registry	scripts/check.sh
+registry	.flywheel/tick-ledger.jsonl
+
+rust	Cargo.toml
+rust	Cargo.lock
+rust	crates
+
+artifact	bank/items
+artifact	bank/MANIFEST.toml
+artifact	crates/cdcp_anki
+artifact	crates/cdcp_assemble
+artifact	crates/cdcp_cli
+artifact	crates/cdcp_learn
+artifact	crates/cdcp_wasm
+artifact	web/data
+artifact	web/assets/wasm
+artifact	goldens
+artifact	content.lock
+
+docs	README.md
+docs	CHARTER.md
+docs	docs
+docs	web
+docs	.flywheel/CHARTER.md
+docs	.flywheel/QUEUE-2026-08-20.md
+
+all	.
