@@ -635,8 +635,9 @@ pub fn live_bank_hash(root: &Path) -> Result<String, String> {
     }
 }
 
-/// Create a fresh 0600 file under the temp dir that CANNOT be an attacker's
-/// pre-planted symlink.
+/// Create a fresh exclusive file under the temp dir that CANNOT be an
+/// attacker's pre-planted symlink. On Unix it is created with mode 0600; on
+/// other platforms the platform's temp-directory permissions apply.
 ///
 /// `File::create` (O_CREAT|O_TRUNC) FOLLOWS a symlink at the target path. In a
 /// world-writable temp dir with a guessable name — pid plus a nanosecond stamp is
@@ -644,17 +645,29 @@ pub fn live_bank_hash(root: &Path) -> Result<String, String> {
 /// writes whatever the symlink points at, with the invoking user's authority.
 ///
 /// The fix is `create_new(true)` (O_CREAT|O_EXCL), which makes an existing path
-/// a hard ERROR rather than something to follow. Name predictability then buys an
-/// attacker only denial of service, never a write. `mode(0o600)` keeps the
-/// contents unreadable by other local users. Retried a few times so an
-/// unlucky-or-hostile collision does not fail the gate outright.
+/// a hard ERROR rather than something to follow. Name predictability then buys
+/// an attacker only denial of service, never a write. On Unix, `mode(0o600)`
+/// keeps the contents unreadable by other local users. Rust has no portable API
+/// for imposing Unix permission bits on Windows or WASM, so those targets
+/// retain the exclusive-create guarantee but rely on their platform's
+/// temp-directory ACLs; this does not claim Unix-equivalent confidentiality.
+/// Retried a few times so an unlucky-or-hostile collision does not fail the
+/// gate outright.
 ///
 /// FLOOR-RAISE, and what this CANNOT decide: it does not make the temp directory
 /// itself trustworthy. If `TMPDIR` points somewhere an attacker fully controls,
 /// they can still deny service. It removes the symlink-following WRITE, not every
 /// hazard of using a shared directory.
-fn create_exclusive(stem: &str, ext: &str) -> Option<(fs::File, std::path::PathBuf)> {
+#[cfg(unix)]
+fn configure_private_file(options: &mut fs::OpenOptions) {
     use std::os::unix::fs::OpenOptionsExt;
+    options.mode(0o600);
+}
+
+#[cfg(not(unix))]
+fn configure_private_file(_options: &mut fs::OpenOptions) {}
+
+fn create_exclusive(stem: &str, ext: &str) -> Option<(fs::File, std::path::PathBuf)> {
     let dir = std::env::temp_dir();
     for attempt in 0..8u32 {
         let nonce = std::time::SystemTime::now()
@@ -665,13 +678,10 @@ fn create_exclusive(stem: &str, ext: &str) -> Option<(fs::File, std::path::PathB
             "{stem}_{}_{nonce}_{attempt}.{ext}",
             std::process::id()
         ));
-        match fs::OpenOptions::new()
-            .read(true)
-            .write(true)
-            .create_new(true)
-            .mode(0o600)
-            .open(&path)
-        {
+        let mut options = fs::OpenOptions::new();
+        options.read(true).write(true).create_new(true);
+        configure_private_file(&mut options);
+        match options.open(&path) {
             Ok(f) => return Some((f, path)),
             Err(_) => continue,
         }
@@ -1235,6 +1245,7 @@ mod tests {
     // survivable; a followed symlink is not. These assert the mechanism directly
     // rather than trying to win a race against ourselves.
 
+    #[cfg(unix)]
     #[test]
     fn create_new_refuses_to_follow_a_planted_symlink() {
         use std::os::unix::fs::OpenOptionsExt;
@@ -1272,6 +1283,29 @@ mod tests {
         );
     }
 
+    #[test]
+    fn create_exclusive_is_exclusive_and_cleans_up() {
+        let (f, p) = create_exclusive("cdcp_gate_unit_probe", "tmp")
+            .expect("create_exclusive must succeed in a sane temp dir");
+        assert!(p.exists(), "the file must exist at the returned path");
+        assert!(
+            !fs::symlink_metadata(&p).unwrap().file_type().is_symlink(),
+            "the created path must be a real file, never a symlink"
+        );
+        let second_open = fs::OpenOptions::new()
+            .read(true)
+            .write(true)
+            .create_new(true)
+            .open(&p);
+        assert!(
+            second_open.is_err(),
+            "create_new must reject the already-created path"
+        );
+        drop(f);
+        fs::remove_file(&p).unwrap();
+    }
+
+    #[cfg(unix)]
     #[test]
     fn create_exclusive_yields_a_private_file_and_cleans_up() {
         use std::os::unix::fs::PermissionsExt;
