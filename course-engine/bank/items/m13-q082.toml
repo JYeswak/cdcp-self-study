@@ -10,10 +10,10 @@ kind = "single-select"
 module = 13
 stem = "Authentication differs from authorization in access control because authentication:"
 choices = [
-  "Assigns door schedules while authorization checks biometrics only",
+  "Assigns door schedules while authorization verifies the presented biometric",
   "Proves identity, whereas authorization decides which doors/zones that identity may open",
-  "Is a synonym of authorization in all ACS designs",
-  "Only applies to mechanical keys"
+  "Is the permission decision that selects doors after a credential is presented",
+  "Applies to mechanical keys but not badges, biometrics, or mobile credentials"
 ]
 correct = "B"
 explanation = "AuthN = who you are; AuthZ = what you may open; accounting logs the attempt."

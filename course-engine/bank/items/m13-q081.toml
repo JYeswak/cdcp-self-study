@@ -10,9 +10,9 @@ module = 13
 stem = "Grey space (UPS, generators, switchgear, chillers) should receive access rigor comparable to white space because:"
 choices = [
   "Plant compromise can take down IT without touching a server",
-  "It only stores cardboard",
-  "It is always public parking",
-  "Cameras are illegal there"
+  "It is limited to cardboard storage and has no power-conversion or cooling equipment",
+  "It is treated as public parking despite containing energized plant",
+  "It can be protected by cameras alone without door or plant controls"
 ]
 correct = "A"
 explanation = "MEP sabotage or error is availability-critical; treat grey space as highly sensitive."

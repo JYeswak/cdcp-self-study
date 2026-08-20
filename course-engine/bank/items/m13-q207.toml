@@ -10,10 +10,10 @@ kind = "single-select"
 module = 13
 stem = "Loading dock and delivery procedures are security-relevant because:"
 choices = [
-  "Docks never connect to technical space pathways, regardless of layout",
-  "All deliveries are pre-trusted without inspection forever",
+  "Docks connect to technical pathways after a camera is installed, so layout need not be reviewed",
+  "Deliveries are trusted after a vendor is recognized, so inspection adds no security value",
   "Legitimate freight can carry threats if uncontrolled",
-  "Only digital threats matter, not freight or physical contraband"
+  "Digital threats are the primary concern, while freight and physical contraband are outside delivery controls"
 ]
 correct = "C"
 explanation = "Supply chain and dock control are part of physical security, not only logistics."

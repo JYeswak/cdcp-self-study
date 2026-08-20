@@ -11,9 +11,9 @@ module = 13
 stem = "Piggybacking/tailgating controls matter at data hall doors because:"
 choices = [
   "Unauthorized entry can use another user's credentials",
-  "Everyone in the building is equally authorized always, regardless of zone",
-  "Tailgating improves evacuation time metrics only, not access risk",
-  "Doors should never close for fire-rating reasons, even at secure portals"
+  "A badge grants building-wide authorization once it is issued, regardless of zone",
+  "Tailgating is treated as an evacuation metric rather than an access-control risk",
+  "Fire-rating requirements eliminate the need for anti-tailgating controls at secure portals"
 ]
 correct = "A"
 explanation = "Tailgating breaks the identity-to-entry binding security depends on."
