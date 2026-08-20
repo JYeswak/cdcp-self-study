@@ -12,8 +12,8 @@ stem = "Why do fibre and carrier meet-me diversity matter in site selection?"
 choices = [
   "They replace the need for power redundancy",
   "Application availability often depends on diverse external network paths as much as on hall design",
-  "They only affect cafeteria Wi-Fi",
-  "Carriers never require physical entrance rooms",
+  "They affect cafeteria Wi-Fi rather than carrier paths",
+  "Carriers use cafeteria Wi-Fi instead of physical entrance rooms",
 ]
 correct = "B"
 explanation = "External connectivity diversity is a site-level availability factor parallel to power/cooling design."
