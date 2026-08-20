@@ -14,7 +14,7 @@ choices = [
   "In the CRAH return plenum",
 ]
 correct = "A"
-explanation = "A zero-U PDU mounts vertically at the rear or side of the cabinet, preserving horizontal rack U for IT equipment."
+explanation = "Zero-U means the PDU mounts in the vertical rear or side channel, consuming none of the horizontal U that IT equipment needs -- which is the whole point of the form factor and why 800 mm cabinets are chosen for dense power. Describing it as a horizontal shelf is the near-miss, since 1U and 2U rack PDUs do exist and are the thing zero-U was designed to avoid."
 topic_ids = ["m08-power-strips"]
 objective_ids = []
 bloom = "remember"

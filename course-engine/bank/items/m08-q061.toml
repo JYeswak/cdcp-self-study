@@ -15,7 +15,7 @@ choices = [
   "Grounding is achieved only by paint",
 ]
 correct = "A"
-explanation = "Match rail type (square/threaded) and hardware; half-engaged screws are a defect."
+explanation = "Square-hole rails need cage nuts matched to the screw; threaded rails need the right thread. A partly-engaged screw carries the load until it does not, and the failure appears under service loading rather than at install. Assuming any screw works is the error, and tool-less rails do not remove fasteners -- accessories still mount conventionally."
 topic_ids = ["m08-standards", "m08-dimensions"]
 objective_ids = []
 bloom = "apply"

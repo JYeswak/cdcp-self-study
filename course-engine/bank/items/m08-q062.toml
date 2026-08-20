@@ -14,7 +14,7 @@ choices = [
   "Racks face randomly for aesthetics",
 ]
 correct = "C"
-explanation = "Front-to-rear gear faces cold aisle; exhausts feed the hot aisle."
+explanation = "Front intakes face the cold supply and exhausts face the hot return, so the aisle pair stays thermally separated along the row. Exhausting into the cold aisle destroys that separation, which is the defect containment exists to prevent. Side-breathing equipment is not forbidden but it breaks the front-to-rear assumption, so it needs a deliberate airflow review rather than being dropped into the row."
 topic_ids = ["m08-types"]
 objective_ids = []
 bloom = "understand"

@@ -14,7 +14,7 @@ choices = [
   "Enclosed cabinets never need cable management or containment interfaces"
 ]
 correct = "B"
-explanation = "Frame vs cabinet is an access/security/airflow trade, not a free lunch."
+explanation = "The trade is service access and airflow against physical security -- a frame is easier to work in and to cool, a cabinet is lockable. Suggesting enclosed cabinets escape cable management is the plausible error, since a cabinet actually needs more deliberate management to keep the airflow path clear. Grounding and fire resistance are unchanged by either choice."
 topic_ids = ["m08-types"]
 objective_ids = []
 bloom = "understand"

@@ -14,7 +14,7 @@ choices = [
   "Built-in fire suppression only",
 ]
 correct = "B"
-explanation = "Open frames need perimeter/cage security if the room is multi-access."
+explanation = "An open frame gives up the locked enclosure, so the compartment control has to come from the room or the cage instead. The trade is real in the other direction too -- frames give better airflow and service access -- but nothing about removing panels improves locks, and floor loading still applies because the load is the equipment, not the enclosure."
 topic_ids = ["m08-types", "m08-security"]
 objective_ids = []
 bloom = "understand"

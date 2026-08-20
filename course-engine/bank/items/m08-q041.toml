@@ -14,7 +14,7 @@ choices = [
   "Only two-post telecom frames",
 ]
 correct = "A"
-explanation = "19″ is mounting rail spacing (EIA-310 / IEC 60297 family), not outer cabinet width."
+explanation = "The 19-inch figure in EIA-310 and the IEC 60297 family is the spacing between mounting flanges, which is why a 600 mm and an 800 mm cabinet both take the same equipment. Reading it as the cabinet footprint is the classic error and it breaks row planning, because outer width is chosen for cable and PDU volume, not for the equipment. It is also a mechanical dimension with no power term at all, so it says nothing about kW per rack."
 topic_ids = ["m08-standards", "m08-dimensions"]
 objective_ids = []
 bloom = "remember"

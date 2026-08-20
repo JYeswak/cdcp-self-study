@@ -13,7 +13,7 @@ choices = [
   "All staff should share one master key left in the door for access control"
 ]
 correct = "C"
-explanation = "Cabinet locks complement—not replace—facility access control, especially in multi-tenant spaces."
+explanation = "Cabinet doors and sensors compartmentalise access where tenants of differing sensitivity share a hall, giving a per-cabinet boundary inside a shared room. They complement facility access control rather than substituting for it -- and a master key left in the door is not an access control at all, it is the absence of one."
 topic_ids = ["m08-security"]
 objective_ids = []
 bloom = "apply"

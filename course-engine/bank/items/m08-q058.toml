@@ -14,7 +14,7 @@ choices = [
   "Fibre counts exceed copper",
 ]
 correct = "C"
-explanation = "Seismic frames and floor anchors follow structural design and local requirements."
+explanation = "Seismic frames and floor anchoring follow the structural engineer and the local code for the zone the site is in. Corrosion is the near-miss: coastal humidity is a real materials concern, but it drives finish and coating specification, not the anchoring and bracing that seismic rating covers."
 topic_ids = ["m08-types", "m08-standards"]
 objective_ids = []
 bloom = "understand"

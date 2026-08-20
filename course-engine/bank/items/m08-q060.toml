@@ -13,7 +13,7 @@ choices = [
   "Chassis depth plus bend radius and clearance",
 ]
 correct = "D"
-explanation = "Fit checks fail when cables, PDUs, and doors are ignored."
+explanation = "Usable depth is chassis length plus cable bend radius plus room to open doors and service the rear, so the brochure external number is the start of the calculation, not the answer. Ignoring rail adjustment range is the related trap -- rails that do not reach the rear posts turn a nominal fit into a non-fit."
 topic_ids = ["m08-dimensions"]
 objective_ids = []
 bloom = "apply"

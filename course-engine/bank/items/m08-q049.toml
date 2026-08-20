@@ -14,7 +14,7 @@ choices = [
   "Grounds the cabinet automatically",
 ]
 correct = "A"
-explanation = "Blanking stops air bypass around IT equipment."
+explanation = "A blanking panel closes the path that lets hot exhaust curl back to the intakes through empty U space, so containment only performs as designed once the gaps are filled. Framing that mixing as beneficial is the inversion: recirculation raises inlet temperature rather than evening it out. Blanking is sheet metal or plastic in a rail, so it neither filters air nor bonds the cabinet."
 topic_ids = ["m08-types"]
 objective_ids = []
 bloom = "understand"

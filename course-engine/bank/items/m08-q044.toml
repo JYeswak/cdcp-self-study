@@ -13,7 +13,7 @@ choices = [
   "Bottom-up with U1 at the bottom (confirm and standardize site labels)",
 ]
 correct = "D"
-explanation = "Bottom-up is common; pick one convention and keep DCIM/labels consistent."
+explanation = "Bottom-up with U1 at the floor is common practice, but the point is that the site picks one convention and holds it across labels, DCIM and drawings. No numbering direction is mandated worldwide, so treating top-down as illegal is as wrong as leaving racks unlabelled -- the defect is inconsistency, not the direction chosen."
 topic_ids = ["m08-dimensions"]
 objective_ids = []
 bloom = "understand"

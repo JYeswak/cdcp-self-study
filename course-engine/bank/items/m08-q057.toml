@@ -13,7 +13,7 @@ choices = [
   "Whether the cabinet is 600 or 800 mm, regardless of electrical design",
 ]
 correct = "A"
-explanation = "Code and circuit ratings govern; match plug, whip, and breaker design."
+explanation = "Plug and whip selection is governed by code, receptacle ratings and continuous-load derating, so the electrical design constrains the mechanical choice rather than the reverse. Cabinet width is the plausible-sounding constraint because 600 mm and 800 mm do affect how many PDUs fit -- but neither width changes what a circuit is rated to carry."
 topic_ids = ["m08-power-strips", "m08-standards"]
 objective_ids = []
 bloom = "apply"

@@ -13,7 +13,7 @@ choices = [
   "Approved remote outlet power cycling",
 ]
 correct = "D"
-explanation = "Switched PDUs enable remote outlet control under change control—use carefully."
+explanation = "Remote outlet switching earns its place for approved power cycling when nobody is on site. The care is in the authorisation, not the capability -- an outlet that can be cycled remotely can also be cycled on the wrong feed, which is why it belongs under change control rather than in casual use."
 topic_ids = ["m08-power-strips"]
 objective_ids = []
 bloom = "apply"

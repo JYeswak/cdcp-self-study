@@ -14,7 +14,7 @@ choices = [
   "Audit trails and controlled cabinet access",
 ]
 correct = "D"
-explanation = "Electronic locks support accountability and policy enforcement."
+explanation = "Badge-integrated handles produce an audit trail: who opened which cabinet, when, and under what authorisation. The power argument is the confusable one -- the electronics draw a trivial load and change nothing about redundancy topology, so neither PUE nor 2N is affected by fitting them."
 topic_ids = ["m08-security"]
 objective_ids = []
 bloom = "understand"

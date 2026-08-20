@@ -16,7 +16,7 @@ choices = [
   "Automatic seismic certification"
 ]
 correct = "B"
-explanation = "Rack bonding is part of the protective/equipotential strategy—not optional décor."
+explanation = "Bonding cabinets into the facility grounding system removes floating metal, which serves both touch-safety and noise control. It is protective rather than decorative, and it is additive -- equipment grounding conductors inside cords stay exactly where they are, since bonding the enclosure does not protect the equipment inside it."
 topic_ids = ["m08-standards", "m08-types"]
 objective_ids = []
 bloom = "understand"

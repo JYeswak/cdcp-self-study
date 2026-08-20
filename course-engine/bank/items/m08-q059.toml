@@ -14,7 +14,7 @@ choices = [
   "Replacing row containment",
 ]
 correct = "B"
-explanation = "Wall-mount is for small edge/IDF deployments with real weight limits."
+explanation = "Wall-mount cabinets are bounded by U capacity, total weight, what the wall structure can carry, and the clearance to open the door and service the gear -- which is why they suit small edge and IDF deployments. Assuming a wall can carry a dense compute load is the failure mode, and the limit is structural rather than electrical."
 topic_ids = ["m08-types"]
 objective_ids = []
 bloom = "understand"

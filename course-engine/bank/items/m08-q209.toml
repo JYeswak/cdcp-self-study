@@ -14,7 +14,7 @@ choices = [
   "Perforation percentage is a security specification",
 ]
 correct = "A"
-explanation = "Door open area is part of the thermal path for air-cooled equipment."
+explanation = "Door open area is part of the thermal path, so perforation percentage and door design directly affect what a front-to-rear chassis can pull. The solid-door claim is the one worth naming: a solid door does not lower inlet temperature, it restricts intake and raises it. Perforation is specified for airflow, not as a security parameter, and choosing it on appearance is how a thermally undersized door gets fitted."
 topic_ids = ["m08-types", "m08-dimensions"]
 objective_ids = []
 bloom = "understand"

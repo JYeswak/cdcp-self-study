@@ -15,7 +15,7 @@ choices = [
   "Outlet or strip power visibility and remote control"
 ]
 correct = "D"
-explanation = "Rack PDUs add distribution, measurement, and management at the rack edge."
+explanation = "Intelligent PDUs add measurement and remote control at the rack edge, which is where per-cabinet load and per-outlet state actually become visible. They are a distribution and instrumentation layer: they do not create upstream capacity, and nothing about metering reduces the UPS or generator sizing the load still requires."
 topic_ids = ["m08-power-strips"]
 objective_ids = []
 bloom = "understand"

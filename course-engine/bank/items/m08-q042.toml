@@ -14,7 +14,7 @@ choices = [
   "One PDU phase",
 ]
 correct = "C"
-explanation = "1U = 1.75 in / 44.45 mm."
+explanation = "1U is 1.75 inches, or 44.45 mm, of vertical mounting space. The tempting slip is treating rack units as an electrical quantity: U measures height and nothing else, so a kW figure or a PDU phase count cannot be expressed in U no matter how the rack is loaded."
 topic_ids = ["m08-dimensions"]
 objective_ids = []
 bloom = "remember"

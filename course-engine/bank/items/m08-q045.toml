@@ -14,7 +14,7 @@ choices = [
   "IP rating forces 600 mm only",
 ]
 correct = "A"
-explanation = "800 mm helps cable volume and side management; 600 mm is denser footprint."
+explanation = "600 mm gives the denser footprint; 800 mm buys side channels for cable managers, dense copper and zero-U PDUs. Both take the same 19-inch equipment, which is why width is a cable-volume decision. Conflating it with mounting depth is the plausible error -- depth is set by chassis length plus bend radius and service clearance, and the two dimensions are chosen for different reasons."
 topic_ids = ["m08-dimensions"]
 objective_ids = []
 bloom = "understand"

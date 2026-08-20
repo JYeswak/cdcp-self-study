@@ -13,7 +13,7 @@ choices = [
   "U counts that ignore rail and door hardware",
 ]
 correct = "B"
-explanation = "42U/45–48U class is common; verify usable U on the BOM."
+explanation = "Full-height enclosures cluster around 42U with 45U to 48U variants, but usable U is what the BOM has to state -- rails, doors and accessory hardware consume height that the headline number does not. Quoting a U count that ignores that hardware is the near-miss, and it is exactly how a fit check passes on paper and fails on install day."
 topic_ids = ["m08-dimensions"]
 objective_ids = []
 bloom = "remember"

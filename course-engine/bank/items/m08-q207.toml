@@ -14,7 +14,7 @@ choices = [
   "Have no interaction with cooling"
 ]
 correct = "C"
-explanation = "Rack sealing is part of aisle containment and inlet temperature control."
+explanation = "Blanking panels and brush strips seal the leakage paths that would otherwise let supply air bypass the equipment or exhaust recirculate to the intakes, so they are part of the inlet temperature story rather than trim. Calling the effect aesthetic is the tempting reading because they are visible cosmetic-looking parts, and the whole reason they are fitted is the air they stop."
 topic_ids = ["m08-types"]
 objective_ids = []
 bloom = "apply"

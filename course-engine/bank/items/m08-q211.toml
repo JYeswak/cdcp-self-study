@@ -13,7 +13,7 @@ choices = [
   "Keep 600 mm and raise a frozen ASHRAE recommended °C pair so the air cabinet becomes liquid-ready",
 ]
 correct = "C"
-explanation = "Analyze the frame, not the coolant name. A 600 mm air BOM cannot dress hoses, land an RDHx door, or carry 40–100 kW. CDU landing is reserved now. Blanking stays for air-cooled network. Immersion is not a 19″ frame."
+explanation = "Judge the frame, not the coolant name. A 600 mm air cabinet with no drip path cannot dress hoses, land an RDHx door, or carry 40 to 100 kW, so the SKU has to change now rather than later and the CDU landing has to be reserved rather than deferred. Blanking stays because air-cooled network gear remains in the rack. The tempting approval leans on a real fact -- cold-plate compute does move heat to liquid -- and then draws the wrong conclusion about the enclosure. Redirecting to a plant-family choice dodges the frame question entirely, and quoting an ASHRAE temperature pair does not make an air cabinet mechanically liquid-ready."
 topic_ids = ["m08-types", "m08-dimensions"]
 objective_ids = ["obj-m08-liquid-ready-cabinet"]
 bloom = "analyze"

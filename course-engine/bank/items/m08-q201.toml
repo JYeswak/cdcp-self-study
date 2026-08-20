@@ -14,7 +14,7 @@ choices = [
   "Indicate fire rating of the room"
 ]
 correct = "A"
-explanation = "U-space planning is how operators inventory vertical capacity."
+explanation = "U is a standardised vertical increment, which is what lets operators inventory and plan cabinet capacity consistently across vendors. It carries no electrical or fire meaning: conductor sizing comes from AWG and ampacity, load from the nameplate, and fire rating from the room construction."
 topic_ids = ["m08-dimensions"]
 objective_ids = []
 bloom = "remember"

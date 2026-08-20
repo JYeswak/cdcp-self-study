@@ -14,7 +14,7 @@ choices = [
   "Shared upstream failure domain"
 ]
 correct = "D"
-explanation = "Rack dual-cording must map to true upstream diversity or it is cosmetic."
+explanation = "Dual cords only buy availability if the two paths stay independent all the way upstream. Landing them on diverse PDUs is the inversion worth catching: that is precisely the design intent, so it is what dual-cording is FOR rather than what defeats it. The value collapses when both paths converge on one breaker, one UPS or one maintenance window."
 topic_ids = ["m08-power-strips"]
 objective_ids = []
 bloom = "analyze"
