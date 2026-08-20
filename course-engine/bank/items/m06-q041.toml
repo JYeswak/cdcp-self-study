@@ -8,7 +8,7 @@ kind = "single-select"
 module = 6
 stem = "Grey space in a data centre power context primarily refers to:"
 choices = [
-  "UPS rooms, switchgear, and generators",
+  "Mechanical and electrical plant areas (UPS rooms, switchgear, generators)",
   "IT white space with server racks only",
   "Public lobby and visitor parking",
   "Only the raised-floor plenum under cold aisles",
