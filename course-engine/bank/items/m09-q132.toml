@@ -7,10 +7,10 @@ kind = "single-select"
 module = 9
 stem = "Evaporative cooling towers improve heat rejection efficiency primarily by:"
 choices = [
-  "Eliminating all water use forever, regardless of tower design",
   "Using evaporation so leaving water can approach wet-bulb-limited conditions",
+  "Using evaporation to eliminate makeup-water and treatment planning",
   "Replacing chillers with fiber switches, not heat-rejection equipment",
-  "Heating the condenser water intentionally always"
+  "Heating the condenser water as a deliberate efficiency strategy"
 ]
 correct = "A"
 explanation = "Cooling towers exploit evaporation toward wet-bulb conditions, with water use and treatment costs; they do not eliminate water, replace chillers with fibre, or deliberately heat condenser water."
