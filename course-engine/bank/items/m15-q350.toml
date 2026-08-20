@@ -16,7 +16,7 @@ choices = [
   "Rely on the previous tenant's confidentiality label"
 ]
 correct = "B"
-explanation = "NIST SP 800-88 Rev. 2 §4.3.1 places sanitization decisions before the disposal phase; §4.3.6 says to record the decision and provide the process and resources; §§4.5.1-4.5.2 require verification and validation; and §4.6 plus Appendix C support records tied to the asset and its destination. A device that powers on is not evidence that its prior data was sanitized."
+explanation = "Reuse requires recorded sanitization and destination because a device that boots is not evidence that prior data was removed; a recycler invoice or confidentiality label alone cannot prove sanitization. NIST SP 800-88 Rev. 2 requires the decision, verification, validation, and records."
 topic_ids = ["m15-documentation", "m15-ops-security"]
 objective_ids = []
 bloom = "evaluate"

@@ -16,7 +16,7 @@ choices = [
   "Replace the inspection with a monthly availability report"
 ]
 correct = "A"
-explanation = "29 CFR 1910.147(c)(6)(i) requires a periodic inspection at least annually, performed by an authorized employee other than the people using the procedure, with deviations corrected. Paragraph (c)(6)(ii) requires the employer's record to identify the machine or equipment, inspection date, employees included, and inspector. Paragraph (c)(7)(iv) separately requires current training records; a roster does not replace the inspection."
+explanation = "The LOTO procedure needs an annual independent inspection, correction of deviations, and a record of the equipment, date, employees, and inspector; a vendor approval, incident-triggered review, or availability report does not replace that inspection. 29 CFR 1910.147(c)(6) sets the control."
 topic_ids = ["m15-ops-security", "m15-documentation"]
 objective_ids = []
 bloom = "apply"

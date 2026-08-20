@@ -13,7 +13,7 @@ choices = [
   "Fuel"
 ]
 correct = "C"
-explanation = "MTTR is maintainability/ops speed; spares and MOPs often dominate more than the part itself."
+explanation = "MTTR measures recovery time after failure, while failure frequency is MTBF; marketing metrics and fuel do not define maintainability."
 topic_ids = ["m15-mtbf-mttr"]
 objective_ids = []
 bloom = "remember"

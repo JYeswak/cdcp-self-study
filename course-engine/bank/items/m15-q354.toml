@@ -17,7 +17,7 @@ choices = [
   "Count dashboard points and call the largest count the improvement"
 ]
 correct = "B"
-explanation = "The UK Department for Education's Service Management standard, Version 1, includes Continual Improvement as a practice and identifies opportunities for continuous improvements through trend analysis. A report that never informs an improvement decision has not closed that loop."
+explanation = "Trend analysis should identify improvement opportunities; freezing the process, taking one satisfaction snapshot, or selecting the largest dashboard count does not close the continual-improvement loop. The UK Department for Education Service Management standard supports this practice."
 topic_ids = ["m15-maintenance-sla", "m15-monitoring"]
 objective_ids = []
 bloom = "apply"

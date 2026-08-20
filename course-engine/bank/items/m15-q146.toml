@@ -14,7 +14,7 @@ choices = [
   "Only the vendor logo color"
 ]
 correct = "B"
-explanation = "SLAs make vendor support testable; vague contracts fail during incidents."
+explanation = "A maintenance SLA makes response, restore, coverage, escalation, and spares measurable; vague best-effort language cannot be tested during an incident."
 topic_ids = ["m15-maintenance-sla"]
 objective_ids = []
 bloom = "apply"

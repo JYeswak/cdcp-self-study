@@ -15,7 +15,7 @@ choices = [
   "Postpone commissioning until the maintenance contract expires"
 ]
 correct = "C"
-explanation = "DOE FEMP's 2006 Commissioning for Federal Facilities guide describes commissioning as verification and documentation of interactive facility performance, with O&M staff orientation and training; it follows the project from planning and design through acceptance and post-occupancy. A contractor startup checklist can be one input, but it does not prove integrated performance or supply the missing hand-off record."
+explanation = "Commissioning must verify interactive performance and provide O&M training and records; a contractor startup checklist does not prove subsystem interaction, while postponing commissioning loses the hand-off control. DOE FEMP's 2006 guide supports this boundary."
 topic_ids = ["m15-documentation", "m15-maintenance-sla", "m15-ops-security"]
 objective_ids = []
 bloom = "evaluate"

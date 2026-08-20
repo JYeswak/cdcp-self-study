@@ -18,7 +18,7 @@ choices = [
   "A tag on the device naming the off-going technician and a contact number, since a tag documents isolation when no one is on site",
 ]
 correct = "A"
-explanation = "1910.147(f)(4) requires specific procedures for shift or personnel changes to ensure continuity of lockout or tagout protection, including orderly transfer of the devices between off-going and oncoming employees. Option B is the trap: removing the lock first opens an interval in which an isolated device is held by nobody, which is precisely the gap the paragraph exists to close. A signature (C) and a tag (D) are records, not devices holding an isolation. Two further requirements bear on this job: 1910.147(f)(2) requires the on-site employer and the outside (vendor) employer to inform each other of their respective energy-control procedures, so a contractor crew does not import unread practice; and 1910.147(d)(5)(ii) requires verification of isolation to continue where stored energy can reaccumulate to a hazardous level, which a pump loop with a head of water can."
+explanation = "29 CFR 1910.147(f)(4) requires an orderly transfer of lockout devices at shift change so protection is continuous; removing the outgoing lock before the incoming lock is applied leaves the isolation unheld, while a signature or tag documents the handover but does not hold the isolation. The on-site and vendor employers must also share their energy-control procedures under (f)(2), and stored energy must remain verified under (d)(5)(ii)."
 topic_ids = ["m15-ops-security"]
 objective_ids = []
 bloom = "apply"

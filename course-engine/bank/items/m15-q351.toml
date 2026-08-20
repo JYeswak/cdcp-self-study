@@ -16,7 +16,7 @@ choices = [
   "Wait for the first maintenance failure to appoint a reviewer"
 ]
 correct = "C"
-explanation = "GSA PBS P100 2024 §1.8.4 defines Total Building Commissioning as verification and documentation of interactive facility-system performance from design through at least one year after construction, including preparation of operations personnel. It requires an independent commissioning provider and says the provider cannot be solely the construction contractor. Sections 1.8.5 and A.1.9.1 connect maintainability and operator hand-off to the same management boundary."
+explanation = "Total Building Commissioning uses an independent provider to verify interactive performance and prepare operators; the construction contractor alone lacks the required independence, and optional operator preparation or waiting for failure is not commissioning. GSA PBS P100 2024 §1.8.4 supports this arrangement."
 topic_ids = ["m15-maintenance-sla", "m15-documentation", "m15-ops-security"]
 objective_ids = []
 bloom = "evaluate"

@@ -13,7 +13,7 @@ choices = [
   "Monitoring should be off during all maintenance"
 ]
 correct = "C"
-explanation = "Abort criteria and rollback are part of safe maintenance design."
+explanation = "Abort criteria and rollback restore a known-good state when maintenance deviates; rollback remains useful, and disabling monitoring removes the evidence needed to decide."
 topic_ids = ["m15-maintenance-sla", "m15-documentation"]
 objective_ids = []
 bloom = "analyze"

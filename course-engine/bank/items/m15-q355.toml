@@ -17,7 +17,7 @@ choices = [
   "Move every emergency-plan detail into a vendor SLA and close the gap"
 ]
 correct = "B"
-explanation = "29 CFR 1910.38(b) requires a written emergency action plan kept in the workplace, and (c)(1)-(6) lists reporting, evacuation, critical-operations, accountability, rescue/medical, and contact elements. Paragraph (f) requires review when the plan is developed, responsibilities change, or the plan changes. An alarm test or vendor SLA does not replace those plan elements."
+explanation = "An emergency plan needs evacuation, critical-operations, accountability, contact, and review steps; passing an alarm test or moving detail into a vendor SLA does not supply those response elements. 29 CFR 1910.38(b), (c), and (f) support the finding."
 topic_ids = ["m15-eop", "m15-ops-security"]
 objective_ids = []
 bloom = "evaluate"

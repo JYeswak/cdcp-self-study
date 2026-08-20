@@ -13,7 +13,7 @@ choices = [
   "Long-lead critical components prevent site stranding"
 ]
 correct = "D"
-explanation = "Spares are insurance matched to failure impact and lead time."
+explanation = "Critical long-lead spares prevent site stranding; zero inventory or random incompatible parts lengthen MTTR rather than improving readiness."
 topic_ids = ["m15-mtbf-mttr", "m15-maintenance-sla"]
 objective_ids = []
 bloom = "apply"

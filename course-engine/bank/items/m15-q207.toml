@@ -14,7 +14,7 @@ choices = [
   "Many outages are self-inflicted during poorly planned work"
 ]
 correct = "D"
-explanation = "Facility changes are high-energy events; MOPs and records reduce self-harm."
+explanation = "MOPs and change records reduce self-inflicted outages because facility work affects availability; verbal hallway agreement is not a controlled dual-cord cutover."
 topic_ids = ["m15-documentation", "m15-ops-security"]
 objective_ids = []
 bloom = "understand"

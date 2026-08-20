@@ -13,7 +13,7 @@ choices = [
   "Replacing link tests entirely"
 ]
 correct = "C"
-explanation = "Consistent labels cut outage risk during MAC work and fault isolation."
+explanation = "Consistent labels make MAC work and fault isolation traceable; they improve physical identification but do not replace link testing."
 topic_ids = ["m15-labelling"]
 objective_ids = []
 bloom = "understand"

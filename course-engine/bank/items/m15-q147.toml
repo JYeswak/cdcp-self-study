@@ -13,7 +13,7 @@ choices = [
   "On-site or rapidly available critical spares shorten waiting time after failure"
 ]
 correct = "D"
-explanation = "Logistics delay often dominates MTTR more than swap labor."
+explanation = "Critical on-site or rapidly available spares shorten MTTR because logistics can dominate swap labor; high MTBF does not eliminate spares planning."
 topic_ids = ["m15-maintenance-sla", "m15-mtbf-mttr"]
 objective_ids = []
 bloom = "understand"

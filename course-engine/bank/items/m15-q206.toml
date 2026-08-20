@@ -14,7 +14,7 @@ choices = [
   "Procedures, spares, training, labels"
 ]
 correct = "D"
-explanation = "Maintainability is process and preparedness, not only capital equipment."
+explanation = "Procedures, spares, training, and labels reduce MTTR by making recovery repeatable; disabling monitoring or deleting runbooks removes the preparation that shortens repair."
 topic_ids = ["m15-mtbf-mttr", "m15-documentation", "m15-labelling"]
 objective_ids = []
 bloom = "analyze"

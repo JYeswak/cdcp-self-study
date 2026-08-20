@@ -15,7 +15,7 @@ choices = [
   "Move the badge to a shared visitor account so the audit trail stays short"
 ]
 correct = "B"
-explanation = "NIST SP 800-53 Rev. 5 PE-2 requires the organization to maintain the authorized-access list, issue credentials, review the list at an organization-defined frequency, and remove individuals when access is no longer required. PE-2(1) also supports role-based facility access. A contract, visitor account, or future review does not preserve least-privilege access after the business need ends."
+explanation = "Remove a vendor from the authorized-access list when the contract need ends; a signed contract is not a continuing badge authorization, and a shared visitor account or quarterly review leaves least privilege stale. NIST SP 800-53 Rev. 5 PE-2 supports the control."
 topic_ids = ["m15-ops-security"]
 objective_ids = ["obj-m15-security-matrix"]
 bloom = "apply"

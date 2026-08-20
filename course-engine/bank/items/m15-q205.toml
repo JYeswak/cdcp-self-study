@@ -14,7 +14,7 @@ choices = [
   "Scoped vendor access with identity checks and escorts"
 ]
 correct = "D"
-explanation = "Vendor access is a high-risk path; control it like production change."
+explanation = "Scoped vendor access with identity checks and escorts limits a high-risk path; shared badges, missing logs, or permanent full access defeat accountability and least privilege."
 topic_ids = ["m15-ops-security"]
 objective_ids = []
 bloom = "apply"

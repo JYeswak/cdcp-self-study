@@ -16,7 +16,7 @@ choices = [
   "Add removal approval and a post-repair control check"
 ]
 correct = "D"
-explanation = "NIST SP 800-53 Rev. 5 MA-2 requires maintenance records, approval and monitoring of maintenance, explicit approval before a component leaves the facility for off-site work, and verification that potentially affected controls still function afterward. A work order or replacement purchase record does not supply either missing control."
+explanation = "Off-site repair needs removal approval and a post-repair control check; a work order or replacement purchase record does not verify that the affected controls still function. NIST SP 800-53 Rev. 5 MA-2 requires both controls."
 topic_ids = ["m15-maintenance-sla", "m15-documentation"]
 objective_ids = []
 bloom = "analyze"

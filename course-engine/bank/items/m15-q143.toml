@@ -13,7 +13,7 @@ choices = [
   "Reliability metric for average operating time"
 ]
 correct = "D"
-explanation = "MTBF speaks to failure frequency/reliability; do not confuse with repair speed."
+explanation = "MTBF describes average operating time between failures, whereas repair duration is MTTR; an SLA credit or penalty is not a reliability metric."
 topic_ids = ["m15-mtbf-mttr"]
 objective_ids = []
 bloom = "remember"

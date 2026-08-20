@@ -14,7 +14,7 @@ choices = [
   "Wet mopping every PDU interior weekly with unknown chemicals"
 ]
 correct = "B"
-explanation = "Cleaning is controlled work near electronics—technique matters."
+explanation = "Cleaning must control dust without damaging equipment or creating electrical hazards; blowing debris into intakes or using unknown wet chemicals turns cleaning into the hazard."
 topic_ids = ["m15-cleaning", "m15-ops-security"]
 objective_ids = []
 bloom = "apply"

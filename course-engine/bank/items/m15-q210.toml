@@ -13,7 +13,7 @@ choices = [
   "Containment doors should be removed permanently for cleaning access"
 ]
 correct = "A"
-explanation = "Housekeeping is an operational event with thermal side effects."
+explanation = "Opening tiles and disturbing dust can alter airflow and contamination; cleaning does affect cooling, and permanently removing containment is not a safe access method."
 topic_ids = ["m15-cleaning"]
 objective_ids = []
 bloom = "understand"

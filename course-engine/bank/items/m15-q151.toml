@@ -14,7 +14,7 @@ choices = [
   "Monitoring replaces people entirely"
 ]
 correct = "A"
-explanation = "Human response paths are part of the availability design."
+explanation = "Named on-call ownership and escalation speed incident response; monitoring can detect a problem but cannot replace the accountable response path."
 topic_ids = ["m15-documentation", "m15-ops-security"]
 objective_ids = []
 bloom = "understand"

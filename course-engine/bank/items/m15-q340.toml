@@ -15,7 +15,7 @@ choices = [
   "Replace the matrix with one annual attendance total"
 ]
 correct = "B"
-explanation = "NIST SP 800-53 Rev. 5 AT-3 requires role-based training before assigned duties, when system changes require it, and at an organization-defined frequency; AT-3(c) incorporates lessons from incidents. AT-3(1) specifically includes environmental controls such as fire detection, temperature, HVAC, and power. A vendor notice is not the affected role's training record, and waiting for an incident reverses the control's timing."
+explanation = "Role-based training must be updated before the changed control-system duty begins; a vendor notice is not the affected role's training record, and waiting for an incident reverses the control's timing. NIST SP 800-53 Rev. 5 AT-3 and AT-3(1) cover changed duties and environmental controls."
 topic_ids = ["m15-ops-security", "m15-documentation"]
 objective_ids = ["obj-m15-training-program"]
 bloom = "apply"

@@ -18,7 +18,7 @@ choices = [
   "Add a service-level percentage and leave the turnover record unchanged"
 ]
 correct = "C"
-explanation = "NE O 422.1 Attachment 2 paragraph 2.l requires practices for thorough, accurate transfer of information and responsibilities at shift or operator relief. Appendix A 2.l.(1)-(3) covers formal turnover positions, equipment/facility status, duties and responsibilities, in-progress or planned activities, and reliefs. The order says operations includes computer centers; this item applies that framework rather than declaring a universal legal requirement."
+explanation = "A proper turnover transfers equipment status, duties, and active or planned work; a badge count, vendor invoice, or service percentage does not relieve the incoming operator. NE O 422.1 Attachment 2 paragraph 2.l supports this bounded conduct-of-operations model."
 topic_ids = ["m15-ops-security", "m15-documentation"]
 objective_ids = []
 bloom = "apply"

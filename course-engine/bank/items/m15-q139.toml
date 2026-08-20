@@ -13,7 +13,7 @@ choices = [
   "Failure is impossible if steps exist on paper"
 ]
 correct = "B"
-explanation = "MOPs are operational safety nets, not just task lists."
+explanation = "MOP verification detects incomplete success and backout restores a safe state; having two observers does not make verification optional."
 topic_ids = ["m15-documentation"]
 objective_ids = []
 bloom = "understand"

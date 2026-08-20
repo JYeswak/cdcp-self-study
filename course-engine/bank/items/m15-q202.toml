@@ -14,7 +14,7 @@ choices = [
   "MTBF promises zero failures in that period for every asset"
 ]
 correct = "B"
-explanation = "MTBF/MTTR guide design and process; they are not talismans against failure."
+explanation = "MTBF describes reliability and MTTR maintainability, together guiding design and process; spares and procedures still affect MTTR, and MTBF never promises zero failures."
 topic_ids = ["m15-mtbf-mttr"]
 objective_ids = []
 bloom = "understand"

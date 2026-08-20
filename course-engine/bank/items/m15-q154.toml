@@ -16,7 +16,7 @@ choices = [
   "Replaces the need for MOPs on future similar work"
 ]
 correct = "C"
-explanation = "Learning loops turn incidents into durable ops improvements. Record contributing factors, plural — never a single root cause."
+explanation = "Timelines, contributing factors, and corrective actions turn incidents into prevention; blaming one person alone does not create system learning or replace future MOPs."
 topic_ids = ["m15-documentation"]
 objective_ids = []
 bloom = "understand"

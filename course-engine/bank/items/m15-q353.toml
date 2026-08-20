@@ -19,7 +19,7 @@ choices = [
   "Define cross-team OLA duties and measurable SLA outcomes"
 ]
 correct = "D"
-explanation = "NIST SP 800-53 Rev. 5, Release 5.2.0, SA-9 requires oversight and roles for external services and ongoing compliance monitoring; its discussion says service-level agreements define measurable outcomes, remedies, and response requirements. The UK Government Digital and Data Profession Capability Framework says an IT service manager defines SLAs and OLAs across relevant business functions. No uptime percentage is invented here."
+explanation = "An external-service arrangement needs defined oversight roles and measurable SLA outcomes; a phone number, asset register, or invented uptime percentage does not establish cross-team OLA duties or provider accountability. NIST SP 800-53 SA-9 supports the oversight boundary."
 topic_ids = ["m15-maintenance-sla"]
 objective_ids = []
 bloom = "evaluate"
