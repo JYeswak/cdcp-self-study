@@ -8,9 +8,9 @@ module = 9
 stem = "Recirculation in a hot and cold aisle layout means:"
 choices = [
   "Cold supply short-circuits back to CRAH without cooling IT",
-  "Only liquid loops recirculate",
+  "Liquid loops",
   "Air never moves",
-  "Hot exhaust re-enters IT intakes, elevating inlet temperatures"
+  "Hot exhaust re-enters intakes"
 ]
 correct = "D"
 explanation = "Recirculation is hot air returning to intakes instead of the cooling return path."

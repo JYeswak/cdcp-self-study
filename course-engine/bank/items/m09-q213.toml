@@ -7,8 +7,8 @@ kind = "single-select"
 module = 9
 stem = "Measuring underfloor static pressure helps operators:"
 choices = [
-  "Understand whether the plenum is delivering adequate, balanced supply airflow",
-  "Measure only copper DC resistance",
+  "Measure balanced plenum supply airflow",
+  "Measure only copper DC resistance and nothing else",
   "Set generator fuel quality",
   "Replace inlet temperature sensors entirely"
 ]

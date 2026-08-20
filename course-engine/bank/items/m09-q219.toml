@@ -6,10 +6,10 @@ kind = "single-select"
 module = 9
 stem = "If supply air is colder than local dew point on cold surfaces, a practical risk is:"
 choices = [
-  "Automatic sterilization of all media",
-  "Higher UPS kilowatts only",
-  "Condensation on equipment, pipes, or structures",
-  "Faster fiber optics"
+  "Automatic sterilization of all media and equipment surfaces",
+  "Higher UPS kilowatts only during the cold event",
+  "Condensation on equipment and structures",
+  "Faster fiber optics and lower optical latency"
 ]
 correct = "C"
 explanation = "Surfaces below dew point collect moisture—bad for electronics and building fabric."

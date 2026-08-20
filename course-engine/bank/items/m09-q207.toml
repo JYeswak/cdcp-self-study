@@ -7,10 +7,10 @@ kind = "single-select"
 module = 9
 stem = "Cold-aisle containment primarily aims to:"
 choices = [
-  "Dump all cold air into the plenum return only",
+  "Dump all cold air into the plenum return only, bypassing equipment",
   "Heat the cold aisle deliberately",
-  "Keep supply air focused on IT intakes and reduce mixing with room air",
-  "Disable humidity control"
+  "Focus supply on IT intakes and reduce mixing",
+  "Disable humidity control and air balancing entirely"
 ]
 correct = "C"
 explanation = "CAC protects the cold stream so servers receive intended supply air."

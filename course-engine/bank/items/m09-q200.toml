@@ -7,7 +7,7 @@ choices = [
   "Higher temperature always voids all hardware warranties without study",
   "Cooling plant capacity becomes infinite",
   "Containment is no longer needed",
-  "Higher supply and return temperatures can improve chiller or economizer efficiency and free-cooling hours"
+  "Higher temperatures can improve plant efficiency"
 ]
 correct = "D"
 explanation = "Warmer operation within guidance can expand economizer opportunity and plant efficiency."

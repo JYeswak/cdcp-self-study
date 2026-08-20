@@ -4,8 +4,8 @@ kind = "single-select"
 module = 9
 stem = "ASHRAE recommended versus allowable envelopes are best taught as:"
 choices = [
-  "Recommended targets for long-term operation; allowable is a wider band for short-term or exceptional conditions—not a free permanent setpoint",
-  "Allowable is always colder than recommended",
+  "Recommended targets; allowable is wider and not permanent",
+  "Allowable is always colder than recommended and safer under every hardware load",
   "Recommended and allowable are identical forever",
   "Only humidity has envelopes, never temperature"
 ]

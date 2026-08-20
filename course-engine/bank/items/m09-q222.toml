@@ -7,10 +7,10 @@ kind = "single-select"
 module = 9
 stem = "Non-raised-floor halls typically rely more on:"
 choices = [
-  "Only underfloor perforated tiles",
-  "Overhead or close-coupled supply and return strategies rather than a floor plenum",
-  "No airflow management at all",
-  "Generators for cooling"
+  "Only underfloor perforated tiles, regardless of room construction",
+  "Overhead or close-coupled air strategies",
+  "No airflow management at all, even for high-density racks",
+  "Generators for cooling and air delivery"
 ]
 correct = "B"
 explanation = "Slab designs move air management above or beside the racks, not underfloor."

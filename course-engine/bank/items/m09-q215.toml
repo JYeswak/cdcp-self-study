@@ -7,10 +7,10 @@ kind = "single-select"
 module = 9
 stem = "A chilled-water CRAH depends on upstream plant primarily to:"
 choices = [
-  "Generate IT power",
-  "Terminate fiber only",
-  "Provide chilled water and ultimately reject heat outdoors via chillers, towers, or dry coolers",
-  "Store seasonal network capacity"
+  "Generate IT power and facility electrical capacity",
+  "Terminate fiber only and perform no cooling function",
+  "Provide chilled water and reject heat outdoors",
+  "Store seasonal network capacity for later operations"
 ]
 correct = "C"
 explanation = "CRAH coils need a plant that makes and rejects chilled-water heat."

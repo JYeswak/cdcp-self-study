@@ -7,10 +7,10 @@ kind = "single-select"
 module = 9
 stem = "The primary role of rear-door heat exchangers is to:"
 choices = [
-  "Remove heat at the rack exhaust before it enters the room air stream",
-  "Generate three-phase power",
-  "Replace fire detection",
-  "Act as PDUs"
+  "Remove rack exhaust heat before room air",
+  "Generate three-phase power and distribute it to the rack",
+  "Replace fire detection and suppression coordination",
+  "Act as PDUs and provide outlet-level power"
 ]
 correct = "A"
 explanation = "Rear-door HX captures exhaust heat at the rack boundary."

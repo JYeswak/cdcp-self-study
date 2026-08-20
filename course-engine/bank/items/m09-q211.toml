@@ -7,9 +7,9 @@ kind = "single-select"
 module = 9
 stem = "Excessive underfloor cabling degrades cooling mainly by:"
 choices = [
-  "Improving delta-T always",
-  "Cooling transformers electrically",
-  "Obstructing the supply plenum and creating uneven airflow and static pressure",
+  "Improving delta-T always, regardless of airflow resistance",
+  "Cooling transformers electrically through floor cabling",
+  "Obstruct supply plenum and uneven airflow",
   "Raising UPS autonomy"
 ]
 correct = "C"

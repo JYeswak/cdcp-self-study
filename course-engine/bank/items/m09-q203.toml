@@ -9,8 +9,8 @@ stem = "Server inlet temperature is preferred over return-air temperature as a p
 choices = [
   "Return air never correlates with anything",
   "Inlet sensors only measure humidity",
-  "IT equipment cares about the air entering its intakes, not only bulk room return",
-  "Return temperature equals generator load"
+  "IT health follows air entering intakes",
+  "Generator load"
 ]
 correct = "C"
 explanation = "Equipment thermal limits are driven by inlet conditions at the hardware."

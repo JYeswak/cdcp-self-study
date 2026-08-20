@@ -8,9 +8,9 @@ module = 9
 stem = "Seasonal Thermal Energy Storage (STER) concepts in cooling context generally involve:"
 choices = [
   "Storing only network packets for later routing",
-  "Replacing fire detection with ice only",
-  "Eliminating all pumps forever",
-  "Storing thermal energy across seasons to shift cooling-related energy use"
+  "Ice only",
+  "Eliminate pumps",
+  "Store seasonal thermal energy"
 ]
 correct = "D"
 explanation = "STER stores cold or heat seasonally (for example winter cold) to reduce peak mechanical cooling later—specialized plant strategy."

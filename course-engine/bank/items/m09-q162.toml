@@ -7,10 +7,10 @@ kind = "single-select"
 module = 9
 stem = "Even with liquid cooling at the rack, the plant still must:"
 choices = [
-  "Store heat forever with no rejection path",
+  "Store heat forever with no rejection path or sink",
   "Only humidify the liquid",
-  "Reject the removed heat to an ultimate sink (towers, dry coolers, and similar)",
-  "Power the network core exclusively from condensate"
+  "Reject removed heat to an ultimate sink",
+  "Power the network core"
 ]
 correct = "C"
 explanation = "Liquid moves heat more effectively but does not delete it—outdoor rejection and plant design remain essential."

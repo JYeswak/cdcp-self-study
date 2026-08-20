@@ -7,10 +7,10 @@ kind = "single-select"
 module = 9
 stem = "In-row cooling is frequently selected when:"
 choices = [
-  "Only office areas need cooling",
-  "There is no IT heat",
-  "Generators require humidification",
-  "Heat density is high and cooling needs to be close-coupled to the aisle or rack row"
+  "Only office areas need cooling, never high-density IT",
+  "There is no IT heat and therefore no cooling load",
+  "Generators require humidification and close-coupled cooling",
+  "Close-coupled cooling for high heat density"
 ]
 correct = "D"
 explanation = "Close-coupled in-row units target dense rows more directly than distant perimeter units."

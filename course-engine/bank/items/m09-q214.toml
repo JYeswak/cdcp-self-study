@@ -7,10 +7,10 @@ kind = "single-select"
 module = 9
 stem = "CRAC versus CRAH at a conceptual level:"
 choices = [
-  "CRAH always means immersion tanks",
-  "CRAC typically has on-board refrigeration; CRAH typically uses facility chilled water with fans and coils",
-  "CRAC never cools air",
-  "They differ only in paint color"
+  "CRAH always means immersion tanks and liquid loops",
+  "CRAC refrigeration versus CRAH chilled water",
+  "CRAC never cools air in any operating mode or design",
+  "They differ only in paint color and equipment branding"
 ]
 correct = "B"
 explanation = "The crisp distinction is DX on board versus chilled-water air handlers."

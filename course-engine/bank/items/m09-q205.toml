@@ -7,7 +7,7 @@ kind = "single-select"
 module = 9
 stem = "Bypass airflow typically means:"
 choices = [
-  "Cold supply returns to the cooling unit without doing useful work on IT heat",
+  "Cold supply returns without serving IT",
   "Hot exhaust always enters every inlet",
   "Only underfloor cables bypass grounding",
   "Liquid CDUs are offline"

@@ -7,10 +7,10 @@ kind = "single-select"
 module = 9
 stem = "Blanking panels support cooling mainly by:"
 choices = [
-  "Blocking front-to-rear airflow shortcuts inside the rack that bypass IT intakes",
+  "Block rack airflow shortcuts",
   "Increasing copper attenuation",
   "Storing chilled water",
-  "Acting as fire dampers only"
+  "Acting as fire dampers only, with no airflow purpose"
 ]
 correct = "A"
 explanation = "Open U spaces let cold air skip equipment and mix inefficiently."

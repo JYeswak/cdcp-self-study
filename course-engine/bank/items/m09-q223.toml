@@ -7,10 +7,10 @@ kind = "single-select"
 module = 9
 stem = "A reason high-density rooms move beyond pure perimeter raised-floor cooling is:"
 choices = [
-  "Perimeter units create infinite static pressure always",
-  "Raised floors cannot support any load",
-  "Air delivery limits and long airflow paths struggle to remove concentrated rack heat",
-  "Liquid cooling is forbidden"
+  "Perimeter units create infinite static pressure always, regardless of airflow",
+  "Raised floors cannot support any load or any equipment weight",
+  "Air limits struggle with concentrated rack heat",
+  "Liquid cooling is forbidden even where air delivery is limited"
 ]
 correct = "C"
 explanation = "Extreme density outruns long-path perimeter air delivery."

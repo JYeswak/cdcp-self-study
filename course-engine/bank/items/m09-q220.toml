@@ -10,10 +10,10 @@ kind = "single-select"
 module = 9
 stem = "Dew point is often preferred over relative humidity alone because:"
 choices = [
-  "Relative humidity never changes",
-  "Dew point only applies outdoors",
-  "Dew point measures amperage",
-  "It better represents absolute moisture content independent of local temperature swings"
+  "Relative humidity never changes with temperature or pressure",
+  "Dew point only applies outdoors and never in data halls",
+  "Dew point measures amperage and electrical load",
+  "Dew point reflects absolute moisture"
 ]
 correct = "D"
 explanation = "RH moves with temperature; dew point tracks moisture content more cleanly."

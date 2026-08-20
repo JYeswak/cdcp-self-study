@@ -7,10 +7,10 @@ kind = "single-select"
 module = 9
 stem = "Hot-aisle containment primarily aims to:"
 choices = [
-  "Flood cold aisles with hot air",
-  "Capture and isolate hot exhaust so return temperatures rise cleanly and cold aisles stay cooler",
+  "Flood cold aisles with hot air and recirculation",
+  "Capture hot exhaust and keep cold aisles cooler",
   "Replace all CRAHs with open windows",
-  "Eliminate blanking panels as a concept"
+  "Eliminate blanking panels as a concept and seal every opening"
 ]
 correct = "B"
 explanation = "HAC encloses the hot path to strengthen separation of streams."

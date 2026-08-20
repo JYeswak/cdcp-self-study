@@ -10,7 +10,7 @@ choices = [
   "Automatic environmental compliance",
   "Higher free cooling without any downside",
   "Network latency reduction",
-  "Leakage that reintroduces mixing and undermines separation benefits"
+  "Leakage reintroduces mixing"
 ]
 correct = "D"
 explanation = "Containment performance depends on sealing the intended airflow boundaries."
