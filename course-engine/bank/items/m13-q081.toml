@@ -15,7 +15,7 @@ choices = [
   "It can be protected by cameras alone without door or plant controls"
 ]
 correct = "A"
-explanation = "MEP sabotage or error is availability-critical; treat grey space as highly sensitive."
+explanation = "Grey-space plant is highly sensitive because sabotage or operator error can take down IT; it is not storage, public space, or protected by cameras alone."
 topic_ids = ["m13-security-components", "m13-safety-components"]
 objective_ids = []
 bloom = "understand"

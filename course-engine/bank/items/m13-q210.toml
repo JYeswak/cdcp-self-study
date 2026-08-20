@@ -16,7 +16,7 @@ choices = [
   "Eliminating CCTV needs when the cage door has a badge reader and the tenant provides its own camera"
 ]
 correct = "B"
-explanation = "Colo security is multi-tenant compartmentalization on top of site controls."
+explanation = "Tenant cages provide controlled separation inside a shared building; they do not replace perimeter controls, justify shared keys, or eliminate CCTV."
 topic_ids = ["m13-security-components"]
 objective_ids = []
 bloom = "understand"

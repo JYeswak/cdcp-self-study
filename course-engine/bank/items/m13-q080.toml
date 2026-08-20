@@ -15,7 +15,7 @@ choices = [
   "Increase restriction through successive checkpoints (public → controlled → restricted → highly restricted)"
 ]
 correct = "D"
-explanation = "Least privilege by space uses staged zones rather than single-door deep access."
+explanation = "Progressive zoning increases restriction through successive checkpoints; a shared key, skipped grey-space checkpoint, or one uncontrolled door defeats least privilege."
 topic_ids = ["m13-security-components"]
 objective_ids = []
 bloom = "understand"

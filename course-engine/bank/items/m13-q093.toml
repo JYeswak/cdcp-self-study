@@ -16,7 +16,7 @@ choices = [
   "Printed on a sticky note at reception, with no revocation control"
 ]
 correct = "A"
-explanation = "Ghost badges of leavers are a classic process failure; HR-ACS integration matters."
+explanation = "Joiner-mover-leaver process should revoke a leaver promptly; leaving access active, transferring it without logging, or using a paper reminder leaves an audit gap."
 topic_ids = ["m13-security-components"]
 objective_ids = []
 bloom = "apply"

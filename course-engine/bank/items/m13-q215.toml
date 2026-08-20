@@ -16,7 +16,7 @@ choices = [
   "Reviews matter for software administration but not doors when the access team owns physical badges"
 ]
 correct = "C"
-explanation = "Joiner-mover-leaver hygiene applies to physical credentials too."
+explanation = "Periodic reviews catch residual access from role changes and terminations; physical credentials stale just as software permissions do, and contractors do leave before work orders close."
 topic_ids = ["m13-security-components"]
 objective_ids = []
 bloom = "apply"

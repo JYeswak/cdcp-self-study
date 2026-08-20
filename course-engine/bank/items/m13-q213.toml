@@ -16,7 +16,7 @@ choices = [
   "Utility power quality issues"
 ]
 correct = "A"
-explanation = "Escorts bind guest presence to a responsible host and limit unsupervised risk."
+explanation = "Escorts reduce unsupervised access, accidental contact, and incomplete guest audit; they do not replace badges or affect fire detection and power quality."
 topic_ids = ["m13-security-components", "m13-safety-components"]
 objective_ids = []
 bloom = "apply"

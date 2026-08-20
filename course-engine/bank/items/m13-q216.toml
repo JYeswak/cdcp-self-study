@@ -16,7 +16,7 @@ choices = [
   "Authorizing time-bounded access with supervision and return of credentials rather than permanent over-privilege"
 ]
 correct = "D"
-explanation = "Least privilege and time-bound access keep maintainability without open-door culture."
+explanation = "Time-bounded, supervised access and credential return preserve maintenance without permanent over-privilege; permanent full access, no maintenance, and unlogged unlocked hours are not balanced controls."
 topic_ids = ["m13-security-components", "m13-safety-components"]
 objective_ids = []
 bloom = "analyze"

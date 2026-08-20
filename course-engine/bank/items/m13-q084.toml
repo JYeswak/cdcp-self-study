@@ -16,7 +16,7 @@ choices = [
   "Reduce badge sharing and enforce enter/exit sequencing"
 ]
 correct = "D"
-explanation = "Hard/soft anti-passback limits re-entry without recorded exit, fighting shared badges and some tailgate patterns."
+explanation = "Anti-passback reduces badge sharing by enforcing recorded entry and exit sequence; it does not cool aisles, replace extinguishers, or increase UPS runtime."
 topic_ids = ["m13-security-components"]
 objective_ids = []
 bloom = "understand"

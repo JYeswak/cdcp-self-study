@@ -16,7 +16,7 @@ choices = [
   "Non-repudiation and anti-passback audit value"
 ]
 correct = "D"
-explanation = "One human ↔ one credential is required for meaningful access accounting."
+explanation = "One person tied to one credential preserves non-repudiation and anti-passback audit; shared badges do not affect cooling, fibre polish, or lighting."
 topic_ids = ["m13-security-components"]
 objective_ids = []
 bloom = "understand"

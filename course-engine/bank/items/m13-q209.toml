@@ -16,7 +16,7 @@ choices = [
   "Never unlocks under any life-safety condition"
 ]
 correct = "A"
-explanation = "The current eCFR requires exit routes to remain free and unobstructed and emergency safeguards to remain operable. The item therefore tests the life-safety boundary on access control; it does not prescribe a particular lock or local code exception."
+explanation = "Security hardware must preserve code-compliant free egress while controlling ingress; trapping occupants, requiring two badges, or never unlocking violates the life-safety boundary."
 topic_ids = ["m13-safety-components", "m13-security-components"]
 objective_ids = []
 bloom = "analyze"

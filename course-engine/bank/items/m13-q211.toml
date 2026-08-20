@@ -16,7 +16,7 @@ choices = [
   "Disabling alarms to reduce noise while a supervisor assumes the incident has another cause"
 ]
 correct = "C"
-explanation = "Human security layers need procedure and documentation to be real controls."
+explanation = "Guard and remote-monitoring layers need documented escalation, patrol verification, and incident reporting; informal chats, sleeping through alarms, and disabling alarms are not controls."
 topic_ids = ["m13-security-components"]
 objective_ids = []
 bloom = "apply"

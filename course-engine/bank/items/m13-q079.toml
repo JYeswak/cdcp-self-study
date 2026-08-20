@@ -16,7 +16,7 @@ choices = [
   "Cameras only, with no process"
 ]
 correct = "C"
-explanation = "If only a person mantrap exists, ops will prop doors for gear—design must include material flow."
+explanation = "Material moves need a separate path or airlock so doors are not propped for equipment; shared badges and cameras alone do not preserve the interlock."
 topic_ids = ["m13-security-components", "m13-safety-components"]
 objective_ids = []
 bloom = "apply"

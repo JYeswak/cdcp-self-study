@@ -16,7 +16,7 @@ choices = [
   "Increase mantrap throughput"
 ]
 correct = "B"
-explanation = "OSHA defines lockout/tagout as part of a hazardous-energy control program that isolates equipment and prevents unexpected energization or stored-energy release during covered servicing."
+explanation = "LOTO de-energizes, locks, and tags hazardous energy before work; badge sharing, mirrors, and mantrap throughput do not isolate stored energy."
 topic_ids = ["m13-safety-components"]
 objective_ids = []
 bloom = "understand"

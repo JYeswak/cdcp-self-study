@@ -15,7 +15,7 @@ choices = [
   "Shared use of an employee’s badge"
 ]
 correct = "B"
-explanation = "Visitors need controlled credentials and escort; shared badges destroy audit."
+explanation = "Restricted-zone visitors need identity checks, temporary credentials, escort, and sign-in/out; permanent unrestricted or shared badges destroy zone control and audit."
 topic_ids = ["m13-security-components", "m13-safety-components"]
 objective_ids = []
 bloom = "apply"

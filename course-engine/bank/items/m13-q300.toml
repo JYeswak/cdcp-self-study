@@ -16,7 +16,7 @@ choices = [
   "Confiscate tools and leave both vendors unsupervised in grey space while calling the NOC later"
 ]
 correct = "C"
-explanation = "Physical security runbooks treat piggybacking as a control failure even during emergencies. Challenge and verify; do not trade access control for speed. Cameras help forensics but do not replace the live access decision."
+explanation = "Stop and verify the uncredentialed person before access; emergency urgency does not authorize tailgating, disabling the mantrap, or leaving an unverified person in grey space."
 topic_ids = ["m13-security-components", "m13-safety-components"]
 objective_ids = []
 bloom = "apply"

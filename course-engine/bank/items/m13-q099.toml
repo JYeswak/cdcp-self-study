@@ -16,7 +16,7 @@ choices = [
   "Fire suppression release"
 ]
 correct = "C"
-explanation = "Delay alone is incomplete; detection and response close the loop."
+explanation = "A lock provides delay, but without detection and response compromise may remain hidden; it cannot revoke badges automatically or release fire suppression."
 topic_ids = ["m13-security-components"]
 objective_ids = []
 bloom = "understand"

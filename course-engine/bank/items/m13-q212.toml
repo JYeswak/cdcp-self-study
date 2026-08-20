@@ -16,7 +16,7 @@ choices = [
   "They may allow bypass of door controls if not physically secured or monitored as needed"
 ]
 correct = "D"
-explanation = "Physical pathway security includes vertical and plenum paths, not only doors."
+explanation = "Plenums and ceiling spaces can bypass door controls unless secured or monitored; a propped door, network-only view, or access-system assumption does not secure the vertical path."
 topic_ids = ["m13-security-components"]
 objective_ids = []
 bloom = "analyze"

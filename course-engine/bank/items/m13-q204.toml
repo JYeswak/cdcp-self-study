@@ -16,7 +16,7 @@ choices = [
   "Critical portals need retention, lighting, and time sync"
 ]
 correct = "D"
-explanation = "Cameras need design for usable evidence—not mere presence of a lens."
+explanation = "Effective CCTV needs portal coverage, retention, lighting, and synchronized time; floor-only views, unsynchronized recording, and unlimited unreviewed storage do not create usable evidence."
 topic_ids = ["m13-security-components"]
 objective_ids = []
 bloom = "apply"

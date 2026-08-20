@@ -15,7 +15,7 @@ choices = [
   "LOTO is rigorously enforced in plant"
 ]
 correct = "C"
-explanation = "Visible controls that hide soft rear/process layers are security theatre."
+explanation = "Security theatre is impressive visible control while roofs, yards, or processes remain weak; integrated anti-passback, CCTV, and LOTO are real layers rather than theatre."
 topic_ids = ["m13-security-components"]
 objective_ids = []
 bloom = "analyze"

@@ -15,7 +15,7 @@ choices = [
   "Unlocked doors during business hours only"
 ]
 correct = "C"
-explanation = "Something you have + know/are raises assurance on white-space and critical plant."
+explanation = "A badge plus PIN or biometric combines possession with knowledge or inherence for stronger assurance; cameras, shared PINs, and unlocked doors do not provide the same identity factors."
 topic_ids = ["m13-security-components"]
 objective_ids = []
 bloom = "remember"

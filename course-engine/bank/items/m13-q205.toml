@@ -16,7 +16,7 @@ choices = [
   "Fire-rating requirements eliminate the need for anti-tailgating controls at secure portals"
 ]
 correct = "A"
-explanation = "Tailgating breaks the identity-to-entry binding security depends on."
+explanation = "Tailgating lets unauthorized entry use another person’s credential; a badge is not building-wide authorization, and fire rating does not remove portal access controls."
 topic_ids = ["m13-security-components"]
 objective_ids = []
 bloom = "understand"

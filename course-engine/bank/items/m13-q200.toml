@@ -16,7 +16,7 @@ choices = [
   "Layered perimeter, room, cabinet, and audit controls"
 ]
 correct = "D"
-explanation = "The current NFPA 730 preview exposes security planning, administrative controls, security perimeters, and security systems. That supports layered physical security; the item does not prescribe a site-specific architecture or logging design."
+explanation = "Layered physical security combines perimeter, room, cabinet, identity, and audit controls; a sign, CCTV-only system, or shared PIN lacks the layered accountability."
 topic_ids = ["m13-security-components"]
 objective_ids = []
 bloom = "remember"

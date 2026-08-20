@@ -16,7 +16,7 @@ choices = [
   "Stronger asserted identity and authentication assurance"
 ]
 correct = "D"
-explanation = "NIST FIPS 201-3 describes PIN and biometric mechanisms for physical access and assigns them differing assurance levels, including higher confidence in the asserted identity. It also separates authentication from authorization decisions. This is a bounded physical-access receipt, not a credential claim."
+explanation = "A PIN or biometric adds authentication assurance; it does not eliminate cameras, visitor escorts, or zone policy."
 topic_ids = ["m13-security-components"]
 objective_ids = []
 bloom = "understand"

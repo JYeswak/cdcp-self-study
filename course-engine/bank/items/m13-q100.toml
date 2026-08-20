@@ -16,7 +16,7 @@ choices = [
   "High-impact plant, key, or sensitive procedures"
 ]
 correct = "D"
-explanation = "Dual control reduces single-person error and insider risk on high-consequence actions."
+explanation = "Two-person rules reduce single-person error and insider risk for high-impact plant, keys, or procedures; lobby activity and cosmetic work do not warrant that control."
 topic_ids = ["m13-safety-components", "m13-security-components"]
 objective_ids = []
 bloom = "remember"

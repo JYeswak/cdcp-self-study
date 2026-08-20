@@ -15,7 +15,7 @@ choices = [
   "Shareholder branding colors, unrelated to emergency operations"
 ]
 correct = "B"
-explanation = "Safety systems prioritize human life and emergency response over access convenience."
+explanation = "EPO, clear egress, and eyewash protect people and emergency response; they do not protect marketing secrets, delivery SLAs, or branding."
 topic_ids = ["m13-safety-components"]
 objective_ids = []
 bloom = "understand"

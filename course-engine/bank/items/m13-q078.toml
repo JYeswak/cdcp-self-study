@@ -15,7 +15,7 @@ choices = [
   "Reduce PUE through cooling controls"
 ]
 correct = "B"
-explanation = "Interlocked chambers stop unauthorized persons following authorized staff through one door."
+explanation = "Interlocked chambers stop tailgating through one open portal; UPS exploits, fibre loss, and cooling controls are not casual badge bypasses."
 topic_ids = ["m13-security-components"]
 objective_ids = []
 bloom = "understand"

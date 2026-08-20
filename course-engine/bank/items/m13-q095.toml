@@ -15,7 +15,7 @@ choices = [
   "Controlling only decorative lighting"
 ]
 correct = "C"
-explanation = "Accidental EPO is a major outage cause; over-locking can also block emergency response."
+explanation = "EPO access should be controlled against casual activation while trained responders remain able to reach it; making it inaccessible, testing it casually, or limiting it to decorative lighting misses the safety balance."
 topic_ids = ["m13-safety-components", "m13-security-components"]
 objective_ids = []
 bloom = "analyze"

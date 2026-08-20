@@ -16,7 +16,7 @@ choices = [
   "Replace all identity proofing with a door sensor"
 ]
 correct = "A"
-explanation = "Anti-passback/mantrap patterns mitigate tailgating into critical spaces."
+explanation = "Mantraps and interlocks control single-person entry and tailgating; they do not speed unverified groups, cool a lobby, or replace identity proofing."
 topic_ids = ["m13-security-components"]
 objective_ids = []
 bloom = "understand"

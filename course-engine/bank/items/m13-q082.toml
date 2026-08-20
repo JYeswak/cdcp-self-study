@@ -16,7 +16,7 @@ choices = [
   "Applies to mechanical keys but not badges, biometrics, or mobile credentials"
 ]
 correct = "B"
-explanation = "AuthN = who you are; AuthZ = what you may open; accounting logs the attempt."
+explanation = "Authentication proves identity and authorization decides permitted doors or zones; authentication does not assign schedules, and the distinction applies to badges, biometrics, and mobile credentials."
 topic_ids = ["m13-security-components"]
 objective_ids = []
 bloom = "understand"

@@ -14,7 +14,7 @@ choices = [
   "Removing door position sensors"
 ]
 correct = "A"
-explanation = "Life safety wins; maglocks release or free-exit as listed/code requires."
+explanation = "Life safety wins, so locks must release or permit code-compliant free egress; protecting servers does not justify delaying exit or disabling safety systems."
 topic_ids = ["m13-safety-components", "m13-security-components"]
 objective_ids = []
 bloom = "apply"

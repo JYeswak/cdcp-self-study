@@ -16,7 +16,7 @@ choices = [
   "Requires no mechanical exit path ever, regardless of life safety"
 ]
 correct = "C"
-explanation = "Fail-secure protects perimeter entry on power loss; egress side still needs free-exit design."
+explanation = "Fail-secure keeps the unsecured entry side locked on power loss while preserving free egress; it does not always unlock or eliminate a mechanical exit path."
 topic_ids = ["m13-safety-components"]
 objective_ids = []
 bloom = "understand"

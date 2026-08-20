@@ -15,7 +15,7 @@ choices = [
   "It is required by life-safety codes at all times"
 ]
 correct = "A"
-explanation = "Door-held and propped-door culture collapses layered security."
+explanation = "Propped doors turn a maintenance exception into a habitual bypass; they do not improve anti-passback, safely increase throughput, or become a life-safety requirement."
 topic_ids = ["m13-security-components", "m13-safety-components"]
 objective_ids = []
 bloom = "apply"

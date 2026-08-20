@@ -14,7 +14,7 @@ choices = [
   "Disables emergency lighting"
 ]
 correct = "B"
-explanation = "Fail-safe unlocks on power loss; fail-secure stays locked—do not reverse the terms casually."
+explanation = "Fail-safe hardware unlocks on power loss for emergency egress, while fail-secure describes protected entry; neither deletes logs or disables lighting as its definition."
 topic_ids = ["m13-safety-components"]
 objective_ids = []
 bloom = "understand"

@@ -15,7 +15,7 @@ choices = [
   "Treat the boundary as a security fence the guard force owns, so cameras substitute for PPE",
 ]
 correct = "B"
-explanation = "The item remains an evidence-selection question: a published electrical boundary and the applicable deenergization/work-practice decision must be respected. A badge is not energized-work authorization. No incident-energy value, boundary distance, or NFPA 70E body is invented or reproduced."
+explanation = "Stay outside the published arc-flash boundary until qualified work controls apply; a badge, invented distance, or camera coverage does not authorize energized work or replace PPE."
 topic_ids = ["m13-safety-components"]
 objective_ids = []
 bloom = "understand"

@@ -14,7 +14,7 @@ choices = [
   "Cameras make identity unnecessary in all investigations"
 ]
 correct = "C"
-explanation = "Authentication without attribution fails audit and incident response."
+explanation = "Unique identity and logging preserve accountability; shared credentials do not become acceptable because logging is inconvenient, IDs are disputed, or cameras exist."
 topic_ids = ["m13-security-components"]
 objective_ids = []
 bloom = "apply"

@@ -17,7 +17,7 @@ choices = [
   "Mantraps mechanically close harder"
 ]
 correct = "A"
-explanation = "NTP alignment across ACS/VMS/syslog is foundational for incident reconstruction."
+explanation = "Time-synchronized ACS, VMS, and syslog let operators correlate access events with video; clock sync does not change PUE, enrollment speed, or mantrap mechanics."
 topic_ids = ["m13-security-components"]
 objective_ids = []
 bloom = "understand"

@@ -15,7 +15,7 @@ choices = [
   "Disabling emergency lighting in controlled work areas"
 ]
 correct = "B"
-explanation = "Security grants entry; safety communications reduce harm to those who enter."
+explanation = "Safety signage warns authorized workers about hazards; it complements rather than replaces LOTO, grants visitors access, or disables emergency lighting."
 topic_ids = ["m13-safety-components"]
 objective_ids = []
 bloom = "remember"

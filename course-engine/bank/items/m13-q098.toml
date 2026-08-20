@@ -18,7 +18,7 @@ choices = [
   "ASHRAE thermal envelopes rather than access-control layers"
 ]
 correct = "B"
-explanation = "Physical security programs stack deter→delay→detect→respond→recover functions."
+explanation = "Deterrence, delay, detection, response, and recovery describe a physical-security control sequence, not network QoS, battery chemistry, or thermal envelopes."
 topic_ids = ["m13-security-components"]
 objective_ids = []
 bloom = "remember"

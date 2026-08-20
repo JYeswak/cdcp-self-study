@@ -16,7 +16,7 @@ choices = [
   "Increasing piggybacking by routing staff through a single portal"
 ]
 correct = "B"
-explanation = "Duress capability is a people-protection control in high-security environments."
+explanation = "Duress communications enable a person to call for help when normal channels are unsafe; they do not replace CCTV, open every door, or create a single-portal bypass."
 topic_ids = ["m13-safety-components", "m13-security-components"]
 objective_ids = []
 bloom = "remember"

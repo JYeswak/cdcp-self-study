@@ -15,7 +15,7 @@ choices = [
   "A raised-floor pedestal style that supports cabinets but does not regulate person movement"
 ]
 correct = "A"
-explanation = "Mantraps interlock outer/inner doors to reduce tailgating and enable high-assurance checks."
+explanation = "A mantrap interlocks outer and inner doors to control passage; a camera blind spot, EPO, or raised-floor pedestal does not regulate people."
 topic_ids = ["m13-security-components"]
 objective_ids = []
 bloom = "remember"

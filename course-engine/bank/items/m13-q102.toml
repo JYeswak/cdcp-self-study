@@ -15,7 +15,7 @@ choices = [
   "Outdoor landscaping only with no doors"
 ]
 correct = "B"
-explanation = "Surveillance concentrates on approach paths, portals, docks, plant, and sensitive transitions."
+explanation = "Cameras prioritize perimeter, portals, docks, critical plant, and zone transitions; office trash, sealed disks, and landscaping alone do not cover access risk."
 topic_ids = ["m13-security-components"]
 objective_ids = []
 bloom = "remember"

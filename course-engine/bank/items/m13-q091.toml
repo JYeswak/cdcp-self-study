@@ -16,7 +16,7 @@ choices = [
   "Incorrect PDU firmware versions"
 ]
 correct = "C"
-explanation = "Social/process failures dominate real physical breaches more than exotic attacks."
+explanation = "Tailgating, piggybacking, and propped doors are common casual bypasses; exotic card attacks, EMF, and PDU firmware are not the live-site access pattern."
 topic_ids = ["m13-security-components"]
 objective_ids = []
 bloom = "remember"

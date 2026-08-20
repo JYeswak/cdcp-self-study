@@ -17,7 +17,7 @@ choices = [
   "Grants roof hatch master keys automatically"
 ]
 correct = "A"
-explanation = "Physical shared responsibility: customer zones vs provider common plant separation."
+explanation = "Tenant zoning limits a customer badge to its cage and authorized areas; it does not open neighboring cages, provider plant, cameras, or roof hatches."
 topic_ids = ["m13-security-components"]
 objective_ids = []
 bloom = "understand"

@@ -15,7 +15,7 @@ choices = [
   "Send the crew to an EPI / certification class; a credential hour-count substitutes for naming the regime",
 ]
 correct = "B"
-explanation = "For the bounded electrical-utilization scenario, 29 CFR 1910.333 is the relevant electrical-work-practice receipt; 1910.147 is the machine hazardous-energy regime. A badge controls facility access but is not electrical-work authorization or an energy-isolating device. The item does not supply a qualification, PPE calculation, or site procedure."
+explanation = "Electrical-utilization work follows the applicable electrical-work-practice regime, while machine LOTO covers chillers and pumps; a badge opens a room but is not work authorization or an isolating device."
 topic_ids = ["m13-safety-components"]
 objective_ids = []
 bloom = "analyze"

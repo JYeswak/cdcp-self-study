@@ -16,7 +16,7 @@ choices = [
   "Bookmarks video, alerts security, and supports investigation"
 ]
 correct = "D"
-explanation = "Cameras without response/integration are weak; alarm-linked video + NTP-aligned logs enable forensics."
+explanation = "Alarm-linked video can bookmark events, alert security, and support investigation; untimestamped tapes, mechanical-lock replacement, and chilled-water control are not surveillance integration."
 topic_ids = ["m13-security-components"]
 objective_ids = []
 bloom = "apply"

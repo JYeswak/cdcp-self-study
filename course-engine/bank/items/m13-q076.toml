@@ -16,7 +16,7 @@ choices = [
   "Stacking independent layers so compromise of one layer is not total facility compromise"
 ]
 correct = "D"
-explanation = "The current NFPA 730 preview exposes security planning, administrative controls, security perimeters, and security systems. That supports defense-in-depth as layered controls; the item does not prescribe a site-specific zone design or control count."
+explanation = "Defense in depth stacks independent layers so one compromise is not total compromise; a single door, CCTV-only design, or visitor outsourcing leaves the facility exposed."
 topic_ids = ["m13-security-components"]
 objective_ids = []
 bloom = "understand"
