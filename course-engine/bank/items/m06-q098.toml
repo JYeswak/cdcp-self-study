@@ -7,10 +7,10 @@ kind = "single-select"
 module = 6
 stem = "High-density / HPC and AI racks change power planning because:"
 choices = [
-  "Dual-path power is never required for dense AI racks",
-  "Cooling can be ignored if power is abundant",
-  "High-density racks shrink diversity",
-  "Single-phase 15 A strips always suffice",
+  "Dual-path power is unnecessary for dense AI racks",
+  "Cooling is ignored if power is abundant",
+  "High-density racks can shrink diversity",
+  "Single-phase 15 A strips suffice for dense AI racks",
 ]
 correct = "C"
 explanation = "GPU/HPC loads break old diversity; co-design power, connectors, and cooling."

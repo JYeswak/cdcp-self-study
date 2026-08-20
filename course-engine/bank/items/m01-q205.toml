@@ -11,8 +11,8 @@ module = 1
 stem = "Edge or micro data centres compared with large central sites typically trade:"
 choices = [
   "Unlimited utility capacity everywhere",
-  "Zero need for power protection because a smaller site can tolerate every utility and equipment interruption",
-  "Lower latency and local processing in exchange for smaller scale, different staffing, and constrained physical plant",
+  "Zero need for power protection because a smaller site tolerates utility and equipment interruptions",
+  "Lower latency and local processing can come with smaller scale, different staffing, and constrained physical plant",
   "Automatic exemption from fire codes because micro sites are too small to require facility life-safety controls"
 ]
 correct = "C"

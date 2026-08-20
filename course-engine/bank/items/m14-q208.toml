@@ -9,10 +9,10 @@ kind = "single-select"
 module = 14
 stem = "A best practice for auxiliary systems is to treat monitoring infrastructure as:"
 choices = [
-  "Critical enough to need appropriate power protection, network path, and maintenance like other production systems",
+  "Can be critical enough to need appropriate power protection, network path, and maintenance like other production systems",
   "Non-critical and unpowered during utility loss",
   "Optional decoration",
-  "Something that can share one overloaded unmonitored switch under a desk forever"
+  "Something that shares one overloaded unmonitored switch under a desk forever"
 ]
 correct = "A"
 explanation = "Blindness during outages is a common design failure—monitor the monitors."

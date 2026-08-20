@@ -6,10 +6,10 @@ kind = "single-select"
 module = 9
 stem = "A DX CRAC unit characteristically:"
 choices = [
-  "Never has fans, even when the unit must move air",
-  "Can only cool using pure nitrogen",
-  "Uses a compressor and refrigerant circuit",
-  "Eliminates all need for outdoor heat rejection"
+  "Has no fans, even when the unit must move air",
+  "Cools using pure nitrogen rather than a refrigerant circuit",
+  "Can use a compressor and refrigerant circuit",
+  "Eliminates the need for outdoor heat rejection"
 ]
 correct = "C"
 explanation = "DX systems refrigerate at the unit/remote condenser; heat still rejects outdoors via the condenser path."

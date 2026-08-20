@@ -40,6 +40,7 @@ enum Strategy {
     Longest,
     Letter(usize),
     Hedged,
+    AvoidHedged,
     StemOverlap,
     UniformRandom,
 }
@@ -54,6 +55,7 @@ impl Strategy {
             Self::Letter(3) => "always-D",
             Self::Letter(_) => unreachable!(),
             Self::Hedged => "hedged",
+            Self::AvoidHedged => "avoid-hedged",
             Self::StemOverlap => "stem-overlap",
             Self::UniformRandom => "uniform-random",
         }
@@ -122,6 +124,18 @@ fn hedge_option_index(item: &cdcp_assemble::AssembledItem) -> Option<usize> {
     }
 }
 
+fn avoid_hedged(item: &cdcp_assemble::AssembledItem) -> usize {
+    hedge_option_index(item)
+        .and_then(|hedge_index| {
+            item.choices
+                .iter()
+                .enumerate()
+                .find(|(index, _)| *index != hedge_index)
+                .map(|(index, _)| index)
+        })
+        .unwrap_or(0)
+}
+
 fn stem_overlap(item: &cdcp_assemble::AssembledItem) -> usize {
     let stem = content_words(&item.stem);
     item.choices
@@ -140,6 +154,7 @@ fn choice(strategy: Strategy, item: &cdcp_assemble::AssembledItem, rng: &mut imp
         Strategy::Longest => longest(item),
         Strategy::Letter(index) => index,
         Strategy::Hedged => hedged(item),
+        Strategy::AvoidHedged => avoid_hedged(item),
         Strategy::StemOverlap => stem_overlap(item),
         Strategy::UniformRandom => rng.gen_range(0..4),
     }
@@ -179,6 +194,7 @@ fn main() {
         Strategy::Letter(2),
         Strategy::Letter(3),
         Strategy::Hedged,
+        Strategy::AvoidHedged,
         Strategy::StemOverlap,
         Strategy::UniformRandom,
     ];
@@ -188,6 +204,7 @@ fn main() {
     let mut any_hedged_hits = 0;
     let mut exact_hedged_total = 0;
     let mut exact_hedged_hits = 0;
+    let mut exact_avoid_hits = 0;
 
     println!(
         "PREDECLARED_SEEDS first={SEED_FIRST} count={SEED_COUNT} inclusive_end={} pass_bar={PASS_BAR}",
@@ -222,6 +239,9 @@ fn main() {
                 exact_hedged_total += 1;
                 if index == correct_index(item) {
                     exact_hedged_hits += 1;
+                }
+                if avoid_hedged(item) == correct_index(item) {
+                    exact_avoid_hits += 1;
                 }
             }
         }
@@ -280,16 +300,26 @@ fn main() {
         (HEDGED_MEAN_MIN..=HEDGED_MEAN_MAX).contains(&hedged_mean),
         "hedged mean {hedged_mean:.2} is outside control band {HEDGED_MEAN_MIN:.1}..={HEDGED_MEAN_MAX:.1}"
     );
+    let exact_hedged_rate = exact_hedged_hits as f64 / exact_hedged_total as f64;
     assert!(
-        (HEDGED_APPLICABLE_HIT_MIN..=HEDGED_APPLICABLE_HIT_MAX).contains(&any_hedged_rate),
-        "hedged applicable hit rate {any_hedged_rate:.1}% is outside {HEDGED_APPLICABLE_HIT_MIN:.0}%..={HEDGED_APPLICABLE_HIT_MAX:.0}%"
+        (HEDGED_APPLICABLE_HIT_MIN..=HEDGED_APPLICABLE_HIT_MAX).contains(&exact_hedged_rate),
+        "exactly-one hedged hit rate {exact_hedged_rate:.1} is outside {HEDGED_APPLICABLE_HIT_MIN:.1}..={HEDGED_APPLICABLE_HIT_MAX:.1}"
     );
     println!(
-        "HEDGED_APPLICABLE_ANY total={any_hedged_total} key_hits={any_hedged_hits} hit_rate={:.1}% target=20-30%",
+        "HEDGED_ANY total={any_hedged_total} key_hits={any_hedged_hits} hit_rate={:.1}% diagnostic_multi_hedge",
         any_hedged_rate * 100.0
     );
     println!(
-        "HEDGED_APPLICABLE_EXACTLY_ONE total={exact_hedged_total} key_hits={exact_hedged_hits} hit_rate={:.1}% diagnostic_after_distribution",
-        exact_hedged_hits as f64 * 100.0 / exact_hedged_total as f64
+        "HEDGED_APPLICABLE_EXACTLY_ONE total={exact_hedged_total} key_hits={exact_hedged_hits} hit_rate={:.1}% target=20-30%",
+        exact_hedged_rate * 100.0
+    );
+    let exact_avoid_rate = exact_avoid_hits as f64 / exact_hedged_total as f64;
+    assert!(
+        (HEDGED_APPLICABLE_HIT_MIN..=HEDGED_APPLICABLE_HIT_MAX).contains(&exact_avoid_rate),
+        "exactly-one avoid-hedged hit rate {exact_avoid_rate:.1} is outside {HEDGED_APPLICABLE_HIT_MIN:.1}..={HEDGED_APPLICABLE_HIT_MAX:.1}"
+    );
+    println!(
+        "HEDGED_AVOID_EXACTLY_ONE total={exact_hedged_total} key_hits={exact_avoid_hits} hit_rate={:.1}% target=20-30%",
+        exact_avoid_rate * 100.0
     );
 }

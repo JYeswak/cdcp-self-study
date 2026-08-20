@@ -9,8 +9,8 @@ module = 7
 stem = "For RF/E-field style shielding effectiveness, performance is often limited by:"
 choices = [
   "The finish colour applied to the shielding surface",
-  "Apertures, seams, doors, and cable entries more than bulk wall thickness once conductivity is adequate",
-  "The number of rack units the shielded room can hold",
+  "Apertures, seams, doors, and cable entries can matter more than bulk wall thickness once conductivity is adequate",
+  "The number of rack units the shielded room holds",
   "The fuel type selected for the standby generators",
 ]
 correct = "B"

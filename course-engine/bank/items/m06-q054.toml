@@ -7,10 +7,10 @@ kind = "single-select"
 module = 6
 stem = "Concurrent maintainability as a design intent means:"
 choices = [
-  "All maintenance is forbidden forever, even for planned service",
-  "Only software can be patched, never electrical capacity",
-  "Maintain one capacity component without interruption",
-  "Fuel deliveries never require planning",
+  "Maintenance is forbidden even for planned service",
+  "Software is patched, not electrical capacity",
+  "Can maintain one capacity component without interruption",
+  "Fuel deliveries require no planning",
 ]
 correct = "C"
 explanation = "Concurrent maintainability is the ability to service one capacity element without dropping the load—must be proven in MOPs, not slides alone."

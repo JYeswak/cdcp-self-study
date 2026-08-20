@@ -8,10 +8,10 @@ kind = "single-select"
 module = 5
 stem = "Color rendering and glare control matter in technical spaces because technicians need to:"
 choices = [
-  "Read labels, indicators, and workmanship details without eye strain",
+  "Technicians can read labels, indicators, and workmanship details without eye strain",
   "Distinguish conductor colours from across the hall without approaching",
   "Use reflective glare on displays to confirm a screen is powered",
-  "Work by flashlight so ambient lighting can stay at minimum output",
+  "Work by flashlight so ambient lighting stays at minimum output",
 ]
 correct = "A"
 explanation = "Quality of light affects error rates in maintenance and operations—not only raw lux numbers."

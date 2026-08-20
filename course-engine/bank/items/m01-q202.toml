@@ -10,10 +10,10 @@ kind = "single-select"
 module = 1
 stem = "Colocation, enterprise, and hyperscale facilities primarily differ in:"
 choices = [
-  "Whether racks can be grounded",
-  "Whether electricity is used at all, since the facility model is defined by business ownership rather than physical services",
-  "Whether fire detection is ever required, because ownership and tenancy determine all facility obligations",
-  "Ownership model, multi-tenancy, scale economics, and governance boundaries"
+  "Whether racks are grounded",
+  "Whether electricity is used, since the facility model is defined by business ownership rather than physical services",
+  "Whether fire detection follows ownership and tenancy rather than facility requirements",
+  "Ownership models can differ in multi-tenancy, scale economics, and governance boundaries"
 ]
 correct = "D"
 explanation = "DC types share many engineering needs but differ in ownership, tenancy, scale, and who controls what."
