@@ -5,9 +5,9 @@ module = 2
 stem = "ISO/IEC 22237 is best described for CDCP awareness as:"
 choices = [
   "A series addressing data centre facilities and infrastructures at an international standards level",
+  "A U.S.-only fire code article",
   "A single Uptime certificate number",
   "A diesel fuel chemical formula",
-  "A U.S.-only fire code article",
 ]
 correct = "A"
 explanation = "ISO/IEC 22237 is the international series for data centre facilities and infrastructures (awareness-level)."

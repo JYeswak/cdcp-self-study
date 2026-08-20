@@ -10,12 +10,12 @@ kind = "single-select"
 module = 2
 stem = "When a voluntary data centre standard conflicts with a legally adopted building or electrical code, the governing principle is:"
 choices = [
+  "Operators may ignore both if PUE is low",
   "The marketing brochure wins",
   "Any international standard automatically voids national law",
-  "The AHJ-enforced code requirements prevail for compliance",
-  "Operators may ignore both if PUE is low"
+  "The AHJ-enforced code requirements prevail for compliance"
 ]
-correct = "C"
+correct = "D"
 explanation = "Codes enforced by the Authority Having Jurisdiction are mandatory; voluntary standards do not override them."
 topic_ids = ["m02-code-vs-standard"]
 objective_ids = []

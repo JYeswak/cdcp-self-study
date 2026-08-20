@@ -9,12 +9,12 @@ kind = "single-select"
 module = 2
 stem = "A sub-component standard for fire detection devices would most likely influence:"
 choices = [
+  "IP address planning",
+  "Generator fuel chemistry exclusively",
   "Only the brand of coffee in the NOC, because device listing, installation, and performance are unrelated to the facility fire strategy",
   "Device performance, listing, and installation expectations feeding the facility fire strategy",
-  "Generator fuel chemistry exclusively",
-  "IP address planning",
 ]
-correct = "B"
+correct = "D"
 explanation = "A fire-detection device standard affects device performance, listing, and installation expectations that feed the facility fire strategy; this is the sub-component standards role named by the syllabus."
 topic_ids = ["m02-subcomponent-standards"]
 objective_ids = []

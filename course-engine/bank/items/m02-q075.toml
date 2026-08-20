@@ -10,12 +10,12 @@ kind = "single-select"
 module = 2
 stem = "A design specification that says “comply with applicable codes and referenced standards” implies:"
 choices = [
-  "Only the cheapest standard applies, because a project may ignore adopted code, referenced standards, and the AHJ once a low-cost option is found",
   "Legal codes plus any standards the project or jurisdiction incorporates must be identified and followed",
-  "Standards never need listing",
+  "Only the cheapest standard applies, because a project may ignore adopted code, referenced standards, and the AHJ once a low-cost option is found",
   "AHJ review is optional forever",
+  "Standards never need listing",
 ]
-correct = "B"
+correct = "A"
 explanation = "Projects must identify adopted codes and which standards are contractually or legally referenced."
 topic_ids = ["m02-code-vs-standard", "m02-standards-guidelines"]
 objective_ids = []

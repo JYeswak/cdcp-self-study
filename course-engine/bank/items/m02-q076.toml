@@ -10,12 +10,12 @@ kind = "single-select"
 module = 2
 stem = "Which statement about international vs national standards is most careful?"
 choices = [
-  "National always means weaker, so a practitioner can select the international document without checking adoption, jurisdiction, or project specification",
   "Practitioners must check which document is adopted or specified in that jurisdiction and project",
-  "International always voids local law",
   "Only U.S. documents exist",
+  "National always means weaker, so a practitioner can select the international document without checking adoption, jurisdiction, or project specification",
+  "International always voids local law",
 ]
-correct = "B"
+correct = "A"
 explanation = "What binds is what is adopted or specified locally for that project—not brand prestige of a series name."
 topic_ids = ["m02-intl-vs-national"]
 objective_ids = []

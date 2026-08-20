@@ -11,11 +11,11 @@ module = 2
 stem = "Product listing/marking expectations for electrical equipment typically come from:"
 choices = [
   "Only internal runbooks, because product safety, listing, and AHJ acceptance do not affect electrical equipment used in a facility",
+  "Hot-aisle poster guidelines only",
   "Product safety standards and AHJ/listing requirements—not from a facilities “tier” label alone",
   "PUE contests",
-  "Hot-aisle poster guidelines only",
 ]
-correct = "B"
+correct = "C"
 explanation = "Product safety standards and AHJ/listing requirements govern equipment marking; a facilities tier label does not replace those product-level requirements."
 topic_ids = ["m02-subcomponent-standards", "m02-code-vs-standard"]
 objective_ids = []

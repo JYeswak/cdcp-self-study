@@ -4,12 +4,12 @@ kind = "single-select"
 module = 2
 stem = "Claiming a site is “Tier III equivalent” based only on a vendor slide deck is risky because:"
 choices = [
+  "ISO issues Tier badges",
   "Slide decks always include formal Uptime certification",
   "Tier is a defined Uptime framework/process; casual “equivalent” claims confuse stakeholders and audits",
   "Equivalence is automatically granted by TIA",
-  "ISO issues Tier badges",
 ]
-correct = "B"
+correct = "C"
 explanation = "Loose “Tier equivalent” marketing confuses distinct frameworks and certification processes."
 topic_ids = ["m02-tia-vs-uptime"]
 objective_ids = []

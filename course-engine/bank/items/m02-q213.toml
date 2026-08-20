@@ -4,12 +4,12 @@ kind = "single-select"
 module = 2
 stem = "Someone says “TIA Tier III” while pointing at an un-yeared “per TIA-942” clause. The edition-years rule asks you to:"
 choices = [
-  "Accept it — TIA-942-C still says Tier, so the old wording is current law and no edition check is needed",
-  "Pin ANSI/TIA-942-C (2024) and ask which edition is open; do not call TIA Rated language Tier",
   "Convert the TIA numeral to 99.982% and call the conversion the pin, rather than identify the edition and framework",
   "Replace TIA language with Availability Class 3, which is the 2024 rename and makes the contract's framework unambiguous",
+  "Pin ANSI/TIA-942-C (2024) and ask which edition is open; do not call TIA Rated language Tier",
+  "Accept it — TIA-942-C still says Tier, so the old wording is current law and no edition check is needed",
 ]
-correct = "B"
+correct = "C"
 explanation = "Cite ANSI/TIA-942-C (2024) unless the contract names an older edition. The Rated-not-Tier rename is the point of pinning C; an un-yeared citation is soft."
 topic_ids = ["m02-tia-vs-uptime"]
 objective_ids = ["obj-m02-tia-942-c"]

@@ -10,12 +10,12 @@ kind = "single-select"
 module = 2
 stem = "EN 50600 awareness is especially relevant when:"
 choices = [
-  "Working only with purely North American code questions and no EU touchpoints, suppliers, customers, or project documents referencing European practice",
-  "Projects, suppliers, or customers in Europe reference the EN data centre series",
   "Designing only residential lighting",
   "Selecting office chair ergonomics exclusively",
+  "Projects, suppliers, or customers in Europe reference the EN data centre series",
+  "Working only with purely North American code questions and no EU touchpoints, suppliers, customers, or project documents referencing European practice",
 ]
-correct = "B"
+correct = "C"
 explanation = "EN 50600 commonly appears in European project and procurement contexts."
 topic_ids = ["m02-en50600-series"]
 objective_ids = []

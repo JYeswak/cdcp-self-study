@@ -10,11 +10,11 @@ module = 2
 stem = "International standards versus national/local requirements often create tension because:"
 choices = [
   "National documents are archival and do not affect local construction choices",
-  "International documents are less detailed than local project requirements, making local sources the primary references",
   "Local codes, climate, grid practice, and AHJ interpretation still govern what may be built and operated",
+  "International documents are less detailed than local project requirements, making local sources the primary references",
   "Vendors write national rules instead of standards bodies"
 ]
-correct = "C"
+correct = "B"
 explanation = "Global frameworks inform design, but local mandatory rules and practice still control compliance."
 topic_ids = ["m02-intl-vs-national", "m02-code-vs-standard"]
 objective_ids = []

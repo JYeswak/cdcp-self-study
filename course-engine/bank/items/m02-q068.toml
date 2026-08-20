@@ -10,12 +10,12 @@ kind = "single-select"
 module = 2
 stem = "EN 50600 is best described for CDCP awareness as:"
 choices = [
-  "A European series of data centre design/operation related standards",
-  "A North American only telecom cabling colour chart",
   "An exclusive generator OEM manual",
+  "A European series of data centre design/operation related standards",
   "A replacement for all local building permits",
+  "A North American only telecom cabling colour chart",
 ]
-correct = "A"
+correct = "B"
 explanation = "EN 50600 is the European series commonly referenced for data centre facilities topics."
 topic_ids = ["m02-en50600-series"]
 objective_ids = []

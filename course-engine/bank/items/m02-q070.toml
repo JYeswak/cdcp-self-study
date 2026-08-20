@@ -10,10 +10,10 @@ kind = "single-select"
 module = 2
 stem = "National standards bodies often:"
 choices = [
-  "Automatically void international standards",
+  "Forbid any use of IEC documents",
   "Adopt, adapt, or publish national documents that may reference or align with international work",
   "Regulate cafeteria menus rather than technical facilities",
-  "Forbid any use of IEC documents",
+  "Automatically void international standards",
 ]
 correct = "B"
 explanation = "National bodies may adopt or adapt international material; alignment varies by country and topic."

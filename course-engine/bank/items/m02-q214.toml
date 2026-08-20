@@ -5,11 +5,11 @@ module = 2
 stem = "A slide recites “Tier III means 99.982% availability” (and the I–IV downtime table). The taught response is:"
 choices = [
   "Memorize 99.671 / 99.741 / 99.982 / 99.995 as the current topology standard, because the table is still the governing Uptime definition",
-  "True for TCOS but not for TCCD — swap the percentage onto the operations plaque, because topology and availability are the same claim",
-  "Replace 99.982 with a newer blog percentage so the nines-to-Tier crosswalk stays current, even though the source withdrew the prediction table",
   "Uptime Tier describes topology, not a guaranteed availability percentage; do not replace the withdrawn table with a new crosswalk",
+  "Replace 99.982 with a newer blog percentage so the nines-to-Tier crosswalk stays current, even though the source withdrew the prediction table",
+  "True for TCOS but not for TCCD — swap the percentage onto the operations plaque, because topology and availability are the same claim",
 ]
-correct = "D"
+correct = "B"
 explanation = "The cargo-cult nines table is withdrawn. This course will not hand you a replacement percentage. Ask for the path and which plaque, not a nine."
 topic_ids = ["m02-tia-vs-uptime"]
 objective_ids = ["obj-m02-kill-99982"]

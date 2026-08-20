@@ -10,12 +10,12 @@ kind = "single-select"
 module = 2
 stem = "Guidelines (non-mandatory best-practice documents) differ from adopted codes in that guidelines:"
 choices = [
-  "Carry criminal penalties when a voluntary guideline is cited",
-  "Provide recommended practice that may be adopted or referenced but are not law by themselves",
+  "Are illegal to cite in design briefs, so owners cannot use a voluntary guideline through contract or policy",
   "Automatically supersede AHJ rulings, because recommended practice has higher authority than an adopted local requirement",
-  "Are illegal to cite in design briefs, so owners cannot use a voluntary guideline through contract or policy"
+  "Provide recommended practice that may be adopted or referenced but are not law by themselves",
+  "Carry criminal penalties when a voluntary guideline is cited"
 ]
-correct = "B"
+correct = "C"
 explanation = "Guidelines advise; codes (when adopted) compel. Many good practices start as guidelines."
 topic_ids = ["m02-code-vs-standard", "m02-standards-guidelines"]
 objective_ids = []

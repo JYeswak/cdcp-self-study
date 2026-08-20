@@ -10,11 +10,11 @@ module = 2
 stem = "International standards development typically aims to:"
 choices = [
   "Replace every national electrical code automatically, so adoption and local interpretation no longer matter",
-  "Provide broadly usable technical documents that countries and markets may adopt or reference differently",
   "Ban national standards bodies, because international technical documents cannot coexist with national adoption or reference practices",
   "Apply to marketing material rather than technical design",
+  "Provide broadly usable technical documents that countries and markets may adopt or reference differently",
 ]
-correct = "B"
+correct = "D"
 explanation = "International standards are tools for alignment; adoption remains a national/project decision."
 topic_ids = ["m02-intl-vs-national"]
 objective_ids = []

@@ -4,12 +4,12 @@ kind = "single-select"
 module = 2
 stem = "A broker offers “Tier Certification of Operational Sustainability” as a stand-alone Gold badge, with no prior Constructed Facility award, and says the three plaques are interchangeable parallel stickers. The apply move is:"
 choices = [
-  "Accept: Design Documents, Constructed Facility, and Operational Sustainability are three parallel badges, so any one can stand alone without sequence",
   "TCOS requires prior TCCF; the three plaques are sequential, not parallel",
   "Swap the missing TCCF for 99.982% so Operational Sustainability can stand alone, because a percentage substitutes for the prerequisite award",
+  "Accept: Design Documents, Constructed Facility, and Operational Sustainability are three parallel badges, so any one can stand alone without sequence",
   "Treat the TCOS letter as TCCD, because the design-documents acronym determines the sequence without checking the program definitions",
 ]
-correct = "B"
+correct = "A"
 explanation = "Uptime conditions TCOS on prior TCCF. Full names: Tier Certification of Design Documents, Constructed Facility, Operational Sustainability. Parallel-badge reading is the fail. Rated ≠ Tier ≠ Availability Class stays un-crossed. No replacement nine."
 topic_ids = ["m02-tia-vs-uptime"]
 objective_ids = ["obj-m02-three-plaques"]

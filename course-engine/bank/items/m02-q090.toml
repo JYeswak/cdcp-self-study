@@ -10,12 +10,12 @@ kind = "single-select"
 module = 2
 stem = "Cabling performance categories and firestop product listings are examples of:"
 choices = [
+  "AHJ organizational charts",
   "Uptime Tier certificates, because a site-level rating defines the performance and listing of every cabling and firestop product",
   "Sub-component / product-system standards and listings supporting the facility",
   "ISO 22237 entire-series replacements, because a facility series makes product listings and component categories unnecessary",
-  "AHJ organizational charts",
 ]
-correct = "B"
+correct = "C"
 explanation = "Cabling categories and firestop listings are product/system standards supporting the facility, rather than a facility rating or organizational chart."
 topic_ids = ["m02-subcomponent-standards"]
 objective_ids = []

@@ -4,12 +4,12 @@ kind = "single-select"
 module = 2
 stem = "Which pair correctly associates series awareness with region/context (at a high level)?"
 choices = [
-  "EN 50600 → only U.S. NEC article; ISO 22237 → only diesel ASTM grade, so neither series belongs in a data-centre standards discussion",
-  "EN 50600 → commonly European context; ISO/IEC 22237 → international series awareness",
   "Both only apply to residential attics",
   "Neither ever appears in data centre RFPs",
+  "EN 50600 → only U.S. NEC article; ISO 22237 → only diesel ASTM grade, so neither series belongs in a data-centre standards discussion",
+  "EN 50600 → commonly European context; ISO/IEC 22237 → international series awareness",
 ]
-correct = "B"
+correct = "D"
 explanation = "EN 50600 is European-series awareness; ISO/IEC 22237 is the international facilities series awareness."
 topic_ids = ["m02-en50600-series", "m02-iso22237-series", "m02-intl-vs-national"]
 objective_ids = []

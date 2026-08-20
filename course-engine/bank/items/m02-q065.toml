@@ -6,8 +6,8 @@ stem = "TIA-942 “Rated” language and Uptime Institute “Tier” language sh
 choices = [
   "Separate frameworks with distinct criteria, processes, and owners—do not mix labels casually",
   "Interchangeable brand names for the same certificate",
-  "Both issued exclusively by ASHRAE",
   "Identical to ISO 9001 quality registration",
+  "Both issued exclusively by ASHRAE",
 ]
 correct = "A"
 explanation = "TIA-942 Rated and Uptime Tier are separate frameworks; careful practitioners keep naming discipline."

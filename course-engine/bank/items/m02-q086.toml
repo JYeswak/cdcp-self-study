@@ -9,12 +9,12 @@ kind = "single-select"
 module = 2
 stem = "Owner’s project specifications sit in the standards landscape as:"
 choices = [
-  "Irrelevant when an ISO number is mentioned because the international series replaces local project controls",
-  "Contractual requirements that may exceed code minimums but cannot lawfully undercut adopted code",
-  "Replacements for building permits because project documents remove jurisdictional approvals",
   "Decorative appendices rather than contractual requirements",
+  "Replacements for building permits because project documents remove jurisdictional approvals",
+  "Contractual requirements that may exceed code minimums but cannot lawfully undercut adopted code",
+  "Irrelevant when an ISO number is mentioned because the international series replaces local project controls",
 ]
-correct = "B"
+correct = "C"
 explanation = "Owner specs can raise the bar contractually but cannot legalize noncompliance with adopted code."
 topic_ids = ["m02-standards-guidelines", "m02-code-vs-standard"]
 objective_ids = []

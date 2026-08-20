@@ -12,8 +12,8 @@ stem = "When a voluntary industry standard conflicts with the adopted electrical
 choices = [
   "The Authority Having Jurisdiction enforcing the adopted code",
   "The equipment vendor’s blog",
-  "The marketing brochure",
   "Whoever emailed last",
+  "The marketing brochure",
 ]
 correct = "A"
 explanation = "AHJ-enforced adopted code takes precedence over voluntary guidance when they conflict."

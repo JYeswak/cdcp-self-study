@@ -4,12 +4,12 @@ kind = "single-select"
 module = 2
 stem = "A key reason CDCP emphasizes standards literacy is to:"
 choices = [
-  "Memorize clause numbers for trivia, rather than communicate which framework, requirement, and assessment path actually applies",
   "Communicate requirements precisely and avoid false equivalence between frameworks",
-  "Eliminate the need for engineers, because naming a standard is enough to resolve design, code, and contractual decisions",
   "Ignore local inspectors",
+  "Eliminate the need for engineers, because naming a standard is enough to resolve design, code, and contractual decisions",
+  "Memorize clause numbers for trivia, rather than communicate which framework, requirement, and assessment path actually applies",
 ]
-correct = "B"
+correct = "A"
 explanation = "Precise naming and framework literacy prevent costly contractual and design confusion."
 topic_ids = ["m02-standards-guidelines", "m02-tia-vs-uptime"]
 objective_ids = []

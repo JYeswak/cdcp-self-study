@@ -11,12 +11,12 @@ kind = "single-select"
 module = 2
 stem = "Guidelines and best-practice documents differ from codes in that they usually:"
 choices = [
-  "Carry criminal penalties by themselves in all cities, even when the document has not been adopted by code, contract, or organizational policy",
-  "Offer recommended practice that becomes binding only if adopted by code, contract, or policy",
   "Always override the AHJ",
   "Are illegal to read",
+  "Offer recommended practice that becomes binding only if adopted by code, contract, or policy",
+  "Carry criminal penalties by themselves in all cities, even when the document has not been adopted by code, contract, or organizational policy",
 ]
-correct = "B"
+correct = "C"
 explanation = "Guides recommend practice; binding force comes from adoption into law, contract, or policy."
 topic_ids = ["m02-standards-guidelines", "m02-code-vs-standard"]
 objective_ids = []

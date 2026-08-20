@@ -4,12 +4,12 @@ kind = "single-select"
 module = 2
 stem = "Which statement best reflects CDCP-level awareness of multiple facility series?"
 choices = [
-  "Only one series exists worldwide, so TIA, ISO/IEC 22237, EN 50600, and Uptime terminology can be treated as one document",
   "TIA, ISO/IEC 22237, and EN 50600 are among the named series learners should not conflate with Uptime Tier branding",
   "EN 50600 is a type of UPS battery, because the series name describes equipment chemistry rather than facility guidance",
+  "Only one series exists worldwide, so TIA, ISO/IEC 22237, EN 50600, and Uptime terminology can be treated as one document",
   "ISO 22237 is a lux meter brand",
 ]
-correct = "B"
+correct = "A"
 explanation = "Multiple facility-oriented series exist; none should be casually equated to Uptime Tier branding."
 topic_ids = ["m02-standards-guidelines", "m02-tia-vs-uptime", "m02-iso22237-series", "m02-en50600-series"]
 objective_ids = []

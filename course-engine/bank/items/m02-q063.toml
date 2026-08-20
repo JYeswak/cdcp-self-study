@@ -11,9 +11,9 @@ module = 2
 stem = "In CDCP awareness language, a “code” is best distinguished from a “standard” by:"
 choices = [
   "Codes are adopted and enforced by an AHJ; many standards are voluntary unless referenced into code",
-  "Codes are always free PDF white papers",
-  "Standards always supersede local law",
   "Codes never address electrical safety",
+  "Standards always supersede local law",
+  "Codes are always free PDF white papers",
 ]
 correct = "A"
 explanation = "AHJ-adopted codes are enforceable; voluntary standards bind only when adopted by contract, policy, or code reference."

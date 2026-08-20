@@ -11,11 +11,11 @@ module = 2
 stem = "Sub-component standards (e.g., for cabling, fire detection devices, or electrical equipment) matter because:"
 choices = [
   "The facility standard alone specifies every device model",
-  "Facility performance depends on equipment and systems that are themselves covered by product/system standards",
-  "They replace the need for an AHJ",
   "They only apply to residential kitchens",
+  "They replace the need for an AHJ",
+  "Facility performance depends on equipment and systems that are themselves covered by product/system standards",
 ]
-correct = "B"
+correct = "D"
 explanation = "Sub-component standards cover the products and systems whose performance contributes to the facility outcome; the public CDCP syllabus places this under Standards for sub-components."
 topic_ids = ["m02-subcomponent-standards"]
 objective_ids = []

@@ -4,12 +4,12 @@ kind = "single-select"
 module = 2
 stem = "A careful statement about Uptime Institute Tier concepts is that they primarily address:"
 choices = [
+  "Only network patch-panel colour",
   "Topology/concurrency of facility infrastructure resilience (not a guarantee of zero human error)",
   "Application software coding style",
-  "Only network patch-panel colour",
   "Only lighting lux levels",
 ]
-correct = "A"
+correct = "B"
 explanation = "Tier thinking focuses on facility infrastructure topology and concurrent maintainability concepts, not software quality."
 topic_ids = ["m02-tia-vs-uptime"]
 objective_ids = []

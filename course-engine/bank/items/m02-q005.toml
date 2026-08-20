@@ -10,10 +10,10 @@ kind = "single-select"
 module = 2
 stem = "Which is generally enforceable as code rather than a voluntary industry standard?"
 choices = [
-  "A vendor white paper on airflow",
-  "Local electrical and fire codes enforced by the AHJ",
-  "An internal runbook preference",
   "A blog post comparing PUE",
+  "Local electrical and fire codes enforced by the AHJ",
+  "A vendor white paper on airflow",
+  "An internal runbook preference",
 ]
 correct = "B"
 explanation = "AHJ-enforced electrical and fire codes are binding; voluntary guides and white papers are not code."
