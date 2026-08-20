@@ -420,6 +420,32 @@ fn e_publication_pending_is_red_in_both() {
     assert!(out.contains("publication described as not done"), "{out}");
 }
 
+/// The attribution ledger's Result column declares citation status, so its
+/// catalog `BLOCKED` receipts are not publication claims. The same file's
+/// ordinary prose remains covered and must still catch a real publication
+/// defect.
+#[test]
+fn attribution_result_blocked_is_citation_status_but_prose_is_red() {
+    let s = Spec::clean();
+    s.write(
+        "docs/curriculum-grades/ATTRIBUTION-BAR-LEDGER.md",
+        "# Attribution ledger\n\n\
+         | ID | Module | Public syllabus heading | Syllabus URL | Current source URL | Result |\n\
+         |---|---:|---|---|---|---|\n\
+         | m01-q001 | 1 | Types of data centres | https://epi.example/syllabus |\
+           https://example.test/publication/942 | BLOCKED — catalog receipt |\n",
+    );
+    let out = assert_byte_exact("attribution-blocked-citation", Some(s.path()));
+    assert!(out.starts_with("PASS\n"), "{out}");
+
+    s.append(
+        "docs/curriculum-grades/ATTRIBUTION-BAR-LEDGER.md",
+        "\nThe publication is blocked pending a human decision.\n",
+    );
+    let out = assert_byte_exact("attribution-publication-defect", Some(s.path()));
+    assert!(out.contains("publication described as not done"), "{out}");
+}
+
 #[test]
 fn unicode_casefolded_publication_word_is_red_in_both() {
     let s = Spec::clean();

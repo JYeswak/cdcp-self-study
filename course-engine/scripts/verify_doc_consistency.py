@@ -473,6 +473,53 @@ def describes_detector(line: str) -> bool:
     return any(_has_word(low, name) for name in _DETECTOR_NAMES)
 
 
+_ATTRIBUTION_HEADER = (
+    "ID",
+    "Module",
+    "Public syllabus heading",
+    "Syllabus URL",
+    "Current source URL",
+    "Result",
+)
+
+
+def _markdown_table_cells(line: str) -> list[str] | None:
+    stripped = line.strip()
+    if not (stripped.startswith("|") and stripped.endswith("|")):
+        return None
+    return [cell.strip() for cell in stripped[1:-1].split("|")]
+
+
+def _is_table_separator(cells: list[str]) -> bool:
+    return bool(cells) and all(
+        cell and "-" in cell and all(ch in "-: " for ch in cell) for cell in cells
+    )
+
+
+def _is_citation_result(cell: str) -> bool:
+    first = re.split(r"[\s\-:—]", cell.strip(), maxsplit=1)[0]
+    return first in {"PASS", "BLOCKED"}
+
+
+def _attribution_scan_line(line: str, in_table: list[bool]) -> str:
+    cells = _markdown_table_cells(line)
+    if cells is None:
+        in_table[0] = False
+        return line
+    if tuple(cells) == _ATTRIBUTION_HEADER:
+        in_table[0] = True
+        return line
+    if not in_table[0] or _is_table_separator(cells):
+        return line
+    if len(cells) != len(_ATTRIBUTION_HEADER):
+        in_table[0] = False
+        return line
+    if not _is_citation_result(cells[5]):
+        return line
+    cells[5] = ""
+    return "| " + " | ".join(cells) + " |"
+
+
 def scan_publication(root: Path) -> tuple[int, list[str]]:
     errors: list[str] = []
     files = markdown_files(root)
@@ -493,11 +540,15 @@ def scan_publication(root: Path) -> tuple[int, list[str]]:
         rel = path.relative_to(root)
         lines = text.splitlines()
         fenced = closed_fence_mask(lines)
+        in_attribution_table = [False]
         for lineno, line in enumerate(lines, 1):
-            if fenced[lineno - 1] or describes_detector(line):
+            if fenced[lineno - 1]:
+                continue
+            scan_line = _attribution_scan_line(line, in_attribution_table)
+            if describes_detector(line):
                 continue
             for rx, why in compiled:
-                if rx.search(line):
+                if rx.search(scan_line):
                     errors.append(
                         f"{rel}:{lineno}: {why} — repo has been public since "
                         f"{REPO_PUBLIC_SINCE} ({REPO_PUBLIC_EVIDENCE}): "

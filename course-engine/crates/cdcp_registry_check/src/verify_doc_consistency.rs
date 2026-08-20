@@ -33,6 +33,10 @@
 //!   stale, or contradictory narrative text is out of scope by construction.
 //! - Any claim in a doc it never read: a markdown file that is not valid UTF-8
 //!   is reported as unreadable and refused, never silently skipped.
+//! - In the attribution ledger, `PASS` and `BLOCKED` in the declared `Result`
+//!   column are citation outcomes, not publication claims. The ledger schema
+//!   is recognized by its exact header; only those result cells are masked.
+//!   Other cells and prose in the same file remain in scope.
 //!
 //! # DECISION (bd-hw3, 2026-08-14): a row shorter than its Status column is RED
 //!
@@ -1225,6 +1229,80 @@ fn describes_detector(line: &str) -> bool {
     DETECTOR_NAMES.iter().copied().any(|n| has_word(&low, n))
 }
 
+const ATTRIBUTION_HEADER: [&str; 6] = [
+    "ID",
+    "Module",
+    "Public syllabus heading",
+    "Syllabus URL",
+    "Current source URL",
+    "Result",
+];
+
+fn markdown_table_cells(line: &str) -> Option<Vec<&str>> {
+    let trimmed = line.trim();
+    if !trimmed.starts_with('|') || !trimmed.ends_with('|') {
+        return None;
+    }
+    Some(
+        trimmed[1..trimmed.len() - 1]
+            .split('|')
+            .map(str::trim)
+            .collect(),
+    )
+}
+
+fn is_attribution_header(cells: &[&str]) -> bool {
+    cells == ATTRIBUTION_HEADER
+}
+
+fn is_table_separator(cells: &[&str]) -> bool {
+    !cells.is_empty()
+        && cells.iter().all(|cell| {
+            !cell.is_empty()
+                && cell.contains('-')
+                && cell.chars().all(|ch| ch == '-' || ch == ':' || ch == ' ')
+        })
+}
+
+fn is_citation_result(cell: &str) -> bool {
+    let first = cell
+        .trim()
+        .split(|ch: char| ch.is_whitespace() || ch == '-' || ch == ':' || ch == '—')
+        .next()
+        .unwrap_or_default();
+    first == "PASS" || first == "BLOCKED"
+}
+
+/// Return a scan-only copy with the attribution ledger's citation Result cell
+/// blanked. This is schema discrimination, not a path exclusion: a publication
+/// claim in another cell or in prose still reaches `publication_hit`.
+fn attribution_scan_line(line: &str, in_table: &mut bool) -> String {
+    let Some(cells) = markdown_table_cells(line) else {
+        *in_table = false;
+        return line.to_string();
+    };
+    if is_attribution_header(&cells) {
+        *in_table = true;
+        return line.to_string();
+    }
+    if !*in_table {
+        return line.to_string();
+    }
+    if is_table_separator(&cells) {
+        return line.to_string();
+    }
+    if cells.len() != ATTRIBUTION_HEADER.len() {
+        *in_table = false;
+        return line.to_string();
+    }
+    if !is_citation_result(cells[5]) {
+        return line.to_string();
+    }
+    let mut masked = cells;
+    masked[5] = "";
+    format!("| {} |", masked.join(" | "))
+}
+
 fn scan_publication(root: &Path) -> (usize, Vec<Finding>) {
     let mut errors: Vec<Finding> = Vec::new();
     let files = markdown_files(root);
@@ -1264,11 +1342,16 @@ fn scan_publication(root: &Path) -> (usize, Vec<Finding>) {
         let rel = path.strip_prefix(root).unwrap_or(path);
         let lines = py_splitlines(&text);
         let fenced = closed_fence_mask(&lines);
+        let mut in_attribution_table = false;
         for (idx, line) in lines.into_iter().enumerate() {
-            if fenced[idx] || describes_detector(line) {
+            if fenced[idx] {
                 continue;
             }
-            if let Some(why) = publication_hit(line) {
+            let scan_line = attribution_scan_line(line, &mut in_attribution_table);
+            if describes_detector(line) {
+                continue;
+            }
+            if let Some(why) = publication_hit(&scan_line) {
                 errors.push(Finding::violation(format!(
                     "{}:{}: {why} — repo has been public since {REPO_PUBLIC_SINCE} ({REPO_PUBLIC_EVIDENCE}): {}",
                     rel.display(),
