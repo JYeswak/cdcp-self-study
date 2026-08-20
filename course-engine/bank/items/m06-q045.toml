@@ -11,10 +11,10 @@ choices = [
   "Room/row distribution versus rack-level delivery",
   "Whether they use three-phase power (only floor PDUs can)",
   "Whether grounding is required",
-  "Whether they can feed dual-corded gear",
+  "Whether they convert AC to DC for the IT load",
 ]
 correct = "A"
-explanation = "PDU is an overloaded term: clarify floor/room, RPP, or rack PDU (rPDU) by role and location."
+explanation = "PDU is an overloaded term: floor/room PDUs and RPPs distribute at room or row level, while a rack PDU delivers at the cabinet. Three-phase is not the divider -- rack PDUs are commonly three-phase too. Grounding is required throughout, not a distinguishing feature. And none of them rectify: AC-to-DC conversion happens in the equipment power supply, downstream of every PDU type."
 topic_ids = ["m06-pdu"]
 objective_ids = []
 bloom = "understand"
