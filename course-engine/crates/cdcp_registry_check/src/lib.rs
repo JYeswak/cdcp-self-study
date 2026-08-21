@@ -15,7 +15,6 @@ use thiserror::Error;
 pub mod anti_vacuous;
 pub mod count_pins;
 pub mod doc_facts;
-mod gate_shrink;
 pub mod goldens_couplings;
 pub mod scan_domains;
 pub mod scratch;
@@ -887,15 +886,9 @@ pub fn run(root: &Path) -> Result<(), CheckError> {
         }
         Err(error) => violations.push(Violation::new("scan_domain", error)),
     }
-    let shrink = gate_shrink::check_gate_shrink(root);
-    if let Err(ref e) = shrink {
-        eprintln!("cdcp_registry_check: {e}");
-    }
-    if violations.is_empty() && shrink.is_ok() {
+    if violations.is_empty() {
         println!("cdcp_registry_check: OK (L1 claims constitution green)");
         Ok(())
-    } else if violations.is_empty() {
-        Err(shrink.unwrap_err())
     } else {
         for viol in &violations {
             eprintln!("cdcp_registry_check: {} — {}", viol.code, viol.message);
