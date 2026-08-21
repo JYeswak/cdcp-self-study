@@ -64,7 +64,7 @@ signal.
 | 21 | `selftest_orphan / orphan-item-ref` | forward reference integrity; `unknown topic_id` | clean specimen bank/live control GREEN | CANNOT_DETERMINE |
 | 22 | `selftest_orphan / unanchored-item` | item anchoring; `missing/empty topic_ids` | clean specimen bank/live control GREEN | CANNOT_DETERMINE |
 | 23 | `selftest_orphan / silently-empty-file` | file-granular anti-vacuity; `items[] yielded zero items` | clean specimen bank/live control GREEN | CANNOT_DETERMINE |
-| 24 | `selftest_orphan / orphan-topic` | reverse reference integrity; `orphan topic 'zz-selftest-orphan-topic'` | live orphan integrity GREEN | CANNOT_DETERMINE |
+| 24 | `selftest_orphan / orphan-topic` | reverse reference integrity; `orphan topic 'zz-selftest-orphan-topic'` | live orphan integrity GREEN | **PROVEN** (scratch counterfactual) |
 
 Observed suite receipts: `selftest_known_bad` `INJECTIONS=6`, `selftest_l5`
 `INJECTIONS=2`, `selftest_l6_coverage` `INJECTIONS=2`,
@@ -231,3 +231,20 @@ same m01-only fixture then returned code 0 and printed
 bypassed run would fail, which is the required counterfactual. The remaining
 23 primary rows retain their prior `CANNOT_DETERMINE` status; no row is
 promoted by census or by a broad nonzero exit.
+
+## Primary causal progress: orphan-topic reverse reference
+
+Primary status is now **`causal=2/24`, `intact=24/24`**. For row 24, the
+production `cdcp_bank::orphans` implementation ran from an isolated scratch
+Cargo package over a valid topic registry containing `t-used` and `t-lonely`
+and one approved item referencing only `t-used`. The intact result was RED
+and included the exact marker `orphan topic 't-lonely': declared in
+topics.toml`.
+
+A positive control added one approved item referencing `t-lonely`; the same
+production implementation returned GREEN. The bypass changed only the
+production orphan-topic filter to an always-false predicate in the scratch
+source. The original one-item fixture was then rerun and returned GREEN,
+printing `BYPASSED PASS: orphan-topic detector disabled`. A RED assertion
+against that bypass would fail, proving that this fixture's intact RED is
+caused by the reverse-reference detector rather than by a shared scan error.
