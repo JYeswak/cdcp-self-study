@@ -1,0 +1,194 @@
+{
+  "schema_version": 1,
+  "slug": "m11-network-decision-research-2026-08-20",
+  "consumer": "Human reviewer deciding which M11 recall items can be converted to apply-level items",
+  "feature": "Sourced M11 network/cabling conversion queue",
+  "observed_defect": "Q20 found 18 of 42 M11 recall items not-convertible; topology terms, connector terms, and demarcation lack public decision-level support in their current propositions.",
+  "deletion_condition": "Delete when each disposition is reviewed and either grounded in a changed item or recorded as an explicit unresolved gap in the maintained conversion ledger.",
+  "nodes": [
+    {
+      "id": "Standard_tia-942-c-2024",
+      "label": "ANSI/TIA-942-C:2024 data-centre infrastructure and topology scope",
+      "kind": "Standard",
+      "source_file": "https://tiaonline.org/standard/tia-942/",
+      "source_location": "Official TIA catalog/abstract, revision C, May 2024",
+      "confidence": 1.0,
+      "_provenance": ["https://tiaonline.org/standard/tia-942/"],
+      "lineage_count": 1
+    },
+    {
+      "id": "Standard_tia-cabling-pathway-redundancy-article",
+      "label": "TIA public cabling/pathway/redundancy guidance",
+      "kind": "Standard",
+      "source_file": "https://standards.tiaonline.org/big-data-overload",
+      "source_location": "Public TIA standards article, cabling design/pathways/redundancy discussion",
+      "confidence": 0.9,
+      "_provenance": ["https://standards.tiaonline.org/big-data-overload"],
+      "lineage_count": 1
+    },
+    {
+      "id": "Standard_iso-iec-11801-5-2017",
+      "label": "ISO/IEC 11801-5:2017 data-centre generic cabling scope",
+      "kind": "Standard",
+      "source_file": "https://www.iso.org/standard/62247.html",
+      "source_location": "Official ISO preview abstract",
+      "confidence": 1.0,
+      "_provenance": ["https://www.iso.org/standard/62247.html"],
+      "lineage_count": 1
+    },
+    {
+      "id": "Standard_iec-60793-2-10-2019-amd1-2022",
+      "label": "IEC 60793-2-10:2019+A1:2022 multimode fibre categories and applications",
+      "kind": "Standard",
+      "source_file": "https://webstore.iec.ch/en/publication/73767",
+      "source_location": "Official IEC catalog scope/abstract, consolidated edition 7.1",
+      "confidence": 1.0,
+      "_provenance": ["https://webstore.iec.ch/en/publication/73767"],
+      "lineage_count": 1
+    },
+    {
+      "id": "Standard_iec-tr-61282-15-2017",
+      "label": "IEC TR 61282-15:2017 MPO cable-plant testing guidance",
+      "kind": "Standard",
+      "source_file": "https://webstore.iec.ch/en/publication/34000",
+      "source_location": "Official IEC catalog scope/abstract",
+      "confidence": 1.0,
+      "_provenance": ["https://webstore.iec.ch/en/publication/34000"],
+      "lineage_count": 1
+    },
+    {
+      "id": "Standard_iec-61300-3-35-2022",
+      "label": "IEC 61300-3-35:2022 visual inspection and optical qualification boundary",
+      "kind": "Standard",
+      "source_file": "https://webstore.iec.ch/en/publication/64254",
+      "source_location": "Official IEC catalog scope/abstract, edition 3.0",
+      "confidence": 1.0,
+      "_provenance": ["https://webstore.iec.ch/en/publication/64254"],
+      "lineage_count": 1
+    },
+    {
+      "id": "Standard_iec-tr-62627-01-2023",
+      "label": "IEC TR 62627-01:2023 connector cleaning methods",
+      "kind": "Standard",
+      "source_file": "https://webstore.iec.ch/en/publication/72878",
+      "source_location": "Official IEC catalog scope/abstract, edition 3.0",
+      "confidence": 1.0,
+      "_provenance": ["https://webstore.iec.ch/en/publication/72878"],
+      "lineage_count": 1
+    },
+    {
+      "id": "Finding_m11-q111-multimode-selection",
+      "label": "M11-Q111 can test multimode category/application selection without a universal distance claim",
+      "kind": "Finding",
+      "source_file": "knowledge/research/m11-network-decision-research-2026-08-20.md",
+      "source_location": "Item dispositions / m11-q111",
+      "confidence": 0.9,
+      "_provenance": ["knowledge/research/m11-network-decision-research-2026-08-20.md"],
+      "lineage_count": 1
+    },
+    {
+      "id": "Finding_m11-q113-mpo-acceptance",
+      "label": "M11-Q113 can test MPO plant acceptance evidence and the inspection-versus-qualification boundary",
+      "kind": "Finding",
+      "source_file": "knowledge/research/m11-network-decision-research-2026-08-20.md",
+      "source_location": "Item dispositions / m11-q113",
+      "confidence": 0.95,
+      "_provenance": ["knowledge/research/m11-network-decision-research-2026-08-20.md"],
+      "lineage_count": 1
+    },
+    {
+      "id": "Gap_m11-topology-term-preview",
+      "label": "Public previews do not expose the exact MDA/HDA/EDA/ZDA/demarcation propositions",
+      "kind": "Gap",
+      "source_file": "knowledge/research/m11-network-decision-research-2026-08-20.md",
+      "source_location": "Should-fail search",
+      "confidence": 1.0,
+      "_provenance": ["knowledge/research/m11-network-decision-research-2026-08-20.md"],
+      "lineage_count": 1
+    },
+    {
+      "id": "Gap_m11-universal-multimode-distance",
+      "label": "No universal OM3/OM4/OM5 reach number is supported by the searched public sources",
+      "kind": "Gap",
+      "source_file": "knowledge/research/m11-network-decision-research-2026-08-20.md",
+      "source_location": "Should-fail search",
+      "confidence": 1.0,
+      "_provenance": ["knowledge/research/m11-network-decision-research-2026-08-20.md"],
+      "lineage_count": 1
+    }
+  ],
+  "edges": [
+    {
+      "source": "Standard_iec-60793-2-10-2019-amd1-2022",
+      "target": "Finding_m11-q111-multimode-selection",
+      "relation": "addresses",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "https://webstore.iec.ch/en/publication/73767",
+      "source_location": "Official catalog scope/abstract"
+    },
+    {
+      "source": "Standard_iec-tr-61282-15-2017",
+      "target": "Finding_m11-q113-mpo-acceptance",
+      "relation": "addresses",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "https://webstore.iec.ch/en/publication/34000",
+      "source_location": "Official catalog scope/abstract"
+    },
+    {
+      "source": "Standard_iec-61300-3-35-2022",
+      "target": "Finding_m11-q113-mpo-acceptance",
+      "relation": "addresses",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "https://webstore.iec.ch/en/publication/64254",
+      "source_location": "Official catalog scope/abstract"
+    },
+    {
+      "source": "Standard_iec-tr-62627-01-2023",
+      "target": "Finding_m11-q113-mpo-acceptance",
+      "relation": "addresses",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "https://webstore.iec.ch/en/publication/72878",
+      "source_location": "Official catalog scope/abstract"
+    },
+    {
+      "source": "Standard_tia-942-c-2024",
+      "target": "Gap_m11-topology-term-preview",
+      "relation": "addresses",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "https://tiaonline.org/standard/tia-942/",
+      "source_location": "Official abstract confirms broad topology scope but not internal terms"
+    },
+    {
+      "source": "Standard_tia-cabling-pathway-redundancy-article",
+      "target": "Gap_m11-topology-term-preview",
+      "relation": "addresses",
+      "confidence": "INFERRED",
+      "confidence_score": 0.9,
+      "source_file": "https://standards.tiaonline.org/big-data-overload",
+      "source_location": "Public article confirms pathways, spaces, redundancy, and scalability but not exact item vocabulary"
+    },
+    {
+      "source": "Standard_iso-iec-11801-5-2017",
+      "target": "Gap_m11-topology-term-preview",
+      "relation": "addresses",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "https://www.iso.org/standard/62247.html",
+      "source_location": "Official preview abstract confirms generic cabling scope but not exact internal terms"
+    },
+    {
+      "source": "Standard_iec-60793-2-10-2019-amd1-2022",
+      "target": "Gap_m11-universal-multimode-distance",
+      "relation": "addresses",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "https://webstore.iec.ch/en/publication/73767",
+      "source_location": "Official catalog names categories/applications but no universal reach number"
+    }
+  ]
+}
