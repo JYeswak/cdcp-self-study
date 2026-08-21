@@ -120,16 +120,10 @@ check_sh = "scripts/check.sh"
 invocation = "run_cdcp_gate substrate-guard || fail \"substrate guard\""
 bead = "bd-substrate-rust-migration-jhd.1"
 
-# Remaining scripts/{verify,validate,smoke}_*.py after EXTRACT-THEN-DELETE.
-# Compiled-in scan: non-recursive scripts/ names with those prefixes.
-# Empty discovery is ERROR. A row whose file is gone is ERROR. An unlisted
-# remaining oracle is ERROR. Delete this whole table with the last file.
-[oracle_inventory]
-
-[[oracle_inventory.file]]
-path = "scripts/verify_bank.py"
-disposition = "cargo_test_differential"
-why = "check.sh/smoke_slo no longer invoke python3; cargo test still diffs vs tests/diff_verify_bank.rs (bd-verify-bank-oracle-retirement-blocked-f5i4)"
+# The `oracle_inventory` table is intentionally absent: the final Python
+# gate-path oracle was retired in bd-substrate-python-gates-viu. If a future
+# scripts/{verify,validate,smoke}_*.py appears, substrate-guard requires the
+# inventory table and a reasoned row before it can pass.
 
 # scripts/verify_paraphrase_pairs.py RETIRED (bd-substrate-rust-migration-jhd.21).
 # Product is `cdcp verify-paraphrase-pairs` / cdcp_bank::paraphrase. Rust
@@ -150,12 +144,6 @@ why = "check.sh/smoke_slo no longer invoke python3; cargo test still diffs vs te
 # `cdcp_gate verify-knowledge-paths`. Known-bad lives on the Rust module
 # (missing target, missing domains.toml, zero rows, stray engine-local copy).
 # Do NOT re-add a row for it.
-
-[[allow]]
-path = "scripts/verify_bank.py"
-reason = "Differential oracle for `cdcp_gate verify-bank` (bd-substrate-rust-migration-jhd.7, ported 2026-08-14). L2 item-bank pool validation; the bank is the product's primary data surface. Retained so tests/diff_verify_bank.rs can compare both implementations. Membership is the transitive walk, not this sentence (smoke_slo.sh is mid-repoint; bd-check-sh-transitive-invocation-gzvb)."
-migration_bead = "bd-substrate-rust-migration-jhd.7"
-expires = "2026-11-30"
 
 # RETIRED 2026-08-15 (bd-retire-oracle-on-behaviour-change-gna0):
 # scripts/verify_content_lock.py and tests/diff_verify_content_lock.rs are

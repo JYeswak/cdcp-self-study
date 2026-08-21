@@ -4,8 +4,9 @@
 //! `bd-engine-not-gate-ar39.10` (EXTRACT-THEN-DELETE). This is bank product,
 //! not a gate file: a learner is assessed from this pool, so a bank that
 //! cannot fill an exam is a product defect. The `cdcp_gate verify-bank`
-//! subcommand is a thin dispatcher so `check.sh` does not change. Dual-path
-//! oracle `scripts/verify_bank.py` stays.
+//! subcommand is a thin dispatcher so `check.sh` does not change. The former
+//! Python oracle has now been retired; this crate owns the verdict and its
+//! direct known-good/known-bad tests.
 //!
 //! Originally ported as bd-substrate-rust-migration-jhd.7.
 //!
@@ -133,14 +134,15 @@
 //! schema, and the pool is big and varied enough to sample*. That is the whole
 //! claim, and this header will not stretch it.
 //!
-//! # BYTE-EXACTNESS WITH THE PYTHON ORACLE
+//! # RUST-ONLY VERDICT COVERAGE AFTER ORACLE RETIREMENT
 //!
-//! `scripts/verify_bank.py` stays in the tree as the differential oracle for
-//! this port. `tests/diff_verify_bank.rs` runs BOTH on every case — the live
-//! repo, an empty bank, a missing bank, a missing registry, malformed fields,
-//! duplicate ids, duplicate stems, domain shortfalls, the two diversity rules,
-//! manifest drift, the 80-error truncation — and asserts stdout, stderr, and
-//! exit code match byte for byte.
+//! The former `scripts/verify_bank.py` oracle and its differential subprocess
+//! harness were retired after the port. The tests in this module retain direct
+//! verdict assertions for the live pool, an empty bank, missing inputs,
+//! malformed fields, duplicate ids and stems, domain shortfalls, both
+//! diversity rules, manifest drift, and the 80-error truncation. A passing
+//! Rust test now means the product implementation itself was exercised; it no
+//! longer claims byte-for-byte agreement with a second implementation.
 //!
 //! Two consequences, both deliberate and both recorded here rather than made
 //! quietly:
@@ -166,8 +168,9 @@
 //! exits 1. `Outcome` models that exactly: the partial stdout is kept, the exit
 //! code is 1, and stderr carries a one-line description. **stdout and the exit
 //! code stay byte-identical on those paths; the traceback text is the one
-//! surface this port does not reproduce**, and `tests/diff_verify_bank.rs`
-//! asserts precisely that (equal stdout, equal code, both stderrs non-empty).
+//! surface this port does not reproduce**. The direct tests assert the stable
+//! verdict and output contract without pretending that a retired oracle still
+//! provides an independent implementation.
 //!
 //! ## Relationship to `cdcp_bank::Bank::load_dir`
 //!
@@ -1193,8 +1196,8 @@ fn main_impl(root: &Path, out: &mut String) -> R<i32> {
         // emission order was PYTHONHASHSEED-dependent; it now iterates its own
         // `CORRECT_LETTERS` tuple, matching this A–D order by construction
         // rather than by the arithmetic accident that no two letters can both
-        // exceed 70%. `tests/diff_verify_bank.rs` pins both the tuple and the
-        // cross-seed byte-equality of the oracle's stdout.
+        // exceed 70%. The direct tests pin this tuple and the stable output
+        // order without a second implementation.
         for letter in ALLOWED_CORRECT {
             let count = letter_counts.get(letter).copied().unwrap_or(0);
             let frac = count as f64 / approved_n as f64;

@@ -49,7 +49,7 @@ schema_version = 1
 #   verify_orphans.py           RETIRED   Rust unit/selftest owns the gate
 #   verify_objectives.py        RETIRED  Rust selftest owns the gate
 #   verify_coverage.py          RETIRED   Rust selftest owns the gate
-#   verify_bank.py              YES (2)   check.sh:719  -> smoke_slo.sh
+#   verify_bank.py              RETIRED   Rust product tests own the gate
 #   verify_doc_consistency.py   YES (1)   check.sh:767  -> selftest_doc_consistency.sh, as $CHECKER
 #   verify_injection_count.py   RETIRED   Rust selftest owns the gate
 #   validate_grounding.py       RETIRED   Rust unit suite owns the gate
@@ -60,10 +60,9 @@ schema_version = 1
 #
 # READING THE TWO TOGETHER — verify_content_lock.py and
 # verify_knowledge_paths.py are RETIRED (never invoked; rust is CI).
-# verify_orphans.py and validate_grounding.py are now retired: their Rust unit
-# suites own the wired known-bad legs. verify_bank.py remains blocked on
-# invocation; everything else is blocked on both invocation and its
-# differential consumer.
+# verify_orphans.py, validate_grounding.py, and verify_bank.py are now retired:
+# their Rust product suites own the wired known-bad legs. Everything else is
+# blocked on both invocation and its differential consumer.
 # ─────────────────────────────────────────────────────────────────────────────
 
 [census]
@@ -88,7 +87,7 @@ survives when its oracle is retired.
 # Anti-vacuous floors, derived from what the tree contained when this file was
 # written. A census that discovers nothing must be an ERROR, never a pass.
 registered_harness_floor = 11   # rows below; monotone — rows stay after retirement
-active_harness_floor = 1        # diff_*.rs files still holding comparator calls
+active_harness_floor = 0        # all diff_*.rs harnesses are now retired
 
 # THE RATCHET. The total number of agreement-only cases across the tree may
 # fall and may never rise. Enforcement is on the TOTAL, deliberately, and not
@@ -133,8 +132,8 @@ agreement_only_total_budget = 0
 # If every differential harness is eventually retired, `active` legitimately
 # reaches zero. That end state must be DECLARED, not inferred from an empty
 # scan — an empty scan set is an ERROR.
-all_harnesses_retired = false
-all_harnesses_retired_reason = ""
+all_harnesses_retired = true
+all_harnesses_retired_reason = "2026-08-20: the final diff_verify_bank.rs harness and verify_bank.py oracle were retired; direct Rust product tests own every bank verdict leg."
 
 # ── the eleven harnesses, measured 2026-08-14 ────────────────────────────────
 #
@@ -168,9 +167,11 @@ owner_bead = "bd-7big/bd-qqwc"
 file = "diff_verify_bank.rs"
 gate = "verify-bank"
 comparators = ["assert_byte_identical", "check"]
-# 46 cases as of 2026-08-15 (bd-bank-zero-domain-floors-vacuous-o80a added the
-# empty-floor plant and its empty-bank complement). Zero agreement-only
-# throughout: this oracle can be retired today, losing nothing.
+# RETIRED 2026-08-20 (bd-substrate-python-gates-viu): the 46 differential
+# cases were replaced by direct `cdcp_bank::verify_bank` tests. The row stays
+# because registry rows are monotone and the census must distinguish a retired
+# harness from an unregistered deletion. The live dispatcher remains
+# `cdcp_gate verify-bank`.
 cases = 46
 agreement_only = 0
 owner_bead = "bd-8exw"

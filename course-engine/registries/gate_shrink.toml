@@ -82,7 +82,9 @@
 # 29546 -> 26934: retire the verify_objectives Python oracle and its
 # differential harness plus the live inventory residue; current measurement
 # for this port against HEAD is 26934.
-ceiling_lines = 26934
+# 26934 -> 22316: retire the final verify_bank Python oracle and differential
+# harness; current measurement after the extraction is 22316.
+ceiling_lines = 22316
 delete_when_lines_below = 15000
 # Anti-vacuous: a scan that finds fewer than this many .rs files is an ERROR.
 # 2 = src/lib.rs + src/main.rs. File count may fall during extraction.
@@ -228,10 +230,6 @@ lines = 673
 [[file]]
 path = "tests/census_charter_pair.rs"
 lines = 404
-
-[[file]]
-path = "tests/diff_verify_bank.rs"
-lines = 1426
 
 [[file]]
 path = "tests/differential_verdict_census.rs"

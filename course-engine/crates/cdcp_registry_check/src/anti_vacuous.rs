@@ -185,7 +185,6 @@ fn scan_targets(root: &Path) -> Vec<(PathBuf, String, bool)> {
     }
 
     let scripts = root.join("scripts");
-    let mut oracles = 0;
     for entry in std::fs::read_dir(&scripts)
         .unwrap_or_else(|e| panic!("scripts/ unreadable: {e} — scan is ERROR"))
         .flatten()
@@ -193,15 +192,13 @@ fn scan_targets(root: &Path) -> Vec<(PathBuf, String, bool)> {
         let name = entry.file_name().to_string_lossy().into_owned();
         if (name.starts_with("verify_") || name.starts_with("validate_")) && name.ends_with(".py") {
             out.push((entry.path(), format!("scripts/{name}"), true));
-            oracles += 1;
         }
     }
-    // Six oracles (`verify_orphans.py`, `validate_grounding.py`,
-    // `verify_doc_consistency.py`, `verify_injection_count.py`,
-    // `verify_coverage.py`, and `verify_objectives.py`) were deliberately
-    // retired into Rust in the current migration slices. One remains; zero is
-    // still an ERROR, so this cannot silently become vacuous.
-    assert!(oracles >= 1, "oracle glob found {oracles}; scan is ERROR");
+    // All gate assertion owners are now scanned under the product crate floors
+    // above. A zero-sized Python oracle glob is therefore the intentional
+    // post-migration state, not a vacuous pass: the non-zero product roots and
+    // dispatcher-owner pairs remain mandatory. If a new Python oracle appears,
+    // substrate-guard and the oracle inventory still require its disposition.
     out.sort_by(|a, b| a.1.cmp(&b.1));
     out
 }
@@ -484,6 +481,21 @@ mod tests {
                 assert!(min_sites(owner) > 0);
             }
         }
+    }
+
+    #[test]
+    fn retired_python_oracle_glob_is_empty_but_product_scan_is_not() {
+        let root = engine_root();
+        let targets = scan_targets(&root);
+        assert!(
+            targets
+                .iter()
+                .all(|(_, rel, _)| !rel.starts_with("scripts/")),
+            "the final Python oracle should be retired in this tree: {targets:?}"
+        );
+        // `scan_targets` itself has already enforced each non-zero product
+        // root floor before returning. This assertion is about the retired
+        // Python domain, not a second (and narrower) owner count.
     }
 
     #[test]

@@ -100,16 +100,17 @@
 //! writing a sentence — the change is that the sentence is now dated,
 //! attributed, reviewable in a diff, and it rots.
 //!
-//! `[oracle_inventory]` (same bead) is the remaining
-//! `scripts/{verify,validate,smoke}_*.py` table. When that table is present,
-//! an empty scan of those names is an ERROR, a row whose file is gone is an
-//! ERROR, and an unlisted remaining oracle is an ERROR. Fixtures omit the
-//! table and the leg does not run.
+//! `[oracle_inventory]` (same bead) inventories any remaining
+//! `scripts/{verify,validate,smoke}_*.py`. When that table is present, an
+//! empty scan of those names is an ERROR, a row whose file is gone is an
+//! ERROR, and an unlisted remaining oracle is an ERROR. After the final
+//! oracle is retired the table is absent and the live scan must be empty;
+//! fixtures may also omit the table.
 //!
 //! The invocation set itself is TRANSITIVE (bd-check-sh-transitive-invocation-gzvb,
 //! leftover presence/mjs: bd-transitive-invocation-blindspot-lcfj).
 //! A grep of `scripts/check.sh` does not enumerate what that file runs:
-//! `sh scripts/smoke_slo.sh` hides `python3 scripts/verify_bank.py`, and
+//! `sh scripts/smoke_slo.sh` used to hide the retired Python bank oracle, and
 //! `CHECKER="scripts/verify_doc_consistency.py"` then `python3 "$CHECKER"` is
 //! invisible to a filename grep. `walk_invocations` follows sourced / `sh`
 //! children, resolves single-assignment `$VAR` targets for `python3` / `node` /
@@ -1148,8 +1149,9 @@ pub fn reason_honesty_with_set(
 
 /// Anti-vacuous inventory of remaining verify/validate/smoke oracles.
 ///
-/// `None` means the snapshot's registry does not claim to inventory them
-/// (fixtures). `Some` with zero rows, or a scan that found nothing, is ERROR.
+/// `None` means the snapshot has no inventory table. That is valid for the
+/// terminal live state only when `discovered` is empty; fixtures also use it.
+/// `Some` with zero rows, or a scan that found nothing, is ERROR.
 pub fn inventory_findings(
     inv: Option<&OracleInventory>,
     discovered: &BTreeSet<String>,
@@ -1771,6 +1773,26 @@ pub fn run(ctx: &GateCtx) -> Result<(), GateError> {
             inv_errs.len(),
             inv_errs.join(" | ")
         )));
+    }
+
+    // A missing table is the explicit terminal state after the last oracle is
+    // retired, not permission to hide a newly added one. Fixtures do not have
+    // the engine's Cargo/crate shape and intentionally exercise the scanner
+    // with synthetic scripts, so apply this live-only closure check there.
+    let engine_tree = root.join("Cargo.toml").is_file() && root.join("crates/cdcp_gate").is_dir();
+    if engine_tree {
+        if wt_al.oracle_inventory.is_none() && !wt_disc.is_empty() {
+            return Err(GateError::error(format!(
+                "{REGISTRY_PATH}: oracle_inventory is absent but live scan found {} remaining oracle(s): {:?}",
+                wt_disc.len(), wt_disc
+            )));
+        }
+        if ix_al.oracle_inventory.is_none() && !ix_disc.is_empty() {
+            return Err(GateError::error(format!(
+                "{REGISTRY_PATH}: index oracle_inventory is absent but staged scan found {} remaining oracle(s): {:?}",
+                ix_disc.len(), ix_disc
+            )));
+        }
     }
 
     // bd-substrate-python-gates-viu: every remaining .py oracle must carry a
@@ -3446,23 +3468,19 @@ python3 "$_anki_plant/scripts/export_anki.py"
             .expect("engine root");
         let al_text = std::fs::read_to_string(root.join(REGISTRY_PATH)).expect("allowlist");
         let al = parse_allowlist(&al_text).expect("parses");
-        let inv = al
-            .oracle_inventory
-            .as_ref()
-            .expect("live allowlist must carry [oracle_inventory]");
-        assert!(
-            !inv.files.is_empty(),
-            "live inventory of remaining oracles must not be empty"
-        );
         let disc = discover_oracle_scripts(&root.join("scripts")).expect("scan scripts/");
         assert!(
-            !disc.is_empty(),
-            "a scan of remaining verify/validate/smoke .py that found nothing is an ERROR"
+            disc.is_empty(),
+            "the final Python oracle is retired; live scan must be empty: {disc:?}"
         );
-        let h = inventory_findings(Some(inv), &disc);
+        assert!(
+            al.oracle_inventory.is_none(),
+            "terminal state must remove the empty table"
+        );
+        let h = inventory_findings(None, &disc);
         assert!(
             h.errors.is_empty() && h.violations.is_empty(),
-            "live oracle inventory must match the scripts/ scan: {h:?}"
+            "retired live oracle inventory must be a clean empty scan: {h:?}"
         );
         assert!(
             !disc.contains("scripts/verify_content_lock.py"),
@@ -3688,15 +3706,12 @@ python3 "$_anki_plant/scripts/export_anki.py"
             "paraphrase_pairs python invoke must stay GONE (jhd.21): {py:?}"
         );
         assert!(
-            root.join("scripts/verify_bank.py").is_file(),
-            "dual-path oracle must stay (empty invoke inventory is not a retirement)"
+            !root.join("scripts/verify_bank.py").is_file(),
+            "the final Python bank oracle must be retired from the live tree"
         );
         if let Ok(slo) = std::fs::read_to_string(root.join("scripts/smoke_slo.sh")) {
             if sw::script_still_invokes_py(&slo, "scripts/verify_bank.py") {
-                assert!(
-                    walk.paths.contains("scripts/verify_bank.py"),
-                    "smoke_slo.sh still calls verify_bank.py but inventory missed it: {py:?}"
-                );
+                panic!("smoke_slo.sh still calls the retired verify_bank.py: {py:?}");
             }
         }
         for script in [

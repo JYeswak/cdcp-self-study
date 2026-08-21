@@ -125,7 +125,8 @@ run_timed "export" "$EXPORT_MS" \
     --out "$TMP_EXPORT"
 
 echo "==> (3) cdcp_gate verify-bank"
-# scripts/verify_bank.py is the differential oracle only — not timed here.
+# The former scripts/verify_bank.py differential oracle is retired; time the
+# Rust product implementation that now owns this gate.
 run_timed "bank_verify" "$VERIFY_MS" \
   "$GATE_BIN" verify-bank
 

@@ -1,7 +1,8 @@
 //! Thin dispatcher. Implementation lives in `cdcp_bank::verify_bank`
 //! (EXTRACT-THEN-DELETE, bd-engine-not-gate-ar39.10). `check.sh` still runs
 //! `cdcp_gate verify-bank`; this file must stay so the globbed registry
-//! keeps the subcommand. Dual-path oracle `scripts/verify_bank.py` stays.
+//! keeps the subcommand. The Python oracle was retired after direct Rust
+//! known-good/known-bad tests moved into `cdcp_bank`.
 
 use crate::registry::{GateCtx, GateError};
 use cdcp_bank::verify_bank::{self, Outcome};

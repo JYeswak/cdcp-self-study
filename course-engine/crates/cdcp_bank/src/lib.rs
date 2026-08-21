@@ -1,6 +1,7 @@
 //! Load bank items and compute bank_hash (OQ-03).
 //!
-//! Item schema floors match `scripts/verify_bank.py` (see docs/TESTING.md parity table)
+//! Item schema floors historically matched `scripts/verify_bank.py` (see
+//! docs/TESTING.md parity table); the Python oracle is now retired.
 //! with TWO recorded divergences, both in the strict direction:
 //!
 //! 1. **C1** — `status` is loaded and enforced here (unknown value = load
@@ -491,7 +492,7 @@ impl BankItem {
             .map_err(|e| BankError::Item(self.id.clone(), e.to_string()))
     }
 
-    /// Per-item schema floors aligned with `scripts/verify_bank.py`.
+    /// Per-item schema floors aligned with the former Python bank oracle.
     pub fn validate(&self) -> Result<(), BankError> {
         let label = if self.id.is_empty() {
             "<missing-id>".to_string()

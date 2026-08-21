@@ -1206,7 +1206,14 @@ mod leg_i {
         assert!(w.per_side && !w.token_ok, "wrong token {}", w.detail);
         let reg = registry();
         let found = discovered_harnesses();
-        assert!(!found.is_empty(), "empty harness enumeration is an ERROR");
+        if found.is_empty() {
+            assert!(
+                reg.census.all_harnesses_retired
+                    && !reg.census.all_harnesses_retired_reason.is_empty(),
+                "empty harness enumeration is an ERROR unless all_harnesses_retired is declared"
+            );
+            return;
+        }
         let gates: BTreeMap<&str, &GateRow> = reg.gate.iter().map(|g| (g.name.as_str(), g)).collect();
         let rows: BTreeMap<&str, &HarnessRow> = reg.harness.iter().map(|h| (h.file.as_str(), h)).collect();
         let mut carrying = 0usize;
