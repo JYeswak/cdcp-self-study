@@ -150,3 +150,25 @@ both exit outcomes.
 `intact=24/24`, `bypass=0/24 proven`, `CANNOT_DETERMINE=24`. The new census
 expands the worklist; it does not make a name match, a clean control, or a
 source-level pair into a causal certificate. The bead remains open.
+
+## Fresh intact-leg re-run
+
+At commit `8eac0d40`, with `CDCP_BIN_DIR=target/debug`, the five production
+selftest suites were re-run individually after the census. No live bank,
+registry, or shared pane file was modified; each suite kept its plants in a
+temporary directory and restored its clean control.
+
+| suite | RED injections reported | clean control / result |
+|---|---:|---|
+| `selftest_known_bad.sh` | 6 | goldens control PASS; suite PASS |
+| `selftest_l5.sh` | 2 | honesty + WASM digest controls PASS; suite PASS |
+| `selftest_l5_honesty.sh` (nested) | 1 | honesty control PASS; suite PASS |
+| `selftest_l6_coverage.sh` | 2 | live coverage PASS; suite PASS |
+| `selftest_l7_objectives.sh` | 8 | live objective coverage PASS; suite PASS |
+| `selftest_orphan.sh` | 6 | live orphan integrity PASS; suite PASS |
+
+The suites therefore re-confirmed the intact branch markers and the five
+clean controls. This is **not** a bypass result: no detector was neutralized,
+so the primary causal status remains `0/24`, with all 24 bypass results still
+`CANNOT_DETERMINE`. The re-run proves the intact leg was not merely stale; it
+does not prove that any named detector was the sole cause of its RED.
