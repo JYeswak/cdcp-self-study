@@ -60,7 +60,7 @@ signal.
 | 17 | `selftest_l7_objectives / domain-min-undeclared` | registry cross-source drift; `[[domain_min]] module 15 is not declared` | declared-domain control GREEN | **PROVEN** (scratch counterfactual) |
 | 18 | `selftest_l7_objectives / topic-undeclared-domain` | topic/domain cross-source drift; `topics.toml: topic in an undeclared domain` | declared-topic control GREEN | **PROVEN** (scratch counterfactual) |
 | 19 | `selftest_orphan / empty-bank` | orphan scan anti-vacuity; `empty bank` | live orphan integrity GREEN | **PROVEN** (scratch counterfactual) |
-| 20 | `selftest_orphan / empty-topics` | topic-registry anti-vacuity; `empty topic registry` | live orphan integrity GREEN | CANNOT_DETERMINE |
+| 20 | `selftest_orphan / empty-topics` | topic-registry anti-vacuity; `empty topic registry` | live orphan integrity GREEN | **PROVEN** (scratch counterfactual) |
 | 21 | `selftest_orphan / orphan-item-ref` | forward reference integrity; `unknown topic_id` | clean specimen bank/live control GREEN | **PROVEN** (scratch counterfactual) |
 | 22 | `selftest_orphan / unanchored-item` | item anchoring; `missing/empty topic_ids` | clean specimen bank/live control GREEN | **PROVEN** (scratch counterfactual) |
 | 23 | `selftest_orphan / silently-empty-file` | file-granular anti-vacuity; `items[] yielded zero items` | clean specimen bank/live control GREEN | **PROVEN** (scratch counterfactual) |
@@ -472,6 +472,27 @@ coverage empty-bank detector causal after the unrelated preconditions were
 neutralized; those neutralizations were scratch-only and are not live changes.
 
 Updated current status: primary **15/24 causal, 24/24 intact, 9/24
+CANNOT_DETERMINE**; cited-gate supplemental **3/3 causal**. The primary
+denominator remains 24; the supplemental three are reported separately and
+are not added to it.
+
+## Primary causal progress: orphan scan empty topics
+
+Primary status is now **`causal=16/24`, `intact=24/24`**. Row 20 used one
+approved item and an intentionally empty topic registry. The intact orphan
+evaluation returned RED with
+`empty topic registry: zero topic ids (vacuous referential integrity is ERROR)`.
+
+Adding the declared `t-used` topic produced the positive-control GREEN. The
+empty registry also makes the item's topic reference unknown, so the scratch
+fixture held the unrelated orphan-reference reporting branch off in both
+legs. The scratch-only bypass disabled only the empty-topic anti-vacuity
+branch; restoring the empty registry then returned
+`BYPASSED PASS: orphan empty-topics detector disabled`. This proves the named
+empty-topic detector causal after the unrelated reference precondition was
+neutralized; no live detector, bank item, or shared pane file changed.
+
+Updated current status: primary **16/24 causal, 24/24 intact, 8/24
 CANNOT_DETERMINE**; cited-gate supplemental **3/3 causal**. The primary
 denominator remains 24; the supplemental three are reported separately and
 are not added to it.
