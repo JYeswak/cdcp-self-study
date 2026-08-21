@@ -6,7 +6,8 @@
 //! not a gate file: a learner is taught against these outcomes, so an
 //! unresolved objective or a starved module is a product defect. The
 //! `cdcp_gate verify-objectives` subcommand is a thin dispatcher so `check.sh`
-//! does not change. Dual-path oracle `scripts/verify_objectives.py` stays.
+//! does not change. The Rust implementation is now the sole gate-path
+//! implementation; its known-bad legs live in `scripts/selftest_l7_objectives.sh`.
 //!
 //! Originally ported as bd-substrate-rust-migration-jhd.10.
 //!
@@ -47,7 +48,7 @@
 //! named separately from the empty-bank leg: it is the state a file-counting
 //! floor reported green on. An input set that was never really scanned must not
 //! report the way a scanned one does — exercised on BOTH implementations by
-//! `tests/diff_verify_objectives.rs`.
+//! the Rust unit and selftest suites.
 //!
 //! ## The bd-9nyt sweep (2026-08-14) — anti-vacuous at COMPARISON granularity
 //!
@@ -81,15 +82,12 @@
 //! product outcomes, not per-module LOs. Primary-topic shortfalls WARN unless
 //! `--strict-topics`. A well-formed but wrong `topic_ids` is invisible here.
 //!
-//! # BYTE-EXACTNESS WITH THE PYTHON ORACLE
+//! # RETIREMENT BOUNDARY
 //!
-//! The gate-crate harness `tests/diff_verify_objectives.rs` still asserts
-//! stdout, stderr and exit code match the oracle byte for byte. A disagreement
-//! fails the port, not the oracle. Verdicts go to stdout with exit 1 (not a
-//! dispatcher `GateError`) so RED cases stay identical. CPython emulations
-//! live in this file because the bar is bytes.
-//! Uncaught-exception paths keep stdout and the exit code; traceback text is
-//! the one surface this port does not reproduce.
+//! The former Python oracle and differential harness have been retired. This
+//! Rust implementation retains the established report and exit semantics;
+//! `scripts/selftest_l7_objectives.sh` owns the known-bad and anti-vacuous
+//! legs. The Rust unit suite retains the parser and report-shape checks.
 //!
 //! ## Known residual deviations (none reachable from the live tree)
 //!

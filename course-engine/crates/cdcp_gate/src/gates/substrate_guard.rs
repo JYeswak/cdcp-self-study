@@ -3738,16 +3738,6 @@ python3 "$_anki_plant/scripts/export_anki.py"
         );
         require_tree_derived_floor(&walk, |p| root.join(p).is_file())
             .expect("tree-derived floor is 0");
-        assert!(
-            walk.presence.contains("scripts/validate_grounding.py"),
-            "validate_grounding.py is [ -f ] only; must appear as presence: {:?}",
-            walk.presence
-        );
-        assert!(
-            !walk.paths.contains("scripts/validate_grounding.py"),
-            "validate_grounding.py is not invoked: {:?}",
-            walk.paths
-        );
         // Tree-derived mjs floor: on-disk scripts/*.mjs ∩ walk. Do not pull
         // js into the rust allowlist; do inventory node/mjs (bd-yp9x / lcfj).
         let mut mjs_on_disk = BTreeSet::new();

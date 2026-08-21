@@ -1,8 +1,8 @@
 //! Thin dispatcher. Implementation lives in `cdcp_learn::objectives`
 //! (EXTRACT-THEN-DELETE, bd-engine-not-gate-ar39.12). `check.sh` still runs
 //! `cdcp_gate verify-objectives`; this file must stay so the globbed
-//! registry keeps the subcommand. Dual-path oracle `scripts/verify_objectives.py`
-//! stays.
+//! registry keeps the subcommand. The Rust implementation is the sole gate-path
+//! implementation; known-bad legs live in `scripts/selftest_l7_objectives.sh`.
 
 use crate::registry::{GateCtx, GateError};
 use cdcp_learn::objectives;

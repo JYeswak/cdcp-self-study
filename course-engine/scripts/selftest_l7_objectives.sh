@@ -23,7 +23,8 @@
 #
 # Plants run the Rust binary (same helper contract as check.sh):
 #   $CDCP_BIN_DIR/cdcp_gate verify-objectives
-# scripts/verify_objectives.py is the cargo-test differential oracle only.
+# The Rust implementation is the sole gate-path implementation; this selftest
+# retains the known-bad and anti-vacuous objective-coverage cases.
 #
 # Trap cleans TEMP. Never leaves registries/bank dirty.
 set -eu
