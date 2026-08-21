@@ -25,32 +25,35 @@ quote is `UNVERIFIABLE`; it is not a pass. PDF sources are excluded by policy.
 ## First sweep
 
 The policy predeclares 957 item files and 1,307 unique item/URL citation rows.
-The corrected 2026-08-21 sweep recorded:
+The corrected 2026-08-21 sweep recorded the current bank after the three sampled
+DEAD URLs were changed by the bank owner. The response classifier now uses the
+HTTP status itself: 403/429 are BOT_BLOCKED regardless of host, while 404/410,
+DNS/connection failures remain DEAD. The current-bank sweep recorded:
 
 | measure | count |
 | --- | ---: |
 | cited | 1,307 |
-| HTTP-resolved | 883 |
+| HTTP-resolved | 888 |
 | resolved for grounding | 0 |
-| DEAD | 31 |
-| BOT_BLOCKED | 387 |
+| DEAD | 0 |
+| BOT_BLOCKED | 411 |
 | supporting | 0 |
 | non-supporting | 0 |
-| unverifiable | 889 |
+| unverifiable | 896 |
 
 The live gate exits 2 (RED), naming DEAD, NON_SUPPORTING, and UNVERIFIABLE rows.
-BOT_BLOCKED is reported but does not fail the item: ISO and Electropedia are
-known automation-blocking hosts, so the honest result is that this gate cannot
-verify that class by machine. The zero supporting count is an honest finding:
+BOT_BLOCKED is reported but does not fail the item: the gate cannot verify that
+class by machine. The zero supporting count is an honest finding:
 existing item comments contain source summaries, not exact source quotations,
 so the sweep cannot promote them. A resolved page without a byte-present quote
 is not treated as supporting.
 
 The committed causal fixtures cover the branches: intact support passes; a 404
 falsely marked supporting fails; a 200 response whose body lacks the claim,
-falsely marked supporting, fails; and a known ISO 403 is BOT_BLOCKED without
-failing, while a bypassed BOT_BLOCKED classification fails. The product tests
-read those fixtures; the live receipt is not used as a green fixture.
+falsely marked supporting, fails; an arbitrary 403 is BOT_BLOCKED without
+failing; and deliberately bypassed BOT_BLOCKED and resolved-200 classifications
+fail. The product tests read those fixtures; the live receipt is not used as a
+green fixture.
 
 ## Boundary
 

@@ -27,7 +27,6 @@ const POLICY: &str = "registries/quote_or_drop.toml";
 struct Policy {
     item_files: usize,
     citation_rows: usize,
-    bot_block_hosts: Vec<String>,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
@@ -130,28 +129,9 @@ fn policy(root: &Path) -> Result<Policy, String> {
     if item_files <= 0 || citation_rows <= 0 {
         return Err(format!("{}: denominators must be positive", path.display()));
     }
-    let bot_block_hosts = table
-        .get("bot_block_hosts")
-        .and_then(Value::as_array)
-        .ok_or_else(|| format!("{}: bot_block_hosts is required", path.display()))?
-        .iter()
-        .map(|value| {
-            value
-                .as_str()
-                .map(str::to_ascii_lowercase)
-                .ok_or_else(|| format!("{}: bot_block_hosts must contain strings", path.display()))
-        })
-        .collect::<Result<Vec<_>, _>>()?;
-    if bot_block_hosts.is_empty() {
-        return Err(format!(
-            "{}: bot_block_hosts must not be empty",
-            path.display()
-        ));
-    }
     Ok(Policy {
         item_files: item_files as usize,
         citation_rows: citation_rows as usize,
-        bot_block_hosts,
     })
 }
 
@@ -229,28 +209,17 @@ fn now_unix() -> u64 {
         .map_or(0, |duration| duration.as_secs())
 }
 
-fn host(url: &str) -> Option<&str> {
-    url.split_once("://")?.1.split(['/', '?', '#']).next()
-}
-
-fn is_bot_block_host(url: &str, hosts: &[String]) -> bool {
-    host(url).is_some_and(|value| {
-        let value = value.to_ascii_lowercase();
-        hosts
-            .iter()
-            .any(|known| value == *known || value.ends_with(&format!(".{known}")))
-    })
-}
-
-fn status_for_http(url: &str, http_status: u16, bot_block_hosts: &[String]) -> Status {
-    if matches!(http_status, 403 | 429) && is_bot_block_host(url, bot_block_hosts) {
-        Status::BotBlocked
+fn status_for_http(http_status: u16) -> Option<Status> {
+    if (200..300).contains(&http_status) {
+        None
+    } else if matches!(http_status, 403 | 429) {
+        Some(Status::BotBlocked)
     } else {
-        Status::Dead
+        Some(Status::Dead)
     }
 }
 
-fn fetch(url: &str, claim: Option<&str>, bot_block_hosts: &[String]) -> CitationRow {
+fn fetch(url: &str, claim: Option<&str>) -> CitationRow {
     if url.to_ascii_lowercase().contains(".pdf") {
         return CitationRow {
             item_id: String::new(),
@@ -269,12 +238,14 @@ fn fetch(url: &str, claim: Option<&str>, bot_block_hosts: &[String]) -> Citation
             "-L",
             "--silent",
             "--show-error",
+            "--user-agent",
+            "cdcp-quote-or-drop/1.0",
             "--connect-timeout",
             "3",
             "--max-time",
             "5",
             "--write-out",
-            "\n__CDCP_HTTP_STATUS__:%{http_code}",
+            "%{stderr}__CDCP_HTTP_STATUS__:%{http_code}",
             url,
         ])
         .output();
@@ -291,22 +262,18 @@ fn fetch(url: &str, claim: Option<&str>, bot_block_hosts: &[String]) -> Citation
             response_sha256: None,
         };
     };
-    let stderr = String::from_utf8_lossy(&output.stderr).trim().to_string();
-    let marker = b"\n__CDCP_HTTP_STATUS__:";
-    let Some(marker_at) = output
-        .stdout
-        .windows(marker.len())
-        .position(|w| w == marker)
-    else {
+    let stderr = String::from_utf8_lossy(&output.stderr).to_string();
+    let marker = "__CDCP_HTTP_STATUS__:";
+    let Some(marker_at) = stderr.find(marker) else {
         return CitationRow {
             item_id: String::new(),
             url: url.to_string(),
             status: Status::Dead,
             http_status: 0,
-            error: Some(if stderr.is_empty() {
+            error: Some(if stderr.trim().is_empty() {
                 "no HTTP status".to_string()
             } else {
-                stderr
+                stderr.trim().to_string()
             }),
             claim: claim.map(str::to_string),
             supporting_text: None,
@@ -314,21 +281,43 @@ fn fetch(url: &str, claim: Option<&str>, bot_block_hosts: &[String]) -> Citation
             response_sha256: None,
         };
     };
-    let body = &output.stdout[..marker_at];
-    let status_text = String::from_utf8_lossy(&output.stdout[marker_at + marker.len()..]);
-    let http_status = status_text.trim().parse::<u16>().unwrap_or_default();
+    let body = output.stdout.as_slice();
+    let status_text = &stderr[marker_at + marker.len()..];
+    let http_status = status_text
+        .lines()
+        .next()
+        .and_then(|value| value.trim().parse::<u16>().ok())
+        .unwrap_or_default();
+    let curl_stderr = stderr[..marker_at].trim();
+    if http_status == 0 {
+        return CitationRow {
+            item_id: String::new(),
+            url: url.to_string(),
+            status: Status::Dead,
+            http_status,
+            error: Some(if curl_stderr.is_empty() {
+                "no HTTP status".to_string()
+            } else {
+                curl_stderr.to_string()
+            }),
+            claim: claim.map(str::to_string),
+            supporting_text: None,
+            supporting_text_sha256: None,
+            response_sha256: None,
+        };
+    }
     let response_sha256 = Some(sha256(body));
     if !(200..300).contains(&http_status) {
-        let status = status_for_http(url, http_status, bot_block_hosts);
+        let status = status_for_http(http_status).expect("non-2xx response is classified");
         return CitationRow {
             item_id: String::new(),
             url: url.to_string(),
             status,
             http_status,
-            error: Some(if stderr.is_empty() {
+            error: Some(if curl_stderr.is_empty() {
                 format!("HTTP status {http_status}")
             } else {
-                stderr
+                curl_stderr.to_string()
             }),
             claim: claim.map(str::to_string),
             supporting_text: None,
@@ -412,11 +401,10 @@ pub fn refresh(root: &Path) -> Result<(Receipt, Counts), String> {
     let mut workers = Vec::new();
     for chunk in unique_targets.chunks(chunk_size) {
         let jobs = chunk.to_vec();
-        let bot_block_hosts = policy.bot_block_hosts.clone();
         workers.push(std::thread::spawn(move || {
             jobs.into_iter()
                 .map(|target| {
-                    let mut row = fetch(&target.url, target.claim.as_deref(), &bot_block_hosts);
+                    let mut row = fetch(&target.url, target.claim.as_deref());
                     row.item_id = target.item_id;
                     row.claim = target.claim.or(row.claim);
                     row
@@ -755,6 +743,7 @@ mod tests {
             "unreachable_bypassed.json",
             "non_supporting_bypassed.json",
             "bot_blocked.json",
+            "resolved_200_bypassed.json",
         ] {
             let path = Path::new(env!("CARGO_MANIFEST_DIR"))
                 .join("tests/fixtures/quote_or_drop")
@@ -813,38 +802,29 @@ mod tests {
         );
         let mut bypass_failures = Vec::new();
         validate_row(&bypassed.rows[0], &mut bypass_failures);
-        assert!(
-            bypass_failures
-                .iter()
-                .any(|f| f.contains("does not contain"))
-        );
+        assert!(bypass_failures
+            .iter()
+            .any(|f| f.contains("does not contain")));
     }
 
     #[test]
     fn pdf_is_unverifiable_and_not_fetched() {
-        let row = fetch("https://example.test/standard.pdf", Some("claim"), &[]);
+        let row = fetch("https://example.test/standard.pdf", Some("claim"));
         assert_eq!(row.status, Status::Unverifiable);
         assert!(row.error.unwrap().contains("PDF"));
     }
 
     #[test]
     fn bot_blocked_is_not_a_citation_failure_but_bypass_is() {
-        let hosts = vec!["iso.org".to_string()];
-        assert_eq!(
-            status_for_http("https://www.iso.org/standard/1", 403, &hosts),
-            Status::BotBlocked
-        );
-        assert_eq!(
-            status_for_http("https://www.iso.org/standard/1", 404, &hosts),
-            Status::Dead
-        );
+        assert_eq!(status_for_http(403), Some(Status::BotBlocked));
+        assert_eq!(status_for_http(404), Some(Status::Dead));
 
         let blocked = CitationRow {
             item_id: "m01-q001".to_string(),
             url: "https://www.iso.org/standard/78550.html?browse=tc".to_string(),
             status: Status::BotBlocked,
             http_status: 403,
-            error: Some("known standards host blocks automation".to_string()),
+            error: Some("HTTP 403 is BOT_BLOCKED regardless of host".to_string()),
             claim: None,
             supporting_text: None,
             supporting_text_sha256: None,
@@ -864,6 +844,15 @@ mod tests {
         let mut bypass_failures = Vec::new();
         validate_row(&bypassed, &mut bypass_failures);
         assert!(!bypass_failures.is_empty(), "bot-block branch was bypassed");
+    }
+
+    #[test]
+    fn every_403_or_429_is_bot_blocked_without_a_host_allowlist() {
+        assert_eq!(status_for_http(403), Some(Status::BotBlocked));
+        assert_eq!(status_for_http(429), Some(Status::BotBlocked));
+        assert_eq!(status_for_http(404), Some(Status::Dead));
+        assert_eq!(status_for_http(410), Some(Status::Dead));
+        assert_eq!(status_for_http(200), None);
     }
 
     #[test]

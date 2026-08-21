@@ -1,7 +1,7 @@
 {
   "schema": "zs.quote-or-drop.v1",
   "consumer": "causal fixture",
-  "observed_defect": "a known standards host returns an automation block",
+  "observed_defect": "an arbitrary host returns an automation block",
   "deletion_condition": "fixture is removed when a successor preserves the bot-block branch",
   "generated_at_unix": 1,
   "bank_sha256": "",
@@ -10,10 +10,10 @@
   "rows": [
     {
       "item_id": "m01-q001",
-      "url": "https://www.iso.org/standard/78550.html?browse=tc",
+      "url": "https://codes.iccsafe.org/content/NYSFC2025P1/chapter-10-means-of-egress",
       "status": "BOT_BLOCKED",
       "http_status": 403,
-      "error": "known standards host blocks automation",
+      "error": "HTTP 403 is BOT_BLOCKED regardless of host",
       "claim": null,
       "supporting_text": null,
       "supporting_text_sha256": null,
