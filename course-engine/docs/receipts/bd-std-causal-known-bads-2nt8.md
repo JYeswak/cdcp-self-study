@@ -58,7 +58,7 @@ signal.
 | 15 | `selftest_l7_objectives / declared-module-starved` | derived module floor; `domain module 15: 0 approved < min 1` | reasoned exemption control GREEN | **PROVEN** (scratch counterfactual) |
 | 16 | `selftest_l7_objectives / exemption-without-reason` | exemption schema/floor; `coverage_exempt module 15 has no reason` | reasoned exemption control GREEN | **PROVEN** (scratch counterfactual) |
 | 17 | `selftest_l7_objectives / domain-min-undeclared` | registry cross-source drift; `[[domain_min]] module 15 is not declared` | declared-domain control GREEN | CANNOT_DETERMINE |
-| 18 | `selftest_l7_objectives / topic-undeclared-domain` | topic/domain cross-source drift; `topics.toml: topic in an undeclared domain` | declared-topic control GREEN | CANNOT_DETERMINE |
+| 18 | `selftest_l7_objectives / topic-undeclared-domain` | topic/domain cross-source drift; `topics.toml: topic in an undeclared domain` | declared-topic control GREEN | **PROVEN** (scratch counterfactual) |
 | 19 | `selftest_orphan / empty-bank` | orphan scan anti-vacuity; `empty bank` | live orphan integrity GREEN | CANNOT_DETERMINE |
 | 20 | `selftest_orphan / empty-topics` | topic-registry anti-vacuity; `empty topic registry` | live orphan integrity GREEN | CANNOT_DETERMINE |
 | 21 | `selftest_orphan / orphan-item-ref` | forward reference integrity; `unknown topic_id` | clean specimen bank/live control GREEN | **PROVEN** (scratch counterfactual) |
@@ -341,4 +341,20 @@ the starved 14-module bank then returned GREEN as
 the derived module-floor detector.
 
 Updated current status: primary **7/24 causal, 24/24 intact, 17/24
+CANNOT_DETERMINE**; cited-gate supplemental **3/3 causal**.
+
+## Primary causal progress: topic/domain cross-source drift
+
+Primary status is now **`causal=9/24`, `intact=24/24`**. Row 18 used one
+declared domain with a valid topic control plus `t-bad` assigned to undeclared
+domain `m99`. The intact objective gate returned RED with
+`topics.toml: topic in an undeclared domain: t-bad`.
+
+Removing `t-bad` produced GREEN. The scratch bypass disabled only the final
+undeclared-topic-domain reporting branch; restoring the bad topic then
+returned `BYPASSED PASS: undeclared-topic-domain detector disabled`. The
+branch-specific RED assertion fails under that bypass, proving this
+cross-source drift detector is causal.
+
+Updated current status: primary **9/24 causal, 24/24 intact, 15/24
 CANNOT_DETERMINE**; cited-gate supplemental **3/3 causal**.
