@@ -1,0 +1,4 @@
+# Causal fixture: the URL path contains a legal, balanced parenthesized segment.
+# Source quote: parenthesized citation survives extraction and fetch intact
+# URL: http://127.0.0.1:PORT/source_(v1)
+id = "fixture-parenthesized-url"

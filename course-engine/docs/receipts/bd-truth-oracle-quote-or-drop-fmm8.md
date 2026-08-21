@@ -64,6 +64,28 @@ failing; and deliberately bypassed BOT_BLOCKED and resolved-200 classifications
 fail. The product tests read those fixtures; the live receipt is not used as a
 green fixture.
 
+## URL extraction correction
+
+The next refresh found and fixed a transport defect in `clean_url`: it had
+removed every terminal `)`, including the balanced `(CDCP)` and `(CDFOS)` path
+segments. The extractor now removes only unmatched closing paired delimiters,
+and the causal fixture
+`crates/cdcp_bank/tests/fixtures/quote_or_drop/parenthesized_url.toml` proves
+that the complete URL reaches the real `curl` fetch path as
+`GET /source_(v1)`. Reverting that extraction change makes the fixture fail
+before fetch and on the request path.
+
+The corrected refresh still measured `non_supporting=7`, not a drop. The four
+EPI rows now contain the complete URLs and return HTTP 200, but their fetched
+pages do not contain the recorded excerpts; the URL truncation was real, but it
+was not the cause of those four verdicts. The three other rows remain
+non-supporting: the two HSG250 URLs are explicitly edition pins with no claim
+taken in their item comments, while OSHA 1910.304 contains related overcurrent
+requirements but not the exact 1910.303 excerpt recorded for m06-q248. This
+exposes a separate modeling issue: the current one-quote-per-item schema
+cannot distinguish a claim-bearing source from a heading or edition-pin URL.
+That issue is not silently reclassified as a URL fix.
+
 ## Boundary
 
 GREEN would prove only that the citation receipt resolves and its exact excerpt

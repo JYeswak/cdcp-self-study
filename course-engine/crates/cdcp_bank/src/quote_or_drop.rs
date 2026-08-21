@@ -153,8 +153,21 @@ fn bank_sha256(root: &Path, files: &[PathBuf]) -> Result<String, String> {
 
 fn clean_url(token: &str) -> Option<String> {
     let mut url = token.trim_matches(|c: char| matches!(c, '"' | '\'' | '`' | '<' | '>'));
-    while matches!(url.chars().last(), Some('.' | ',' | ';' | ')' | ']' | '}')) {
-        url = &url[..url.len() - 1];
+    loop {
+        let Some(last) = url.chars().last() else {
+            break;
+        };
+        let unmatched_closer = match last {
+            ')' => url.matches(')').count() > url.matches('(').count(),
+            ']' => url.matches(']').count() > url.matches('[').count(),
+            '}' => url.matches('}').count() > url.matches('{').count(),
+            _ => false,
+        };
+        if matches!(last, '.' | ',' | ';') || unmatched_closer {
+            url = &url[..url.len() - last.len_utf8()];
+        } else {
+            break;
+        }
     }
     (url.starts_with("http://") || url.starts_with("https://")).then(|| url.to_string())
 }
@@ -689,6 +702,8 @@ pub fn evaluate(root: &Path) -> Eval {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use std::io::{Read, Write};
+    use std::net::TcpListener;
     use tempfile::tempdir;
 
     fn fixture(
@@ -733,6 +748,64 @@ mod tests {
         assert!(
             failures.is_empty(),
             "intact supporting fixture: {failures:?}"
+        );
+    }
+
+    #[test]
+    fn parenthesized_url_survives_extraction_and_fetch() {
+        let listener = TcpListener::bind("127.0.0.1:0").unwrap();
+        let port = listener.local_addr().unwrap().port();
+        let server = std::thread::spawn(move || {
+            let (mut stream, _) = listener.accept().unwrap();
+            let mut request = Vec::new();
+            let mut buffer = [0_u8; 1024];
+            loop {
+                let read = stream.read(&mut buffer).unwrap();
+                if read == 0 {
+                    break;
+                }
+                request.extend_from_slice(&buffer[..read]);
+                if request.windows(4).any(|window| window == b"\r\n\r\n") {
+                    break;
+                }
+            }
+            let response_body = b"parenthesized citation survives extraction and fetch intact";
+            write!(
+                stream,
+                "HTTP/1.1 200 OK\r\nContent-Length: {}\r\nConnection: close\r\n\r\n",
+                response_body.len()
+            )
+            .unwrap();
+            stream.write_all(response_body).unwrap();
+            String::from_utf8(request).unwrap()
+        });
+
+        let fixture = Path::new(env!("CARGO_MANIFEST_DIR"))
+            .join("tests/fixtures/quote_or_drop/parenthesized_url.toml");
+        let contents = fs::read_to_string(&fixture)
+            .unwrap()
+            .replace("PORT", &port.to_string());
+        let temp = tempdir().unwrap();
+        let item = temp.path().join("fixture-parenthesized-url.toml");
+        fs::write(&item, contents).unwrap();
+        let extracted = targets(temp.path(), std::slice::from_ref(&item)).unwrap();
+        assert_eq!(extracted.len(), 1);
+        assert_eq!(
+            extracted[0].url,
+            format!("http://127.0.0.1:{port}/source_(v1)")
+        );
+
+        let row = fetch(&extracted[0].url, extracted[0].claim.as_deref());
+        assert_eq!(row.status, Status::Supporting);
+        assert_eq!(row.http_status, 200);
+        assert_eq!(
+            row.supporting_text.as_deref(),
+            extracted[0].claim.as_deref()
+        );
+        let request = server.join().unwrap();
+        assert!(
+            request.contains("GET /source_(v1) HTTP/1.1"),
+            "curl received a truncated request: {request}"
         );
     }
 
