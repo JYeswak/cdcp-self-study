@@ -61,7 +61,7 @@ signal.
 | 18 | `selftest_l7_objectives / topic-undeclared-domain` | topic/domain cross-source drift; `topics.toml: topic in an undeclared domain` | declared-topic control GREEN | CANNOT_DETERMINE |
 | 19 | `selftest_orphan / empty-bank` | orphan scan anti-vacuity; `empty bank` | live orphan integrity GREEN | CANNOT_DETERMINE |
 | 20 | `selftest_orphan / empty-topics` | topic-registry anti-vacuity; `empty topic registry` | live orphan integrity GREEN | CANNOT_DETERMINE |
-| 21 | `selftest_orphan / orphan-item-ref` | forward reference integrity; `unknown topic_id` | clean specimen bank/live control GREEN | CANNOT_DETERMINE |
+| 21 | `selftest_orphan / orphan-item-ref` | forward reference integrity; `unknown topic_id` | clean specimen bank/live control GREEN | **PROVEN** (scratch counterfactual) |
 | 22 | `selftest_orphan / unanchored-item` | item anchoring; `missing/empty topic_ids` | clean specimen bank/live control GREEN | CANNOT_DETERMINE |
 | 23 | `selftest_orphan / silently-empty-file` | file-granular anti-vacuity; `items[] yielded zero items` | clean specimen bank/live control GREEN | CANNOT_DETERMINE |
 | 24 | `selftest_orphan / orphan-topic` | reverse reference integrity; `orphan topic 'zz-selftest-orphan-topic'` | live orphan integrity GREEN | **PROVEN** (scratch counterfactual) |
@@ -248,3 +248,17 @@ source. The original one-item fixture was then rerun and returned GREEN,
 printing `BYPASSED PASS: orphan-topic detector disabled`. A RED assertion
 against that bypass would fail, proving that this fixture's intact RED is
 caused by the reverse-reference detector rather than by a shared scan error.
+
+## Primary causal progress: orphan-item forward reference
+
+Primary status is now **`causal=3/24`, `intact=24/24`**. Row 21 used a
+valid topic registry and a bank containing one good approved item referencing
+`t-used` plus one planted approved item referencing unknown `t-nope`. The
+intact production `cdcp_bank::orphans` evaluation returned RED and printed
+the branch marker `q24-orphan-ref: unknown topic_id 't-nope'`.
+
+Removing only the planted item produced the positive-control GREEN. In the
+scratch source, bypassing only the `if !known.contains(s)` branch caused the
+same two-item fixture to return GREEN, printed as
+`BYPASSED PASS: orphan-ref detector disabled`. The bypass therefore fails the
+fixture's RED assertion, proving the forward-reference detector is causal.
