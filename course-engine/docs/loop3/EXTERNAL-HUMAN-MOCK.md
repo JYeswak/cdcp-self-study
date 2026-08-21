@@ -5,6 +5,10 @@ and it is not complete until a person who did not build this bank actually uses
 it. An agent run, a maintainer self-run, `cdcp demo`, and a synthetic answer
 file are useful internal checks but do **not** satisfy Q14.
 
+**Honesty:** study signal only — not EPI/EXIN certification
+[[claim:claim-not-epi-certified]] [[claim:claim-study-signal-27]]
+[[claim:claim-interview-study-signal]]
+
 ## Facilitator: start the product
 
 Use a current installed bundle and run the learner entry point:
