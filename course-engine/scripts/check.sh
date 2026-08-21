@@ -1417,6 +1417,8 @@ ok "paraphrase pair ledger intact (804/779 is a pool size; report is not a verdi
 # immediately at that boundary, before the L3/L4/L5 stages below consume or
 # ship learner-pack bytes. A later freshness check would certify a pack only
 # after the learner-facing stages had already used it.
+# Commit rationale: the check must precede every learner-pack consumer; after
+# consumption, detecting staleness cannot protect the artifact that was used.
 echo "==> cdcp_gate pack-freshness (bank-to-learner-pack freshness)"
 run_cdcp_gate pack-freshness || fail "learner pack freshness"
 ok "learner pack is no older than the validated authored bank"
