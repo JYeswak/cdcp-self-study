@@ -35,3 +35,11 @@ identity contract.
 The bead remains open until a quiescent clean tree permits the real
 `cargo build --locked`, archive staging, and installer selftest. No release was
 published or activated.
+
+## Follow-up measurement at `bb1d773b`
+
+After the installer-selftest enforcement was committed, the explicit-target
+producer was re-run against `aarch64-apple-darwin`. It exited 1 with:
+`cdcp: source worktree differs from bb1d773bf6528b0c4af0ddb53c62d3e9d6f1777e; refusing to label a dirty build`.
+The refusal is the intended safety result; the clean build and installer
+selftest remain unmeasured until the shared worktree is quiescent.
