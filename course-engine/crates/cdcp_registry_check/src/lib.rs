@@ -17,6 +17,7 @@ pub mod count_pins;
 pub mod doc_facts;
 mod gate_shrink;
 pub mod scratch;
+pub mod scan_domains;
 pub mod shell_walk;
 pub mod track;
 pub mod verify_doc_consistency;
@@ -870,7 +871,18 @@ pub fn check_repo(root: &Path) -> Result<Vec<Violation>, CheckError> {
 
 /// Run check and return process-style result.
 pub fn run(root: &Path) -> Result<(), CheckError> {
-    let violations = check_repo(root)?;
+    let mut violations = check_repo(root)?;
+    match scan_domains::measure(root) {
+        Ok(measurements) => {
+            for measurement in measurements {
+                println!(
+                    "scan-domain: id={} stated_root={} actual_files={}",
+                    measurement.id, measurement.stated_root, measurement.actual_files
+                );
+            }
+        }
+        Err(error) => violations.push(Violation::new("scan_domain", error)),
+    }
     let shrink = gate_shrink::check_gate_shrink(root);
     if let Err(ref e) = shrink {
         eprintln!("cdcp_registry_check: {e}");

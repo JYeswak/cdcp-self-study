@@ -7,15 +7,16 @@ remaining standards beads are implemented.
 
 ## G1 — verdict stream contract
 
-Finding: present, currently contained, not fixed.
+Finding: present and fixed in the local-CI path; the contract now also holds
+for a caller that captures stdout without merging stderr.
 
-`scripts/check.sh` centralizes failures in `fail()`. The function writes
-`check.sh: FAIL: ...` to stderr. A stdout-only capture therefore contains the
-ordinary progress/OK lines but no failure line. The local CI path is safe today:
-it invokes diagnostic check with `>... 2>&1` and preserves the non-zero result in
-its receipt. A future caller that redirects stdout only is not safe.
+`scripts/check.sh` centralizes failures in `fail()`. It now writes the same
+machine-readable `check.sh: FAIL: ...` marker to stdout and stderr. The local CI
+path remains safe because it captures both streams and preserves the non-zero
+result in its receipt; a stdout-only caller now also sees the failure marker.
 
-Known-bad reproduction of the exact stream failure:
+Known-bad reproduction of the exact stream failure, retained as a regression
+leg:
 
 ```text
 $ sh -c 'fail() { echo "check.sh: FAIL: planted" >&2; exit 2; }; fail planted' > /tmp/cdcp-stdout-only.log
@@ -23,16 +24,17 @@ $ rc=$?; printf 'exit=%s stdout_bytes=' "$rc"; wc -c < /tmp/cdcp-stdout-only.log
 exit=2 stdout_bytes=0
 ```
 
-The command fails, but the captured stdout transcript is empty and cannot show
-the reason. This is a source-level reproduction of the contract, not a claim
-that the full chain was run in this audit. The durable fix belongs with the
-check.sh owner: either emit a machine-readable verdict on stdout as well, or
-make stdout-only capture impossible. No check.sh change is made here because
-pane 2 owns that path.
+The planted source specimen still demonstrates why the old contract was unsafe.
+The in-tree regression test
+`failure_visibility::check_failure_is_visible_on_stdout_and_stderr` runs
+`scripts/check.sh --selftest-failure-visibility`, asserts exit 2, and requires
+the marker in both captured streams. It passed with one test and no filtered
+tests.
 
 ## G2 — input-set law
 
-Finding: precondition present; no current violation found.
+Finding: precondition present; the current declared domains are bounded and
+non-empty, and the registry now makes that boundary executable.
 
 The live product scan domain is bounded by named paths such as:
 
@@ -48,7 +50,18 @@ The live product scan domain is bounded by named paths such as:
 
 The scan code receives those bounded directories as arguments; no current
 load-bearing scanner is configured to walk the repository root or an
-untracked-state directory. The measured repository state was:
+untracked-state directory. `registries/scan_domains.toml` declares the product
+domains; `cdcp_registry_check` rejects `.`/the engine root, `target/`, `.beads/`,
+`.flywheel/`, `.git/`, parent escapes and symlink escapes, and prints the stated
+root plus live file count for each row. At this revision it reported:
+
+```text
+bank-items=957 knowledge=47 web-data=10 web-content-modules=16 tracks=37
+scripts=42 gate-dispatchers=26 bank-assertion-owners=18
+registry-assertion-owners=11 learn-assertion-owners=17 docs=94 readme=1
+```
+
+The measured repository state was:
 
 ```text
 target/                         35G
@@ -58,17 +71,17 @@ working product tree files      1,910 files
 tracked target/.br_history      0 files
 ```
 
-The large difference is precisely why the domain must remain explicit. This
-receipt does not establish a permanent guard against a future gate adding a
-repository-root walk. The acceptance work still needed is an in-tree test that
-fails when a scan root resolves to the repository root or an untracked-state
-directory, and reports the stated and actual scan counts for each scanner.
+The large difference is precisely why the domain must remain explicit. The G2
+tests cover the known-bad paths: repository root and untracked-state roots are
+rejected, a symlink escaping the engine is rejected, blank/empty registries are
+schema errors, and an empty declared domain is an ERROR rather than a pass. The
+live registry test proves every declared domain is non-empty.
 
 ## Boundary and limitation
 
-G1 currently detects ordinary check failures when invoked through the local-CI
-path, but cannot protect an arbitrary stdout-only caller until its contract is
-changed. G2 currently establishes bounded roots by inspection; it cannot prove
-that future code will preserve those roots without the structural test described
-above. A non-stale, bounded input set is not evidence that the scanned product
+G1 proves stream visibility, not the substantive truth of any individual gate.
+G2 proves the declared input domains are bounded and reports their live sizes;
+it cannot automatically discover a future scanner whose code invents an
+undeclared root, nor can it tell whether the bytes inside a bounded domain are
+correct. A non-stale, bounded input set is not evidence that the scanned product
 content is correct.

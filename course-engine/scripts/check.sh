@@ -219,6 +219,10 @@ CHECK_DIAGNOSTIC=0
 if [ "${1:-}" = "--diagnostic" ]; then
   CHECK_DIAGNOSTIC=1
 fi
+CHECK_FAILURE_VISIBILITY=0
+if [ "${1:-}" = "--selftest-failure-visibility" ]; then
+  CHECK_FAILURE_VISIBILITY=1
+fi
 DIAG_ANY_FAILED=0
 DIAG_PENDING_FAILURE=0
 DIAG_LAST_FAILURE=""
@@ -384,6 +388,9 @@ sh scripts/reap_scratch.sh --selftest \
 echo "check.sh: scratch lifecycle: named root and exit-path cleanup are active"
 
 fail() {
+  # A caller that captures stdout only must still see that this run failed;
+  # stderr remains the detailed diagnostic stream.
+  printf 'check.sh: FAIL: %s\n' "$*"
   echo "check.sh: FAIL: $*" >&2
   if [ "$CHECK_DIAGNOSTIC" = "1" ]; then
     DIAG_ANY_FAILED=1
@@ -394,6 +401,9 @@ fail() {
   fi
   exit 2
 }
+if [ "$CHECK_FAILURE_VISIBILITY" = "1" ]; then
+  fail "intentional failure-visibility probe"
+fi
 GAPS=""
 SUBSTRATE_NESTED_OK=0
 # Step counter [bd-1sd.13]. The advertised chain length is OK + SKIPPED, so a

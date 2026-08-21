@@ -1,0 +1,76 @@
+# G2 input-set declarations. These are domains, not exact count pins: legitimate
+# product edits change actual_files. The checker reports stated_root and the live
+# count on every run and rejects repository-root/untracked-state roots.
+schema_version = 1
+
+[[scan]]
+id = "bank-items"
+root = "bank/items"
+consumer = "cdcp_bank bank verification, grounding, construction, contradiction and export paths"
+reason = "The approved/retired item pool is product input; do not let target or agent state enter a learner-bank scan."
+
+[[scan]]
+id = "knowledge"
+root = "knowledge"
+consumer = "grounding, corpus-rights, exam-form and knowledge-path checks"
+reason = "Knowledge and source metadata are bounded curriculum inputs; the repository root is not a curriculum domain."
+
+[[scan]]
+id = "web-data"
+root = "web/data"
+consumer = "pack freshness, artifact identity and learner export checks"
+reason = "Committed learner artifacts are consumed as a named product domain, excluding build output and agent state."
+
+[[scan]]
+id = "web-content-modules"
+root = "web/content/modules"
+consumer = "learner/reference and module-surface checks"
+reason = "Rendered module content is a bounded learner input, not an instruction to walk the checkout."
+
+[[scan]]
+id = "tracks"
+root = "tracks"
+consumer = "track and curriculum registry checks"
+reason = "Track definitions are the declared curriculum surface and must not inherit untracked files."
+
+[[scan]]
+id = "scripts"
+root = "scripts"
+consumer = "substrate and shell-wiring checks"
+reason = "Only the tracked verification scripts are a scan domain; target and bead state are explicitly excluded."
+
+[[scan]]
+id = "gate-dispatchers"
+root = "crates/cdcp_gate/src/gates"
+consumer = "anti-vacuous dispatcher and formatting checks"
+reason = "Gate dispatchers are a named source surface; walking the engine root would count unrelated bytes."
+
+[[scan]]
+id = "bank-assertion-owners"
+root = "crates/cdcp_bank/src"
+consumer = "anti-vacuous extracted assertion-owner scan"
+reason = "Extracted bank assertions live under this product crate source root with an explicit floor."
+
+[[scan]]
+id = "registry-assertion-owners"
+root = "crates/cdcp_registry_check/src"
+consumer = "anti-vacuous extracted registry assertion-owner scan"
+reason = "Registry assertions are bounded to their product crate source, never the checkout or .beads state."
+
+[[scan]]
+id = "learn-assertion-owners"
+root = "crates/cdcp_learn/src"
+consumer = "anti-vacuous extracted learner assertion-owner scan"
+reason = "Learner compilers and paths are product logic in a named crate source domain."
+
+[[scan]]
+id = "docs"
+root = "docs"
+consumer = "claims-lint and verification-document consistency checks"
+reason = "Documentation claims are scanned under docs/; research and receipts remain bounded within that tree."
+
+[[scan]]
+id = "readme"
+root = "README.md"
+consumer = "public claims-lint and docs-facts checks"
+reason = "The public README is one declared file, not a license to scan the parent workspace."
