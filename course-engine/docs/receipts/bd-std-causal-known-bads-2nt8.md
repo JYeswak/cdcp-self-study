@@ -63,7 +63,7 @@ signal.
 | 20 | `selftest_orphan / empty-topics` | topic-registry anti-vacuity; `empty topic registry` | live orphan integrity GREEN | CANNOT_DETERMINE |
 | 21 | `selftest_orphan / orphan-item-ref` | forward reference integrity; `unknown topic_id` | clean specimen bank/live control GREEN | **PROVEN** (scratch counterfactual) |
 | 22 | `selftest_orphan / unanchored-item` | item anchoring; `missing/empty topic_ids` | clean specimen bank/live control GREEN | **PROVEN** (scratch counterfactual) |
-| 23 | `selftest_orphan / silently-empty-file` | file-granular anti-vacuity; `items[] yielded zero items` | clean specimen bank/live control GREEN | CANNOT_DETERMINE |
+| 23 | `selftest_orphan / silently-empty-file` | file-granular anti-vacuity; `items[] yielded zero items` | clean specimen bank/live control GREEN | **PROVEN** (scratch counterfactual) |
 | 24 | `selftest_orphan / orphan-topic` | reverse reference integrity; `orphan topic 'zz-selftest-orphan-topic'` | live orphan integrity GREEN | **PROVEN** (scratch counterfactual) |
 
 Observed suite receipts: `selftest_known_bad` `INJECTIONS=6`, `selftest_l5`
@@ -275,3 +275,24 @@ scratch source, bypassing only the `if !known.contains(s)` branch caused the
 same two-item fixture to return GREEN, printed as
 `BYPASSED PASS: orphan-ref detector disabled`. The bypass therefore fails the
 fixture's RED assertion, proving the forward-reference detector is causal.
+
+## Primary causal progress: file-granular vacuity
+
+Primary status is now **`causal=5/24`, `intact=24/24`**. Row 23 used one
+valid approved item and a second TOML file containing `items = []`. The intact
+production `cdcp_bank::orphans` implementation returned RED with the exact
+marker `empty.toml: items[] yielded zero items`.
+
+Removing that empty file produced GREEN. The scratch bypass changed only the
+`Some(tables) if tables.is_empty()` arm to an unreachable condition; the same
+fixture then returned `BYPASSED PASS: empty-items-file detector disabled`.
+The branch-specific RED assertion would fail under that bypass, so this row
+is causal rather than merely a generic nonzero result.
+
+## Current measured status
+
+This final status line supersedes earlier chronological progress paragraphs:
+the predeclared primary denominator is **24**, with **5/24 causal**, **24/24
+intact**, and **19/24 CANNOT_DETERMINE**. The separately predeclared cited-gate
+denominator is **3/3 causal**. No source detector, bank item, or shared pane
+file was changed; all bypasses were scratch-only source mutations.
