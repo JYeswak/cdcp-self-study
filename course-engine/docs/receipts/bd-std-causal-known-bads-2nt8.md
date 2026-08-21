@@ -49,7 +49,7 @@ signal.
 | 6 | `selftest_known_bad / goldens-vacuous-scan` | golden discovery anti-vacuity; `discovered 0 golden files` | clean goldens control PASS | CANNOT_DETERMINE |
 | 7 | `selftest_l5 / flipped-golden-e2e` | WASM e2e digest; `GOLDEN MISMATCH` | clean e2e digest match PASS | CANNOT_DETERMINE |
 | 8 | `selftest_l5 / empty-golden-dir` | e2e discovery anti-vacuity; `vacuous` | clean e2e digest match PASS | CANNOT_DETERMINE |
-| 9 | `selftest_l6_coverage / empty-bank` | coverage domain scan; `empty bank` | live coverage GREEN | CANNOT_DETERMINE |
+| 9 | `selftest_l6_coverage / empty-bank` | coverage domain scan; `empty bank` | live coverage GREEN | **PROVEN** (scratch counterfactual) |
 | 10 | `selftest_l6_coverage / m01-only-bank` | required-module floor; `module 2:` | live coverage GREEN | **PROVEN** (scratch counterfactual) |
 | 11 | `selftest_l7_objectives / empty-objectives` | objective registry anti-vacuity; `zero [[objective]]` | live objectives GREEN | **PROVEN** (scratch counterfactual) |
 | 12 | `selftest_l7_objectives / missing-claim-ref` | objective→claim link; `unresolved claim_id` | live objectives GREEN | **PROVEN** (scratch counterfactual) |
@@ -451,6 +451,27 @@ orphan empty-bank detector causal after those unrelated preconditions were
 neutralized; no live detector, bank item, or shared pane file changed.
 
 Updated current status: primary **14/24 causal, 24/24 intact, 10/24
+CANNOT_DETERMINE**; cited-gate supplemental **3/3 causal**. The primary
+denominator remains 24; the supplemental three are reported separately and
+are not added to it.
+
+## Primary causal progress: coverage empty bank
+
+Primary status is now **`causal=15/24`, `intact=24/24`**. Row 9 used a
+valid one-module domain registry and present policy, with no bank files. The
+intact coverage evaluation returned RED with
+`empty bank: zero items loaded (vacuous coverage is ERROR)`.
+
+Adding one approved item for the declared module produced the positive-control
+GREEN. An empty bank also triggers the separate zero-approved-pool and
+module-floor branches, so the scratch fixture held those unrelated branches
+off in both legs. The scratch-only bypass disabled only the named empty-bank
+branch; restoring the empty bank then returned
+`BYPASSED PASS: coverage empty-bank detector disabled`. This proves the
+coverage empty-bank detector causal after the unrelated preconditions were
+neutralized; those neutralizations were scratch-only and are not live changes.
+
+Updated current status: primary **15/24 causal, 24/24 intact, 9/24
 CANNOT_DETERMINE**; cited-gate supplemental **3/3 causal**. The primary
 denominator remains 24; the supplemental three are reported separately and
 are not added to it.
