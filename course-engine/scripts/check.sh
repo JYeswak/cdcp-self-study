@@ -868,24 +868,26 @@ echo "==> cdcp_gate required-tests (named load-bearing tests; tree=worktree)"
 run_cdcp_gate required-tests || fail "required test identities"
 ok "required test identities ran unfiltered in the worktree"
 
-# Tick-ledger reconciliation. Every bead closed since registries/tick_reconcile.toml's
-# baseline must be named by a row in .flywheel/tick-ledger.jsonl.
+# RETIRED 2026-08-21: `cdcp_gate tick-reconcile` stood here and is gone.
 #
-# ORDERED EARLY ON PURPOSE. The natural home for a bookkeeping check is the end
-# of the chain, and that is precisely where it would be worthless: this chain has
-# never completed a run, so a gate at step 99 sits behind a step-36 failure and
-# never executes. A gate the chain cannot reach is not a gate.
+# It required every bead closed since a baseline to be named by a row in
+# .flywheel/tick-ledger.jsonl. The adversarial value-bearing audit
+# (bd-std-value-bearing-gates-1ij7) judged it RETIRE, and the judgement is
+# correct: both its inputs — .beads/issues.jsonl and the tick ledger — are bead
+# and tick bookkeeping. Neither is emitted by a learner or delivery path, so it
+# consumed no product artifact. It was process accounting wearing a
+# product-gate name, and it was created with no deletion condition, violating
+# the creation gate in AGENTS.md that its own author added hours later.
 #
-# It exists because the emitter was BUILT, tested, and closed — then invoked zero
-# times across 154 commits and 18 bead closes, while watchdog.sh (an observer by
-# design, correctly) wrote 111 STALL rows nobody read. This puts the ledger on an
-# edge that BLOCKS: you cannot hold a green chain over undeclared closes.
+# NO LONGER WATCHED: a bead may now be closed without a tick receipt, and
+# nothing in the chain will notice. That is the accepted cost. The failure it
+# was built for is real and recorded — the emitter was BUILT, tested, closed,
+# then invoked zero times across 154 commits and 18 bead closes while
+# watchdog.sh wrote 111 STALL rows nobody read — but the remedy belonged in
+# habit and review, not in a chain gate over agent bookkeeping.
 #
-# Floor-raise, not proof: it enforces that a close is DECLARED. It cannot decide
-# whether a receipt is TRUE — a hollow value_added still passes here.
-echo "==> cdcp_gate tick-reconcile (closes since baseline carry a tick receipt)"
-run_cdcp_gate tick-reconcile || fail "tick-ledger reconciliation (a closed bead has no receipt)"
-ok "every bead closed since the baseline is named by a tick receipt"
+# `cdcp_gate emit-tick` STAYS. It is an emitter, not a verdict-producing gate;
+# the ledger and the ability to write to it are unaffected.
 
 # ── L4: snapshot re-exec is proven to isolate [bd-o4bc] ─────────────────
 # Plants run against a PRIVATE tree that contains only scripts/check.sh.
@@ -1409,6 +1411,15 @@ ok "near-duplicate selftest (planted clone trips RED)"
 echo "==> cdcp verify-paraphrase-pairs (measured paraphrase debt; pool size ≠ proposition count)"
 run_cdcp_cli verify-paraphrase-pairs || fail "paraphrase pair ledger"
 ok "paraphrase pair ledger intact (804/779 is a pool size; report is not a verdict)"
+
+# The bank gate block above establishes that bank/items is a non-empty,
+# internally coherent authored pool. Check the bank-to-pack freshness coupling
+# immediately at that boundary, before the L3/L4/L5 stages below consume or
+# ship learner-pack bytes. A later freshness check would certify a pack only
+# after the learner-facing stages had already used it.
+echo "==> cdcp_gate pack-freshness (bank-to-learner-pack freshness)"
+run_cdcp_gate pack-freshness || fail "learner pack freshness"
+ok "learner pack is no older than the validated authored bank"
 
 # L3 GradeExact — cargo + goldens (BUILT must be WIRED here)
 if [ ! -f Cargo.toml ]; then
