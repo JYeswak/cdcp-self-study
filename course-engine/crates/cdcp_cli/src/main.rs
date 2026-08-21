@@ -13,6 +13,7 @@ mod operator;
 mod oracle;
 mod publishability;
 mod recon;
+mod release;
 mod selfdoc;
 mod site;
 mod slo;
@@ -138,6 +139,21 @@ enum Cmd {
         /// Bank items directory (default: <root>/bank/items).
         #[arg(long)]
         bank: Option<PathBuf>,
+    },
+    /// Verify staged artifact bytes against their source/tree/dependency identity.
+    /// This is authoring/release tooling, hidden from the learner command list.
+    ArtifactIdentity {
+        /// Engine root. Default: walk up from cwd.
+        #[arg(long)]
+        root: Option<PathBuf>,
+        /// TOML manifest emitted beside staged release bytes.
+        #[arg(long, default_value = "dist/release/artifact-identity.toml")]
+        manifest: PathBuf,
+    },
+    /// Build or verify a local, unpublishable release archive.
+    Release {
+        #[command(subcommand)]
+        sub: ReleaseCmd,
     },
     /// Published corpus vs rights-policy.toml. Metadata + tree names; never opens a capture body.
     CorpusRights {
@@ -692,6 +708,26 @@ enum GoldensCmd {
     },
 }
 
+#[derive(Subcommand)]
+enum ReleaseCmd {
+    /// Build one root-level cdcp archive and adjacent identity records.
+    Build {
+        #[arg(long, default_value = "dist/release")]
+        out: PathBuf,
+        #[arg(long)]
+        target: Option<String>,
+        #[arg(long, default_value = "HEAD")]
+        source: String,
+    },
+    /// Verify staged archive bytes before extraction.
+    Verify {
+        #[arg(long)]
+        archive: PathBuf,
+        #[arg(long)]
+        manifest: PathBuf,
+    },
+}
+
 #[derive(Debug, Deserialize)]
 struct SampleFixture {
     exam_id: String,
@@ -799,6 +835,33 @@ fn run(cmd: Cmd) -> Result<(), String> {
         Cmd::VerifyDataLock { root, selftest } => verify_data_lock(root.as_deref(), selftest),
         Cmd::ContentLock { root, out, bank } => {
             content_lock(root.as_deref(), out.as_deref(), bank.as_deref())
+        }
+        Cmd::ArtifactIdentity { root, manifest } => {
+            artifact_identity_check(root.as_deref(), &manifest)
+        }
+        Cmd::Release { sub } => {
+            let start = std::env::current_dir().map_err(|e| format!("cwd: {e}"))?;
+            let root = cdcp_data::engine_root(&start).map_err(|e| e.to_string())?;
+            match sub {
+                ReleaseCmd::Build {
+                    out,
+                    target,
+                    source,
+                } => release::build(&root, &out, target.as_deref(), &source),
+                ReleaseCmd::Verify { archive, manifest } => {
+                    let archive = if archive.is_absolute() {
+                        archive
+                    } else {
+                        root.join(archive)
+                    };
+                    let manifest = if manifest.is_absolute() {
+                        manifest
+                    } else {
+                        root.join(manifest)
+                    };
+                    release::verify(&root, &archive, &manifest)
+                }
+            }
         }
         Cmd::CorpusRights { root } => corpus_rights(root.as_deref()),
         Cmd::FetchCorpus {
@@ -1153,6 +1216,44 @@ fn content_lock(
     let report =
         cdcp_data::write_content_lock(&resolved, &bank_hash, &dest).map_err(|e| e.to_string())?;
     println!("{report}");
+    Ok(())
+}
+
+fn artifact_identity_check(root: Option<&Path>, manifest: &Path) -> Result<(), String> {
+    let resolved = match root {
+        Some(p) => p.to_path_buf(),
+        None => {
+            let start = std::env::current_dir().map_err(|e| format!("cwd: {e}"))?;
+            cdcp_data::engine_root(&start).map_err(|e| e.to_string())?
+        }
+    };
+    let manifest_path = if manifest.is_absolute() {
+        manifest.to_path_buf()
+    } else {
+        resolved.join(manifest)
+    };
+    let text = fs::read_to_string(&manifest_path).map_err(|e| {
+        format!(
+            "cannot read artifact identity manifest {}: {e}",
+            manifest_path.display()
+        )
+    })?;
+    let actual = cdcp_data::verify_identity_manifest(&resolved, &text)?;
+    println!(
+        "artifact_identity: PASS manifest={} artifacts={}",
+        manifest_path.display(),
+        actual.len()
+    );
+    for identity in actual {
+        println!(
+            "  {} sha256={} source={} tree={} dependencies={}",
+            identity.artifact,
+            identity.sha256,
+            identity.source_revision,
+            identity.tree_revision,
+            identity.dependency_revisions.len()
+        );
+    }
     Ok(())
 }
 
