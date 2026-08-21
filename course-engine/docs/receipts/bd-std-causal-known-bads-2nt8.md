@@ -54,7 +54,7 @@ signal.
 | 11 | `selftest_l7_objectives / empty-objectives` | objective registry anti-vacuity; `zero [[objective]]` | live objectives GREEN | **PROVEN** (scratch counterfactual) |
 | 12 | `selftest_l7_objectives / missing-claim-ref` | objective→claim link; `unresolved claim_id` | live objectives GREEN | **PROVEN** (scratch counterfactual) |
 | 13 | `selftest_l7_objectives / empty-claim-ids` | objective schema; `claim_ids empty` | live objectives GREEN | **PROVEN** (scratch counterfactual) |
-| 14 | `selftest_l7_objectives / empty-bank` | objective bank domain; `empty bank` | live objectives GREEN | CANNOT_DETERMINE |
+| 14 | `selftest_l7_objectives / empty-bank` | objective bank domain; `empty bank` | live objectives GREEN | **PROVEN** (scratch counterfactual) |
 | 15 | `selftest_l7_objectives / declared-module-starved` | derived module floor; `domain module 15: 0 approved < min 1` | reasoned exemption control GREEN | **PROVEN** (scratch counterfactual) |
 | 16 | `selftest_l7_objectives / exemption-without-reason` | exemption schema/floor; `coverage_exempt module 15 has no reason` | reasoned exemption control GREEN | **PROVEN** (scratch counterfactual) |
 | 17 | `selftest_l7_objectives / domain-min-undeclared` | registry cross-source drift; `[[domain_min]] module 15 is not declared` | declared-domain control GREEN | **PROVEN** (scratch counterfactual) |
@@ -409,6 +409,28 @@ and proves the row causal. No live detector, bank item, or shared pane file
 changed.
 
 Updated current status: primary **12/24 causal, 24/24 intact, 12/24
+CANNOT_DETERMINE**; cited-gate supplemental **3/3 causal**. The primary
+denominator remains 24; the supplemental three are reported separately and
+are not added to it.
+
+## Primary causal progress: objectives empty bank
+
+Primary status is now **`causal=13/24`, `intact=24/24`**. Row 14 used
+valid domains, topics, policy, claims, objectives, and no bank files. The
+intact objective evaluation returned RED with
+`empty bank: zero items loaded (vacuous coverage is ERROR)`.
+
+Adding one approved item produced the positive-control GREEN. The objective
+gate also has an independent required-module floor that necessarily fires on
+an empty bank, so the scratch fixture held that unrelated floor branch
+disabled in both intact and bypass runs. The scratch-only bypass then
+disabled only the empty-bank branch; restoring the empty bank returned
+`BYPASSED PASS: objective empty-bank detector disabled`. This proves the
+named empty-bank detector causal after the unrelated floor precondition was
+neutralized; the neutralization is part of the evidence and is not a live
+change.
+
+Updated current status: primary **13/24 causal, 24/24 intact, 11/24
 CANNOT_DETERMINE**; cited-gate supplemental **3/3 causal**. The primary
 denominator remains 24; the supplemental three are reported separately and
 are not added to it.
