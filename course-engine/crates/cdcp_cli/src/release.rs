@@ -107,6 +107,7 @@ pub(crate) fn build(
         fs::write(&manifest, render_manifest(&identity))
             .map_err(|e| format!("cannot write identity manifest: {e}"))?;
         verify(root, &archive, &manifest)?;
+        run_installer_selftest(root)?;
         println!(
             "release: PASS archive={} sha256={} source={} tree={} target={target}",
             archive.display(),
@@ -118,6 +119,26 @@ pub(crate) fn build(
     })();
     let _ = fs::remove_dir_all(&stage);
     result
+}
+
+fn run_installer_selftest(root: &Path) -> Result<(), String> {
+    let script = root.join("scripts/selftest_install.sh");
+    if !script.is_file() {
+        return Err(format!(
+            "installer selftest is missing: {}",
+            script.display()
+        ));
+    }
+    let status = Command::new("bash")
+        .current_dir(root)
+        .arg(&script)
+        .status()
+        .map_err(|e| format!("cannot execute installer selftest: {e}"))?;
+    if !status.success() {
+        return Err(format!("installer selftest failed with {status}"));
+    }
+    println!("release: installer selftest PASS");
+    Ok(())
 }
 
 pub(crate) fn verify(root: &Path, archive: &Path, manifest: &Path) -> Result<(), String> {
@@ -345,5 +366,18 @@ mod tests {
         fs::write(&fixture.manifest, bad).unwrap();
         let error = verify(&fixture.root, &fixture.archive, &fixture.manifest).unwrap_err();
         assert!(error.contains("digest mismatch"), "{error}");
+    }
+
+    #[test]
+    fn existing_release_output_is_never_overwritten() {
+        let dir = tempfile::tempdir().unwrap();
+        let archive = dir.path().join("cdcp.tar.gz");
+        let manifest = dir.path().join("artifact-identity.toml");
+        fs::write(&archive, b"old archive").unwrap();
+        let error = reject_existing(&archive, &manifest).unwrap_err();
+        assert!(
+            error.contains("refusing to overwrite existing archive"),
+            "{error}"
+        );
     }
 }
