@@ -41,11 +41,11 @@ signal.
 
 | # | suite / fixture | production detector and branch marker | clean control | bypass counterfactual |
 |---:|---|---|---|---|
-| 1 | `selftest_known_bad / flipped-golden` | `cdcp goldens check`; `GOLDEN MISMATCH` | clean goldens control PASS | CANNOT_DETERMINE |
+| 1 | `selftest_known_bad / flipped-golden` | `cdcp goldens check`; `GOLDEN MISMATCH` | clean goldens control PASS | **PROVEN** (scratch counterfactual) |
 | 2 | `selftest_known_bad / empty-bank` | bank loader; `empty bank` | clean goldens control PASS | CANNOT_DETERMINE |
-| 3 | `selftest_known_bad / bank_hash-drift` | golden bank-hash comparison; `bank_hash drift` | clean goldens control PASS | CANNOT_DETERMINE |
+| 3 | `selftest_known_bad / bank_hash-drift` | golden bank-hash comparison; `bank_hash drift` | clean goldens control PASS | **PROVEN** (scratch counterfactual) |
 | 4 | `selftest_known_bad / honesty-plant` | credential scan; `CDCP certified` | clean honesty scan PASS | CANNOT_DETERMINE |
-| 5 | `selftest_known_bad / bank_hash-absent` | required-golden schema; `missing required golden(s)` | clean goldens control PASS | CANNOT_DETERMINE |
+| 5 | `selftest_known_bad / bank_hash-absent` | required-golden schema; `missing required golden(s)` | clean goldens control PASS | **PROVEN** (scratch counterfactual) |
 | 6 | `selftest_known_bad / goldens-vacuous-scan` | golden discovery anti-vacuity; `discovered 0 golden files` | clean goldens control PASS | CANNOT_DETERMINE |
 | 7 | `selftest_l5 / flipped-golden-e2e` | WASM e2e digest; `GOLDEN MISMATCH` | clean e2e digest match PASS | CANNOT_DETERMINE |
 | 8 | `selftest_l5 / empty-golden-dir` | e2e discovery anti-vacuity; `vacuous` | clean e2e digest match PASS | CANNOT_DETERMINE |
@@ -493,6 +493,33 @@ empty-topic detector causal after the unrelated reference precondition was
 neutralized; no live detector, bank item, or shared pane file changed.
 
 Updated current status: primary **16/24 causal, 24/24 intact, 8/24
+CANNOT_DETERMINE**; cited-gate supplemental **3/3 causal**. The primary
+denominator remains 24; the supplemental three are reported separately and
+are not added to it.
+
+## Primary causal progress: golden pin checks
+
+Primary status is now **`causal=19/24`, `intact=24/24`**. A detached scratch
+worktree built the production `cdcp_cli` source at the receipt's current SHA
+and used temporary copies of `goldens/`; no live artifact or source file was
+changed.
+
+* Row 1 flipped `mock40_seed42_all_correct.sha256`. The intact command RED
+  with `GOLDEN MISMATCH all-correct`; bypassing only that digest comparison
+  branch returned PASS with all three comparisons reported.
+* Row 3 replaced `bank_hash.txt` with a wrong digest. The intact command RED
+  with `bank_hash drift`; bypassing only the bank-hash comparison returned
+  PASS with the two grade pins and bank-hash comparison reported.
+* Row 5 removed `bank_hash.txt`. The intact command RED with
+  `missing required golden(s)`; the scratch bypass neutralized only that
+  required-pin branch and supplied the live hash for the downstream read,
+  then returned PASS with all three comparisons reported.
+
+Each leg had the clean committed-goldens control first, a branch-specific
+marker assertion, and a bypassed PASS. The absent-pin downstream substitution
+is explicitly a scratch precondition neutralization, not a production change.
+
+Updated current status: primary **19/24 causal, 24/24 intact, 5/24
 CANNOT_DETERMINE**; cited-gate supplemental **3/3 causal**. The primary
 denominator remains 24; the supplemental three are reported separately and
 are not added to it.
