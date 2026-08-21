@@ -11,12 +11,13 @@ bound to the build identity. This receipt is deleted when the producer has a
 clean-tree build receipt and the installed/release verifier consumes the same
 identity contract.
 
-## Implemented at `14544f66`
+## Implemented at `14544f66`, selftest enforcement at `7df0d607`
 
 - `cdcp release build` refuses a dirty source tree, refuses to overwrite an
   existing archive or identity metadata, builds `cdcp_cli` with `--locked`,
   stages exactly one root-level `cdcp` member, writes `.sha256`, records full
-  source/tree/dependency object ids, and verifies before reporting PASS.
+  source/tree/dependency object ids, verifies, and runs the existing installer
+  selftest before reporting PASS.
 - `cdcp release verify` checks the archive checksum, exact one-member archive
   shape, regular-file mode, and `cdcp_data::verify_identity_manifest` before
   extraction. It performs no network, tag, upload, or publish operation.
@@ -25,7 +26,7 @@ identity contract.
 
 | Leg | Result | Evidence |
 |---|---|---|
-| Rust release verifier unit tests | PASS | 2 tests: one-member archive accepted; one-character identity digest mismatch rejected |
+| Rust release verifier unit tests | PASS | 3 tests: one-member archive accepted; one-character identity digest mismatch rejected; existing output refused |
 | Known-good staged archive | PASS | `cdcp release verify` returned 0 and printed `release: verified archive=... member=cdcp` |
 | Known-bad one-character digest | RED as required | returned nonzero: `artifact identity digest mismatch ... expected=... computed=...` |
 | Dirty source refusal | RED as required | `cdcp release build --target aarch64-apple-darwin --out dist/release-byda` returned 1: `source worktree differs from cd566026...; refusing to label a dirty build` |
