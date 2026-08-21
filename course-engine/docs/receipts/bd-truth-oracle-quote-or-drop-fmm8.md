@@ -29,26 +29,30 @@ The corrected 2026-08-21 sweep recorded the current bank after the three sampled
 DEAD URLs were changed by the bank owner. `DEAD=0` is a correction plus nine
 real repairs: pane 2 repaired nine genuinely broken links, while twenty-two of
 the original thirty-one were response-classification errors corrected here.
-The response classifier now uses the HTTP status itself: 403/429 are
-BOT_BLOCKED regardless of host, while 404/410, DNS/connection failures remain
-DEAD. The current-bank sweep recorded:
+The response classifier now uses the HTTP status itself: 403 is BOT_BLOCKED
+regardless of host; 404/410 and explicit DNS resolution failures are DEAD; and
+429, 5xx, timeouts, connection refusals, and other transport failures are
+INDETERMINATE. The refresh applies a 75 ms per-host request interval and two
+exponential-backoff retries. The current-bank sweep recorded:
 
 | measure | count |
 | --- | ---: |
 | cited | 1,307 |
-| HTTP-resolved | 888 |
+| HTTP-resolved | 889 |
 | resolved for grounding | 5 |
 | DEAD | 0 |
-| BOT_BLOCKED | 411 |
+| BOT_BLOCKED | 410 |
+| INDETERMINATE | 0 |
 | supporting | 5 |
 | non-supporting | 7 |
-| unverifiable | 884 |
+| unverifiable | 885 |
 
 The live gate exits 2 (RED), naming DEAD, NON_SUPPORTING, and UNVERIFIABLE rows.
-BOT_BLOCKED is reported but does not fail the item: the gate cannot verify that
-class by machine. Five real items now have byte-present source quotes and return
-SUPPORTING. A resolved page without a byte-present quote is still not treated as
-supporting.
+BOT_BLOCKED and INDETERMINATE are reported but do not pretend to be source
+evidence; both fail closed for admission, while only BOT_BLOCKED is exempt from
+the citation-defect count. Five real items now have byte-present source quotes
+and return SUPPORTING. A resolved page without a byte-present quote is still not
+treated as supporting.
 
 The excerpt is currently carried by the item schema's `# Source quote:` comment
 convention, which `comment_claim` reads; it is not yet a typed TOML field. The
@@ -60,16 +64,17 @@ and corrosion.
 The committed causal fixtures cover the branches: intact support passes; a 404
 falsely marked supporting fails; a 200 response whose body lacks the claim,
 falsely marked supporting, fails; an arbitrary 403 is BOT_BLOCKED without
-failing; and deliberately bypassed BOT_BLOCKED and resolved-200 classifications
-fail. The product tests read those fixtures; the live receipt is not used as a
-green fixture.
+failing; a 429/timeout is INDETERMINATE rather than DEAD; and deliberately
+bypassed BOT_BLOCKED, INDETERMINATE, and resolved-200 classifications fail. The
+product tests read those fixtures; the live receipt is not used as a green
+fixture.
 
 ## URL extraction correction
 
 The next refresh found and fixed a transport defect in `clean_url`: it had
 removed every terminal `)`, including the balanced `(CDCP)` and `(CDFOS)` path
-segments. The extractor now removes only unmatched closing paired delimiters,
-and the causal fixture
+segments. The extractor now removes only unmatched closing paired delimiters and
+leaves legal URL punctuation such as commas and semicolons intact. The causal fixture
 `crates/cdcp_bank/tests/fixtures/quote_or_drop/parenthesized_url.toml` proves
 that the complete URL reaches the real `curl` fetch path as
 `GET /source_(v1)`. Reverting that extraction change makes the fixture fail
@@ -85,6 +90,19 @@ requirements but not the exact 1910.303 excerpt recorded for m06-q248. This
 exposes a separate modeling issue: the current one-quote-per-item schema
 cannot distinguish a claim-bearing source from a heading or edition-pin URL.
 That issue is not silently reclassified as a URL fix.
+
+The inventory found 343 of 957 items (36%) with an EPI `/services/` course
+page. All 343 also carry at least one non-EPI URL; zero are EPI-only by URL
+inventory. That is a mechanical pointer count, not a claim that all 343 other
+URLs are evidentiary: URL shape can identify the EPI marketing pointer, but it
+cannot determine whether another page actually supports this item's claim.
+That role requires reading the citation in context. The durable schema should
+therefore separate `scope_pointers` (syllabus/topical links, not evidence) from
+`evidence_sources` (claim-bearing URLs with an excerpt or a human-verification
+record). Quote-or-drop should skip scope pointers for support adjudication but
+require each one to carry the syllabus heading it points to; it should remain
+fail-closed for evidence sources. The current one-quote-per-item comment cannot
+make that distinction, so no 343-item reclassification is being automated.
 
 ## Boundary
 

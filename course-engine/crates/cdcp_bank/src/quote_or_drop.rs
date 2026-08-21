@@ -4,8 +4,9 @@
 //! `cdcp_gate quote-or-drop --refresh` authoring command fetches public pages,
 //! records the HTTP result, response digest, and exact supporting excerpt, and
 //! writes a receipt. The ordinary gate only validates that receipt against the
-//! current bank and fails closed on DEAD, NON_SUPPORTING, and UNVERIFIABLE
-//! citations. Known bot blocks remain visible but are not source failures.
+//! current bank and fails closed on DEAD, INDETERMINATE, NON_SUPPORTING, and
+//! UNVERIFIABLE citations. Known bot blocks remain visible but are not source
+//! failures.
 //! It therefore proves neither pedagogical value nor source authority/currentness.
 
 use serde::{Deserialize, Serialize};
@@ -15,7 +16,8 @@ use std::fmt::Write as _;
 use std::fs;
 use std::path::{Path, PathBuf};
 use std::process::Command;
-use std::time::{SystemTime, UNIX_EPOCH};
+use std::sync::{Arc, Mutex};
+use std::time::{Duration, Instant, SystemTime, UNIX_EPOCH};
 use toml::Value;
 
 pub const NAME: &str = "quote-or-drop";
@@ -34,6 +36,7 @@ struct Policy {
 pub enum Status {
     Dead,
     BotBlocked,
+    Indeterminate,
     Supporting,
     NonSupporting,
     Unverifiable,
@@ -72,6 +75,7 @@ pub struct Counts {
     pub resolved: usize,
     pub dead: usize,
     pub bot_blocked: usize,
+    pub indeterminate: usize,
     pub supporting: usize,
     pub non_supporting: usize,
     pub unverifiable: usize,
@@ -89,6 +93,48 @@ struct CitationTarget {
     item_id: String,
     url: String,
     claim: Option<String>,
+}
+
+const HOST_INTERVAL_MS: u64 = 75;
+const MAX_TRANSIENT_RETRIES: usize = 2;
+
+#[derive(Debug, Default)]
+struct HostLimiter {
+    next_allowed: Mutex<BTreeMap<String, Instant>>,
+}
+
+impl HostLimiter {
+    fn wait_for_slot(&self, url: &str) {
+        let host = url
+            .split_once("://")
+            .map(|(_, rest)| rest.split(['/', '?', '#']).next().unwrap_or(rest))
+            .unwrap_or("unknown")
+            .to_ascii_lowercase();
+        loop {
+            let wait = {
+                let mut next_allowed = self.next_allowed.lock().expect("host limiter poisoned");
+                let now = Instant::now();
+                if let Some(next) = next_allowed.get(&host).copied() {
+                    if next > now {
+                        Some(next - now)
+                    } else {
+                        next_allowed
+                            .insert(host.clone(), now + Duration::from_millis(HOST_INTERVAL_MS));
+                        None
+                    }
+                } else {
+                    next_allowed
+                        .insert(host.clone(), now + Duration::from_millis(HOST_INTERVAL_MS));
+                    None
+                }
+            };
+            if let Some(wait) = wait {
+                std::thread::sleep(wait);
+            } else {
+                return;
+            }
+        }
+    }
 }
 
 fn sha256(bytes: &[u8]) -> String {
@@ -163,7 +209,7 @@ fn clean_url(token: &str) -> Option<String> {
             '}' => url.matches('}').count() > url.matches('{').count(),
             _ => false,
         };
-        if matches!(last, '.' | ',' | ';') || unmatched_closer {
+        if unmatched_closer {
             url = &url[..url.len() - last.len_utf8()];
         } else {
             break;
@@ -187,6 +233,16 @@ fn comment_claim(contents: &str) -> Option<String> {
     })
 }
 
+fn trim_citation_separator(token: &str, has_following_token: bool) -> &str {
+    if !has_following_token {
+        return token;
+    }
+    match token.chars().last() {
+        Some(',' | ';' | '.') => &token[..token.len() - 1],
+        _ => token,
+    }
+}
+
 fn targets(_root: &Path, files: &[PathBuf]) -> Result<Vec<CitationTarget>, String> {
     let mut targets = Vec::new();
     for file in files {
@@ -198,14 +254,18 @@ fn targets(_root: &Path, files: &[PathBuf]) -> Result<Vec<CitationTarget>, Strin
             .map_err(|e| format!("read {} as UTF-8: {e}", file.display()))?;
         let claim = comment_claim(&contents);
         let mut seen = BTreeSet::new();
-        for token in contents.split_whitespace() {
-            if let Some(url) = clean_url(token) {
-                if seen.insert(url.clone()) {
-                    targets.push(CitationTarget {
-                        item_id: item_id.to_string(),
-                        url,
-                        claim: claim.clone(),
-                    });
+        for line in contents.lines() {
+            let line_tokens = line.split_whitespace().collect::<Vec<_>>();
+            for (index, token) in line_tokens.iter().enumerate() {
+                let token = trim_citation_separator(token, index + 1 < line_tokens.len());
+                if let Some(url) = clean_url(token) {
+                    if seen.insert(url.clone()) {
+                        targets.push(CitationTarget {
+                            item_id: item_id.to_string(),
+                            url,
+                            claim: claim.clone(),
+                        });
+                    }
                 }
             }
         }
@@ -225,14 +285,44 @@ fn now_unix() -> u64 {
 fn status_for_http(http_status: u16) -> Option<Status> {
     if (200..300).contains(&http_status) {
         None
-    } else if matches!(http_status, 403 | 429) {
+    } else if http_status == 403 {
         Some(Status::BotBlocked)
-    } else {
+    } else if matches!(http_status, 404 | 410) {
         Some(Status::Dead)
+    } else {
+        Some(Status::Indeterminate)
     }
 }
 
+fn status_for_curl_failure(error: &str) -> Status {
+    if error.contains("Could not resolve host") || error.contains("Name or service not known") {
+        Status::Dead
+    } else {
+        Status::Indeterminate
+    }
+}
+
+#[cfg(test)]
 fn fetch(url: &str, claim: Option<&str>) -> CitationRow {
+    fetch_with_retry(url, claim, &HostLimiter::default())
+}
+
+fn fetch_with_retry(url: &str, claim: Option<&str>, limiter: &HostLimiter) -> CitationRow {
+    for attempt in 0..=MAX_TRANSIENT_RETRIES {
+        limiter.wait_for_slot(url);
+        let row = fetch_once(url, claim);
+        if row.status != Status::Indeterminate {
+            return row;
+        }
+        if attempt == MAX_TRANSIENT_RETRIES {
+            return row;
+        }
+        std::thread::sleep(Duration::from_millis(250 * (1 << attempt)));
+    }
+    unreachable!("transient retry loop always returns")
+}
+
+fn fetch_once(url: &str, claim: Option<&str>) -> CitationRow {
     if url.to_ascii_lowercase().contains(".pdf") {
         return CitationRow {
             item_id: String::new(),
@@ -266,7 +356,7 @@ fn fetch(url: &str, claim: Option<&str>) -> CitationRow {
         return CitationRow {
             item_id: String::new(),
             url: url.to_string(),
-            status: Status::Dead,
+            status: Status::Indeterminate,
             http_status: 0,
             error: Some("curl could not be started".to_string()),
             claim: claim.map(str::to_string),
@@ -278,16 +368,17 @@ fn fetch(url: &str, claim: Option<&str>) -> CitationRow {
     let stderr = String::from_utf8_lossy(&output.stderr).to_string();
     let marker = "__CDCP_HTTP_STATUS__:";
     let Some(marker_at) = stderr.find(marker) else {
+        let error = if stderr.trim().is_empty() {
+            "no HTTP status".to_string()
+        } else {
+            stderr.trim().to_string()
+        };
         return CitationRow {
             item_id: String::new(),
             url: url.to_string(),
-            status: Status::Dead,
+            status: status_for_curl_failure(&error),
             http_status: 0,
-            error: Some(if stderr.trim().is_empty() {
-                "no HTTP status".to_string()
-            } else {
-                stderr.trim().to_string()
-            }),
+            error: Some(error),
             claim: claim.map(str::to_string),
             supporting_text: None,
             supporting_text_sha256: None,
@@ -303,16 +394,17 @@ fn fetch(url: &str, claim: Option<&str>) -> CitationRow {
         .unwrap_or_default();
     let curl_stderr = stderr[..marker_at].trim();
     if http_status == 0 {
+        let error = if curl_stderr.is_empty() {
+            "no HTTP status".to_string()
+        } else {
+            curl_stderr.to_string()
+        };
         return CitationRow {
             item_id: String::new(),
             url: url.to_string(),
-            status: Status::Dead,
+            status: status_for_curl_failure(&error),
             http_status,
-            error: Some(if curl_stderr.is_empty() {
-                "no HTTP status".to_string()
-            } else {
-                curl_stderr.to_string()
-            }),
+            error: Some(error),
             claim: claim.map(str::to_string),
             supporting_text: None,
             supporting_text_sha256: None,
@@ -411,13 +503,15 @@ pub fn refresh(root: &Path) -> Result<(Receipt, Counts), String> {
     let unique_targets = unique.into_values().collect::<Vec<_>>();
     let worker_count = 32usize.min(unique_targets.len());
     let chunk_size = unique_targets.len().div_ceil(worker_count);
+    let limiter = Arc::new(HostLimiter::default());
     let mut workers = Vec::new();
     for chunk in unique_targets.chunks(chunk_size) {
         let jobs = chunk.to_vec();
+        let limiter = Arc::clone(&limiter);
         workers.push(std::thread::spawn(move || {
             jobs.into_iter()
                 .map(|target| {
-                    let mut row = fetch(&target.url, target.claim.as_deref());
+                    let mut row = fetch_with_retry(&target.url, target.claim.as_deref(), &limiter);
                     row.item_id = target.item_id;
                     row.claim = target.claim.or(row.claim);
                     row
@@ -474,6 +568,7 @@ fn counts(rows: &[CitationRow]) -> Counts {
         match row.status {
             Status::Dead => counts.dead += 1,
             Status::BotBlocked => counts.bot_blocked += 1,
+            Status::Indeterminate => counts.indeterminate += 1,
             Status::Supporting => {
                 counts.http_resolved += 1;
                 counts.resolved += 1;
@@ -543,17 +638,30 @@ fn validate_row(row: &CitationRow, failures: &mut Vec<String>) {
             }
         }
         Status::Dead => {
-            if (200..300).contains(&row.http_status) {
+            let dns_failure = row.http_status == 0
+                && row
+                    .error
+                    .as_deref()
+                    .is_some_and(|error| status_for_curl_failure(error) == Status::Dead);
+            if !matches!(row.http_status, 404 | 410) && !dns_failure {
                 failures.push(format!(
-                    "{} {} marked DEAD with HTTP {}",
+                    "{} {} marked DEAD with non-terminal HTTP {}",
                     row.item_id, row.url, row.http_status
                 ));
             }
         }
         Status::BotBlocked => {
-            if !matches!(row.http_status, 403 | 429) {
+            if row.http_status != 403 {
                 failures.push(format!(
                     "{} {} marked BOT_BLOCKED with HTTP {}",
+                    row.item_id, row.url, row.http_status
+                ));
+            }
+        }
+        Status::Indeterminate => {
+            if row.http_status != 0 && !(300..600).contains(&row.http_status) {
+                failures.push(format!(
+                    "{} {} marked INDETERMINATE with invalid HTTP {}",
                     row.item_id, row.url, row.http_status
                 ));
             }
@@ -659,7 +767,7 @@ pub fn evaluate(root: &Path) -> Eval {
         validate_row(row, &mut failures);
         if matches!(
             row.status,
-            Status::Dead | Status::NonSupporting | Status::Unverifiable
+            Status::Dead | Status::Indeterminate | Status::NonSupporting | Status::Unverifiable
         ) {
             failures.push(format!(
                 "{} {} is not admissible: status={:?}; unresolved citations fail closed",
@@ -676,12 +784,13 @@ pub fn evaluate(root: &Path) -> Eval {
     }
     let counts = counts(&receipt.rows);
     let mut report = format!(
-        "{NAME}: cited={} http_resolved={} resolved_for_grounding={} dead={} bot_blocked={} supporting={} non_supporting={} unverifiable={} item_files={}",
+        "{NAME}: cited={} http_resolved={} resolved_for_grounding={} dead={} bot_blocked={} indeterminate={} supporting={} non_supporting={} unverifiable={} item_files={}",
         counts.cited,
         counts.http_resolved,
         counts.resolved,
         counts.dead,
         counts.bot_blocked,
+        counts.indeterminate,
         counts.supporting,
         counts.non_supporting,
         counts.unverifiable,
@@ -753,6 +862,18 @@ mod tests {
 
     #[test]
     fn parenthesized_url_survives_extraction_and_fetch() {
+        assert_eq!(
+            trim_citation_separator("https://example.test/path;", true),
+            "https://example.test/path"
+        );
+        assert_eq!(
+            trim_citation_separator("https://example.test/path;", false),
+            "https://example.test/path;"
+        );
+        assert_eq!(
+            clean_url("https://example.test/source_(v1),;"),
+            Some("https://example.test/source_(v1),;".to_string())
+        );
         let listener = TcpListener::bind("127.0.0.1:0").unwrap();
         let port = listener.local_addr().unwrap().port();
         let server = std::thread::spawn(move || {
@@ -817,6 +938,8 @@ mod tests {
             "non_supporting_bypassed.json",
             "bot_blocked.json",
             "resolved_200_bypassed.json",
+            "indeterminate.json",
+            "indeterminate_bypassed.json",
         ] {
             let path = Path::new(env!("CARGO_MANIFEST_DIR"))
                 .join("tests/fixtures/quote_or_drop")
@@ -825,7 +948,10 @@ mod tests {
                 serde_json::from_str(&fs::read_to_string(path).unwrap()).unwrap();
             let mut failures = Vec::new();
             validate_row(&receipt.rows[0], &mut failures);
-            if matches!(name, "supporting.json" | "bot_blocked.json") {
+            if matches!(
+                name,
+                "supporting.json" | "bot_blocked.json" | "indeterminate.json"
+            ) {
                 assert!(
                     failures.is_empty(),
                     "supporting fixture failed: {failures:?}"
@@ -920,12 +1046,31 @@ mod tests {
     }
 
     #[test]
-    fn every_403_or_429_is_bot_blocked_without_a_host_allowlist() {
+    fn transient_statuses_are_indeterminate_and_terminal_statuses_are_dead() {
         assert_eq!(status_for_http(403), Some(Status::BotBlocked));
-        assert_eq!(status_for_http(429), Some(Status::BotBlocked));
+        assert_eq!(status_for_http(429), Some(Status::Indeterminate));
+        assert_eq!(status_for_http(500), Some(Status::Indeterminate));
         assert_eq!(status_for_http(404), Some(Status::Dead));
         assert_eq!(status_for_http(410), Some(Status::Dead));
         assert_eq!(status_for_http(200), None);
+
+        let timeout = fixture(Status::Indeterminate, 0, None, None);
+        let mut failures = Vec::new();
+        validate_row(&timeout.rows[0], &mut failures);
+        assert!(
+            failures.is_empty(),
+            "timeout fixture is malformed: {failures:?}"
+        );
+
+        let bypassed = fixture(Status::Dead, 429, None, None);
+        let mut bypass_failures = Vec::new();
+        validate_row(&bypassed.rows[0], &mut bypass_failures);
+        assert!(
+            bypass_failures
+                .iter()
+                .any(|failure| failure.contains("non-terminal HTTP 429")),
+            "transient branch bypass was not detected: {bypass_failures:?}"
+        );
     }
 
     #[test]

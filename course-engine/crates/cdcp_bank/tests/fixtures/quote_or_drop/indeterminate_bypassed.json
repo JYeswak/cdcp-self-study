@@ -1,0 +1,23 @@
+{
+  "schema": "zs.quote-or-drop.v1",
+  "consumer": "causal fixture",
+  "observed_defect": "a transient response was bypassed as DEAD",
+  "deletion_condition": "fixture is removed when the transient branch remains causal",
+  "generated_at_unix": 1,
+  "bank_sha256": "",
+  "item_file_denominator": 1,
+  "citation_denominator": 1,
+  "rows": [
+    {
+      "item_id": "m01-q001",
+      "url": "https://example.test/rate-limited",
+      "status": "DEAD",
+      "http_status": 429,
+      "error": "causal bypass",
+      "claim": null,
+      "supporting_text": null,
+      "supporting_text_sha256": null,
+      "response_sha256": "digest"
+    }
+  ]
+}
