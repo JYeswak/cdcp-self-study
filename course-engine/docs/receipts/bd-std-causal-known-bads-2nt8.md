@@ -53,7 +53,7 @@ signal.
 | 10 | `selftest_l6_coverage / m01-only-bank` | required-module floor; `module 2:` | live coverage GREEN | **PROVEN** (scratch counterfactual) |
 | 11 | `selftest_l7_objectives / empty-objectives` | objective registry anti-vacuity; `zero [[objective]]` | live objectives GREEN | CANNOT_DETERMINE |
 | 12 | `selftest_l7_objectives / missing-claim-ref` | objective→claim link; `unresolved claim_id` | live objectives GREEN | **PROVEN** (scratch counterfactual) |
-| 13 | `selftest_l7_objectives / empty-claim-ids` | objective schema; `claim_ids empty` | live objectives GREEN | CANNOT_DETERMINE |
+| 13 | `selftest_l7_objectives / empty-claim-ids` | objective schema; `claim_ids empty` | live objectives GREEN | **PROVEN** (scratch counterfactual) |
 | 14 | `selftest_l7_objectives / empty-bank` | objective bank domain; `empty bank` | live objectives GREEN | CANNOT_DETERMINE |
 | 15 | `selftest_l7_objectives / declared-module-starved` | derived module floor; `domain module 15: 0 approved < min 1` | reasoned exemption control GREEN | **PROVEN** (scratch counterfactual) |
 | 16 | `selftest_l7_objectives / exemption-without-reason` | exemption schema/floor; `coverage_exempt module 15 has no reason` | reasoned exemption control GREEN | **PROVEN** (scratch counterfactual) |
@@ -355,6 +355,18 @@ undeclared-topic-domain reporting branch; restoring the bad topic then
 returned `BYPASSED PASS: undeclared-topic-domain detector disabled`. The
 branch-specific RED assertion fails under that bypass, proving this
 cross-source drift detector is causal.
+
+## Primary causal progress: empty objective claim list
+
+Primary status is now **`causal=10/24`, `intact=24/24`**. Row 13 used a
+valid objective/claims registry, domain, topic, and approved bank item; only
+the objective's `claim_ids = []` was defective. The intact production gate
+returned RED with `objective o1: claim_ids empty`.
+
+Changing the list to `["c-valid"]` produced GREEN. The scratch bypass
+removed only the empty-claim-list error branch; restoring the empty list then
+returned `BYPASSED PASS: empty-claim-ids detector disabled`. The bypass would
+fail the intact RED assertion, proving this objective-schema row is causal.
 
 Updated current status: primary **9/24 causal, 24/24 intact, 15/24
 CANNOT_DETERMINE**; cited-gate supplemental **3/3 causal**.
