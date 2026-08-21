@@ -26,6 +26,7 @@ pub mod mock40_module;
 pub mod near_duplicate;
 pub mod orphans;
 pub mod paraphrase;
+pub mod quote_or_drop;
 pub mod required_tests;
 pub mod tick_emitter;
 pub mod tick_reconcile;

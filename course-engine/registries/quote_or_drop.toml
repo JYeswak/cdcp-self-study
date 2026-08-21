@@ -1,0 +1,9 @@
+# Consumer: cdcp_gate quote-or-drop and its explicit periodic --refresh sweep.
+# Feature: prevent an item citation from being treated as grounding unless the
+# public source was reached and an exact supporting excerpt was recorded.
+# Observed defect: bank citations had never been opened or checked for support.
+# Deletion condition: remove only after a successor truth oracle has the same
+# fail-closed and causal known-bad legs and is the gate's documented consumer.
+schema_version = 1
+expected_item_files = 957
+expected_citation_rows = 1307
