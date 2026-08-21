@@ -162,17 +162,57 @@ fn resolve_workspace(explicit: Option<&Path>) -> Result<PathBuf, String> {
         cur.pop();
     }
     loop {
-        if cur.join("Cargo.toml").is_file() && cur.join(".git").exists() {
+        if is_engine_root(&cur) {
             return Ok(cur);
         }
         if !cur.pop() {
             break;
         }
     }
+
+    // The repository is an engine checkout nested below the outer Git root.
+    // The outer root is a valid invocation point, but walking upward cannot
+    // discover a child.  Accept exactly one direct anchored child; guessing
+    // among deeper descendants would make the test's source identity
+    // ambiguous.
+    let start_dir = if start.is_file() {
+        start.parent().unwrap_or(&start)
+    } else {
+        &start
+    };
+    let mut candidates = Vec::new();
+    for entry in fs::read_dir(start_dir)
+        .map_err(|e| format!("hermetic-test: inspect {}: {e}", start_dir.display()))?
+    {
+        let entry = entry.map_err(|e| format!("hermetic-test: inspect child: {e}"))?;
+        let path = entry.path();
+        if path.is_dir() && is_engine_root(&path) {
+            candidates.push(path);
+        }
+    }
+    candidates.sort();
+    if candidates.len() == 1 {
+        return Ok(candidates.remove(0));
+    }
+    if candidates.len() > 1 {
+        return Err(format!(
+            "hermetic-test: ambiguous engine children under {}: {}",
+            start_dir.display(),
+            candidates
+                .iter()
+                .map(|path| path.display().to_string())
+                .collect::<Vec<_>>()
+                .join(", ")
+        ));
+    }
     Err(format!(
         "hermetic-test: no workspace root from {}",
         start.display()
     ))
+}
+
+fn is_engine_root(path: &Path) -> bool {
+    path.join("Cargo.toml").is_file() && path.join("registries/claims.toml").is_file()
 }
 
 fn reject_overrides(args: &[String]) -> Result<(), String> {
@@ -257,7 +297,9 @@ mod tests {
             std::env::temp_dir().join(format!("cdcp-hermetic-{label}-{}-{n}", std::process::id()));
         fs::create_dir_all(root.join(".git")).unwrap();
         fs::create_dir_all(root.join("crates/demo/src")).unwrap();
+        fs::create_dir_all(root.join("registries")).unwrap();
         fs::write(root.join("Cargo.toml"), "[workspace]\nmembers=[]\n").unwrap();
+        fs::write(root.join("registries/claims.toml"), "schema_version = 1\n").unwrap();
         fs::write(root.join("crates/demo/src/lib.rs"), "pub fn stable() {}\n").unwrap();
         root
     }
@@ -340,5 +382,20 @@ mod tests {
         let err = ensure_not_symlink(&root.join("target/cdcp-hermetic/pane-3")).unwrap_err();
         assert!(err.contains("symlinked"));
         let _ = fs::remove_dir_all(root);
+    }
+
+    #[test]
+    fn resolves_engine_root_from_outer_git_workspace() {
+        let td = tempfile::tempdir().unwrap();
+        let outer = td.path().join("outer");
+        let root = outer.join("course-engine");
+        fs::create_dir_all(&outer).unwrap();
+        fs::create_dir_all(root.join(".git")).unwrap();
+        fs::create_dir_all(root.join("registries")).unwrap();
+        fs::write(root.join("Cargo.toml"), "[workspace]\nmembers=[]\n").unwrap();
+        fs::write(root.join("registries/claims.toml"), "schema_version = 1\n").unwrap();
+
+        assert_eq!(resolve_workspace(Some(&outer)).unwrap(), root);
+        let _ = fs::remove_dir_all(td);
     }
 }

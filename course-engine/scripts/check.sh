@@ -1043,8 +1043,8 @@ ok "licence three-field split (published unlicensed / missing rights / third-par
 # Published-corpus rights: metadata + tree vs rights-policy.toml. Product
 # crate cdcp_data; never a cdcp_gate src/gates/*.rs (gate_shrink ceiling).
 # Never opens a capture body (AI-ingestion forbid).
-echo "==> cargo test -p cdcp_data --test corpus_rights (L4 CORPUS-R7/R8)"
-cargo test --locked -p cdcp_data --test corpus_rights \
+echo "==> cdcp hermetic-test --lane check-corpus-rights (L4 CORPUS-R7/R8)"
+run_cdcp_cli hermetic-test --lane check-corpus-rights -- --locked -p cdcp_data --test corpus_rights \
   || fail "corpus-rights tests"
 ok "corpus-rights tests (R7 bare permitted RED · R8 unclaimed file RED · public-domain PASS)"
 
@@ -1634,7 +1634,8 @@ ok "rustfmt over $_gate_fmt_n non-dispatcher gate module(s) (compact dispatchers
 # under `clippy --all-targets` and GREEN under this line as it stood. A gate
 # suite whose own meta-tests can be silently gutted is a fooled certificate.
 cargo clippy --locked --workspace --all-targets -- -D warnings || fail "clippy"
-cargo test --locked --workspace || fail "cargo test"
+run_cdcp_cli hermetic-test --lane check-workspace -- --locked --workspace \
+  || fail "workspace hermetic test lane (DRIFT is a distinct failure)"
 ok "cargo fmt + clippy -D warnings + test"
 
 for f in \
@@ -1688,8 +1689,10 @@ then
     --committed web/assets/wasm/cdcp_wasm.wasm \
     --built target/wasm32-unknown-unknown/release/cdcp_wasm.wasm \
     || fail "L4 WASM freshness: web/assets/wasm/cdcp_wasm.wasm sha256 != release rebuild"
-  if CDCP_REQUIRE_WASM=1 cargo test -p cdcp_wasm --test dual_path --locked -- --nocapture --include-ignored \
-    && CDCP_REQUIRE_WASM=1 cargo test -p cdcp_wasm --test schedule --locked -- --nocapture
+  if CDCP_REQUIRE_WASM=1 run_cdcp_cli hermetic-test --lane check-wasm-dual -- \
+      --locked -p cdcp_wasm --test dual_path -- --nocapture --include-ignored \
+    && CDCP_REQUIRE_WASM=1 run_cdcp_cli hermetic-test --lane check-wasm-schedule -- \
+      --locked -p cdcp_wasm --test schedule -- --nocapture
   then
     [ -x scripts/selftest_wasm_freshness.sh ] || [ -f scripts/selftest_wasm_freshness.sh ] \
       || fail "missing scripts/selftest_wasm_freshness.sh (L4 wasm-freshness required)"
