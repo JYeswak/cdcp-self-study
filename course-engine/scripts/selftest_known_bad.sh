@@ -65,6 +65,29 @@ assert_nonzero() {
   ok "$label trips RED (rc=$rc)"
 }
 
+assert_nonzero_with() {
+  # usage: assert_nonzero_with "label" "detector marker" cmd...
+  label="$1"
+  needle="$2"
+  shift 2
+  rc=0
+  out="$("$@" 2>&1)" || rc=$?
+  if [ "$rc" -eq 0 ]; then
+    printf '%s\n' "$out" >&2
+    fail "expected RED for $label but command exited 0"
+  fi
+  case "$out" in
+    *"$needle"*)
+      inject_counted
+      ok "$label trips RED (rc=$rc, saw: $needle)"
+      ;;
+    *)
+      printf '%s\n' "$out" >&2
+      fail "$label exited $rc but missing detector marker '$needle'"
+      ;;
+  esac
+}
+
 # ── honesty_scan: same contract as check.sh (must stay in sync) ─────────────
 # Prints nothing on success. Prints hits on inflation.
 # Sets global HONESTY_RC: 0=clean, 1=inflation found, 2=scanner error
@@ -128,12 +151,21 @@ CDCP="$CDCP_BIN_DIR/cdcp"
 [ -x "$CDCP" ] \
   || fail "cdcp binary absent at $CDCP — cargo build -p cdcp_cli --locked did not produce it (no fallback to cargo run)"
 
+# Clean control for every goldens-backed injection below. A suite that only
+# proves RED on a broken pin cannot distinguish a detector from an
+# always-failing command; require the same production command to pass first.
+clean_goldens_out="$($CDCP goldens check --bank bank/items --dir goldens 2>&1)" \
+  || { printf '%s\n' "$clean_goldens_out" >&2; fail "clean goldens control exited non-zero"; }
+printf '%s\n' "$clean_goldens_out" | grep -q 'ok bank_hash pin' \
+  || { printf '%s\n' "$clean_goldens_out" >&2; fail "clean goldens control missed bank_hash marker"; }
+ok "clean goldens control passes before injections"
+
 # ── (a) flipped golden content ──────────────────────────────────────────────
 _GOLDEN_BAK="$(mktemp "${TMPDIR:-/tmp}/golden_correct.XXXXXX")"
 cp "$GOLDEN_CORRECT" "$_GOLDEN_BAK"
 # Flip: replace digest so it cannot match live GradeExact output
 printf '%s\n' "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff" >"$GOLDEN_CORRECT"
-assert_nonzero "flipped-golden" \
+assert_nonzero_with "flipped-golden" "GOLDEN MISMATCH" \
   "$CDCP" goldens check --bank bank/items --dir goldens
 mv -f "$_GOLDEN_BAK" "$GOLDEN_CORRECT"
 _GOLDEN_BAK=""
@@ -142,7 +174,7 @@ ok "restored $GOLDEN_CORRECT"
 # ── (b) empty bank directory (temp) ─────────────────────────────────────────
 empty_bank="$(mktemp -d "${TMPDIR:-/tmp}/empty_bank.XXXXXX")"
 # Bank::load_dir on empty dir must fail (no items / empty bank)
-assert_nonzero "empty-bank" \
+assert_nonzero_with "empty-bank" "empty bank" \
   "$CDCP" goldens check --bank "$empty_bank" --dir goldens
 rmdir "$empty_bank" 2>/dev/null || rm -rf "$empty_bank"
 ok "empty bank temp removed"
@@ -151,7 +183,7 @@ ok "empty bank temp removed"
 _BANK_HASH_BAK="$(mktemp "${TMPDIR:-/tmp}/bank_hash.XXXXXX")"
 cp "$BANK_HASH_PIN" "$_BANK_HASH_BAK"
 printf '%s\n' "deadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef" >"$BANK_HASH_PIN"
-assert_nonzero "bank_hash-drift" \
+assert_nonzero_with "bank_hash-drift" "bank_hash drift" \
   "$CDCP" goldens check --bank bank/items --dir goldens
 mv -f "$_BANK_HASH_BAK" "$BANK_HASH_PIN"
 _BANK_HASH_BAK=""
@@ -159,8 +191,11 @@ ok "restored $BANK_HASH_PIN"
 
 # ── (d) planted credential inflation under docs/ ────────────────────────────
 printf '%s\n' "you are CDCP certified" >"$HONESTY_PLANT"
-run_honesty_scan >/dev/null
+honesty_out_file="$(mktemp "${TMPDIR:-/tmp}/honesty_plant.XXXXXX")"
+run_honesty_scan >"$honesty_out_file"
 h_rc="$HONESTY_RC"
+honesty_out="$(cat "$honesty_out_file")"
+rm -f "$honesty_out_file"
 rm -f "$HONESTY_PLANT"
 if [ "$h_rc" -eq 0 ]; then
   fail "honesty scan stayed green with planted 'you are CDCP certified' in docs/"
@@ -168,8 +203,10 @@ fi
 if [ "$h_rc" -ge 2 ]; then
   fail "honesty scan error (rc=$h_rc) — scanner must not fail-open on config"
 fi
+printf '%s\n' "$honesty_out" | grep -q 'CDCP certified' \
+  || fail "honesty scan RED did not name the planted detector marker"
 inject_counted
-ok "planted honesty string trips RED (rc=$h_rc)"
+ok "planted honesty string trips RED (rc=$h_rc, saw: CDCP certified)"
 
 # ── (e) bank_hash pin ABSENT (bd-goldens-check-is-file-hole-7v9p) ───────────
 # Distinct from (c): (c) proves a WRONG pin is caught. This proves a MISSING
@@ -180,7 +217,7 @@ ok "planted honesty string trips RED (rc=$h_rc)"
 _G_ABS="$(mktemp -d "${TMPDIR:-/tmp}/goldens_absent.XXXXXX")"
 cp -R goldens "$_G_ABS/g"
 rm -f "$_G_ABS/g/bank_hash.txt"
-assert_nonzero "bank_hash-absent" \
+assert_nonzero_with "bank_hash-absent" "missing required golden(s)" \
   "$CDCP" goldens check --bank bank/items --dir "$_G_ABS/g"
 rm -rf "$_G_ABS"
 ok "absent bank_hash pin is an ERROR, not a skipped comparison"
@@ -189,7 +226,7 @@ ok "absent bank_hash pin is an ERROR, not a skipped comparison"
 # An empty input set is an ERROR, never a pass. A goldens check that discovered
 # zero files used to report exactly like one that compared every pin.
 _G_EMPTY="$(mktemp -d "${TMPDIR:-/tmp}/goldens_empty.XXXXXX")"
-assert_nonzero "goldens-vacuous-scan" \
+assert_nonzero_with "goldens-vacuous-scan" "discovered 0 golden files" \
   "$CDCP" goldens check --bank bank/items --dir "$_G_EMPTY"
 rmdir "$_G_EMPTY" 2>/dev/null || rm -rf "$_G_EMPTY"
 ok "zero discovered goldens is an ERROR, not a vacuous pass"
