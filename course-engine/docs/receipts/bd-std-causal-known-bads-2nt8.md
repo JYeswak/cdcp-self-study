@@ -62,7 +62,7 @@ signal.
 | 19 | `selftest_orphan / empty-bank` | orphan scan anti-vacuity; `empty bank` | live orphan integrity GREEN | CANNOT_DETERMINE |
 | 20 | `selftest_orphan / empty-topics` | topic-registry anti-vacuity; `empty topic registry` | live orphan integrity GREEN | CANNOT_DETERMINE |
 | 21 | `selftest_orphan / orphan-item-ref` | forward reference integrity; `unknown topic_id` | clean specimen bank/live control GREEN | **PROVEN** (scratch counterfactual) |
-| 22 | `selftest_orphan / unanchored-item` | item anchoring; `missing/empty topic_ids` | clean specimen bank/live control GREEN | CANNOT_DETERMINE |
+| 22 | `selftest_orphan / unanchored-item` | item anchoring; `missing/empty topic_ids` | clean specimen bank/live control GREEN | **PROVEN** (scratch counterfactual) |
 | 23 | `selftest_orphan / silently-empty-file` | file-granular anti-vacuity; `items[] yielded zero items` | clean specimen bank/live control GREEN | CANNOT_DETERMINE |
 | 24 | `selftest_orphan / orphan-topic` | reverse reference integrity; `orphan topic 'zz-selftest-orphan-topic'` | live orphan integrity GREEN | **PROVEN** (scratch counterfactual) |
 
@@ -248,6 +248,19 @@ source. The original one-item fixture was then rerun and returned GREEN,
 printing `BYPASSED PASS: orphan-topic detector disabled`. A RED assertion
 against that bypass would fail, proving that this fixture's intact RED is
 caused by the reverse-reference detector rather than by a shared scan error.
+
+## Primary causal progress: unanchored item
+
+Primary status is now **`causal=4/24`, `intact=24/24`**. Row 22 used a
+valid topic registry and one anchored approved control item, plus one approved
+item with no `topic_ids` field. The intact production implementation returned
+RED and printed `q24-unanchored: missing/empty topic_ids`.
+
+Removing the unanchored item produced GREEN. The scratch bypass removed only
+the production `unanchored.push(...)` action in the missing-topic branch; the
+same bad item then returned GREEN as `BYPASSED PASS: unanchored detector
+disabled`. The bypass would fail the intact RED assertion, isolating this
+fixture to the item-anchoring detector.
 
 ## Primary causal progress: orphan-item forward reference
 
