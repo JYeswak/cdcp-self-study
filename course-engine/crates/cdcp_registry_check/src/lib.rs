@@ -15,6 +15,7 @@ use thiserror::Error;
 pub mod anti_vacuous;
 pub mod count_pins;
 pub mod doc_facts;
+pub mod goldens_couplings;
 mod gate_shrink;
 pub mod scratch;
 pub mod scan_domains;
