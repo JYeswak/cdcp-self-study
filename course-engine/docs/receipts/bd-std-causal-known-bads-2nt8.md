@@ -50,7 +50,7 @@ signal.
 | 7 | `selftest_l5 / flipped-golden-e2e` | WASM e2e digest; `GOLDEN MISMATCH` | clean e2e digest match PASS | CANNOT_DETERMINE |
 | 8 | `selftest_l5 / empty-golden-dir` | e2e discovery anti-vacuity; `vacuous` | clean e2e digest match PASS | CANNOT_DETERMINE |
 | 9 | `selftest_l6_coverage / empty-bank` | coverage domain scan; `empty bank` | live coverage GREEN | CANNOT_DETERMINE |
-| 10 | `selftest_l6_coverage / m01-only-bank` | required-module floor; `module 2:` | live coverage GREEN | CANNOT_DETERMINE |
+| 10 | `selftest_l6_coverage / m01-only-bank` | required-module floor; `module 2:` | live coverage GREEN | **PROVEN** (scratch counterfactual) |
 | 11 | `selftest_l7_objectives / empty-objectives` | objective registry anti-vacuity; `zero [[objective]]` | live objectives GREEN | CANNOT_DETERMINE |
 | 12 | `selftest_l7_objectives / missing-claim-ref` | objective→claim link; `unresolved claim_id` | live objectives GREEN | CANNOT_DETERMINE |
 | 13 | `selftest_l7_objectives / empty-claim-ids` | objective schema; `claim_ids empty` | live objectives GREEN | CANNOT_DETERMINE |
@@ -209,3 +209,25 @@ proven. They do **not** change the primary 24-row result: the five shell
 suites still have 24 intact RED rows and no bypass proof. The receipt now has
 an honest partial result rather than citing the three newly named gates as if
 they were among the original 24.
+
+## Primary causal progress: coverage shortfall
+
+The predeclared primary denominator is still 24. Row 10 is now proven causal,
+so the primary measure is **`causal=1/24`, `intact=24/24`**. This row used the
+production `verify_coverage` implementation from `cdcp_bank` in an isolated
+scratch Cargo package; it did not duplicate the detector in test code.
+
+The fixture had a valid 15-module domain registry, a present policy whose
+default floor is one, and exactly one approved item in module 1. No empty-bank,
+missing-registry, malformed-policy, or other unrelated precondition was
+introduced. The intact evaluation returned code 1 and its stdout contained
+the branch-specific marker `module 2: 0 approved < min 1`. A positive control
+with one approved item in each of all 15 modules returned code 0.
+
+For the bypass, only the production shortfall condition
+`i128::from(have) < need` was changed to `false` in the scratch source. The
+same m01-only fixture then returned code 0 and printed
+`BYPASSED PASS: shortfall detector disabled`. A RED assertion against that
+bypassed run would fail, which is the required counterfactual. The remaining
+23 primary rows retain their prior `CANNOT_DETERMINE` status; no row is
+promoted by census or by a broad nonzero exit.
