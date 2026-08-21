@@ -15,15 +15,16 @@ use thiserror::Error;
 pub mod anti_vacuous;
 pub mod count_pins;
 pub mod doc_facts;
-pub mod goldens_couplings;
 mod gate_shrink;
-pub mod scratch;
+pub mod goldens_couplings;
 pub mod scan_domains;
+pub mod scratch;
 pub mod shell_walk;
 pub mod substrate_guard;
 mod substrate_vcs;
 pub mod track;
 pub mod verify_doc_consistency;
+pub mod verify_injection_count;
 
 /// Rank lattice: invariant(6) > proof(5) > bounded_model(4) > statistical(3) > slo(2) > benchmark(1).
 pub const CANONICAL_CLASSES: &[(&str, u8)] = &[

@@ -91,7 +91,7 @@
 # 18477 -> 16634: EXTRACT-THEN-DELETE goldens_couplings assertion logic and
 # tests into cdcp_registry_check; cdcp_gate keeps only the dispatcher
 # (bd-gate-shrink-finish-dbd8).
-ceiling_lines = 16634
+ceiling_lines = 14907
 delete_when_lines_below = 15000
 # Anti-vacuous: a scan that finds fewer than this many .rs files is an ERROR.
 # 2 = src/lib.rs + src/main.rs. File count may fall during extraction.

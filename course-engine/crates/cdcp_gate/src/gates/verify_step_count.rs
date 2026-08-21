@@ -299,7 +299,7 @@ pub fn scan_step_spans(line: &str) -> Vec<(usize, usize, u64)> {
                 alts.push((d_end, line[p..d_end].parse::<u64>().unwrap_or(u64::MAX)));
             }
             if at_word_boundary(line, p) {
-                for (w, v) in crate::gates::verify_injection_count::cardinals() {
+                for (w, v) in cdcp_registry_check::verify_injection_count::cardinals() {
                     if let Some(e) = lit_ci(line, p, w) {
                         alts.push((e, *v as u64));
                     }
