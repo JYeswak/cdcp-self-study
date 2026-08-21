@@ -172,3 +172,40 @@ clean controls. This is **not** a bypass result: no detector was neutralized,
 so the primary causal status remains `0/24`, with all 24 bypass results still
 `CANNOT_DETERMINE`. The re-run proves the intact leg was not merely stale; it
 does not prove that any named detector was the sole cause of its RED.
+
+## Cited-gate causal counterfactuals
+
+The three gates cited in the Q24 dispatch are a **supplemental denominator of
+3**. They are not rows in the predeclared 24-row shell-injection denominator;
+adding them to that denominator would silently change the question being
+measured. The primary result therefore remains `causal=0/24`, while the
+separately reported cited-gate result is `causal=3/3`.
+
+Each row was declared before its fixture was run. The intact run had to reach
+the named detector and print its branch-specific marker. The bypass run used
+only a scratch copy of that detector's source, with the named branch
+neutralized; no live product source or shared pane file was changed. Thus the
+counterfactual expected by the harness is `intact RED` and `bypassed PASS` for
+the known-bad fixture. If the same RED assertion were run against the bypass
+copy, it would fail, which is the causal signal rather than a second green
+test.
+
+| cited gate | fixture and expected branch | positive control | intact result | bypass result | causal verdict |
+|---|---|---|---|---|---|
+| `cdcp_gate tick-reconcile` | one closed bead (`bd-unreceipted`) absent from the ledger; marker `closed ... with no tick receipt` / `Unreconciled` | scratch ledger contained one closed, receipted bead and no unrelated unreceipted close | `RED`, rc=2; marker printed | `PASS`, rc=0 after scratch-only receipt-membership bypass | **PROVEN** |
+| `pack_freshness` | bank commit is newer than the three required learner packs; marker `learner pack is stale` | one committed bank item plus all three nonempty pack files; only the bank epoch was advanced | `RED`, rc=2; `bank_epoch > pack_epoch` and marker printed | `PASS`, rc=0 after scratch-only freshness-comparison bypass | **PROVEN** |
+| derived substrate floor (`require_tree_derived_floor`) | `InvocationWalk` contains only `scripts/__q24_missing__.py`, with `exists=false`; marker `tree-derived invocation/presence floor is 0` | a second walk containing real `scripts/check.sh` with `exists=true` returned floor=1 | `Err`, with the zero-floor marker | `Ok(0)`, printed `BYPASSED PASS`, after scratch-only `n == 0` branch bypass | **PROVEN** |
+
+The tick-reconcile scratch module was copied from the current worktree,
+including its then-uncommitted bytes; the pack-freshness and substrate-floor
+scratch modules were copied from the current source tree. Each scratch build
+compiled the production helper and then ran the same fixture once intact and
+once with only the named detector neutralized. The floor's positive control
+also demonstrates that this is not an empty or unrun scan: a real walked path
+is accepted while the ghost-only walk is rejected.
+
+These three results move the cited supplemental measure from `0/3` to `3/3`
+proven. They do **not** change the primary 24-row result: the five shell
+suites still have 24 intact RED rows and no bypass proof. The receipt now has
+an honest partial result rather than citing the three newly named gates as if
+they were among the original 24.
