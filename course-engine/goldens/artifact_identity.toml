@@ -1,0 +1,36 @@
+# Consumer: the local release producer and golden verifier.
+# Feature gated: golden bytes may not be presented as evidence for a different
+# source/tree/dependency revision.
+# Observed defect: a stale artifact can retain a plausible digest and still be
+# mistaken for a current build when revision labels are abbreviated or absent.
+# Deletion condition: remove this control only after the golden verifier binds
+# every required digest to the same identity contract.
+schema_version = 1
+
+[[artifacts]]
+artifact = "goldens/fixtures/mock40_seed42.json"
+sha256 = "0c3cf07fb98f233819f3c7f2487a49ed7e811fce7e78eed766033a4193479606"
+source_revision = "01ac3e9c26e1f0d737fa0820241d4620c715b4f6"
+tree_revision = "24191352797af157562137ca382583bc3dade00b"
+dependency_revisions = { "Cargo.lock" = "e6560b37123f7541148492143c00aac2b11a5ecd" }
+
+[[artifacts]]
+artifact = "goldens/mock40_seed42_all_correct.sha256"
+sha256 = "588470ecca8958ec6c8baaf880b8d59d19e7e969db6ff382ba64593a0f9fe89d"
+source_revision = "54f5916f0167a956f68b8533b857244c7027bd99"
+tree_revision = "ba10aa6b5822e00b08f806849a7b6efd33a74b79"
+dependency_revisions = { "Cargo.lock" = "ed353d7a15fd2140921ecf8c98699f22693179bd" }
+
+[[artifacts]]
+artifact = "goldens/mock40_seed42_all_wrong.sha256"
+sha256 = "92430476154d2156e63b99f22a794bb3ecfc640af6a04bc537959c2503141e54"
+source_revision = "54f5916f0167a956f68b8533b857244c7027bd99"
+tree_revision = "ba10aa6b5822e00b08f806849a7b6efd33a74b79"
+dependency_revisions = { "Cargo.lock" = "ed353d7a15fd2140921ecf8c98699f22693179bd" }
+
+[[artifacts]]
+artifact = "goldens/bank_hash.txt"
+sha256 = "8bb63297c07196890e85d5e39d75f7408716c1aa22dde03316b39573a7aa669b"
+source_revision = "54f5916f0167a956f68b8533b857244c7027bd99"
+tree_revision = "ba10aa6b5822e00b08f806849a7b6efd33a74b79"
+dependency_revisions = { "Cargo.lock" = "ed353d7a15fd2140921ecf8c98699f22693179bd" }

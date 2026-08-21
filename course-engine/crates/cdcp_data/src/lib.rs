@@ -26,6 +26,7 @@
 //! Metadata + directory entries only — never a capture body.
 #![forbid(unsafe_code)]
 
+mod artifact_identity;
 mod corpus;
 mod corpus_rights;
 mod data_lock;
@@ -34,6 +35,11 @@ mod oracle;
 mod osha;
 mod pack_freshness;
 mod quantities;
+pub use artifact_identity::{
+    compute_artifact_identity, normalize_commit_ref, parse_identity_manifest,
+    verify_artifact_identity, verify_identity_manifest, ArtifactIdentity,
+    ArtifactIdentityExpectation,
+};
 pub use corpus::{
     dry_run_request, fetch_corpus, load_sources, parse_sources, plan_sources, today_utc_ymd,
     AccessKind, CorpusError, FetchPlan, FetchReport, FetchRequest, PlanAction, PlanRow,

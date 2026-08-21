@@ -1,0 +1,36 @@
+# Consumer: the local release producer and installed-layer verifier.
+# Feature gated: learner-pack/WASM staging may proceed only when these exact
+# bytes match their source, tree, dependency, and digest identity.
+# Observed defect: stale learner bytes and stale WASM survived file-level gates
+# because revision labels and digests were not bound together.
+# Deletion condition: remove this control only after the release producer and
+# installed verifier enforce the same byte identity contract.
+schema_version = 1
+
+[[artifacts]]
+artifact = "web/data/bank_items_seed42.json"
+sha256 = "43412059f38a4ed3feb8458e439586b80c2490b165861fe89dd8b5b67cb111ba"
+source_revision = "54f5916f0167a956f68b8533b857244c7027bd99"
+tree_revision = "ba10aa6b5822e00b08f806849a7b6efd33a74b79"
+dependency_revisions = { "Cargo.lock" = "ed353d7a15fd2140921ecf8c98699f22693179bd" }
+
+[[artifacts]]
+artifact = "web/data/keys_seed42.json"
+sha256 = "915525971c1d3538ca15123224bedd95a54df5d94058491225b0c9e4db6c37b9"
+source_revision = "54f5916f0167a956f68b8533b857244c7027bd99"
+tree_revision = "ba10aa6b5822e00b08f806849a7b6efd33a74b79"
+dependency_revisions = { "Cargo.lock" = "ed353d7a15fd2140921ecf8c98699f22693179bd" }
+
+[[artifacts]]
+artifact = "web/data/mock40_seed42.json"
+sha256 = "322bfb47ba70fd43e8cc728d3850ac916811eaedc935bdc3c0ff2af9feb9a339"
+source_revision = "54f5916f0167a956f68b8533b857244c7027bd99"
+tree_revision = "ba10aa6b5822e00b08f806849a7b6efd33a74b79"
+dependency_revisions = { "Cargo.lock" = "ed353d7a15fd2140921ecf8c98699f22693179bd" }
+
+[[artifacts]]
+artifact = "web/assets/wasm/cdcp_wasm.wasm"
+sha256 = "8d2e12c522d240d6450cffb249f76b4a95f072d174ae946286387b1adae68b06"
+source_revision = "6ec3dc5da5625be8ba34dbe40eeeae78f74364a1"
+tree_revision = "0332431f720211bed3766fc19aff5a970cc92cf7"
+dependency_revisions = { "Cargo.lock" = "e6560b37123f7541148492143c00aac2b11a5ecd" }
