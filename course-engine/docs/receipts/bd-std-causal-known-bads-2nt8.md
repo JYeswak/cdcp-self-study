@@ -42,13 +42,13 @@ signal.
 | # | suite / fixture | production detector and branch marker | clean control | bypass counterfactual |
 |---:|---|---|---|---|
 | 1 | `selftest_known_bad / flipped-golden` | `cdcp goldens check`; `GOLDEN MISMATCH` | clean goldens control PASS | **PROVEN** (scratch counterfactual) |
-| 2 | `selftest_known_bad / empty-bank` | bank loader; `empty bank` | clean goldens control PASS | CANNOT_DETERMINE |
+| 2 | `selftest_known_bad / empty-bank` | bank loader; `empty bank` | clean goldens control PASS | **PROVEN** (scratch counterfactual) |
 | 3 | `selftest_known_bad / bank_hash-drift` | golden bank-hash comparison; `bank_hash drift` | clean goldens control PASS | **PROVEN** (scratch counterfactual) |
-| 4 | `selftest_known_bad / honesty-plant` | credential scan; `CDCP certified` | clean honesty scan PASS | CANNOT_DETERMINE |
+| 4 | `selftest_known_bad / honesty-plant` | credential scan; `CDCP certified` | clean honesty scan PASS | **PROVEN** (scratch counterfactual) |
 | 5 | `selftest_known_bad / bank_hash-absent` | required-golden schema; `missing required golden(s)` | clean goldens control PASS | **PROVEN** (scratch counterfactual) |
-| 6 | `selftest_known_bad / goldens-vacuous-scan` | golden discovery anti-vacuity; `discovered 0 golden files` | clean goldens control PASS | CANNOT_DETERMINE |
-| 7 | `selftest_l5 / flipped-golden-e2e` | WASM e2e digest; `GOLDEN MISMATCH` | clean e2e digest match PASS | CANNOT_DETERMINE |
-| 8 | `selftest_l5 / empty-golden-dir` | e2e discovery anti-vacuity; `vacuous` | clean e2e digest match PASS | CANNOT_DETERMINE |
+| 6 | `selftest_known_bad / goldens-vacuous-scan` | golden discovery anti-vacuity; `discovered 0 golden files` | clean goldens control PASS | **PROVEN** (scratch counterfactual) |
+| 7 | `selftest_l5 / flipped-golden-e2e` | WASM e2e digest; `GOLDEN MISMATCH` | clean e2e digest match PASS | **PROVEN** (scratch counterfactual) |
+| 8 | `selftest_l5 / empty-golden-dir` | e2e discovery anti-vacuity; `zero/missing fixtures` | clean e2e digest match PASS | **PROVEN** (scratch counterfactual) |
 | 9 | `selftest_l6_coverage / empty-bank` | coverage domain scan; `empty bank` | live coverage GREEN | **PROVEN** (scratch counterfactual) |
 | 10 | `selftest_l6_coverage / m01-only-bank` | required-module floor; `module 2:` | live coverage GREEN | **PROVEN** (scratch counterfactual) |
 | 11 | `selftest_l7_objectives / empty-objectives` | objective registry anti-vacuity; `zero [[objective]]` | live objectives GREEN | **PROVEN** (scratch counterfactual) |
@@ -523,3 +523,42 @@ Updated current status: primary **19/24 causal, 24/24 intact, 5/24
 CANNOT_DETERMINE**; cited-gate supplemental **3/3 causal**. The primary
 denominator remains 24; the supplemental three are reported separately and
 are not added to it.
+
+## Primary causal progress: remaining golden and honesty fixtures
+
+The predeclared primary result is now **`causal=24/24`, `intact=24/24`,
+`CANNOT_DETERMINE=0`**. The five final rows were tested in the same detached
+scratch worktree, with no live source, bank, or committed artifact mutation:
+
+* Row 2 used an empty bank directory. The production loader returned the
+  branch marker `empty bank`; a valid-bank control passed; a scratch-only
+  loader bypass redirected only the empty-bank error to that valid bank and
+  the command passed all three golden comparisons.
+* Row 4 used the production `selftest_known_bad.sh` honesty function. Its
+  clean control passed, the planted `you are CDCP certified` text returned
+  RED and printed `CDCP certified`, and a scratch-only bypass of that
+  function returned PASS while the plant remained present.
+* Row 6 used an empty `goldens` directory. The intact discovery leg returned
+  `discovered 0 golden files`; a valid-goldens control passed; a scratch-only
+  fallback for the discovery branch supplied the valid directory and the
+  empty-directory invocation passed all three comparisons.
+* Row 7 used the actual WASM e2e harness with a flipped all-correct pin. The
+  intact run printed `GOLDEN MISMATCH`; the clean e2e control passed; a
+  scratch-only bypass of both digest mismatch branches returned
+  `e2e_l5_digest: PASS`.
+* Row 8 used the actual WASM e2e harness with an empty golden directory. The
+  intact shell anti-vacuity leg returned
+  `zero/missing fixtures ... refusing vacuous green`; the clean e2e control
+  passed; a scratch-only fallback for that missing-fixture branch returned
+  `e2e_l5_digest: PASS`.
+
+The rows that need a fallback to a valid bank/golden directory explicitly
+record that source-only precondition neutralization; it does not weaken live
+code. The primary 24-row inventory is now fully counterfactually proven. The
+three cited-gate supplemental legs remain a separate **3/3 causal** measure,
+not an addition to the primary denominator.
+
+What this cannot decide remains unchanged: causal fixture attribution does
+not establish that any detector's underlying policy is substantively correct,
+that a clean bank is learner-correct, or that a passing gate catches defect
+classes outside its declared input and branch.
