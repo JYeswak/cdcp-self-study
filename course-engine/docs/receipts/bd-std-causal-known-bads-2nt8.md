@@ -51,7 +51,7 @@ signal.
 | 8 | `selftest_l5 / empty-golden-dir` | e2e discovery anti-vacuity; `vacuous` | clean e2e digest match PASS | CANNOT_DETERMINE |
 | 9 | `selftest_l6_coverage / empty-bank` | coverage domain scan; `empty bank` | live coverage GREEN | CANNOT_DETERMINE |
 | 10 | `selftest_l6_coverage / m01-only-bank` | required-module floor; `module 2:` | live coverage GREEN | **PROVEN** (scratch counterfactual) |
-| 11 | `selftest_l7_objectives / empty-objectives` | objective registry anti-vacuity; `zero [[objective]]` | live objectives GREEN | CANNOT_DETERMINE |
+| 11 | `selftest_l7_objectives / empty-objectives` | objective registry anti-vacuity; `zero [[objective]]` | live objectives GREEN | **PROVEN** (scratch counterfactual) |
 | 12 | `selftest_l7_objectives / missing-claim-ref` | objective→claim link; `unresolved claim_id` | live objectives GREEN | **PROVEN** (scratch counterfactual) |
 | 13 | `selftest_l7_objectives / empty-claim-ids` | objective schema; `claim_ids empty` | live objectives GREEN | **PROVEN** (scratch counterfactual) |
 | 14 | `selftest_l7_objectives / empty-bank` | objective bank domain; `empty bank` | live objectives GREEN | CANNOT_DETERMINE |
@@ -370,3 +370,24 @@ fail the intact RED assertion, proving this objective-schema row is causal.
 
 Updated current status: primary **9/24 causal, 24/24 intact, 15/24
 CANNOT_DETERMINE**; cited-gate supplemental **3/3 causal**.
+
+## Primary causal progress: empty objective registry
+
+Primary status is now **`causal=11/24`, `intact=24/24`**. Row 11 used a
+valid domains/topics/policy/claims registry and approved bank item; only
+`objectives.toml` had zero `[[objective]]` rows. The intact production
+evaluation returned RED with the branch marker
+`registries/objectives.toml has zero [[objective]] rows (empty = ERROR)`.
+
+Adding one valid objective with `claim_ids = ["c-valid"]` produced the
+positive-control GREEN. The scratch-only bypass disabled only the
+`objectives.is_empty()` error branch; restoring the empty registry then
+returned `BYPASSED PASS: empty-objectives detector disabled`. The bypass
+counterfactual therefore isolates the objective-registry anti-vacuity
+detector and proves this row causal. No live detector, bank item, or shared
+pane file changed.
+
+Updated current status: primary **11/24 causal, 24/24 intact, 13/24
+CANNOT_DETERMINE**; cited-gate supplemental **3/3 causal**. The primary
+denominator remains 24; the supplemental three are reported separately and
+are not added to it.
