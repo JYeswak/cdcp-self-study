@@ -7,7 +7,7 @@
  * Node: the strings are produced by web/assets/js/{mock,results,quiz}.js and
  * results.js grades through the shipped WASM bridge.
  *
- * Inventory denominator: 43 named presentation sites.  The inventory is
+ * Inventory denominator: 45 named presentation sites.  The inventory is
  * grouped by renderer, not by item instance, and is kept explicit so deleting
  * an assertion is an anti-vacuous failure.
  */
@@ -93,7 +93,7 @@ class Element {
     this.tagName = tag.toUpperCase(); this.id = id; this.className = className;
     this.classList = new ClassList(this);
     for (const c of className.split(/\s+/).filter(Boolean)) this.classList.s.add(c);
-    this.children = []; this.parentNode = null; this.attributes = new Map();
+    this.children = []; this.parentNode = null; this.attributes = new Map(); this.listeners = new Map();
     this.hidden = false; this.disabled = false; this.value = ""; this.checked = false;
     this.type = ""; this.textContent = ""; this._innerHTML = ""; this.dataset = {};
   }
@@ -104,7 +104,18 @@ class Element {
     c.parentNode = this; const i = this.children.indexOf(before);
     if (i < 0) this.children.push(c); else this.children.splice(i, 0, c); return c;
   }
-  addEventListener() {}
+  addEventListener(type, fn) {
+    if (!this.listeners.has(type)) this.listeners.set(type, []);
+    this.listeners.get(type).push(fn);
+  }
+  dispatchEvent(ev) {
+    const event = ev || { type: "" };
+    if (!event.preventDefault) event.preventDefault = () => {};
+    event.target = event.target || this; event.currentTarget = this;
+    for (const fn of this.listeners.get(event.type) || []) fn(event);
+    return true;
+  }
+  click() { this.dispatchEvent({ type: "click" }); }
   focus() {}
   setAttribute(k, v) {
     this.attributes.set(String(k), String(v));
@@ -116,6 +127,33 @@ class Element {
   querySelector(sel) { return this.querySelectorAll(sel)[0] || null; }
   querySelectorAll(sel) {
     const out = []; const match = (e) => {
+      if (sel.includes(",")) return sel.split(",").some((part) => {
+        const original = sel;
+        sel = part.trim();
+        const result = match(e);
+        sel = original;
+        return result;
+      });
+      if (sel.includes(" ")) {
+        const parts = sel.trim().split(/\s+/);
+        const leaf = parts.pop();
+        const original = sel;
+        sel = leaf;
+        const leafMatch = match(e);
+        sel = original;
+        if (!leafMatch) return false;
+        let parent = e.parentNode;
+        for (let i = parts.length - 1; i >= 0; i--) {
+          const ancestorSelector = parts[i];
+          const saved = sel;
+          sel = ancestorSelector;
+          while (parent && !match(parent)) parent = parent.parentNode;
+          sel = saved;
+          if (!parent) return false;
+          parent = parent.parentNode;
+        }
+        return true;
+      }
       if (sel === "*") return true;
       if (sel.startsWith("#")) return e.id === sel.slice(1);
       if (sel.startsWith(".")) return e.classList.contains(sel.slice(1));
@@ -155,6 +193,41 @@ function mockDocument(kind) {
   return d;
 }
 
+function learnDocument() {
+  const d = new Document();
+  const shell = add(d, "learn-unit-shell", "section", "learn-unit-shell");
+  add(d, "unit-status", "p", "learn-unit-shell__status", shell);
+  add(d, "unit-title", "h2", "learn-unit-shell__title", shell);
+  const prev = add(d, "unit-prev", "button", "", shell); prev.setAttribute("data-unit-prev", "1");
+  const next = add(d, "unit-next", "button", "", shell); next.setAttribute("data-unit-next", "1");
+  const full = add(d, "unit-full", "button", "", shell); full.setAttribute("data-unit-full", "1");
+  const unit = add(d, "unit-mode", "button", "", shell); unit.setAttribute("data-unit-mode", "1");
+  const prose = add(d, "module-prose", "article");
+  const heading = new Element("h2"); heading.id = "learning-objectives"; prose.appendChild(heading);
+  add(d, "learn-unit-check", "section");
+  return d;
+}
+
+function drillDocument() {
+  const d = new Document();
+  const main = add(d, "main", "main");
+  add(main, "drill-title", "h1", "", main);
+  add(main, "drill-lede", "p", "lede", main);
+  add(main, "drill-status", "div", "", main);
+  for (const id of ["section-missed", "section-srs-due", "section-srs-all"]) add(main, id, "section", "", main);
+  add(main, "missed-meta", "p", "", main); add(main, "missed-list", "div", "", main);
+  add(main, "srs-due-title", "h2", "", main); add(main, "srs-due-list", "div", "", main);
+  add(main, "srs-all-meta", "p", "", main); add(main, "srs-all-list", "div", "", main);
+  return d;
+}
+
+function hubDocument() {
+  const d = new Document();
+  add(d, "mastery-recommend", "section");
+  add(d, "mastery-grid", "ul");
+  return d;
+}
+
 function makeWindow(search = "") {
   return { location: { href: "http://127.0.0.1:8766/", origin: "http://127.0.0.1:8766", pathname: "/mock.html", search }, addEventListener() {}, confirm: () => true };
 }
@@ -169,7 +242,8 @@ function installGlobals(doc, win, store) {
 function installFetch(root) {
   globalThis.fetch = async (url) => {
     const raw = String(url);
-    const rel = raw.replace(/^https?:\/\/[^/]+\//, "");
+    const basePath = globalThis.location && globalThis.location.pathname ? globalThis.location.pathname : "/";
+    const rel = new URL(raw, "http://127.0.0.1" + basePath).pathname.replace(/^\/+/, "");
     const p = join(root, "web", rel);
     if (!existsSync(p)) return { ok: false, status: 404, text: async () => "", json: async () => { throw new Error("404 " + rel); }, arrayBuffer: async () => new ArrayBuffer(0) };
     const bytes = await readFile(p);
@@ -179,6 +253,22 @@ function installFetch(root) {
 
 function wait(ms = 20) { return new Promise((r) => setTimeout(r, ms)); }
 function check(condition, message) { if (!condition) throw new Error(message); }
+function exact(actual, expected, id) {
+  check(actual === expected, `${id}: rendered ${JSON.stringify(actual)}; expected ${JSON.stringify(expected)}`);
+}
+
+async function staticSurfaceCheck(root) {
+  const mock = await readFile(join(root, "web/mock.html"), "utf8");
+  const quiz = await readFile(join(root, "web/quiz.html"), "utf8");
+  exact((mock.match(/<p class="exam-form-meta mono">([\s\S]*?)<\/p>/) || [])[1],
+    "40Q · 60:00 · study bar 27/40 · study signal / not a pass mark", "mock.exam-form-meta");
+  check(/>\s*Submit attempt\s*<\/button>/.test(mock), "mock.submit-label: exact button text missing");
+  check(mock.includes('<span class="exam-stat__label">Seed</span>'), "mock.seed-menu: Seed label missing");
+  exact((quiz.match(/<p class="exam-form-meta mono">([\s\S]*?)<\/p>/) || [])[1],
+    "8–12 items · one module · study only", "quiz.form-meta");
+  check(/>\s*Start quiz\s*<\/button>/.test(quiz), "quiz.module-picker: exact action text missing");
+  return true;
+}
 
 async function inventoryCheck(root, deletedId = null) {
   const assertions = new Set();
@@ -199,11 +289,22 @@ async function runMock(root, store, sourceOverride = null) {
   const progress = doc.getElementById("exam-progress").textContent;
   const meta = doc.querySelector(".question-card__meta").textContent;
   const letters = doc.getElementById("q-choices").querySelectorAll(".choice__letter").map((e) => e.textContent).join("");
-  check(progress === "1 / 40", `mock progress rendered ${JSON.stringify(progress)}`);
+  exact(progress, "1 / 40", "mock.progress");
   check(/^Item 1 of 40 · /.test(meta), `mock question meta rendered ${JSON.stringify(meta)}`);
-  check(letters === "ABCD", `mock option labels rendered ${JSON.stringify(letters)}`);
-  check(doc.getElementById("exam-timer").textContent === "60:00", "mock timer did not render 60:00");
-  return { progress, meta, letters, timer: doc.getElementById("exam-timer").textContent };
+  exact(letters, "ABCD", "mock.option-letters");
+  const timer = doc.getElementById("exam-timer");
+  exact(timer.textContent, "60:00", "mock.timer");
+  check(/^Time remaining (?:60:00|59:5\d)$/.test(timer.getAttribute("aria-label")), "mock.timer: complete accessible timer string drifted");
+  exact(doc.getElementById("unanswered-hint").textContent,
+    "0 of 40 answered. Submit unlocks when every item has a choice.", "mock.unanswered");
+  exact(doc.getElementById("pack-meta").textContent, "data/mock40_seed42.json", "mock.pack-identity");
+  const jumps = doc.getElementById("jump-strip").querySelectorAll("[data-jump]");
+  check(jumps.length === 40, `mock.jump-labels: ${jumps.length} buttons, expected 40`);
+  exact(jumps[0].textContent, "1", "mock.jump-labels.first");
+  exact(jumps[39].textContent, "40", "mock.jump-labels.last");
+  exact(jumps[0].getAttribute("aria-label"), "Question 1, unanswered, current", "mock.jump-labels.aria");
+  exact(doc.getElementById("seed-select").options[0].textContent, "42 (custom)", "mock.seed-menu");
+  return { progress, meta, letters, timer: timer.textContent };
 }
 
 async function runResults(root, store, wrong) {
@@ -218,12 +319,28 @@ async function runResults(root, store, wrong) {
   const weak = doc.getElementById("results-weak").innerHTML;
   const items = doc.getElementById("results-items").innerHTML;
   const engine = doc.getElementById("r-engine").textContent;
-  check(score === (wrong ? "0 / 40" : "40 / 40"), `results score rendered ${JSON.stringify(score)}`);
-  check(study.includes(wrong ? "0 / 40 is below the practice bar of 27" : "40 / 40 correct meets the practice bar of 27"), "results study signal lost denominator or bar");
-  check(weak.includes("Weak modules"), "results weak-module heading missing");
-  check(items.includes(wrong ? "Incorrect" : "Correct") && items.includes("chosen "), "results item review missing status/letters");
-  check(engine === "cdcp_wasm-wasm32", `results engine rendered ${JSON.stringify(engine)}`);
-  return { score, study: study.replace(/<[^>]+>/g, ""), engine };
+  const studyText = study.replace(/<[^>]+>/g, "");
+  exact(doc.getElementById("r-exam").textContent, "mock40", "results.exam");
+  exact(doc.getElementById("r-seed").textContent, "42", "results.seed");
+  exact(doc.getElementById("r-count").textContent, "40 item(s) recorded", "results.answer-count");
+  exact(doc.getElementById("r-hash").textContent,
+    keys.bank_hash ? keys.bank_hash.slice(0, 12) + "…" : "—", "results.bank-hash");
+  exact(score, wrong ? "0 / 40" : "40 / 40", "results.score");
+  check(/^[0-9a-f]{64}$/.test(doc.getElementById("r-digest").textContent), "results.digest: digest is not a complete lowercase SHA-256 string");
+  exact(engine, "cdcp_wasm-wasm32", "results.engine");
+  exact(studyText, wrong
+    ? "Study signal: 0 / 40 is below the practice bar of 27. Review weak modules below. This tool never grants a CDCP credential."
+    : "Study signal: 40 / 40 correct meets the practice bar of 27. This is not EPI/EXIN certification and is never a CDCP credential. Treat it as readiness practice only.", "results.study-signal");
+  if (!wrong) {
+    exact(weak, "<h2 class=\"results-section-title\">Weak modules</h2><p class=\"meta\" style=\"margin:0;border:0;padding:0\">None flagged (module rate ≥ 3/5 on attempted items in that module).</p>", "results.weak-module-heading");
+  } else {
+    check(weak.startsWith("<h2 class=\"results-section-title\">Weak modules</h2><p class=\"results-weak-cta\">Review weak modules in Learn</p>"), "results.weak-module-heading: CTA wording drifted");
+    for (let m = 1; m <= 15; m++) check(weak.includes(`>M${String(m).padStart(2, "0")}</a>`), `results.weak-module-chip: M${m} missing`);
+  }
+  check(items.includes(`>${wrong ? "Incorrect" : "Correct"}</span>`) && items.includes("chosen "), "results item review missing status/letters");
+  check(items.includes("<p class=\"results-item__letters mono\">chosen "), "results.item-letters: complete chosen/correct label missing");
+  check(items.includes("Review section in Learn →") || items.includes("Review module in Learn →"), "results.learn-link: learner link label missing");
+  return { score, study: studyText, engine };
 }
 
 async function runQuiz(root, store) {
@@ -234,11 +351,81 @@ async function runQuiz(root, store) {
   const status = doc.getElementById("quiz-status").textContent;
   const meta = doc.querySelector(".question-card__meta").textContent;
   const letters = doc.getElementById("q-choices").querySelectorAll(".choice__letter").map((e) => e.textContent).join("");
-  check(/^1 \/ 8$/.test(progress), `quiz progress rendered ${JSON.stringify(progress)}`);
+  exact(progress, "1 / 8", "quiz.progress");
   check(status.includes("Module 06 quiz: 8 items") && status.includes("Study only — not a credential"), "quiz status lost count/honesty label");
-  check(/^Module 06 · Item 1 of 8 · /.test(meta), `quiz question meta rendered ${JSON.stringify(meta)}`);
-  check(letters === "ABCD", `quiz option labels rendered ${JSON.stringify(letters)}`);
-  return { progress, status, meta, letters };
+  check(/^Module 06 · Item 1 of 8 · m06-q066$/.test(meta), `quiz question meta rendered ${JSON.stringify(meta)}`);
+  exact(letters, "ABCD", "quiz.option-letters");
+  exact(doc.getElementById("unanswered-hint").textContent, "0 of 8 answered. Grade unlocks when every item has a choice.", "quiz.unanswered");
+  const pickerOptions = doc.getElementById("module-select").options.map((e) => e.textContent);
+  check(pickerOptions.includes("Module 06"), "quiz.module-picker: module label missing");
+  for (let q = 0; q < 8; q++) {
+    const first = doc.getElementById("q-choices").querySelectorAll("input")[0];
+    check(first, `quiz answer ${q + 1}: first option input missing`);
+    first.dispatchEvent({ type: "change" });
+    if (q < 7) doc.getElementById("btn-next").click();
+  }
+  doc.getElementById("btn-submit").click(); await wait(80);
+  exact(doc.getElementById("quiz-score").textContent.match(/^\d+ \/ 8$/)?.[0], doc.getElementById("quiz-score").textContent, "quiz.score");
+  check(/^[0-9a-f]{64}$/.test(doc.getElementById("quiz-digest").textContent), "quiz.digest: digest is not a complete lowercase SHA-256 string");
+  exact(doc.getElementById("quiz-mode").textContent,
+    "Graded via WASM (cdcp_wasm-wasm32). Same GradeExact letter law as mock. Study signal only — not a CDCP credential.", "quiz.mode");
+  check(doc.getElementById("quiz-item-list").innerHTML.includes("chosen A · correct "), "quiz.item-review: chosen/correct rendered label missing");
+  return { progress, status, meta, letters, score: doc.getElementById("quiz-score").textContent };
+}
+
+async function runLearn(root, store) {
+  const doc = learnDocument();
+  const win = makeWindow("?unit=1");
+  win.location.pathname = "/learn/07-emf.html";
+  installGlobals(doc, win, store); installFetch(root);
+  await import(pathToFileURL(join(root, "web/assets/js/learn_units.js")).href + `?render=learn-${Date.now()}`);
+  check(win.CdcpLearnUnits && typeof win.CdcpLearnUnits.mount === "function", "learn unit production entry point missing");
+  win.CdcpLearnUnits.mount("07-emf"); await wait(60);
+  const units = JSON.parse(await readFile(join(root, "web/data/units_index.json"), "utf8")).by_module["07-emf"];
+  const status = doc.getElementById("unit-status").textContent;
+  exact(status, `Unit 1 / ${units.length} · ~${win.CdcpLearnUnits.targetMinutes(units[0].estimate_minutes)} min · 5–8 min target`, "learn.unit-status");
+  const here = doc.getElementById("unit-here-bar");
+  check(here && here.getAttribute("aria-valuemax") === String(units.length) && here.getAttribute("aria-valuenow") === "1", "learn.here-bar: progress dimensions drifted");
+  check(here.innerHTML.includes("unit-here-bar__label"), "learn.here-bar: label component missing");
+  const checkTitle = doc.getElementById("learn-unit-check").querySelector("h3");
+  exact(checkTitle && checkTitle.textContent, "Quick check (study only)", "learn.quick-check");
+  return { status, units: units.length, here: `${here.getAttribute("aria-valuenow")} / ${here.getAttribute("aria-valuemax")}` };
+}
+
+async function runLearnProgress(root, store) {
+  const doc = new Document();
+  const index = add(doc, "modules-index", "script");
+  index.textContent = await readFile(join(root, "web/data/modules_index.json"), "utf8");
+  add(doc, "learn-progress-summary", "p");
+  installGlobals(doc, makeWindow("?catalog=1"), store);
+  await import(pathToFileURL(join(root, "web/assets/js/learn_progress.js")).href + `?render=progress-${Date.now()}`);
+  check(globalThis.window.CdcpLearn && typeof globalThis.window.CdcpLearn.paintHub === "function", "learn progress production entry point missing");
+  globalThis.window.CdcpLearn.paintHub();
+  exact(doc.getElementById("learn-progress-summary").textContent, "Visited 0 of 15 modules (this browser only).", "learn.visited-summary");
+  return doc.getElementById("learn-progress-summary").textContent;
+}
+
+async function runDrill(root, store) {
+  const doc = drillDocument();
+  const win = makeWindow(""); win.location.pathname = "/drill.html";
+  installGlobals(doc, win, store); installFetch(root);
+  await import(pathToFileURL(join(root, "web/assets/js/drill.js")).href + `?render=drill-${Date.now()}`); await wait(80);
+  exact(doc.getElementById("drill-title").textContent, "Drill / short-interval review", "drill.mode-heading");
+  exact(doc.getElementById("drill-status").textContent, "Drill ready · missed 0 · due 0. Study only — not a credential.", "drill.missed-count");
+  return { heading: doc.getElementById("drill-title").textContent, status: doc.getElementById("drill-status").textContent };
+}
+
+async function runHub(root, store) {
+  const doc = hubDocument(); installGlobals(doc, makeWindow("?catalog=1"), store);
+  const mod = await import(pathToFileURL(join(root, "web/assets/js/hub_mastery.js")).href + `?render=hub-${Date.now()}`);
+  check(typeof mod.paintHub === "function", "hub mastery production entry point missing");
+  mod.paintHub({ root: doc, store });
+  const grid = doc.getElementById("mastery-grid").innerHTML;
+  check(grid.includes(">01</span>") && grid.includes(">15</span>"), "hub.module-row: module order labels drifted");
+  check(grid.includes("Power Infrastructure") && grid.includes('title="Not yet practiced">Open</span>') && grid.includes('title="Module quiz">Quiz</a>'), "hub.badges: module title, badge, or action drifted");
+  const recommendation = doc.getElementById("mastery-recommend").innerHTML;
+  check(recommendation.startsWith('<p class="recommend-card__label mono">Next up</p>'), "hub.recommendation: heading drifted");
+  return { modules: 15, recommendation };
 }
 
 async function runKnownBad(root, store) {
@@ -258,6 +445,7 @@ async function main() {
   const args = new Set(process.argv.slice(2));
   const deleted = args.has("--delete-assertion") ? "results.score" : null;
   const count = await inventoryCheck(ROOT, deleted);
+  await staticSurfaceCheck(ROOT);
   console.log(`rendered-output inventory: ${INVENTORY.length} named sites`);
   if (deleted) { console.log("known-bad assertion deletion: exit=2 (anti-vacuous inventory count)"); return; }
   const store = new Storage();
@@ -265,12 +453,20 @@ async function main() {
   const correct = await runResults(ROOT, store, false);
   const wrong = await runResults(ROOT, store, true);
   const quiz = await runQuiz(ROOT, store);
+  const learn = await runLearn(ROOT, store);
+  const progress = await runLearnProgress(ROOT, store);
+  const drill = await runDrill(ROOT, new Storage());
+  const hub = await runHub(ROOT, new Storage());
   await runKnownBad(ROOT, store);
   console.log("known-good: exit=0; mock/results/quiz production renderers and WASM path passed");
   console.log("mock:", JSON.stringify(mock));
   console.log("results all-correct:", JSON.stringify(correct));
   console.log("results all-wrong:", JSON.stringify(wrong));
   console.log("quiz:", JSON.stringify(quiz));
+  console.log("learn:", JSON.stringify(learn));
+  console.log("learn progress:", JSON.stringify(progress));
+  console.log("drill:", JSON.stringify(drill));
+  console.log("hub:", JSON.stringify(hub));
   console.log("rendered-output limitation: DOM strings and WASM are covered; CSS/layout/pixel rendering and unenumerated sites require a real browser review");
 }
 

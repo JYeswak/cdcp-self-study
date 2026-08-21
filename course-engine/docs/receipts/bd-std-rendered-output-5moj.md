@@ -171,3 +171,51 @@ Exact-string assertions would prove correctness only at the sites and states
 enumerated here. They can never prove that this enumeration is complete; a
 browser review and deliberate expansion of the denominator are still needed
 for the additional sites above, CSS/layout, and browser-specific rendering.
+
+## Expanded production smoke (2026-08-20)
+
+The smoke was extended without adding anything to `cdcp_gate` (its ceiling is
+at zero headroom). It now invokes the production entry points for all five
+learner surfaces in one run: `mock.js`, `results.js`, `quiz.js`,
+`learn_units.js`/`learn_progress.js`, `drill.js`, and `hub_mastery.js`. The
+Node DOM is an adapter only; the strings and state transitions are still
+produced by those learner modules. The predeclared denominator remains **45
+named sites**.
+
+Known-good run:
+
+```text
+node web/assets/js/smoke_rendered_output.js
+exit=0
+mock: progress 1 / 40; meta Item 1 of 40 · m01-q201; letters ABCD; timer 60:00
+results all-correct: 40 / 40; exact study signal; WASM engine cdcp_wasm-wasm32
+results all-wrong: 0 / 40; exact below-bar study signal; weak chips M01–M15
+quiz: 1 / 8; Module 06; score 1 / 8; WASM digest and mode string
+learn: Unit 1 / 9 · ~5 min · 5–8 min target; here 1 / 9; Quick check (study only)
+learn progress: Visited 0 of 15 modules (this browser only).
+drill: Drill / short-interval review; Drill ready · missed 0 · due 0. Study only — not a credential.
+hub: 15 module rows; order/title/Open/Quiz labels; Next up recommendation
+```
+
+The run also exact-checks the mock jump endpoints and ARIA label, pack name,
+unanswered copy, timer accessibility string, results hash/count/score/digest/
+engine/study text, weak-module output, quiz score/digest/mode/item review, the
+Learn unit progress dimensions, Drill empty-state status, and Hub rows/badges/
+recommendation. It drives eight quiz answers and the production submit handler,
+so the quiz result renderer is exercised rather than source-inspected.
+
+Known-bad legs remain fail-closed:
+
+```text
+temporary mock.js mutation: badge.textContent = letter === "A" ? "B" : letter
+exit=2; only mock.option-letters RED; rendered BBCD, expected ABCD
+--delete-assertion
+exit=2; rendered-output inventory incomplete: 44/45 assertions
+```
+
+The smoke proves exact strings and state transitions at the 45 enumerated
+renderer sites and the WASM-backed grading boundary. It does not prove that
+the inventory is complete, CSS/layout/pixel output, browser-specific font
+metrics, or every unit/drill state variant. A regenerated-but-wrong pack can
+still render consistently; correctness of its content remains outside this
+contract.
