@@ -11,11 +11,11 @@ labels and numeric dimensions are separate sites.
 | renderer | sites | named sites |
 |---|---:|---|
 | Mock (`mock.html` / `mock.js`) | 10 | exam form meta, seed menu, progress, timer, submit label, unanswered hint, question meta, option letters, jump labels, pack identity |
-| Results (`results.html` / `results.js`) | 12 | exam, seed, bank hash, answer count, score, digest, engine, study signal, weak heading, weak chip, item status, chosen/correct letters, Learn link |
+| Results (`results.html` / `results.js`) | 13 | exam, seed, bank hash, answer count, score, digest, engine, study signal, weak heading, weak chip, item status, chosen/correct letters, Learn link |
 | Module quiz (`quiz.html` / `quiz.js`) | 10 | module picker, progress, status, question meta, option letters, unanswered hint, score, digest, mode, item review |
 | Learn units / progress | 5 | unit status, “You are here” bar, quick-check heading/options, check completion, visited summary |
 | Drill | 4 | mode heading, missed count, item module, correct label |
-| Mastery hub | 4 | module row, badges, recommendation |
+| Mastery hub | 3 | module row, badges, recommendation |
 | **Total** | **45** | **predeclared denominator** |
 
 The inventory is explicit in `web/assets/js/smoke_rendered_output.js`; its
