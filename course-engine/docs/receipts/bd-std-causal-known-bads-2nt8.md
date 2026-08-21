@@ -92,3 +92,61 @@ reported the named branch, not that the branch was the sole cause of its exit;
 the clean control proves the suite is not unconditionally red, not that every
 detector has been causally isolated. No learner correctness or credential claim
 follows from this fixture audit.
+
+## Rust negative-test census (measurement, not a new causal denominator)
+
+The bead names every negative fixture in the `cdcp_gate` and `cdcp_bank` test
+trees, so the five shell suites above are not the whole review surface. A
+source census at this commit found **20 Rust test sources and 310 test
+functions**. It deliberately reports two reproducible name-based populations
+without pretending that a function name is a production fixture contract:
+
+* **125 explicit-negative names** match `bad_`, `anti_vacuous`, `known_bad`, or
+  `known-bad`.
+* **232 broad candidates** match the wider failure vocabulary (`empty`,
+  `missing`, `zero`, `drift`, `red`, `invalid`, `unlisted`, and related
+  terms).
+
+The broad set includes known-good controls, usage/schema tests, and tests whose
+name merely mentions a failure mode. Therefore neither 125 nor 232 is added
+to the predeclared 24-row production denominator. Each candidate still needs
+an explicit detector/marker mapping and an independent bypass run before it
+can become a causal row.
+
+| Rust source | tests | explicit-negative names | broad candidates |
+|---|---:|---:|---:|
+| `crates/cdcp_bank/tests/c2_charter_pair.rs` | 1 | 0 | 0 |
+| `crates/cdcp_bank/tests/leftover_honesty.rs` | 8 | 0 | 5 |
+| `crates/cdcp_bank/tests/near_duplicate.rs` | 12 | 1 | 10 |
+| `crates/cdcp_bank/tests/paraphrase_pairs.rs` | 8 | 0 | 7 |
+| `crates/cdcp_gate/tests/anti_vacuous_topics.rs` | 9 | 1 | 4 |
+| `crates/cdcp_gate/tests/capability_maturity_e2e.rs` | 30 | 19 | 25 |
+| `crates/cdcp_gate/tests/census_charter_pair.rs` | 3 | 0 | 1 |
+| `crates/cdcp_gate/tests/construction_faults_e2e.rs` | 3 | 0 | 3 |
+| `crates/cdcp_gate/tests/differential_verdict_census.rs` | 18 | 1 | 6 |
+| `crates/cdcp_gate/tests/dispatch.rs` | 6 | 0 | 5 |
+| `crates/cdcp_gate/tests/doc_facts_e2e.rs` | 41 | 26 | 32 |
+| `crates/cdcp_gate/tests/goldens_couplings_e2e.rs` | 42 | 31 | 36 |
+| `crates/cdcp_gate/tests/near_duplicate_items_e2e.rs` | 2 | 0 | 2 |
+| `crates/cdcp_gate/tests/rebase_module_bounds.rs` | 41 | 16 | 33 |
+| `crates/cdcp_gate/tests/repo_surface.rs` | 15 | 0 | 8 |
+| `crates/cdcp_gate/tests/restore_rebuild_trap.rs` | 9 | 0 | 6 |
+| `crates/cdcp_gate/tests/s0_charter_pair.rs` | 1 | 0 | 1 |
+| `crates/cdcp_gate/tests/substrate_guard_e2e.rs` | 61 | 30 | 48 |
+| `crates/cdcp_gate/tests/support/mod.rs` | 0 | 0 | 0 |
+| `crates/cdcp_gate/tests/support/rebuild.rs` | 0 | 0 | 0 |
+| **total** | **310** | **125** | **232** |
+
+The census also found existing source-level mutation/delete specimens that
+must not be mistaken for executed causal rows: the C2 status-hash pair in
+`c2_charter_pair.rs`, the two assertion-deletion branches in
+`census_charter_pair.rs`, the restore/rebuild trap's mutation-plus-deletion
+legs, and the S0 pair driven by `selftest_reconstructed.sh`. They demonstrate
+the shape of a bypass proof, but this receipt does not promote them to the
+24-row result without a fresh run recording the exact production detector and
+both exit outcomes.
+
+**Updated status:** the primary result remains `causal=0/24`,
+`intact=24/24`, `bypass=0/24 proven`, `CANNOT_DETERMINE=24`. The new census
+expands the worklist; it does not make a name match, a clean control, or a
+source-level pair into a causal certificate. The bead remains open.
