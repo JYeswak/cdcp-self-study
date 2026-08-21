@@ -56,7 +56,7 @@ signal.
 | 13 | `selftest_l7_objectives / empty-claim-ids` | objective schema; `claim_ids empty` | live objectives GREEN | CANNOT_DETERMINE |
 | 14 | `selftest_l7_objectives / empty-bank` | objective bank domain; `empty bank` | live objectives GREEN | CANNOT_DETERMINE |
 | 15 | `selftest_l7_objectives / declared-module-starved` | derived module floor; `domain module 15: 0 approved < min 1` | reasoned exemption control GREEN | **PROVEN** (scratch counterfactual) |
-| 16 | `selftest_l7_objectives / exemption-without-reason` | exemption schema/floor; `coverage_exempt module 15 has no reason` | reasoned exemption control GREEN | CANNOT_DETERMINE |
+| 16 | `selftest_l7_objectives / exemption-without-reason` | exemption schema/floor; `coverage_exempt module 15 has no reason` | reasoned exemption control GREEN | **PROVEN** (scratch counterfactual) |
 | 17 | `selftest_l7_objectives / domain-min-undeclared` | registry cross-source drift; `[[domain_min]] module 15 is not declared` | declared-domain control GREEN | CANNOT_DETERMINE |
 | 18 | `selftest_l7_objectives / topic-undeclared-domain` | topic/domain cross-source drift; `topics.toml: topic in an undeclared domain` | declared-topic control GREEN | CANNOT_DETERMINE |
 | 19 | `selftest_orphan / empty-bank` | orphan scan anti-vacuity; `empty bank` | live orphan integrity GREEN | CANNOT_DETERMINE |
@@ -312,6 +312,19 @@ changed only the `!known_claims.contains(&s)` branch; restoring `c-missing`
 then returned GREEN as `BYPASSED PASS: unresolved-claim detector disabled`.
 The fixture's RED assertion therefore fails under that bypass, proving the
 objective-to-claim detector is causal.
+
+## Primary causal progress: reasonless exemption schema
+
+Primary status is now **`causal=8/24`, `intact=24/24`**. Row 16 used two
+declared, populated modules and a `coverage_exempt` row for module 2 whose
+reason was blank. The intact production objective gate returned RED with the
+branch marker `coverage_exempt module 2 has no reason`.
+
+A nonblank reason produced the positive-control GREEN while both modules
+remained stocked. The scratch bypass changed only the `reason.is_empty()`
+schema branch; restoring the blank reason then returned
+`BYPASSED PASS: reasonless-exemption detector disabled`. The fixture's intact
+RED assertion fails under that bypass, isolating the schema guard.
 
 ## Primary causal progress: objective module floor
 
