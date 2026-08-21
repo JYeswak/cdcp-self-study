@@ -5,6 +5,7 @@ mod assemble;
 mod attempts;
 mod demo;
 mod first_topic;
+mod hermetic;
 mod http_serve;
 mod installed_test;
 mod metrics;
@@ -436,6 +437,19 @@ enum Cmd {
         #[arg(long)]
         root: Option<PathBuf>,
     },
+    /// Run cargo test with a lane-private target and source-snapshot drift guard.
+    #[command(name = "hermetic-test")]
+    HermeticTest {
+        /// Workspace root. Defaults to the nearest workspace from cwd.
+        #[arg(long)]
+        root: Option<PathBuf>,
+        /// Stable worker lane name; defaults to CDCP_TEST_LANE or `default`.
+        #[arg(long)]
+        lane: Option<String>,
+        /// Cargo test arguments other than target/config/manifest overrides.
+        #[arg(trailing_var_arg = true)]
+        cargo_args: Vec<String>,
+    },
     /// Machine-readable tree status. `--robot` emits a versioned NDJSON envelope.
     Health {
         /// Engine root. Default: walk up from cwd.
@@ -759,7 +773,9 @@ fn main() -> ExitCode {
             Ok(()) => ExitCode::SUCCESS,
             Err(e) => {
                 eprintln!("cdcp: {e}");
-                let code = if e.contains(cdcp_root::BUNDLE_NOT_FOUND) {
+                let code = if e.starts_with(hermetic::DRIFT_PREFIX) {
+                    3
+                } else if e.contains(cdcp_root::BUNDLE_NOT_FOUND) {
                     cdcp_root::EXIT_BUNDLE_MISSING
                 } else {
                     1
@@ -924,6 +940,11 @@ fn run(cmd: Cmd) -> Result<(), String> {
             json: _,
         } => operator::doctor(root.as_deref(), &bind),
         Cmd::Test { root } => installed_test::run(root.as_deref()),
+        Cmd::HermeticTest {
+            root,
+            lane,
+            cargo_args,
+        } => hermetic::run(root.as_deref(), lane.as_deref(), &cargo_args),
         Cmd::Health { root, robot } => operator::health(root.as_deref(), robot),
         Cmd::Repair {
             root,
