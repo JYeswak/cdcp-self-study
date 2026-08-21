@@ -19,6 +19,8 @@ mod gate_shrink;
 pub mod scratch;
 pub mod scan_domains;
 pub mod shell_walk;
+pub mod substrate_guard;
+mod substrate_vcs;
 pub mod track;
 pub mod verify_doc_consistency;
 
