@@ -57,7 +57,7 @@ signal.
 | 14 | `selftest_l7_objectives / empty-bank` | objective bank domain; `empty bank` | live objectives GREEN | CANNOT_DETERMINE |
 | 15 | `selftest_l7_objectives / declared-module-starved` | derived module floor; `domain module 15: 0 approved < min 1` | reasoned exemption control GREEN | **PROVEN** (scratch counterfactual) |
 | 16 | `selftest_l7_objectives / exemption-without-reason` | exemption schema/floor; `coverage_exempt module 15 has no reason` | reasoned exemption control GREEN | **PROVEN** (scratch counterfactual) |
-| 17 | `selftest_l7_objectives / domain-min-undeclared` | registry cross-source drift; `[[domain_min]] module 15 is not declared` | declared-domain control GREEN | CANNOT_DETERMINE |
+| 17 | `selftest_l7_objectives / domain-min-undeclared` | registry cross-source drift; `[[domain_min]] module 15 is not declared` | declared-domain control GREEN | **PROVEN** (scratch counterfactual) |
 | 18 | `selftest_l7_objectives / topic-undeclared-domain` | topic/domain cross-source drift; `topics.toml: topic in an undeclared domain` | declared-topic control GREEN | **PROVEN** (scratch counterfactual) |
 | 19 | `selftest_orphan / empty-bank` | orphan scan anti-vacuity; `empty bank` | live orphan integrity GREEN | CANNOT_DETERMINE |
 | 20 | `selftest_orphan / empty-topics` | topic-registry anti-vacuity; `empty topic registry` | live orphan integrity GREEN | CANNOT_DETERMINE |
@@ -388,6 +388,27 @@ detector and proves this row causal. No live detector, bank item, or shared
 pane file changed.
 
 Updated current status: primary **11/24 causal, 24/24 intact, 13/24
+CANNOT_DETERMINE**; cited-gate supplemental **3/3 causal**. The primary
+denominator remains 24; the supplemental three are reported separately and
+are not added to it.
+
+## Primary causal progress: undeclared domain minimum
+
+Primary status is now **`causal=12/24`, `intact=24/24`**. Row 17 used a
+valid objective, claims, domains, topic, policy, and approved bank item; the
+only defect was a `[[domain_min]]` row for module `99`, absent from the
+declared domain registry. The intact objective evaluation returned RED with
+the branch marker `[[domain_min]] module 99 is not declared in the domain
+registry`.
+
+Removing the undeclared floor produced the positive-control GREEN. The
+scratch-only bypass disabled only the `domain_min_drift` error branch;
+restoring the bad floor then returned `BYPASSED PASS: domain-min drift
+detector disabled`. This isolates the domain-min cross-source drift detector
+and proves the row causal. No live detector, bank item, or shared pane file
+changed.
+
+Updated current status: primary **12/24 causal, 24/24 intact, 12/24
 CANNOT_DETERMINE**; cited-gate supplemental **3/3 causal**. The primary
 denominator remains 24; the supplemental three are reported separately and
 are not added to it.
