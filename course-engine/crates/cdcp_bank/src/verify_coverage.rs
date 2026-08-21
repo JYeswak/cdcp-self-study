@@ -6,7 +6,8 @@
 //! not a gate file: a learner is assessed from this pool, so a declared
 //! module that cannot fill its floor is a product defect. The
 //! `cdcp_gate verify-coverage` subcommand is a thin dispatcher so `check.sh`
-//! does not change. Dual-path oracle `scripts/verify_coverage.py` stays.
+//! does not change. The former Python differential oracle and harness are
+//! retired; `scripts/selftest_l6_coverage.sh` owns the known-bad plants.
 //!
 //! Originally ported as bd-substrate-rust-migration-jhd.6.
 //!
@@ -47,8 +48,8 @@
 //! zero items, a bank whose APPROVED pool is empty, and a required set emptied
 //! out by exemptions are each an ERROR, never a pass. An input set that was
 //! never really scanned must not report the way a scanned one does — that is the
-//! whole reason those legs exist, and each is exercised on both implementations
-//! by `tests/diff_verify_coverage.rs`.
+//! whole reason those legs exist, and they are exercised by the Rust selftest
+//! before the live verdict.
 //!
 //! # WHICH POOL THE FLOOR MEASURES (bd-coverage-counts-retired-items-49jh)
 //!
@@ -81,14 +82,14 @@
 //!
 //! [`report`] now composes into a local buffer and copies it into `out` only
 //! after the write has succeeded, so a failed write emits an EMPTY stdout and a
-//! non-zero exit — matching the oracle, which raises before its single `print`.
+//! non-zero exit — preserving the established fail-closed report shape.
 //! The write is atomic (temp file beside the target, then rename), so a refused
 //! or torn write leaves NO partial artifact.
 //!
 //! # THE REBASE THIS PORT INHERITS (bd-lt7)
 //!
-//! The oracle derives its module set from `knowledge/domains.toml` rather than
-//! from a numeric bound. Until 2026-08-14 it did not, and the module the course
+//! The Rust implementation derives its module set from `knowledge/domains.toml`
+//! rather than from a numeric bound. Until 2026-08-14 it did not, and the module the course
 //! assessed but did not teach had been written down as a rule rather than as a
 //! recorded exemption — so the gate stayed green by luck rather than by
 //! checking. This port carries the derivation, not the bound: nothing here
@@ -110,24 +111,24 @@
 //! moves from *silence* to *every declared module is stocked to its recorded
 //! floor, and every exemption is recorded with a reason* — no further.
 //!
-//! # BYTE-EXACTNESS WITH THE PYTHON ORACLE
+//! # RETIREMENT BOUNDARY
 //!
-//! `scripts/verify_coverage.py` stays in the tree as the differential oracle for
-//! this port; `tests/diff_verify_coverage.rs` runs BOTH implementations on every
-//! case `scripts/selftest_l6_coverage.sh` exercises, plus the shapes that suite
-//! never reaches, and asserts stdout, stderr, and exit code match byte for byte.
-//! A disagreement on any byte fails the port, not the oracle.
+//! The Python differential oracle and its harness were retired after the Rust
+//! implementation and the selftest covered the known-bad domain shapes. The
+//! selftest remains a separate acceptance leg: it plants an empty bank and a
+//! module shortfall, requires both to go RED, then proves the live bank stays
+//! GREEN. It does not establish that the registry floors are substantively
+//! correct; it only proves this implementation still detects their absence.
 //!
 //! Two consequences, both deliberate and both recorded here rather than made
 //! quietly:
 //!
 //! - **The report goes to stdout and the process exits 1**, not through
 //!   `GateError`. `GateError::report` writes to stderr and maps to exit 2 or 4,
-//!   which the oracle never produces; routing through it would make the two
-//!   sides differ on every RED case. `crate::exit`'s codes are therefore not
-//!   used by this gate's verdict path, exactly as in `verify_orphans` and
-//!   `verify_bank`. `bd-2m9` flips the whole crate later; until then this is a
-//!   knowing, single-file departure from the shared convention.
+//!   which the historical Python oracle never produced; the existing 0/1
+//!   semantics are retained until `bd-2m9` flips the whole crate together.
+//!   `crate::exit`'s codes are therefore not used by this gate's verdict path,
+//!   exactly as in `verify_orphans` and `verify_bank`.
 //! - This module carries hand-written emulations of CPython behaviour —
 //!   `str.strip`, `repr()` of a `str`, a `float` and a `dict`, `int()`
 //!   coercion, truthiness, iteration, `PurePosixPath` normalisation,
@@ -135,9 +136,9 @@
 //!   the idiomatic Rust nearest-neighbour, because the acceptance bar is
 //!   identical bytes and not merely an identical verdict.
 //!
-//! ## Modelling the oracle's uncaught exceptions
+//! ## Modelling the historical uncaught-error surface
 //!
-//! Several of the oracle's exotic inputs raise rather than report: a malformed
+//! Several of the historical inputs raise rather than report: a malformed
 //! `bank_policy.toml` (both policy loads are unguarded), a `module` value that
 //! passes the `isdigit` screen but not `int()`, a non-iterable `[[domain]]` key,
 //! an infinite float where an integer is expected, an unwritable `--write-json`
@@ -909,8 +910,8 @@ fn load_declared_modules(disp: &str) -> H<(BTreeMap<i128, String>, Vec<String>)>
 ///
 /// Every rejection path `continue`s WITHOUT recording the exemption, so a
 /// malformed row leaves its module REQUIRED and the shortfall still reports.
-/// That is the property `tests/diff_verify_coverage.rs` pins: the escape hatch
-/// cannot be quieter than the rule it escapes.
+/// That is the property `scripts/selftest_l6_coverage.sh` pins: the escape
+/// hatch cannot be quieter than the rule it escapes.
 fn load_exemptions(
     policy_disp: &str,
     declared: &BTreeMap<i128, String>,

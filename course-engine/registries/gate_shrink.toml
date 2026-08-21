@@ -79,9 +79,10 @@
 # its harness; the current cdcp_gate measurement is 32014.
 # 32014 -> 30901: retire the verify_doc_consistency Python differential oracle
 # and its harness; the current cdcp_gate measurement is 30901.
-# 30901 -> 29546: retire the verify_injection_count Python oracle and its
-# differential harness; current measurement is 29546.
-ceiling_lines = 29546
+# 29546 -> 26934: retire the verify_objectives Python oracle and its
+# differential harness plus the live inventory residue; current measurement
+# for this port against HEAD is 26934.
+ceiling_lines = 26934
 delete_when_lines_below = 15000
 # Anti-vacuous: a scan that finds fewer than this many .rs files is an ERROR.
 # 2 = src/lib.rs + src/main.rs. File count may fall during extraction.
@@ -231,14 +232,6 @@ lines = 404
 [[file]]
 path = "tests/diff_verify_bank.rs"
 lines = 1426
-
-[[file]]
-path = "tests/diff_verify_coverage.rs"
-lines = 2867
-
-[[file]]
-path = "tests/diff_verify_objectives.rs"
-lines = 2596
 
 [[file]]
 path = "tests/differential_verdict_census.rs"

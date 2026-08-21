@@ -4,7 +4,7 @@
 //!
 //! Three things are held here, and nothing more:
 //!
-//!   1. `scripts/verify_coverage.py`, `cdcp_learn::units`,
+//!   1. `cdcp_gate verify-coverage`, `cdcp_learn::units`,
 //!      `cdcp_learn::feedback` and `cdcp_learn` weak_links
 //!      derive their module set from a registry (`knowledge/domains.toml`,
 //!      `web/data/modules_index.json`, and `knowledge/domains.toml` twice more)
@@ -120,6 +120,8 @@
 use std::path::{Path, PathBuf};
 use std::process::Command;
 
+const CDCP_GATE: &str = env!("CARGO_BIN_EXE_cdcp_gate");
+
 fn engine_root() -> PathBuf {
     cdcp_gate::root::resolve(Path::new(env!("CARGO_MANIFEST_DIR"))).expect("engine root")
 }
@@ -191,21 +193,7 @@ enum Verdict {
 /// Keyed by text and not by line number so that moving code does not fail this
 /// test, while introducing a NEW bound anywhere does.
 const INVENTORY: &[(&str, &str, Shape, Verdict, &str)] = &[
-    // ── the two gates rebased by bd-lt7: only history remains ──────────────
-    (
-        "scripts/verify_coverage.py",
-        "## Why the derivation, and not `range(1, 15)` (bd-lt7)",
-        Shape::NumericBound,
-        Verdict::Prose,
-        "docstring heading recording the bound this gate no longer has",
-    ),
-    (
-        "scripts/verify_coverage.py",
-        "Until 2026-08-14 this gate read `PRIMARY_MODULES = range(1, 15)` and module 15",
-        Shape::NumericBound,
-        Verdict::Prose,
-        "docstring recording the removed bound",
-    ),
+    // ── the gates rebased by bd-lt7: only history remains ─────────────────
     // ── bd-qqwc: three build_units.py rows RETIRED WITH THEIR FILE ────────
     //
     // `scripts/build_units.py` carried three Prose instances of the bd-lt7
@@ -1542,7 +1530,7 @@ fn the_computed_bound_detector_does_not_fire_on_the_legitimate_expressions_in_th
     }
 }
 
-// ── 2. verify_coverage.py: known-bad and known-GOOD ───────────────────────
+// ── 2. verify-coverage: known-bad and known-GOOD ─────────────────────────
 
 struct Fixture {
     _dir: tempfile::TempDir,
@@ -1588,9 +1576,10 @@ fn domains_registry(orders: &[u32]) -> String {
 }
 
 fn coverage(f: &Fixture, bank: &str, domains: &str, policy: Option<&str>) -> Run {
-    let root = engine_root();
-    let mut cmd = Command::new("python3");
-    cmd.arg(root.join("scripts/verify_coverage.py"))
+    let mut cmd = Command::new(CDCP_GATE);
+    cmd.arg("--root")
+        .arg(engine_root())
+        .arg("verify-coverage")
         .arg("--bank")
         .arg(f.path(bank))
         .arg("--domains")
@@ -1601,21 +1590,14 @@ fn coverage(f: &Fixture, bank: &str, domains: &str, policy: Option<&str>) -> Run
     capture(&mut cmd)
 }
 
-#[test]
-fn python3_is_present_because_a_skipped_leg_is_a_fooled_certificate() {
-    let out = Command::new("python3")
-        .arg("--version")
-        .output()
-        .expect("python3 must be installed: these legs cannot be skipped");
-    assert!(out.status.success());
-}
-
 /// Known-GOOD. The live tree passes, and module 15 is now INSIDE the required
 /// set rather than listed as an optional extra.
 #[test]
 fn verify_coverage_known_good_the_live_tree_passes_with_module_15_required() {
     let root = engine_root();
-    let run = capture(Command::new("python3").arg(root.join("scripts/verify_coverage.py")));
+    let mut cmd = Command::new(CDCP_GATE);
+    cmd.arg("--root").arg(&root).arg("verify-coverage");
+    let run = capture(&mut cmd);
     assert_eq!(run.code, 0, "{}{}", run.stdout, run.stderr);
     assert!(
         run.stdout
@@ -2816,118 +2798,4 @@ fn the_per_tree_file_floors_reject_a_tree_that_vanished() {
             live[i]
         );
     }
-}
-
-// ── 7. the live-tree runs, ledgered (bd-rebase-bounds-live-tree-write-ohgr) ─
-//
-// A live-tree run is not forbidden here, because forbidding it outright would
-// be over-strict: three of the legs above are CHECKERS, which read a tree and
-// write nothing, and running them against the shipped tree is the strongest
-// form of those legs. What is forbidden is an UNARGUED one. The instance this
-// bead removed — `python3 scripts/build_units.py` against the engine root —
-// entered this file without anyone writing down that build_units is a BUILDER
-// and writes `web/data/units_index.json` on its green path.
-//
-// So every live run is ledgered with the answer to one question: DOES IT WRITE?
-// A new live run cannot be added without answering it, which is precisely the
-// step that was skipped.
-//
-// WHAT THIS LEDGER DOES NOT COVER, stated because a ledger reads broader than
-// its scan: it sees THIS FILE, and it sees a script path spelled as
-// `.join("scripts/…")` inside a command. A run reached through a helper that
-// hides the path (`python_script()` in `diff_verify_doc_consistency.rs` is a
-// real example, in a file this bead does not own) is invisible to it. The
-// suite-wide property — a full run leaves the tree clean — is not a unit test
-// and is not asserted here; it was MEASURED on a clean HEAD clone instead, and
-// the measurement is recorded on the build_units leg above, including the part
-// a `git status` assertion cannot see.
-
-/// `(script, writes?, why the live run is safe)`.
-const LIVE_RUNS: &[(&str, bool, &str)] = &[(
-    "scripts/verify_coverage.py",
-    false,
-    "a CHECKER. Its only write is behind `--write-json`, an explicit flag \
-         neither call site passes; without it the script prints and exits.",
-)];
-
-/// Every command in this file that runs something resolved off the ENGINE root
-/// is in `LIVE_RUNS`, with the write question answered.
-#[test]
-fn every_live_tree_run_in_this_file_is_ledgered_with_the_write_question_answered() {
-    // Compile-time, so the scan cannot drift from the file it claims to read.
-    let src = include_str!("rebase_module_bounds.rs");
-
-    let mut found: Vec<String> = Vec::new();
-    let mut at = 0usize;
-    while let Some(i) = src[at..].find("Command::new(") {
-        let start = at + i;
-        let end = (start + 300).min(src.len());
-        // Byte offsets from `find` are char boundaries; walk `end` back to one.
-        let mut end = end;
-        while !src.is_char_boundary(end) {
-            end -= 1;
-        }
-        let window = &src[start..end];
-        let mut w = 0usize;
-        while let Some(j) = window[w..].find(".join(\"scripts/") {
-            let s = w + j + ".join(\"".len();
-            let Some(q) = window[s..].find('"') else {
-                break;
-            };
-            found.push(window[s..s + q].to_string());
-            w = s + q;
-        }
-        at = start + "Command::new(".len();
-    }
-    found.sort();
-    found.dedup();
-
-    // Anti-vacuous from both sides. A scan that matched nothing reports exactly
-    // like a file with no live runs, and this file has some.
-    assert!(
-        !found.is_empty(),
-        "the live-run scan found {} command(s) — it has gone dead, or the file \
-         was reformatted past the shapes it reads. A scan that finds nothing is \
-         an ERROR, not a clean bill: {found:?}",
-        found.len()
-    );
-
-    let unledgered: Vec<&String> = found
-        .iter()
-        .filter(|s| !LIVE_RUNS.iter().any(|(script, _, _)| *script == s.as_str()))
-        .collect();
-    assert!(
-        unledgered.is_empty(),
-        "{} live-tree run(s) are not in LIVE_RUNS: {unledgered:?}. Add a row \
-         answering whether the script WRITES — and if it does, run it in a tree \
-         copy instead, the shape `live_units_fixture` and \
-         `tests/diff_build_units.rs` both use.",
-        unledgered.len()
-    );
-
-    let stale: Vec<&str> = LIVE_RUNS
-        .iter()
-        .map(|(s, _, _)| *s)
-        .filter(|s| !found.iter().any(|f| f == s))
-        .collect();
-    assert!(
-        stale.is_empty(),
-        "{} LIVE_RUNS row(s) matched no command — the run is gone (delete the \
-         row) or the scan is broken: {stale:?}",
-        stale.len()
-    );
-
-    // The ledger's whole content: nothing that writes may run live.
-    let writers: Vec<&str> = LIVE_RUNS
-        .iter()
-        .filter(|(_, writes, _)| *writes)
-        .map(|(s, _, _)| *s)
-        .collect();
-    assert!(
-        writers.is_empty(),
-        "{writers:?} are ledgered as WRITING and are still run against the live \
-         tree. A test that writes a tracked artifact makes `git status` a \
-         function of whether you ran the tests, refreshes a stale artifact \
-         instead of reporting it, and races every concurrent agent."
-    );
 }

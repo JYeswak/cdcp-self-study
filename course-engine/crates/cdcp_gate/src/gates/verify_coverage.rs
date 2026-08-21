@@ -1,8 +1,8 @@
 //! Thin dispatcher. Implementation lives in `cdcp_bank::verify_coverage`
 //! (EXTRACT-THEN-DELETE, bd-engine-not-gate-ar39.14). `check.sh` still runs
 //! `cdcp_gate verify-coverage`; this file must stay so the globbed
-//! registry keeps the subcommand. Dual-path oracle `scripts/verify_coverage.py`
-//! stays.
+//! registry keeps the subcommand. The former Python differential oracle and
+//! harness are retired; the Rust selftest owns the known-bad plants.
 
 use crate::registry::{GateCtx, GateError};
 use cdcp_bank::verify_coverage;
@@ -36,8 +36,8 @@ pub fn run(ctx: &GateCtx) -> Result<(), GateError> {
         let _ = std::io::stderr().flush();
     }
     if outcome.code != 0 {
-        // See cdcp_bank::verify_coverage: the oracle exits 1 with this report on
-        // stdout, and byte-identical output is the acceptance bar. Routing
+        // See cdcp_bank::verify_coverage: the established gate exits 1 with
+        // this report on stdout. Routing
         // through `GateError` would write to stderr and exit 2/4 instead.
         std::process::exit(outcome.code);
     }

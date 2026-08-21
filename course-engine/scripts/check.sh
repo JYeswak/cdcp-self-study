@@ -1807,7 +1807,6 @@ for _shape in "Drill due" "Miss review"; do
 done
 ok "L6 session shapes (Drill due · Miss review) present"
 
-[ -f scripts/verify_coverage.py ] || fail "missing scripts/verify_coverage.py (differential oracle for verify-coverage)"
 echo "==> cdcp_gate verify-coverage (L6 domain coverage)"
 run_cdcp_gate verify-coverage || fail "L6 coverage"
 ok "L6 coverage GREEN (every module the domain registry declares ≥ domain_min)"
@@ -1943,7 +1942,6 @@ export CDCP_BIN_DIR
 sh scripts/selftest_learner_verbs.sh || fail "learner verbs known-bad"
 ok "learner verbs known-bad (test wasm · demo/study missing-bundle · ignore-exit is RED · study stop reaps cdcp)"
 
-[ -f scripts/verify_objectives.py ] || fail "missing scripts/verify_objectives.py (differential oracle for verify-objectives)"
 echo "==> cdcp_gate verify-objectives (L7-S7 objective coverage)"
 run_cdcp_gate verify-objectives || fail "L7 objective coverage"
 ok "L7 objective coverage (registry objectives resolve · every declared module carries items)"

@@ -8,7 +8,8 @@
 #
 # Plants run the Rust binary (same helper contract as check.sh):
 #   $CDCP_BIN_DIR/cdcp_gate verify-coverage
-# scripts/verify_coverage.py is the cargo-test differential oracle only.
+# The Rust implementation is the sole gate-path implementation; this selftest
+# retains the known-bad coverage plants.
 #
 # Trap cleans TEMP. Never leaves bank dirty.
 set -eu

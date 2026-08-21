@@ -196,11 +196,12 @@ fn scan_targets(root: &Path) -> Vec<(PathBuf, String, bool)> {
             oracles += 1;
         }
     }
-    // Four oracles (`verify_orphans.py`, `validate_grounding.py`,
-    // `verify_doc_consistency.py`, and `verify_injection_count.py`) were
-    // deliberately retired into Rust in the current migration slices. Three
-    // remain; zero is still an ERROR, so this cannot silently become vacuous.
-    assert!(oracles >= 3, "oracle glob found {oracles}; scan is ERROR");
+    // Five oracles (`verify_orphans.py`, `validate_grounding.py`,
+    // `verify_doc_consistency.py`, `verify_injection_count.py`, and
+    // `verify_coverage.py`) were deliberately retired into Rust in the
+    // current migration slices. Two remain; zero is still an ERROR, so this
+    // cannot silently become vacuous.
+    assert!(oracles >= 2, "oracle glob found {oracles}; scan is ERROR");
     out.sort_by(|a, b| a.1.cmp(&b.1));
     out
 }
@@ -234,7 +235,6 @@ fn min_sites(rel: &str) -> usize {
         "crates/cdcp_learn/src/objectives.rs" => 8,
         "scripts/verify_orphans.py" | "scripts/verify_paraphrase_pairs.py" => 2,
         "scripts/verify_knowledge_paths.py" => 3,
-        "scripts/verify_coverage.py" => 2,
         "scripts/verify_bank.py" | "scripts/validate_grounding.py" => 5,
         "scripts/verify_objectives.py" => 7,
         "scripts/verify_doc_consistency.py" => 1,
@@ -265,7 +265,6 @@ fn min_sites(rel: &str) -> usize {
             "verify_orphans.py" | "verify_paraphrase_pairs.py" => 2,
             "verify_knowledge_paths.py" => 3,
             "substrate_guard.rs" => 2,
-            "verify_coverage.py" => 2,
             "verify_bank.py" | "validate_grounding.py" => 5,
             "verify_objectives.py" => 7,
             _ => 0,

@@ -47,8 +47,8 @@ schema_version = 1
 #
 #   oracle                      invoked?  via
 #   verify_orphans.py           RETIRED   Rust unit/selftest owns the gate
-#   verify_objectives.py        YES (6)   check.sh:714  -> selftest_l7_objectives.sh
-#   verify_coverage.py          YES (3)   check.sh:683  -> selftest_l6_coverage.sh
+#   verify_objectives.py        RETIRED  Rust selftest owns the gate
+#   verify_coverage.py          RETIRED   Rust selftest owns the gate
 #   verify_bank.py              YES (2)   check.sh:719  -> smoke_slo.sh
 #   verify_doc_consistency.py   YES (1)   check.sh:767  -> selftest_doc_consistency.sh, as $CHECKER
 #   verify_injection_count.py   RETIRED   Rust selftest owns the gate
@@ -185,17 +185,6 @@ cases = 31
 agreement_only = 0
 
 [[harness]]
-file = "diff_verify_coverage.rs"
-gate = "verify-coverage"
-comparators = ["assert_byte_identical"]
-cases = 44
-agreement_only = 0
-owner_bead = "bd-coverage-counts-retired-items-49jh"
-# Live positive for LEG I: the per-side helper lives here (rk9n). Deleting
-# those two calls must turn the meta-gate RED and name this file.
-verdict_shape_leg = true
-
-[[harness]]
 file = "diff_verify_knowledge_paths.rs"
 gate = "verify-knowledge-paths"
 comparators = ["assert_identical"]
@@ -203,26 +192,6 @@ comparators = ["assert_identical"]
 # Row kept (registered_harness_floor is monotone). Known-bad lives on
 # crates/cdcp_gate/src/gates/verify_knowledge_paths.rs.
 cases = 25
-agreement_only = 0
-verdict_shape_leg = false
-verdict_shape_skip_reason = "not a measured instance (lt7/qm65/rk9n); LEG D covers the gate; instance helper is the fourth-patch shape this bead forbids"
-
-[[harness]]
-file = "diff_verify_objectives.rs"
-gate = "verify-objectives"
-comparators = ["assert_byte_identical"]
-# CONVERTED 2026-08-15 (bd-diff-remaining-agreement-only-qgy9): 10
-# agreement-only became 0. The six path-spelling cases were not merely given
-# assertions — they were repointed at a bank holding a KNOWN planted module-2
-# shortfall, because asserting "this spelling still passes" against the green
-# live tree is worth nothing. Each now asserts that the spelling normalises
-# to the one resolved path, that the run scanned THAT tree (the item count,
-# which is what catches a silent fallback to a default), and that it still
-# reaches the planted finding and goes RED for it. The three flag cases
-# (`m skip flag`, `m strict flag`, `m both flags`) pin the MODE the report
-# names — they are semantic cases, not spellings. The 4qje min=0 pin is
-# untouched.
-cases = 54
 agreement_only = 0
 verdict_shape_leg = false
 verdict_shape_skip_reason = "not a measured instance (lt7/qm65/rk9n); LEG D covers the gate; instance helper is the fourth-patch shape this bead forbids"

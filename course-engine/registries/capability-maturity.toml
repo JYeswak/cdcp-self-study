@@ -138,9 +138,9 @@ claim = "Domain coverage is checked against knowledge/domains.toml and grade gol
 charter_claim = { file = "CHARTER.md", row = "L3b Content-integrity oracles", status = "YES · wired" }
 evidence = [
   { kind = "test", ref = "crates/cdcp_cli/tests/cli.rs::goldens_check_exit_0" },
-  { kind = "test", ref = "crates/cdcp_gate/tests/diff_verify_coverage.rs::live_tree_is_byte_identical_and_green" },
-  { kind = "known_bad", ref = "crates/cdcp_gate/tests/diff_verify_coverage.rs::empty_and_missing_input_sets_are_errors_in_both" },
-  { kind = "known_bad", ref = "crates/cdcp_gate/tests/diff_verify_coverage.rs::a_declared_module_with_zero_items_is_red_and_named" },
+  { kind = "test", ref = "scripts/selftest_l6_coverage.sh::live_bank_still_GREEN" },
+  { kind = "known_bad", ref = "scripts/selftest_l6_coverage.sh::empty-bank" },
+  { kind = "known_bad", ref = "scripts/selftest_l6_coverage.sh::m01-only-bank" },
   { kind = "contract", ref = "scripts/check.sh" },
 ]
 

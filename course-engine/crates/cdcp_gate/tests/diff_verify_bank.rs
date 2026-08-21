@@ -1115,7 +1115,7 @@ fn an_oracle_raise_matches_on_stdout_and_exit_code_but_not_traceback_text() {
 
 // ── bd-8exw: the floors measure the APPROVED pool ──────────────────────────
 //
-// Prior art copied rather than re-derived: `diff_verify_coverage.rs` cases
+// Prior art copied rather than re-derived: the coverage selftest's cases
 // (j)(k)(l) — `module_lines` / `retire_in_place` — do the same injection for
 // the sibling gate.
 
