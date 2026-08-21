@@ -1,0 +1,204 @@
+{
+  "schema_version": 1,
+  "slug": "m07-emf-decision-research-2026-08-20",
+  "consumer": "Human reviewer deciding which M07 recall items can be converted to apply-level items",
+  "feature": "Sourced M07 EMF conversion queue",
+  "observed_defect": "Q20 found 9 of 21 M07 recall items not-convertible; source-list, unit, definition, and mechanism recall lack documented practitioner decisions.",
+  "deletion_condition": "Delete when each disposition is reviewed and either grounded in a changed item or recorded as an explicit unresolved gap in the maintained conversion ledger.",
+  "nodes": [
+    {
+      "id": "Standard_iec-tr-61000-5-1-2023",
+      "label": "IEC TR 61000-5-1:2023 EMC mitigation for installations",
+      "kind": "Standard",
+      "source_file": "https://webstore.iec.ch/en/publication/61223",
+      "source_location": "Official IEC catalog, scope/abstract, edition 2.0, published 2023-02-23",
+      "confidence": 1.0,
+      "_provenance": ["https://webstore.iec.ch/en/publication/61223"],
+      "lineage_count": 1
+    },
+    {
+      "id": "Standard_iec-ts-61000-5-10-2017",
+      "label": "IEC TS 61000-5-10:2017 HEMP/IEMI protection guidance",
+      "kind": "Standard",
+      "source_file": "https://webstore.iec.ch/en/publication/30054",
+      "source_location": "Official IEC catalog, scope/abstract, edition 1.0",
+      "confidence": 1.0,
+      "_provenance": ["https://webstore.iec.ch/en/publication/30054"],
+      "lineage_count": 1
+    },
+    {
+      "id": "Standard_iec-62271-208-2025",
+      "label": "IEC 62271-208:2025 evaluation of external power-frequency EM fields",
+      "kind": "Standard",
+      "source_file": "https://webstore.iec.ch/en/publication/69470",
+      "source_location": "Official IEC catalog, scope/abstract, edition 1.0",
+      "confidence": 1.0,
+      "_provenance": ["https://webstore.iec.ch/en/publication/69470"],
+      "lineage_count": 1
+    },
+    {
+      "id": "Standard_osha-1910-308",
+      "label": "OSHA 29 CFR 1910.308 communications-circuit separation and protection",
+      "kind": "Standard",
+      "source_file": "https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.308",
+      "source_location": "Public regulation, communications-circuit separation and primary-protector provisions",
+      "confidence": 1.0,
+      "_provenance": ["https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.308"],
+      "lineage_count": 1
+    },
+    {
+      "id": "Standard_icnirp-low-frequency-guidance",
+      "label": "ICNIRP low-frequency human-exposure reference levels",
+      "kind": "Standard",
+      "source_file": "https://www.icnirp.org/EN/FREQUENCIES/LOW-FREQUENCY/INDEX.HTML",
+      "source_location": "Public ICNIRP low-frequency guidance page",
+      "confidence": 1.0,
+      "_provenance": ["https://www.icnirp.org/EN/FREQUENCIES/LOW-FREQUENCY/INDEX.HTML"],
+      "lineage_count": 1
+    },
+    {
+      "id": "Standard_iec-61786-2-2014",
+      "label": "IEC 61786-2:2014 quasi-static EM field measurement scope",
+      "kind": "Standard",
+      "source_file": "https://webstore.iec.ch/en/publication/5907",
+      "source_location": "Official IEC catalog, scope/abstract",
+      "confidence": 1.0,
+      "_provenance": ["https://webstore.iec.ch/en/publication/5907"],
+      "lineage_count": 1
+    },
+    {
+      "id": "Finding_m07-q044-substation-field-evaluation",
+      "label": "M07-Q044 can test whether a site-adjacency EMF evaluation is selected and documented",
+      "kind": "Finding",
+      "source_file": "knowledge/research/m07-emf-decision-research-2026-08-20.md",
+      "source_location": "Item dispositions / m07-q044",
+      "confidence": 0.9,
+      "_provenance": ["knowledge/research/m07-emf-decision-research-2026-08-20.md"],
+      "lineage_count": 1
+    },
+    {
+      "id": "Finding_m07-q052-routing-protection-decision",
+      "label": "M07-Q052 can test a sourced communications-routing and protection decision",
+      "kind": "Finding",
+      "source_file": "knowledge/research/m07-emf-decision-research-2026-08-20.md",
+      "source_location": "Item dispositions / m07-q052",
+      "confidence": 0.85,
+      "_provenance": ["knowledge/research/m07-emf-decision-research-2026-08-20.md"],
+      "lineage_count": 1
+    },
+    {
+      "id": "Finding_m07-q054-hemp-program-boundary",
+      "label": "M07-Q054 can test the customer/program boundary for HEMP/IEMI protection",
+      "kind": "Finding",
+      "source_file": "knowledge/research/m07-emf-decision-research-2026-08-20.md",
+      "source_location": "Item dispositions / m07-q054",
+      "confidence": 0.9,
+      "_provenance": ["knowledge/research/m07-emf-decision-research-2026-08-20.md"],
+      "lineage_count": 1
+    },
+    {
+      "id": "Finding_m07-q055-adjacency-triage",
+      "label": "M07-Q055 can test external-source triage and the correct scope of a follow-up evaluation",
+      "kind": "Finding",
+      "source_file": "knowledge/research/m07-emf-decision-research-2026-08-20.md",
+      "source_location": "Item dispositions / m07-q055",
+      "confidence": 0.9,
+      "_provenance": ["knowledge/research/m07-emf-decision-research-2026-08-20.md"],
+      "lineage_count": 1
+    },
+    {
+      "id": "Gap_m07-equipment-immunity-threshold",
+      "label": "No public vendor-neutral universal IT-equipment EMF immunity or relocation threshold found",
+      "kind": "Gap",
+      "source_file": "knowledge/research/m07-emf-decision-research-2026-08-20.md",
+      "source_location": "Should-fail search",
+      "confidence": 1.0,
+      "_provenance": ["knowledge/research/m07-emf-decision-research-2026-08-20.md"],
+      "lineage_count": 1
+    },
+    {
+      "id": "Gap_m07-human-equipment-scope",
+      "label": "Human-exposure field limits cannot be reused as equipment-immunity limits",
+      "kind": "Gap",
+      "source_file": "knowledge/research/m07-emf-decision-research-2026-08-20.md",
+      "source_location": "Scope boundary: human exposure is not equipment immunity",
+      "confidence": 1.0,
+      "_provenance": ["knowledge/research/m07-emf-decision-research-2026-08-20.md"],
+      "lineage_count": 1
+    }
+  ],
+  "edges": [
+    {
+      "source": "Standard_iec-62271-208-2025",
+      "target": "Finding_m07-q044-substation-field-evaluation",
+      "relation": "addresses",
+      "confidence": "INFERRED",
+      "confidence_score": 0.9,
+      "source_file": "https://webstore.iec.ch/en/publication/69470",
+      "source_location": "Official catalog scope/abstract"
+    },
+    {
+      "source": "Standard_osha-1910-308",
+      "target": "Finding_m07-q052-routing-protection-decision",
+      "relation": "addresses",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.308",
+      "source_location": "Public communications-circuit separation and primary-protector provisions"
+    },
+    {
+      "source": "Standard_iec-tr-61000-5-1-2023",
+      "target": "Finding_m07-q052-routing-protection-decision",
+      "relation": "addresses",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "source_file": "https://webstore.iec.ch/en/publication/61223",
+      "source_location": "Official catalog scope/abstract"
+    },
+    {
+      "source": "Standard_iec-ts-61000-5-10-2017",
+      "target": "Finding_m07-q054-hemp-program-boundary",
+      "relation": "addresses",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "https://webstore.iec.ch/en/publication/30054",
+      "source_location": "Official catalog scope/abstract"
+    },
+    {
+      "source": "Standard_iec-62271-208-2025",
+      "target": "Finding_m07-q055-adjacency-triage",
+      "relation": "addresses",
+      "confidence": "INFERRED",
+      "confidence_score": 0.9,
+      "source_file": "https://webstore.iec.ch/en/publication/69470",
+      "source_location": "Official catalog scope/abstract"
+    },
+    {
+      "source": "Standard_osha-1910-308",
+      "target": "Finding_m07-q055-adjacency-triage",
+      "relation": "addresses",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.308",
+      "source_location": "Public communications-circuit separation and primary-protector provisions"
+    },
+    {
+      "source": "Standard_icnirp-low-frequency-guidance",
+      "target": "Gap_m07-human-equipment-scope",
+      "relation": "addresses",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "https://www.icnirp.org/EN/FREQUENCIES/LOW-FREQUENCY/INDEX.HTML",
+      "source_location": "Public low-frequency human-exposure guidance"
+    },
+    {
+      "source": "Standard_iec-61786-2-2014",
+      "target": "Gap_m07-human-equipment-scope",
+      "relation": "addresses",
+      "confidence": "INFERRED",
+      "confidence_score": 0.9,
+      "source_file": "https://webstore.iec.ch/en/publication/5907",
+      "source_location": "Official catalog scope/abstract"
+    }
+  ]
+}
