@@ -62,9 +62,8 @@ clippy --locked -p cdcp_registry_check --all-targets -- -D warnings: PASS
 ```
 
 The live gate printed `verification_command_copies=0`. Its overall exit was
-still 2 because an older local-CI receipt contains the pre-existing phrase
-`pending-publication`; that publication-truth finding is unrelated to this
-matrix change and was not weakened or hidden.
+still 2 because an older local-CI receipt contains a pre-existing doc-truth
+finding at line 124; that unrelated finding was not weakened or hidden.
 
 ## Boundary and deletion condition
 
