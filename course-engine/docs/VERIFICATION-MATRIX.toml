@@ -1,0 +1,91 @@
+# Canonical verification command surface (bd-std-central-verification-uevw).
+#
+# Operating documents may point at a row here, but may not copy the runnable
+# command. verify-doc-consistency scans those documents and names the row if
+# a command copy reappears. This file is a command contract, not a second CI
+# driver: scripts/check.sh remains the only full-chain invocation.
+schema_version = 1
+
+[[command]]
+id = "workspace-preflight"
+scope = "physical workspace identity"
+command = "cargo run --locked -q -p cdcp_root --bin workspace-preflight"
+required_when = "before any reservation, build, receipt, or commit"
+
+[[command]]
+id = "full-chain"
+scope = "all ordered local CI gates"
+command = "./scripts/check.sh"
+required_when = "every product or gate change; final close evidence"
+
+[[command]]
+id = "local-ci"
+scope = "single-SHA consumed-input transaction"
+command = "./scripts/check.sh --local-ci --force"
+required_when = "when a pinned local-CI transaction is required or its inputs changed"
+
+[[command]]
+id = "build-gate-binaries"
+scope = "gate and registry checker binaries"
+command = "cargo build -p cdcp_gate -p cdcp_cli -p cdcp_registry_check --locked"
+required_when = "before invoking a fresh local gate binary"
+
+[[command]]
+id = "registry-check"
+scope = "claims constitution and registry rows"
+command = "./target/debug/cdcp_registry_check"
+required_when = "after registry or load-bearing documentation changes"
+
+[[command]]
+id = "gate-dispatch"
+scope = "one focused gate subcommand"
+command = "./target/debug/cdcp_gate <subcommand>"
+required_when = "focused diagnosis; never a substitute for full-chain close evidence"
+
+[[command]]
+id = "hook-install"
+scope = "courtesy pre-commit hook installation"
+command = "./target/debug/cdcp_gate install-hooks"
+required_when = "when installing the courtesy hook in a fresh checkout"
+
+[[command]]
+id = "hook-check"
+scope = "courtesy pre-commit hook wiring"
+command = "./target/debug/cdcp_gate install-hooks --check"
+required_when = "after hook installation or hook changes"
+
+[[command]]
+id = "hermetic-test"
+scope = "Cargo test lane in an isolated target"
+command = "./target/debug/cdcp hermetic-test --lane <lane-name> -- --locked <cargo test args>"
+required_when = "every production Cargo test lane; use a distinct lane name"
+
+[[command]]
+id = "goldens-check"
+scope = "GradeExact coupling pins"
+command = "./target/debug/cdcp goldens check --bank bank/items --dir goldens"
+required_when = "after bank or golden changes; before a deliberate re-freeze"
+
+[[command]]
+id = "restore-rebuild"
+scope = "stale-artifact restore proof"
+command = "sh scripts/restore_safe.inc.sh prove-rebuild --artifact <bin> -- cargo test -p <crate> --offline --no-run"
+required_when = "when proving a restore forced a real rebuild"
+
+[[command]]
+id = "cargo-fmt"
+scope = "Rust formatting"
+command = "cargo fmt --check"
+required_when = "the full-chain cargo quality lane"
+
+[[command]]
+id = "cargo-clippy"
+scope = "Rust warning-free compilation"
+command = "cargo clippy --locked --workspace --all-targets -- -D warnings"
+required_when = "the full-chain cargo quality lane"
+
+[[command]]
+id = "step-count"
+scope = "runtime check.sh receipt count"
+command = "./target/debug/cdcp_gate verify-step-count --log <step-receipt>"
+required_when = "the full-chain step-count receipt"

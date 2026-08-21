@@ -196,8 +196,8 @@ cargo build --manifest-path course-engine/Cargo.toml -p cdcp_cli --locked
   --fixture course-engine/goldens/fixtures/mock40_seed42.json \
   --mode all-correct
 
-# Verify the pinned digests still hold (this is the byte-exactness check).
-./course-engine/target/debug/cdcp goldens check --bank course-engine/bank/items --dir course-engine/goldens
+# Verify the pinned digests: use the `goldens-check` row in the canonical
+# course-engine/docs/VERIFICATION-MATRIX.toml.
 
 # Regenerate browser exam packs. Seed 42 is golden-pinned; any other seed is
 # practice-only variety and must never be used to refresh a golden.
@@ -225,9 +225,8 @@ property and `L5 learner pack answer-key leak` turns the build red.
 
 One ordered chain. It is the only definition of "done" in this project.
 
-```bash
-cd course-engine && ./scripts/check.sh
-```
+Run the `full-chain` row in
+`course-engine/docs/VERIFICATION-MATRIX.toml`.
 
 98 steps, fail-closed, each naming the script that failed so the repair is
 obvious. A step is one outer-chain receipt slot: exactly one `ok()` or honest
@@ -362,7 +361,7 @@ table:
 |---|---|---|
 | **L1 — claims constitution** | ✅ | `registries/*.toml` + `cdcp_registry_check` (tested crate) + claims-lint over README/docs |
 | **L2 — SLO as code** | ✅ partial | `slo.toml` budgets; `cdcp slo check` judges an elapsed sample against the live `grade_ms` wall (`crates/cdcp_cli/tests/slo.rs`, with a planted over-budget known-bad). The `smoke_slo.sh` shell leg is conditional on the `export-web` verb and honours a documented `CDCP_SKIP_SLO=1` bypass |
-| **L3 — external oracle** | ✅ scoped · ⚠️ **bank keys unguarded** | `cdcp_data` compares computed site quantities (free-cooling hours, seismic design values, grid carbon) against published NREL TMY3 / USGS ASCE 7-16 / EPA eGRID2023 references we do not control, with pre-declared tolerances — `crates/cdcp_data/tests/oracle.rs`, wired via `cargo test --workspace`, with a perturb-by-one-tolerance known-bad and anti-vacuous floors. **No external suite checks the 931 approved bank item keys; the source has 957 bank item files** for "did we teach this correctly." The native grader and the goldens are **not** oracles (CHARTER §5a) |
+| **L3 — external oracle** | ✅ scoped · ⚠️ **bank keys unguarded** | `cdcp_data` compares computed site quantities (free-cooling hours, seismic design values, grid carbon) against published NREL TMY3 / USGS ASCE 7-16 / EPA eGRID2023 references we do not control, with pre-declared tolerances — the `hermetic-test` row in `course-engine/docs/VERIFICATION-MATRIX.toml`, with a perturb-by-one-tolerance known-bad and anti-vacuous floors. **No external suite checks the 931 approved bank item keys; the source has 957 bank item files** for "did we teach this correctly." The native grader and the goldens are **not** oracles (CHARTER §5a) |
 | **L4 — gates proven to trip** | ✅ strongest | 10 suites, 72 injections (shell selftest suites; Rust legs uncounted), count drift-guarded, anti-vacuous throughout |
 | **L5 — adversarial input floor** | ⚠️ partial | proptest floor on assemble/grade shapes (wired). `cargo-fuzz` targets exist, but `fuzz/` is **outside the workspace**, so no libFuzzer campaign is ever run by `check.sh` or CI [[fact:fact-fuzz-is-a-workspace-member=no]] |
 | **L6 — formal lane** | ❌ | Not warranted at this gauntlet tier |

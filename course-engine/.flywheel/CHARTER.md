@@ -74,10 +74,10 @@ gauntlet:       L1 claims constitution (registry-check, WIRED) · L2 slo.toml ·
                 `cp bak f`, `printf … > f`, or `cdcp_restore_safe dest bak` — NEVER a rename;
                 then prove the rebuild with one command whose exit code is the receipt
                 (bd-stale-artifact-gate-urj0):
-                `sh scripts/restore_safe.inc.sh prove-rebuild --artifact <bin> -- cargo test -p
-                <crate> --offline --no-run`. That command compares the artifact's mtime BEFORE
+                the `restore-rebuild` row in `course-engine/docs/VERIFICATION-MATRIX.toml`. That
+                command compares the artifact's mtime BEFORE
                 the build with its mtime AFTER and is non-zero when nothing was rebuilt.
-                "Just run cargo build first" is NOT the fix and is itself vacuous: after a
+                "Just build first" is NOT the fix and is itself vacuous: after a
                 rename-restore cargo exits 0, prints `Finished in 0.00s` and rebuilds nothing —
                 it passes in exactly the case it was written to catch. A BUILD THAT FINDS
                 NOTHING TO REBUILD, WHEN THE FILE DEMONSTRABLY CHANGED, IS AN ERROR AND NOT A

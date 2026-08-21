@@ -31,27 +31,22 @@ Then `cdcp study`. `--prefix DIR` · `--from-source` · `--verify` · `--uninsta
 
 ## Gate
 
-```bash
-./scripts/check.sh
-```
+Run the `full-chain` row in
+[`docs/VERIFICATION-MATRIX.toml`](./docs/VERIFICATION-MATRIX.toml).
 
 Fail-closed until waves land. See `scorecards/` for wave stamps.
 
-`check.sh` runs `cdcp_gate substrate-guard` (presence scan). That is the
+`check.sh` runs the substrate-guard presence scan. That is the
 substrate floor: an unlisted `.py`/`.sh` fails the build even if no git hook
 ran (`git commit --no-verify`, merge, cherry-pick, rebase, `git am`,
 `commit-tree`, or a fresh clone). The committed shim `hooks/pre-commit` is a
-courtesy on ordinary `git commit` only. Install it in a clone:
+courtesy on ordinary `git commit` only. The `hook-install` and `hook-check`
+rows in the [verification matrix](./docs/VERIFICATION-MATRIX.toml) own the
+fresh-clone procedure.
 
-```bash
-cargo build -p cdcp_gate --locked
-./target/debug/cdcp_gate install-hooks
-./target/debug/cdcp_gate install-hooks --check
-```
-
-L1 claims constitution: `registries/claims.toml` + `./target/debug/cdcp_registry_check`
-after `cargo build -p cdcp_registry_check --locked` (empty registry / unmapped
-coverage·ready prose = ERROR).
+L1 claims constitution: `registries/claims.toml` plus the `registry-check` row
+in the [verification matrix](./docs/VERIFICATION-MATRIX.toml) (empty registry /
+unmapped coverage·ready prose = ERROR).
 
 ## Layout
 
@@ -63,7 +58,7 @@ crates/        # Rust: core, bank, grade, schedule, registry_check, cli
 web/           # static HTML/CSS/JS + WASM glue
 goldens/       # GradeReport digests
 scripts/       # check.sh (the substrate floor; hooks are a courtesy)
-hooks/         # committed pre-commit shim — install with `cdcp_gate install-hooks`
+hooks/         # committed pre-commit shim — see the hook rows in the matrix
 docs/          # constitution + research extracts
 scorecards/    # wave / layer outcome stamps
 ```
@@ -85,24 +80,24 @@ scorecards/    # wave / layer outcome stamps
 | W0 knowledge | green |
 | **L1 claims constitution** | **green** — `cdcp_registry_check` in `check.sh` |
 | L2 bank pool (957 files / 931 approved / 26 retired ≈ 23.3× exam on the approved pool; indexed learner pool 931 / ≈23.3× — pool size, not distinct propositions) [[fact:fact-bank-item-count-804=yes]] [[fact:fact-bank-approved-count-779=yes]] [[fact:fact-approved-pool-multiplier-19-5=yes]] | green (`cdcp_gate verify-bank` + grounding) |
-| **L3 GradeExact** | **green** — `cargo test` + `cdcp goldens check` in `check.sh` |
+| **L3 GradeExact** | **green** — the `hermetic-test` and `goldens-check` rows in `check.sh` |
 | **L4 WASM dual-path** | **green** — `cdcp_wasm` built to `wasm32-unknown-unknown`; dual-path digests asserted equal, `selftest_wasm_freshness` guards the committed blob |
 | **L5 browser UI** | **green** — Hub · Learn · Drill · Mock · Reference served by `cdcp serve`; e2e digests + learner-pack answer-key-leak known-bad |
 
 CLI (from `course-engine/`):
 
 ```bash
-cargo build -p cdcp_cli -p cdcp_registry_check --locked
 ./target/debug/cdcp serve                  # local HTTP hub (http://127.0.0.1:8766/; not file://)
 ./target/debug/cdcp doctor                 # preflight: bank, wasm, goldens, port
 ./target/debug/cdcp health --robot         # versioned NDJSON envelope
 ./target/debug/cdcp repair                 # units + glossary + export-web; never goldens
 ./target/debug/cdcp bank-hash
 ./target/debug/cdcp grade --fixture goldens/fixtures/mock40_seed42.json --mode all-correct
-./target/debug/cdcp goldens check
-./target/debug/cdcp_registry_check
 # UPDATE_GOLDENS=1 ./target/debug/cdcp goldens generate   # local + human review only
 ```
+
+Build, registry, hermetic-test, and golden verification commands belong to the
+[verification matrix](./docs/VERIFICATION-MATRIX.toml), not this runtime list.
 
 `doctor` still probes `python3`, but only because surviving dual-path oracles
 may need it. It is not a product surface.

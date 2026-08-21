@@ -7,8 +7,8 @@ Local-first CDCP **study** tool. Not EPI certification software.
 Canonical physical workspace root: `/Users/josh/cdcp-self-study/course-engine`
 
 Before any reservation, build, receipt, or commit command, run the physical
-workspace preflight from this checkout:
-`cargo run --locked -q -p cdcp_root --bin workspace-preflight`.
+workspace preflight from this checkout using the `workspace-preflight` row in
+[`docs/VERIFICATION-MATRIX.toml`](docs/VERIFICATION-MATRIX.toml).
 It compares `pwd -P` semantics with this declared root. Symlink entrypoints
 normalize to this identity; a different checkout is refused. Evidence must
 use the resolved physical root as its path and Agent Mail project key.
@@ -26,9 +26,10 @@ use the resolved physical root as its path and Agent Mail project key.
 5. No unresolved OQ that a wave depends on.  
 6. G1 > G2: correctness before UI polish.  
 7. `scripts/check.sh` is the only full gate story. The pre-commit hook is a
-   courtesy (`cargo build -p cdcp_gate --locked` then
-   `./target/debug/cdcp_gate install-hooks`; never cargo run); an unlisted `.py`
-   fails check.sh even if the hook never ran.
+   courtesy; use the `hook-install` and `hook-check` rows in
+   [`docs/VERIFICATION-MATRIX.toml`](docs/VERIFICATION-MATRIX.toml), never a
+   second command contract. An unlisted `.py` fails check.sh even if the hook
+   never ran.
 
 ## Honest Work and Anti-Ceremony (binding for agents and humans alike)
 
@@ -81,12 +82,9 @@ receipts that record a measurement someone will act on. Nothing else.
 
 ## Hermetic test runner
 
-For a test lane, use the product-owned wrapper rather than invoking `cargo test`
-directly:
-
-```text
-./target/debug/cdcp hermetic-test --lane <lane-name> -- --locked <cargo test args>
-```
+For a test lane, use the `hermetic-test` row in
+[`docs/VERIFICATION-MATRIX.toml`](docs/VERIFICATION-MATRIX.toml), rather than
+copying or invoking a direct `cargo test` command.
 
 The wrapper owns `target/cdcp-hermetic/<lane-name>`, rejects caller target,
 manifest, and Cargo-environment overrides, and fingerprints `HEAD` plus the

@@ -30,6 +30,9 @@
 //!   a loop-#3 external signal settles that.
 //! - Whether the roadmap is *complete*. A milestone nobody wrote down is
 //!   invisible to a gate that reads what was written down.
+//! - Whether an operating document has copied a verification command. The
+//!   canonical command contract is `docs/VERIFICATION-MATRIX.toml`; this
+//!   evaluator checks that surface and the four operating documents together.
 //! - Prose outside milestone tables and the five publication patterns. Vague,
 //!   stale, or contradictory narrative text is out of scope by construction.
 //! - Any claim in a doc it never read: a markdown file that is not valid UTF-8
@@ -96,6 +99,7 @@
 //! bd-hw3; see the DECISION above, and `ragged_row_is_red_in_both` for the pin
 //! that replaced the recorded divergence.
 
+use serde::Deserialize;
 use std::path::{Component, Path, PathBuf};
 use std::process::Command;
 
@@ -107,11 +111,41 @@ pub const NAME: &str = "verify-doc-consistency";
 pub const SUMMARY: &str =
     "roadmap docs must not contradict each other (milestone status + publication truth)";
 
+#[derive(Debug, Clone, Deserialize)]
+struct VerificationMatrix {
+    schema_version: u32,
+    #[serde(default)]
+    command: Vec<VerificationCommand>,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+struct VerificationCommand {
+    id: String,
+    scope: String,
+    command: String,
+    required_when: String,
+}
+
+struct VerificationMatrixReport {
+    command_rows: usize,
+    operating_docs_scanned: usize,
+    command_copies: usize,
+    findings: Vec<Finding>,
+}
+
 /// Roadmap docs whose milestone tables must agree. Paths are root-relative.
 const MILESTONE_DOCS: [&str; 3] = [
     "CHARTER.md",
     "README.md",
     "course-engine/docs/PHASE-NEXT.md",
+];
+
+const VERIFICATION_MATRIX: &str = "course-engine/docs/VERIFICATION-MATRIX.toml";
+const OPERATING_DOCS: [&str; 4] = [
+    "course-engine/AGENTS.md",
+    "course-engine/README.md",
+    "README.md",
+    "course-engine/.flywheel/CHARTER.md",
 ];
 
 /// A table is a MILESTONE table when its first column header is one of these.
@@ -963,6 +997,189 @@ fn markdown_files(root: &Path) -> Vec<PathBuf> {
     sort_paths(v)
 }
 
+// ═══════════════════════ verification command surface ═════════════════════
+
+/// Return the matrix row whose command contract a line appears to invoke.
+///
+/// This is deliberately a small, structural vocabulary rather than a grep of
+/// every shell word in the repository. Product runtime commands such as
+/// `cdcp serve` and `cdcp study` are not verification commands. The commands
+/// below are the operating-document surface that can be copied and drift.
+fn verification_command_id(line: &str) -> Option<&'static str> {
+    let trimmed = line.trim_start();
+    // A pointer names the row; it is not a copied invocation. Likewise, a
+    // layout/listing line can mention a binary without being executable.
+    if line.contains("VERIFICATION-MATRIX") {
+        return None;
+    }
+    if line.contains("./scripts/check.sh --local-ci") {
+        return Some("local-ci");
+    }
+    if line.contains("./scripts/check.sh") {
+        return Some("full-chain");
+    }
+    if line.contains("cargo run --locked -q -p cdcp_root --bin workspace-preflight") {
+        return Some("workspace-preflight");
+    }
+    if line.contains("cdcp hermetic-test") {
+        return Some("hermetic-test");
+    }
+    if line.contains("restore_safe.inc.sh prove-rebuild") {
+        return Some("restore-rebuild");
+    }
+    if line.contains("cargo fmt --check") {
+        return Some("cargo-fmt");
+    }
+    if line.contains("cargo clippy --locked --workspace") {
+        return Some("cargo-clippy");
+    }
+    if line.contains("cargo test --workspace") {
+        return Some("hermetic-test");
+    }
+    if line.contains("cargo build -p cdcp_gate -p cdcp_cli -p cdcp_registry_check") {
+        return Some("build-gate-binaries");
+    }
+    if line.contains("goldens check") {
+        return Some("goldens-check");
+    }
+    if line.contains("cdcp_gate install-hooks --check") && line.contains("./target/") {
+        return Some("hook-check");
+    }
+    if line.contains("cdcp_gate install-hooks") && line.contains("./target/") {
+        return Some("hook-install");
+    }
+    if line.contains("cdcp_registry_check")
+        && (line.contains("./target/") || trimmed.starts_with("cdcp_registry_check"))
+    {
+        return Some("registry-check");
+    }
+    if line.contains("cdcp_gate verify-step-count") {
+        return Some("step-count");
+    }
+    if line.contains("./target/debug/cdcp_gate") {
+        return Some("gate-dispatch");
+    }
+    None
+}
+
+fn verify_command_matrix(root: &Path) -> VerificationMatrixReport {
+    let path = root.join(VERIFICATION_MATRIX);
+    let mut findings = Vec::new();
+    let raw = match std::fs::read_to_string(&path) {
+        Ok(text) => text,
+        Err(error) => {
+            findings.push(Finding::vacuous(format!(
+                "{VERIFICATION_MATRIX}: unreadable ({error}) — refusing to pass without the canonical command surface"
+            )));
+            return VerificationMatrixReport {
+                command_rows: 0,
+                operating_docs_scanned: 0,
+                command_copies: 0,
+                findings,
+            };
+        }
+    };
+    let matrix: VerificationMatrix = match toml::from_str(&raw) {
+        Ok(matrix) => matrix,
+        Err(error) => {
+            findings.push(Finding::vacuous(format!(
+                "{VERIFICATION_MATRIX}: invalid TOML ({error}) — refusing to pass"
+            )));
+            return VerificationMatrixReport {
+                command_rows: 0,
+                operating_docs_scanned: 0,
+                command_copies: 0,
+                findings,
+            };
+        }
+    };
+    if matrix.schema_version != 1 {
+        findings.push(Finding::vacuous(format!(
+            "{VERIFICATION_MATRIX}: unsupported schema_version={} (expected 1)",
+            matrix.schema_version
+        )));
+    }
+    if matrix.command.is_empty() {
+        findings.push(Finding::vacuous(format!(
+            "{VERIFICATION_MATRIX}: zero command rows (empty verification surface is an ERROR, not a pass)"
+        )));
+    }
+
+    let mut ids = std::collections::BTreeSet::new();
+    for row in &matrix.command {
+        let mut missing = Vec::new();
+        if row.id.trim().is_empty() {
+            missing.push("id");
+        }
+        if row.scope.trim().is_empty() {
+            missing.push("scope");
+        }
+        if row.command.trim().is_empty() || row.command.contains('\n') {
+            missing.push("command");
+        }
+        if row.required_when.trim().is_empty() {
+            missing.push("required_when");
+        }
+        if !missing.is_empty() {
+            findings.push(Finding::vacuous(format!(
+                "{VERIFICATION_MATRIX}: row {:?} missing/invalid field(s): {}",
+                row.id,
+                missing.join(", ")
+            )));
+        }
+        if !ids.insert(row.id.as_str()) {
+            findings.push(Finding::violation(format!(
+                "{VERIFICATION_MATRIX}: duplicate command row id {:?}",
+                row.id
+            )));
+        }
+    }
+
+    let mut scanned_docs = 0usize;
+    let mut command_copies = 0usize;
+    for rel in OPERATING_DOCS {
+        let path = root.join(rel);
+        let text = match std::fs::read_to_string(&path) {
+            Ok(text) => text,
+            Err(error) => {
+                findings.push(Finding::vacuous(format!(
+                    "{rel}: unreadable while checking verification command copies ({error})"
+                )));
+                continue;
+            }
+        };
+        scanned_docs += 1;
+        for (line_no, line) in text.lines().enumerate() {
+            let Some(id) = verification_command_id(line) else {
+                continue;
+            };
+            command_copies += 1;
+            let known = matrix.command.iter().any(|row| row.id == id);
+            if known {
+                findings.push(Finding::violation(format!(
+                    "{rel}:{line_no}: verification command copy belongs to matrix row {id:?}; use a pointer to {VERIFICATION_MATRIX}"
+                )));
+            } else {
+                findings.push(Finding::violation(format!(
+                    "{rel}:{line_no}: verification command has no matrix row (detected id {id:?}); update {VERIFICATION_MATRIX} in the same change"
+                )));
+            }
+        }
+    }
+    if scanned_docs == 0 {
+        findings.push(Finding::vacuous(
+            "zero operating documents scanned for verification command copies (empty scan set is an ERROR, not a pass)"
+                .to_string(),
+        ));
+    }
+    VerificationMatrixReport {
+        command_rows: matrix.command.len(),
+        operating_docs_scanned: scanned_docs,
+        command_copies,
+        findings,
+    }
+}
+
 // ══════════════════════════ publication scanning ═══════════════════════════
 
 /// Python's Unicode `re.IGNORECASE` makes four non-ASCII code points match
@@ -1452,6 +1669,8 @@ pub fn evaluate_root(engine_root: &Path, args: &[String]) -> DocConsistencyOutco
 
     let (n_md, pub_errors) = scan_publication(&root);
     errors.extend(pub_errors);
+    let command_report = verify_command_matrix(&root);
+    errors.extend(command_report.findings);
 
     let status = if errors.is_empty() { "PASS" } else { "FAIL" };
     let mut out = String::new();
@@ -1463,6 +1682,12 @@ pub fn evaluate_root(engine_root: &Path, args: &[String]) -> DocConsistencyOutco
     out.push_str(&format!("  milestone_ids={}\n", by_id.len()));
     out.push_str(&format!("  conflicts={conflicts}\n"));
     out.push_str(&format!("  markdown_scanned={n_md}\n"));
+    out.push_str(&format!(
+        "  verification_matrix={VERIFICATION_MATRIX} command_rows={} operating_docs_scanned={} verification_command_copies={}\n",
+        command_report.command_rows,
+        command_report.operating_docs_scanned,
+        command_report.command_copies,
+    ));
     out.push_str(&format!(
         "  repo_public={} since {REPO_PUBLIC_SINCE}\n",
         if REPO_PUBLIC { "True" } else { "False" }
@@ -1490,6 +1715,7 @@ pub fn evaluate_root(engine_root: &Path, args: &[String]) -> DocConsistencyOutco
     }
 
     out.push_str("  roadmap GREEN (milestone status agrees; publication truth holds)\n");
+    out.push_str("  verification GREEN (canonical matrix owns runnable verification commands)\n");
     DocConsistencyOutcome::Output {
         text: out,
         code: EXIT_OK,
@@ -1499,6 +1725,86 @@ pub fn evaluate_root(engine_root: &Path, args: &[String]) -> DocConsistencyOutco
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    fn command_matrix_fixture(command_copy: Option<&str>) -> tempfile::TempDir {
+        let dir = tempfile::tempdir().expect("fixture tempdir");
+        std::fs::create_dir_all(dir.path().join("course-engine/docs")).unwrap();
+        std::fs::create_dir_all(dir.path().join("course-engine/.flywheel")).unwrap();
+        std::fs::write(
+            dir.path().join(VERIFICATION_MATRIX),
+            r#"schema_version = 1
+
+[[command]]
+id = "full-chain"
+scope = "all ordered local CI gates"
+command = "./scripts/check.sh"
+required_when = "every product change"
+"#,
+        )
+        .unwrap();
+        for rel in OPERATING_DOCS {
+            let contents = if rel == "course-engine/README.md" {
+                command_copy.unwrap_or("See the full-chain row in the verification matrix.")
+            } else {
+                "See the verification matrix."
+            };
+            std::fs::write(dir.path().join(rel), contents).unwrap();
+        }
+        dir
+    }
+
+    /// bd-std-central-verification-uevw known-bad: changing a runnable command
+    /// in an operating document without changing its matrix row is RED and
+    /// names the row. This is the existing doc-consistency verifier's leg, not
+    /// a second validator.
+    #[test]
+    fn command_contract_copy_without_matrix_update_is_red() {
+        let dir = command_matrix_fixture(Some("./scripts/check.sh --diagnostic\n"));
+        let report = verify_command_matrix(dir.path());
+        assert!(
+            report
+                .findings
+                .iter()
+                .any(|finding| finding.msg.contains("matrix row \"full-chain\"")),
+            "expected full-chain row finding, got: {:?}",
+            report
+                .findings
+                .iter()
+                .map(|finding| &finding.msg)
+                .collect::<Vec<_>>()
+        );
+        assert_eq!(report.command_copies, 1);
+    }
+
+    #[test]
+    fn command_matrix_accepts_pointers_without_copies() {
+        let dir = command_matrix_fixture(None);
+        let report = verify_command_matrix(dir.path());
+        assert_eq!(report.command_rows, 1);
+        assert_eq!(report.operating_docs_scanned, OPERATING_DOCS.len());
+        assert_eq!(report.command_copies, 0);
+        assert!(
+            report.findings.is_empty(),
+            "unexpected findings: {:?}",
+            report
+                .findings
+                .iter()
+                .map(|finding| &finding.msg)
+                .collect::<Vec<_>>()
+        );
+    }
+
+    #[test]
+    fn empty_command_matrix_is_vacuous_error() {
+        let dir = command_matrix_fixture(None);
+        std::fs::write(dir.path().join(VERIFICATION_MATRIX), "schema_version = 1\n").unwrap();
+        let report = verify_command_matrix(dir.path());
+        assert!(report.findings.iter().any(|finding| finding.vacuous));
+        assert!(report
+            .findings
+            .iter()
+            .any(|finding| finding.msg.contains("zero command rows")));
+    }
 
     #[test]
     fn repr_matches_cpython_for_the_shapes_this_gate_emits() {
