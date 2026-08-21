@@ -3,8 +3,9 @@
 //! The network sweep is deliberately separate from the hermetic gate.  The
 //! `cdcp_gate quote-or-drop --refresh` authoring command fetches public pages,
 //! records the HTTP result, response digest, and exact supporting excerpt, and
-//! writes a receipt.  The ordinary gate only validates that receipt against the
-//! current bank and fails closed on every unresolved or unsupported citation.
+//! writes a receipt. The ordinary gate only validates that receipt against the
+//! current bank and fails closed on DEAD, NON_SUPPORTING, and UNVERIFIABLE
+//! citations. Known bot blocks remain visible but are not source failures.
 //! It therefore proves neither pedagogical value nor source authority/currentness.
 
 use serde::{Deserialize, Serialize};
@@ -22,17 +23,19 @@ pub const SUMMARY: &str = "verify citation receipts resolve and carry exact supp
 pub const RECEIPT: &str = "docs/receipts/quote-or-drop.json";
 const POLICY: &str = "registries/quote_or_drop.toml";
 
-#[derive(Debug, Clone, Copy)]
+#[derive(Debug, Clone)]
 struct Policy {
     item_files: usize,
     citation_rows: usize,
+    bot_block_hosts: Vec<String>,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(rename_all = "SCREAMING_SNAKE_CASE")]
 pub enum Status {
+    Dead,
+    BotBlocked,
     Supporting,
-    Unreachable,
     NonSupporting,
     Unverifiable,
 }
@@ -68,8 +71,9 @@ pub struct Counts {
     pub cited: usize,
     pub http_resolved: usize,
     pub resolved: usize,
+    pub dead: usize,
+    pub bot_blocked: usize,
     pub supporting: usize,
-    pub unreachable: usize,
     pub non_supporting: usize,
     pub unverifiable: usize,
 }
@@ -126,9 +130,28 @@ fn policy(root: &Path) -> Result<Policy, String> {
     if item_files <= 0 || citation_rows <= 0 {
         return Err(format!("{}: denominators must be positive", path.display()));
     }
+    let bot_block_hosts = table
+        .get("bot_block_hosts")
+        .and_then(Value::as_array)
+        .ok_or_else(|| format!("{}: bot_block_hosts is required", path.display()))?
+        .iter()
+        .map(|value| {
+            value
+                .as_str()
+                .map(str::to_ascii_lowercase)
+                .ok_or_else(|| format!("{}: bot_block_hosts must contain strings", path.display()))
+        })
+        .collect::<Result<Vec<_>, _>>()?;
+    if bot_block_hosts.is_empty() {
+        return Err(format!(
+            "{}: bot_block_hosts must not be empty",
+            path.display()
+        ));
+    }
     Ok(Policy {
         item_files: item_files as usize,
         citation_rows: citation_rows as usize,
+        bot_block_hosts,
     })
 }
 
@@ -206,7 +229,28 @@ fn now_unix() -> u64 {
         .map_or(0, |duration| duration.as_secs())
 }
 
-fn fetch(url: &str, claim: Option<&str>) -> CitationRow {
+fn host(url: &str) -> Option<&str> {
+    url.split_once("://")?.1.split(['/', '?', '#']).next()
+}
+
+fn is_bot_block_host(url: &str, hosts: &[String]) -> bool {
+    host(url).is_some_and(|value| {
+        let value = value.to_ascii_lowercase();
+        hosts
+            .iter()
+            .any(|known| value == *known || value.ends_with(&format!(".{known}")))
+    })
+}
+
+fn status_for_http(url: &str, http_status: u16, bot_block_hosts: &[String]) -> Status {
+    if matches!(http_status, 403 | 429) && is_bot_block_host(url, bot_block_hosts) {
+        Status::BotBlocked
+    } else {
+        Status::Dead
+    }
+}
+
+fn fetch(url: &str, claim: Option<&str>, bot_block_hosts: &[String]) -> CitationRow {
     if url.to_ascii_lowercase().contains(".pdf") {
         return CitationRow {
             item_id: String::new(),
@@ -238,7 +282,7 @@ fn fetch(url: &str, claim: Option<&str>) -> CitationRow {
         return CitationRow {
             item_id: String::new(),
             url: url.to_string(),
-            status: Status::Unreachable,
+            status: Status::Dead,
             http_status: 0,
             error: Some("curl could not be started".to_string()),
             claim: claim.map(str::to_string),
@@ -257,7 +301,7 @@ fn fetch(url: &str, claim: Option<&str>) -> CitationRow {
         return CitationRow {
             item_id: String::new(),
             url: url.to_string(),
-            status: Status::Unreachable,
+            status: Status::Dead,
             http_status: 0,
             error: Some(if stderr.is_empty() {
                 "no HTTP status".to_string()
@@ -275,10 +319,11 @@ fn fetch(url: &str, claim: Option<&str>) -> CitationRow {
     let http_status = status_text.trim().parse::<u16>().unwrap_or_default();
     let response_sha256 = Some(sha256(body));
     if !(200..300).contains(&http_status) {
+        let status = status_for_http(url, http_status, bot_block_hosts);
         return CitationRow {
             item_id: String::new(),
             url: url.to_string(),
-            status: Status::Unreachable,
+            status,
             http_status,
             error: Some(if stderr.is_empty() {
                 format!("HTTP status {http_status}")
@@ -355,15 +400,23 @@ pub fn refresh(root: &Path) -> Result<(Receipt, Counts), String> {
         ));
     }
     let bank_sha256 = bank_sha256(root, &files)?;
-    let worker_count = 32usize.min(targets.len());
-    let chunk_size = targets.len().div_ceil(worker_count);
+    let mut unique = BTreeMap::<(String, Option<String>), CitationTarget>::new();
+    for target in &targets {
+        unique
+            .entry((target.url.clone(), target.claim.clone()))
+            .or_insert_with(|| target.clone());
+    }
+    let unique_targets = unique.into_values().collect::<Vec<_>>();
+    let worker_count = 32usize.min(unique_targets.len());
+    let chunk_size = unique_targets.len().div_ceil(worker_count);
     let mut workers = Vec::new();
-    for chunk in targets.chunks(chunk_size) {
+    for chunk in unique_targets.chunks(chunk_size) {
         let jobs = chunk.to_vec();
+        let bot_block_hosts = policy.bot_block_hosts.clone();
         workers.push(std::thread::spawn(move || {
             jobs.into_iter()
                 .map(|target| {
-                    let mut row = fetch(&target.url, target.claim.as_deref());
+                    let mut row = fetch(&target.url, target.claim.as_deref(), &bot_block_hosts);
                     row.item_id = target.item_id;
                     row.claim = target.claim.or(row.claim);
                     row
@@ -371,13 +424,25 @@ pub fn refresh(root: &Path) -> Result<(Receipt, Counts), String> {
                 .collect::<Vec<_>>()
         }));
     }
-    let mut rows = Vec::with_capacity(targets.len());
+    let mut fetched = BTreeMap::<(String, Option<String>), CitationRow>::new();
     for worker in workers {
-        rows.extend(
-            worker
-                .join()
-                .map_err(|_| "citation refresh worker panicked".to_string())?,
-        );
+        for row in worker
+            .join()
+            .map_err(|_| "citation refresh worker panicked".to_string())?
+        {
+            fetched.insert((row.url.clone(), row.claim.clone()), row);
+        }
+    }
+    let mut rows = Vec::with_capacity(targets.len());
+    for target in targets {
+        let key = (target.url.clone(), target.claim.clone());
+        let mut row = fetched
+            .get(&key)
+            .cloned()
+            .ok_or_else(|| format!("refresh lost fetched URL {}", target.url))?;
+        row.item_id = target.item_id;
+        row.claim = target.claim.or(row.claim);
+        rows.push(row);
     }
     rows.sort_by(|left, right| {
         left.item_id
@@ -406,12 +471,13 @@ fn counts(rows: &[CitationRow]) -> Counts {
     };
     for row in rows {
         match row.status {
+            Status::Dead => counts.dead += 1,
+            Status::BotBlocked => counts.bot_blocked += 1,
             Status::Supporting => {
                 counts.http_resolved += 1;
                 counts.resolved += 1;
                 counts.supporting += 1;
             }
-            Status::Unreachable => counts.unreachable += 1,
             Status::NonSupporting => {
                 counts.http_resolved += 1;
                 counts.non_supporting += 1;
@@ -475,10 +541,18 @@ fn validate_row(row: &CitationRow, failures: &mut Vec<String>) {
                 ));
             }
         }
-        Status::Unreachable => {
+        Status::Dead => {
             if (200..300).contains(&row.http_status) {
                 failures.push(format!(
-                    "{} {} marked UNREACHABLE with HTTP {}",
+                    "{} {} marked DEAD with HTTP {}",
+                    row.item_id, row.url, row.http_status
+                ));
+            }
+        }
+        Status::BotBlocked => {
+            if !matches!(row.http_status, 403 | 429) {
+                failures.push(format!(
+                    "{} {} marked BOT_BLOCKED with HTTP {}",
                     row.item_id, row.url, row.http_status
                 ));
             }
@@ -582,7 +656,10 @@ pub fn evaluate(root: &Path) -> Eval {
             ));
         }
         validate_row(row, &mut failures);
-        if row.status != Status::Supporting {
+        if matches!(
+            row.status,
+            Status::Dead | Status::NonSupporting | Status::Unverifiable
+        ) {
             failures.push(format!(
                 "{} {} is not admissible: status={:?}; unresolved citations fail closed",
                 row.item_id, row.url, row.status
@@ -598,12 +675,13 @@ pub fn evaluate(root: &Path) -> Eval {
     }
     let counts = counts(&receipt.rows);
     let mut report = format!(
-        "{NAME}: cited={} http_resolved={} resolved_for_grounding={} supporting={} unreachable={} non_supporting={} unverifiable={} item_files={}",
+        "{NAME}: cited={} http_resolved={} resolved_for_grounding={} dead={} bot_blocked={} supporting={} non_supporting={} unverifiable={} item_files={}",
         counts.cited,
         counts.http_resolved,
         counts.resolved,
+        counts.dead,
+        counts.bot_blocked,
         counts.supporting,
-        counts.unreachable,
         counts.non_supporting,
         counts.unverifiable,
         files.len()
@@ -676,17 +754,25 @@ mod tests {
             "supporting.json",
             "unreachable_bypassed.json",
             "non_supporting_bypassed.json",
+            "bot_blocked.json",
         ] {
             let path = Path::new(env!("CARGO_MANIFEST_DIR"))
                 .join("tests/fixtures/quote_or_drop")
                 .join(name);
-            let receipt: Receipt = serde_json::from_str(&fs::read_to_string(path).unwrap()).unwrap();
+            let receipt: Receipt =
+                serde_json::from_str(&fs::read_to_string(path).unwrap()).unwrap();
             let mut failures = Vec::new();
             validate_row(&receipt.rows[0], &mut failures);
-            if name == "supporting.json" {
-                assert!(failures.is_empty(), "supporting fixture failed: {failures:?}");
+            if matches!(name, "supporting.json" | "bot_blocked.json") {
+                assert!(
+                    failures.is_empty(),
+                    "supporting fixture failed: {failures:?}"
+                );
             } else {
-                assert!(!failures.is_empty(), "bypassed fixture did not fail: {name}");
+                assert!(
+                    !failures.is_empty(),
+                    "bypassed fixture did not fail: {name}"
+                );
             }
         }
     }
@@ -736,9 +822,48 @@ mod tests {
 
     #[test]
     fn pdf_is_unverifiable_and_not_fetched() {
-        let row = fetch("https://example.test/standard.pdf", Some("claim"));
+        let row = fetch("https://example.test/standard.pdf", Some("claim"), &[]);
         assert_eq!(row.status, Status::Unverifiable);
         assert!(row.error.unwrap().contains("PDF"));
+    }
+
+    #[test]
+    fn bot_blocked_is_not_a_citation_failure_but_bypass_is() {
+        let hosts = vec!["iso.org".to_string()];
+        assert_eq!(
+            status_for_http("https://www.iso.org/standard/1", 403, &hosts),
+            Status::BotBlocked
+        );
+        assert_eq!(
+            status_for_http("https://www.iso.org/standard/1", 404, &hosts),
+            Status::Dead
+        );
+
+        let blocked = CitationRow {
+            item_id: "m01-q001".to_string(),
+            url: "https://www.iso.org/standard/78550.html?browse=tc".to_string(),
+            status: Status::BotBlocked,
+            http_status: 403,
+            error: Some("known standards host blocks automation".to_string()),
+            claim: None,
+            supporting_text: None,
+            supporting_text_sha256: None,
+            response_sha256: Some("digest".to_string()),
+        };
+        let mut failures = Vec::new();
+        validate_row(&blocked, &mut failures);
+        assert!(
+            failures.is_empty(),
+            "bot-blocked citation failed: {failures:?}"
+        );
+
+        let bypassed = CitationRow {
+            status: Status::Supporting,
+            ..blocked
+        };
+        let mut bypass_failures = Vec::new();
+        validate_row(&bypassed, &mut bypass_failures);
+        assert!(!bypass_failures.is_empty(), "bot-block branch was bypassed");
     }
 
     #[test]

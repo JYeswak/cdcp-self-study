@@ -7,3 +7,4 @@
 schema_version = 1
 expected_item_files = 957
 expected_citation_rows = 1307
+bot_block_hosts = ["iso.org", "www.iso.org", "electropedia.org", "www.electropedia.org"]

@@ -15,12 +15,13 @@ pub fn run(ctx: &GateCtx) -> Result<(), GateError> {
     if ctx.has_flag("--refresh") {
         let (receipt, counts) = quote_or_drop::refresh(&ctx.root).map_err(GateError::error)?;
         println!(
-            "quote_or_drop refresh: cited={} http_resolved={} resolved_for_grounding={} supporting={} unreachable={} non_supporting={} unverifiable={} item_files={} receipt={}",
+            "quote_or_drop refresh: cited={} http_resolved={} resolved_for_grounding={} dead={} bot_blocked={} supporting={} non_supporting={} unverifiable={} item_files={} receipt={}",
             counts.cited,
             counts.http_resolved,
             counts.resolved,
+            counts.dead,
+            counts.bot_blocked,
             counts.supporting,
-            counts.unreachable,
             counts.non_supporting,
             counts.unverifiable,
             receipt.item_file_denominator,
