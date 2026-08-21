@@ -5,6 +5,7 @@
 # https://www.energy.gov/cmei/femp/best-management-practice-10-cooling-tower-management
 # Claim boundary: scale, corrosion, and biological fouling are bounded as
 # risks; no chemical program or treatment vendor is prescribed.
+# Source quote: Dissolved solids increase as cycles of concentration increase, which can cause scale and corrosion problems unless carefully controlled.
 id = "m10-q105"
 kind = "single-select"
 module = 10

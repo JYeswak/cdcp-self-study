@@ -3,6 +3,7 @@
 # Official catalog/preview receipt: IEC 60297-3-100:2008 — https://webstore.iec.ch/en/publication/1283
 # PASS: the current IEC catalog explicitly covers basic dimensions of front
 # panels, subracks, chassis, racks, and cabinets in the 482.6 mm (19 in) series.
+# Source quote: IEC 60297-3-100:2008 specifies the basic dimensions of front panels, subracks, chassis, racks and cabinets of the 482,6 mm (19 in) series.
 id = "m08-q041"
 kind = "single-select"
 module = 8

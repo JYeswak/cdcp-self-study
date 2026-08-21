@@ -26,27 +26,36 @@ quote is `UNVERIFIABLE`; it is not a pass. PDF sources are excluded by policy.
 
 The policy predeclares 957 item files and 1,307 unique item/URL citation rows.
 The corrected 2026-08-21 sweep recorded the current bank after the three sampled
-DEAD URLs were changed by the bank owner. The response classifier now uses the
-HTTP status itself: 403/429 are BOT_BLOCKED regardless of host, while 404/410,
-DNS/connection failures remain DEAD. The current-bank sweep recorded:
+DEAD URLs were changed by the bank owner. `DEAD=0` is a correction plus nine
+real repairs: pane 2 repaired nine genuinely broken links, while twenty-two of
+the original thirty-one were response-classification errors corrected here.
+The response classifier now uses the HTTP status itself: 403/429 are
+BOT_BLOCKED regardless of host, while 404/410, DNS/connection failures remain
+DEAD. The current-bank sweep recorded:
 
 | measure | count |
 | --- | ---: |
 | cited | 1,307 |
 | HTTP-resolved | 888 |
-| resolved for grounding | 0 |
+| resolved for grounding | 5 |
 | DEAD | 0 |
 | BOT_BLOCKED | 411 |
-| supporting | 0 |
-| non-supporting | 0 |
-| unverifiable | 896 |
+| supporting | 5 |
+| non-supporting | 7 |
+| unverifiable | 884 |
 
 The live gate exits 2 (RED), naming DEAD, NON_SUPPORTING, and UNVERIFIABLE rows.
 BOT_BLOCKED is reported but does not fail the item: the gate cannot verify that
-class by machine. The zero supporting count is an honest finding:
-existing item comments contain source summaries, not exact source quotations,
-so the sweep cannot promote them. A resolved page without a byte-present quote
-is not treated as supporting.
+class by machine. Five real items now have byte-present source quotes and return
+SUPPORTING. A resolved page without a byte-present quote is still not treated as
+supporting.
+
+The excerpt is currently carried by the item schema's `# Source quote:` comment
+convention, which `comment_claim` reads; it is not yet a typed TOML field. The
+smallest successful excerpts were a single source sentence or clause. The first
+q105 attempt used an older DOE sentence and correctly returned NON_SUPPORTING;
+the replacement is the current sentence about dissolved solids causing scale
+and corrosion.
 
 The committed causal fixtures cover the branches: intact support passes; a 404
 falsely marked supporting fails; a 200 response whose body lacks the claim,
