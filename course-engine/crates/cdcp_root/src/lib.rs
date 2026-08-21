@@ -15,6 +15,12 @@
 
 use std::path::{Path, PathBuf};
 
+mod workspace_identity;
+
+pub use workspace_identity::{
+    verify_workspace_identity, WorkspaceIdentity, WorkspaceIdentityError,
+};
+
 /// Presence of this file defines a source-checkout engine root.
 pub const ENGINE_ANCHOR: &str = "registries/claims.toml";
 

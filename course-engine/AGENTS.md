@@ -4,6 +4,15 @@
 
 Local-first CDCP **study** tool. Not EPI certification software.
 
+Canonical physical workspace root: `/Users/josh/cdcp-self-study/course-engine`
+
+Before any reservation, build, receipt, or commit command, run the physical
+workspace preflight from this checkout:
+`cargo run --locked -q -p cdcp_root --bin workspace-preflight`.
+It compares `pwd -P` semantics with this declared root. Symlink entrypoints
+normalize to this identity; a different checkout is refused. Evidence must
+use the resolved physical root as its path and Agent Mail project key.
+
 ## Read first
 
 `docs/ORACLE-GAUNTLET.md` · `docs/STANDARDS-KB.md` · `docs/OQ_REGISTER.md` · `docs/NEGATIVE_EVIDENCE.md`
