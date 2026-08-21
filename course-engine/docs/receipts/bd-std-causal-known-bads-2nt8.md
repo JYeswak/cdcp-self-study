@@ -52,7 +52,7 @@ signal.
 | 9 | `selftest_l6_coverage / empty-bank` | coverage domain scan; `empty bank` | live coverage GREEN | CANNOT_DETERMINE |
 | 10 | `selftest_l6_coverage / m01-only-bank` | required-module floor; `module 2:` | live coverage GREEN | **PROVEN** (scratch counterfactual) |
 | 11 | `selftest_l7_objectives / empty-objectives` | objective registry anti-vacuity; `zero [[objective]]` | live objectives GREEN | CANNOT_DETERMINE |
-| 12 | `selftest_l7_objectives / missing-claim-ref` | objective→claim link; `unresolved claim_id` | live objectives GREEN | CANNOT_DETERMINE |
+| 12 | `selftest_l7_objectives / missing-claim-ref` | objective→claim link; `unresolved claim_id` | live objectives GREEN | **PROVEN** (scratch counterfactual) |
 | 13 | `selftest_l7_objectives / empty-claim-ids` | objective schema; `claim_ids empty` | live objectives GREEN | CANNOT_DETERMINE |
 | 14 | `selftest_l7_objectives / empty-bank` | objective bank domain; `empty bank` | live objectives GREEN | CANNOT_DETERMINE |
 | 15 | `selftest_l7_objectives / declared-module-starved` | derived module floor; `domain module 15: 0 approved < min 1` | reasoned exemption control GREEN | CANNOT_DETERMINE |
@@ -296,3 +296,19 @@ the predeclared primary denominator is **24**, with **5/24 causal**, **24/24
 intact**, and **19/24 CANNOT_DETERMINE**. The separately predeclared cited-gate
 denominator is **3/3 causal**. No source detector, bank item, or shared pane
 file was changed; all bypasses were scratch-only source mutations.
+
+## Primary causal progress: unresolved objective claim
+
+Primary status is now **`causal=6/24`, `intact=24/24`**. Row 12 used one
+objective whose `claim_ids` named `c-missing`, while the claims registry
+contained a valid unrelated `c-valid` row. The domain, policy, topic, and
+bank controls were valid and topic coverage was explicitly skipped as the
+fixture contract permits. The intact production `cdcp_learn::objectives`
+implementation returned RED with `objective o1: unresolved claim_id
+'c-missing'`.
+
+Changing the objective to cite `c-valid` produced GREEN. The scratch bypass
+changed only the `!known_claims.contains(&s)` branch; restoring `c-missing`
+then returned GREEN as `BYPASSED PASS: unresolved-claim detector disabled`.
+The fixture's RED assertion therefore fails under that bypass, proving the
+objective-to-claim detector is causal.
