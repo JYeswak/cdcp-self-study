@@ -59,7 +59,7 @@ signal.
 | 16 | `selftest_l7_objectives / exemption-without-reason` | exemption schema/floor; `coverage_exempt module 15 has no reason` | reasoned exemption control GREEN | **PROVEN** (scratch counterfactual) |
 | 17 | `selftest_l7_objectives / domain-min-undeclared` | registry cross-source drift; `[[domain_min]] module 15 is not declared` | declared-domain control GREEN | **PROVEN** (scratch counterfactual) |
 | 18 | `selftest_l7_objectives / topic-undeclared-domain` | topic/domain cross-source drift; `topics.toml: topic in an undeclared domain` | declared-topic control GREEN | **PROVEN** (scratch counterfactual) |
-| 19 | `selftest_orphan / empty-bank` | orphan scan anti-vacuity; `empty bank` | live orphan integrity GREEN | CANNOT_DETERMINE |
+| 19 | `selftest_orphan / empty-bank` | orphan scan anti-vacuity; `empty bank` | live orphan integrity GREEN | **PROVEN** (scratch counterfactual) |
 | 20 | `selftest_orphan / empty-topics` | topic-registry anti-vacuity; `empty topic registry` | live orphan integrity GREEN | CANNOT_DETERMINE |
 | 21 | `selftest_orphan / orphan-item-ref` | forward reference integrity; `unknown topic_id` | clean specimen bank/live control GREEN | **PROVEN** (scratch counterfactual) |
 | 22 | `selftest_orphan / unanchored-item` | item anchoring; `missing/empty topic_ids` | clean specimen bank/live control GREEN | **PROVEN** (scratch counterfactual) |
@@ -431,6 +431,26 @@ neutralized; the neutralization is part of the evidence and is not a live
 change.
 
 Updated current status: primary **13/24 causal, 24/24 intact, 11/24
+CANNOT_DETERMINE**; cited-gate supplemental **3/3 causal**. The primary
+denominator remains 24; the supplemental three are reported separately and
+are not added to it.
+
+## Primary causal progress: orphan scan empty bank
+
+Primary status is now **`causal=14/24`, `intact=24/24`**. Row 19 used a
+valid topic registry and no bank files. The intact orphan evaluation returned
+RED with `empty bank: zero items loaded (vacuous orphan scan is ERROR)`.
+
+Adding one approved item that references the declared topic produced the
+positive-control GREEN. An empty bank also naturally produces the separate
+zero-approved-pool and orphan-topic results, so the scratch fixture held
+those unrelated branches off in both legs. The scratch-only bypass disabled
+only the empty-bank branch; restoring the empty bank then returned
+`BYPASSED PASS: orphan empty-bank detector disabled`. This proves the named
+orphan empty-bank detector causal after those unrelated preconditions were
+neutralized; no live detector, bank item, or shared pane file changed.
+
+Updated current status: primary **14/24 causal, 24/24 intact, 10/24
 CANNOT_DETERMINE**; cited-gate supplemental **3/3 causal**. The primary
 denominator remains 24; the supplemental three are reported separately and
 are not added to it.
