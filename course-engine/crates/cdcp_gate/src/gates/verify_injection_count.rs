@@ -68,16 +68,14 @@
 //! * Whether the registry itself is right. `--require` names the suites that must
 //!   report; a suite nobody registered and nobody runs is outside its reach.
 //!
-//! # This is a PORT, not a rewrite
+//! # Retirement boundary
 //!
-//! It replaces `scripts/verify_injection_count.py` byte-for-byte on stdout and on
-//! the exit code, verified case-by-case against the Python original by
-//! `tests/diff_verify_injection_count.rs`. The Python is the oracle: three defects
-//! found during the original port were fixed **in the Python first**, and this
-//! file was then changed to match, so the differential flags a divergence rather
-//! than blessing one. The three, for the record — a duplicate `--require` entry no
-//! longer double-counts (it is a usage ERROR), findings name the file actually
-//! scanned instead of a hardcoded `README.md`, and word-spelled counts parse.
+//! The former Python oracle and differential harness have been retired. This
+//! Rust gate retains the established stdout and exit semantics, and
+//! `scripts/selftest_injection_count.sh` owns the known-bad drift cases. The
+//! three original port corrections remain covered by the Rust tests: duplicate
+//! `--require` entries are usage errors, findings name the file actually
+//! scanned, and word-spelled counts parse.
 //!
 //! ## Exit codes: 0 / 1, not the crate's 0 / 2 / 3 / 4
 //!

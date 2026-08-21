@@ -2062,7 +2062,6 @@ ok "V11 runbook bank items present"
 # roster would turn every nested run RED for the wrong reason and mask the
 # stage the nested run exists to prove.
 if [ "${CDCP_IN_SELFTEST:-0}" != "1" ]; then
-  [ -f scripts/verify_injection_count.py ] || fail "missing scripts/verify_injection_count.py (drift guard required)"
   echo "==> selftest_injection_count.sh (L4 drift-guard known-bad)"
   run_selftest "injection-count selftest" sh scripts/selftest_injection_count.sh
   ok "drift-guard selftest (off-by-one RED · missing receipt RED · zero RED · unregistered RED · empty log ERROR)"

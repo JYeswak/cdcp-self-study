@@ -134,7 +134,7 @@ about it. The rules added here — a DECLARED module with no items goes RED nami
 the module, an exemption without a reason is an ERROR, a recorded exemption with
 a reason is honoured, a topic in an undeclared domain is drift, an empty registry
 is anti-vacuous — are covered only by legs run by hand. They belong in the suite
-(whose INJECTIONS= count is drift-guarded by verify_injection_count.py, so the
+(whose INJECTIONS= count is drift-guarded by the Rust verify-injection-count gate, so the
 advertised total moves with them) or alongside the verify_coverage legs in
 crates/cdcp_gate/tests/rebase_module_bounds.rs.
 

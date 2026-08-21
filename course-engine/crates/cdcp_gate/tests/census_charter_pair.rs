@@ -91,7 +91,10 @@ fn registry_src() -> PathBuf {
 }
 
 fn plant_src() -> PathBuf {
-    PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("tests/diff_verify_injection_count.rs")
+    // The injection-count differential harness was retired with its Python
+    // oracle. Keep this mutate/delete pair anchored to a live registered
+    // harness so the census proof remains executable.
+    PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("tests/diff_verify_coverage.rs")
 }
 
 fn restore_safe(dest: &Path, original: &[u8]) {

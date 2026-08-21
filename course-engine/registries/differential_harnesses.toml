@@ -51,7 +51,7 @@ schema_version = 1
 #   verify_coverage.py          YES (3)   check.sh:683  -> selftest_l6_coverage.sh
 #   verify_bank.py              YES (2)   check.sh:719  -> smoke_slo.sh
 #   verify_doc_consistency.py   YES (1)   check.sh:767  -> selftest_doc_consistency.sh, as $CHECKER
-#   verify_injection_count.py   YES (1)   check.sh:802  -> selftest_injection_count.sh, as $CHECKER
+#   verify_injection_count.py   RETIRED   Rust selftest owns the gate
 #   validate_grounding.py       RETIRED   Rust unit suite owns the gate
 #   verify_content_lock.py      no        not referenced by any script
 #   verify_knowledge_paths.py   RETIRED   file deleted (jhd.33); rust is CI
@@ -194,20 +194,6 @@ owner_bead = "bd-coverage-counts-retired-items-49jh"
 # Live positive for LEG I: the per-side helper lives here (rk9n). Deleting
 # those two calls must turn the meta-gate RED and name this file.
 verdict_shape_leg = true
-
-[[harness]]
-file = "diff_verify_injection_count.rs"
-gate = "verify-injection-count"
-comparators = ["assert_identical", "check"]
-# CONVERTED 2026-08-17 (bd-engine-not-gate-ar39.8): last 5 agreement-only
-# call sites (word-shape, unparseable/comment lines, readme-shapes,
-# path-spellings, verdict-green) now pin a named substring or structured
-# field. fo1l had already made the comparator return Run.
-cases = 38
-agreement_only = 0
-owner_bead = "bd-1sd.13"
-verdict_shape_leg = false
-verdict_shape_skip_reason = "not a measured instance (lt7/qm65/rk9n); LEG D covers the gate; instance helper is the fourth-patch shape this bead forbids"
 
 [[harness]]
 file = "diff_verify_knowledge_paths.rs"

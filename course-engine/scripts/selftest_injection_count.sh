@@ -17,7 +17,8 @@
 # in that sentence — the length of the check.sh chain [bd-1sd.13].
 #
 # Plants run the Rust binary (same helper contract as check.sh).
-# scripts/verify_injection_count.py is the cargo-test differential oracle only.
+# The Rust implementation is the sole gate-path implementation; this selftest
+# retains the known-bad drift cases.
 #
 # Cases (injection count):
 #   a) log + README agree                 → GREEN (baseline)

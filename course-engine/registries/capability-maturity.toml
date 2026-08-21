@@ -154,9 +154,9 @@ last_review = "2026-08-14"
 claim = "Each selftest suite emits an INJECTIONS= receipt, verify-injection-count sums them at run time and fails check.sh when the count README advertises drifts from the count the suites report, and that drift guard is itself asserted red on an off-by-one."
 charter_claim = { file = "CHARTER.md", row = "L4 Gates proven to trip", status = "YES · wired" }
 evidence = [
-  { kind = "test", ref = "crates/cdcp_gate/tests/diff_verify_injection_count.rs::live_tree_green_case_is_identical_and_green" },
-  { kind = "known_bad", ref = "crates/cdcp_gate/tests/diff_verify_injection_count.rs::live_tree_drift_is_identical_and_red" },
-  { kind = "known_bad", ref = "crates/cdcp_gate/tests/diff_verify_injection_count.rs::case_b_readme_off_by_one_is_identical_and_red" },
+  { kind = "test", ref = "crates/cdcp_gate/src/gates/verify_injection_count.rs::baseline_is_green" },
+  { kind = "known_bad", ref = "crates/cdcp_gate/src/gates/verify_injection_count.rs::drift_is_caught_in_both_directions" },
+  { kind = "known_bad", ref = "scripts/selftest_injection_count.sh::off_by_one_red" },
   { kind = "contract", ref = "scripts/check.sh" },
 ]
 

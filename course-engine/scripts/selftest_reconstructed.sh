@@ -77,7 +77,7 @@ CDCP="$CDCP_BIN_DIR/cdcp"
 # -- L4 drift guard: self-reported RED-injection count ----------------------
 # INJ counts the injections this run actually asserted RED (green controls are
 # NOT counted). Emitted once, on the success path only, as a machine-readable
-# line that scripts/verify_injection_count.py aggregates. A suite that stops
+# line that the Rust verify-injection-count gate aggregates. A suite that stops
 # emitting the line is an ERROR to that gate, never a silent zero.
 INJ=0
 SUITE_NAME="selftest_reconstructed"
