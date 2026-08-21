@@ -5,7 +5,7 @@
 # public domain: alarm processor failed silently; "FE's EMS did not have such
 # a notification system" for self-monitoring; "absence of alarm was read as
 # evidence of health."
-# https://www.energy.gov/oe/downloads/blackout-2003-final-report-august-14-2003
+# https://www.energy.gov/oe/articles/blackout-2003-final-report-august-14-2003-blackout-united-states-and-canada-causes-and
 # Decides ESCALATION ON LOSS OF REDUNDANCY, not "page on the last unit."
 # Options are length-balanced on purpose; teaching lives in `explanation`.
 id = "m15-q233"

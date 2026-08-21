@@ -4,7 +4,7 @@
 # Cites: UK HSE CHIS6 "Better alarm handling" (freely published) — alarm
 # definition and priority-setting principle: an alarm requires operator action,
 # priority is set by consequence of the operator failing to respond.
-# https://www.hse.gov.uk/comah/sragtech/techmeasalidings.htm
+# https://www.hse.gov.uk/pubns/chis6.pdf
 # Decides MATRIX COMPLETENESS, not a point-count quiz or alarm≠status (m15-q224).
 # Options are length-balanced on purpose; teaching lives in `explanation`.
 id = "m15-q232"

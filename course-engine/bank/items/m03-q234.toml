@@ -2,7 +2,7 @@
 # Public heading: CTDC "TIA-942 Certified Design Consultant" —
 # https://www.epi-ap.com/services/1/3/109/TIA-942_Certified_Design_Consultant_(CTDC)
 # Cites: TIA-942-B (2017) and TIA-942-C (2024) — different requirement sets.
-# https://tiaonline.org/resources/tia-942-b/
+# https://tiaonline.org/products-and-services/tia942certification/ansi-tia-942-standard/
 # Edition matters — a 942-B design may not satisfy 942-C requirements.
 # Decides EDITION PINNING, not a preference for newer. bloom = apply.
 # Options length-balanced; teaching lives in `explanation`.
