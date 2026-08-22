@@ -9,10 +9,10 @@ kind = "single-select"
 module = 10
 stem = "An owner cites the EPA’s Quincy closed-loop water-reuse case to approve a different design: a sealed liquid loop rejecting heat to dry coolers with no evaporative tower. Which is the defensible M10 answer?"
 choices = [
-  "Treat the cases as identical and conclude no makeup water, water rights, or permit review is needed for the dry-cooler design, regardless of site or jurisdiction",
+  "Treat the cases as identical and conclude makeup water, water rights, and permit review drop out for the dry-cooler design, independent of site or jurisdiction",
   "Reject the transfer: verify site-specific makeup, water rights, discharge, approvals, dry-loop boundary, and WUE under ISO/IEC 30134-9:2022",
-  "Assume every closed loop makes WUE zero and removes humidification, domestic, fire, and other site-water obligations",
-  "Reject dry coolers because every data centre must use evaporative towers and cannot use a different heat-rejection design"
+  "Assume a closed loop makes WUE unused and removes humidification, domestic, fire, and other site-water obligations",
+  "Reject dry coolers because a data centre must use evaporative towers and cannot use a different heat-rejection design"
 ]
 correct = "B"
 explanation = "The EPA case is useful precisely because its closed-loop reuse system still required makeup water and site-specific rights and permits. DOE FEMP and the NREL ESIF report distinguish recirculating liquid paths and dry or evaporative heat rejection, but neither grants a universal siting permission. ISO/IEC 30134-9:2022 supplies the WUE KPI and measurement categories; it does not turn a project example into a benchmark or permit."

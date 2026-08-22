@@ -7,10 +7,10 @@ kind = "single-select"
 module = 11
 stem = "A cable tray overload risk includes:"
 choices = [
-  "Improved bend radius always, regardless of tray loading",
+  "Improved bend radius, independent of tray loading",
   "Mechanical stress, heat, and fill violations",
-  "Automatic category upgrades without testing or design review",
-  "Higher optical power budgets magically across every link"
+  "Category upgrades without testing or design review",
+  "Higher optical power budgets magically across the link"
 ]
 correct = "B"
 explanation = "Tray overload creates fill, heat, and mechanical-stress risk; it does not improve bend radius, upgrade categories automatically, or change an optical budget."

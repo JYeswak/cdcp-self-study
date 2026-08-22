@@ -10,9 +10,9 @@ kind = "single-select"
 module = 13
 stem = "Balancing security strictness with maintenance access means:"
 choices = [
-  "Giving every vendor permanent full-site access for convenience",
-  "Prohibiting all maintenance forever",
-  "Removing locks during business hours only without logging",
+  "Giving vendors permanent full-site access for convenience",
+  "Prohibiting maintenance as a standing rule",
+  "Removing locks during business hours without logging",
   "Authorizing time-bounded access with supervision and return of credentials rather than permanent over-privilege"
 ]
 correct = "D"

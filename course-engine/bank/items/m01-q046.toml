@@ -10,10 +10,10 @@ kind = "single-select"
 module = 1
 stem = "An edge or micro data centre is primarily intended to:"
 choices = [
-  "Serve only as a diesel storage yard",
-  "Replace all hyperscale cloud regions globally",
+  "Serve as a diesel storage yard",
+  "Replace hyperscale cloud regions globally",
   "Locate compute closer to users or devices to cut latency and backhaul needs",
-  "Eliminate the need for any cooling",
+  "Eliminate the need for cooling",
 ]
 correct = "C"
 explanation = "Edge or micro sites place compute near users or devices to reduce latency and backhaul; they are not diesel yards, a replacement for every central region, or a way to remove cooling."

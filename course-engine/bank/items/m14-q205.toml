@@ -7,10 +7,10 @@ kind = "single-select"
 module = 14
 stem = "Alarm panels and annunciation design should aim for:"
 choices = [
-  "Maximum page storms for every warning bit",
+  "Maximum page storms for warning bits",
   "Actionable, prioritized alerts with clear ownership rather than undifferentiated floods of equal-severity noise",
-  "Silent failures with no local indication",
-  "Identical response for informational and critical events always"
+  "Silent failures that leave operators without a local indication",
+  "Identical response for informational and critical events"
 ]
 correct = "B"
 explanation = "Alarm philosophy is part of reliability—page storms, silent failure, or treating every informational event as critical hides real emergencies."

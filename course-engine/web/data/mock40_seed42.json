@@ -1,6 +1,6 @@
 {
   "answer_key_policy": "Learner pack omits correct letters. Keys live in keys_seed42.json (e2e/harness + post-grade explanations only). WASM grade uses full BankItem array in bank_items_seed42.json (includes correct; required for client-side GradeExact).",
-  "bank_hash": "d6f10648dc699bb42c47bf9c7fad9cc32e7abab4cb815c57d2c986cb5b1d36d3",
+  "bank_hash": "19f625bc0916b88d2ad91a90d079ed14a6e639a6ce1e7613c1b6cfe2d51dc086",
   "exam_id": "mock40",
   "items": [
     {
@@ -146,9 +146,9 @@
     {
       "choices": [
         "Speed installation with factory-tested fit",
-        "Slow deployment and maximize field polishing always",
-        "Eliminate all polarity planning and testing for pre-terminated trunks",
-        "Avoid any pathway design and rely on the trunk manufacturer"
+        "Slow deployment and maximize field polishing",
+        "Eliminate polarity planning and testing for pre-terminated trunks",
+        "Avoid pathway design and rely on the trunk manufacturer"
       ],
       "id": "m11-q132",
       "stem": "Pre-terminated trunk cables are often used in DCs to:"
@@ -245,10 +245,10 @@
     },
     {
       "choices": [
-        "Treat the cases as identical and conclude no makeup water, water rights, or permit review is needed for the dry-cooler design, regardless of site or jurisdiction",
+        "Treat the cases as identical and conclude makeup water, water rights, and permit review drop out for the dry-cooler design, independent of site or jurisdiction",
         "Reject the transfer: verify site-specific makeup, water rights, discharge, approvals, dry-loop boundary, and WUE under ISO/IEC 30134-9:2022",
-        "Assume every closed loop makes WUE zero and removes humidification, domestic, fire, and other site-water obligations",
-        "Reject dry coolers because every data centre must use evaporative towers and cannot use a different heat-rejection design"
+        "Assume a closed loop makes WUE unused and removes humidification, domestic, fire, and other site-water obligations",
+        "Reject dry coolers because a data centre must use evaporative towers and cannot use a different heat-rejection design"
       ],
       "id": "m10-q217",
       "stem": "An owner cites the EPA’s Quincy closed-loop water-reuse case to approve a different design: a sealed liquid loop rejecting heat to dry coolers with no evaporative tower. Which is the defensible M10 answer?"
@@ -335,9 +335,9 @@
     },
     {
       "choices": [
-        "Operators memorise every valve tag without any written aid",
-        "Every informational log entry pages the executive on call",
-        "Calibration of the field sensors is no longer required",
+        "Operators memorise valve tags without a written aid",
+        "Informational log entries page the executive on call",
+        "Calibration of the field sensors drops out of the operating routine",
         "The page names the next action"
       ],
       "id": "bank-m14-q124",

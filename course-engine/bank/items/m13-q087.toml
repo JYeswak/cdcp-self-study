@@ -10,10 +10,10 @@ kind = "single-select"
 module = 13
 stem = "Fail-secure locking on power loss means the lock:"
 choices = [
-  "Always unlocks for convenience",
-  "Turns off all CCTV",
+  "Unlocks for convenience on power loss",
+  "Turns off CCTV on power loss",
   "Remains locked from unsecured side, with free egress",
-  "Requires no mechanical exit path ever, regardless of life safety"
+  "Drops the mechanical exit path from life-safety review"
 ]
 correct = "C"
 explanation = "Fail-secure keeps the unsecured entry side locked on power loss while preserving free egress; it does not always unlock or eliminate a mechanical exit path."

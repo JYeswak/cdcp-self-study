@@ -10,10 +10,10 @@ kind = "single-select"
 module = 1
 stem = "When executives ask “why invest in redundancy,” the strongest CDCP-framed answer is:"
 choices = [
-  "Redundancy is required only for offices, not IT",
+  "Redundancy is required for offices, not IT",
   "Redundancy reduces the business impact of single failures aligned to criticality and cost of downtime",
-  "Redundancy is only aesthetic and has no relationship to criticality, downtime cost, or the consequences of a single failure",
-  "Redundancy always eliminates human error completely",
+  "Redundancy is aesthetic and has little relationship to criticality, downtime cost, or the consequences of a single failure",
+  "Redundancy eliminates human error completely",
 ]
 correct = "B"
 explanation = "Redundancy reduces the business impact of selected failures in proportion to criticality and downtime cost; it is not office-only decoration, a substitute for process, or a guarantee that human error disappears."

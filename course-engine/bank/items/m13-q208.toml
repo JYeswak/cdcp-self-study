@@ -10,9 +10,9 @@ kind = "single-select"
 module = 13
 stem = "A second physical-access factor such as a PIN or biometric is used to:"
 choices = [
-  "Slow only visitors but never staff, regardless of portal design",
-  "Eliminate the need for camera coverage at all portals",
-  "Replace visitor escort policies always, even in sensitive zones",
+  "Slow visitors but skip staff, independent of portal design",
+  "Eliminate the need for camera coverage at portals",
+  "Replace visitor escort policies, even in sensitive zones",
   "Stronger asserted identity and authentication assurance"
 ]
 correct = "D"

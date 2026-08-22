@@ -8,9 +8,9 @@ kind = "single-select"
 module = 14
 stem = "Notification best practice includes putting runbook links in alerts so that:"
 choices = [
-  "Operators memorise every valve tag without any written aid",
-  "Every informational log entry pages the executive on call",
-  "Calibration of the field sensors is no longer required",
+  "Operators memorise valve tags without a written aid",
+  "Informational log entries page the executive on call",
+  "Calibration of the field sensors drops out of the operating routine",
   "The page names the next action",
 ]
 correct = "D"

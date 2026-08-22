@@ -7,10 +7,10 @@ kind = "single-select"
 module = 15
 stem = "Runbooks differ from one-off MOPs in that runbooks typically:"
 choices = [
-  "Are never tested",
+  "Skip testing after the first draft",
   "Capture repeatable incident/response procedures for recurring classes of events",
-  "Replace all engineering design docs",
-  "Only exist as verbal tribal knowledge"
+  "Replace the engineering design docs",
+  "Exist as verbal tribal knowledge"
 ]
 correct = "B"
 explanation = "Runbooks capture repeatable responses for recurring events and should be tested; they do not replace engineering design documents or live only as tribal knowledge."

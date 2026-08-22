@@ -1129,10 +1129,10 @@
   {
     "bloom": "understand",
     "choices": [
-      "Always unlocks for convenience",
-      "Turns off all CCTV",
+      "Unlocks for convenience on power loss",
+      "Turns off CCTV on power loss",
       "Remains locked from unsecured side, with free egress",
-      "Requires no mechanical exit path ever, regardless of life safety"
+      "Drops the mechanical exit path from life-safety review"
     ],
     "citation_ids": [],
     "correct": "C",
@@ -2036,9 +2036,9 @@
   {
     "bloom": "apply",
     "choices": [
-      "Operators memorise every valve tag without any written aid",
-      "Every informational log entry pages the executive on call",
-      "Calibration of the field sensors is no longer required",
+      "Operators memorise valve tags without a written aid",
+      "Informational log entries page the executive on call",
+      "Calibration of the field sensors drops out of the operating routine",
       "The page names the next action"
     ],
     "citation_ids": [],
@@ -2429,10 +2429,10 @@
   {
     "bloom": "understand",
     "choices": [
-      "Are never tested",
+      "Skip testing after the first draft",
       "Capture repeatable incident/response procedures for recurring classes of events",
-      "Replace all engineering design docs",
-      "Only exist as verbal tribal knowledge"
+      "Replace the engineering design docs",
+      "Exist as verbal tribal knowledge"
     ],
     "citation_ids": [],
     "correct": "B",
@@ -2597,9 +2597,9 @@
   {
     "bloom": "understand",
     "choices": [
-      "All parts should be ordered only after multi-day approvals during outages always",
-      "MTBF eliminates any need for spares",
-      "Spares never affect restore time",
+      "Parts should be ordered after multi-day approvals during outages",
+      "MTBF eliminates the need for spares",
+      "Spares do not affect restore time",
       "On-site or rapidly available critical spares shorten waiting time after failure"
     ],
     "citation_ids": [],
@@ -2940,10 +2940,10 @@
   {
     "bloom": "understand",
     "choices": [
-      "Serve only as a diesel storage yard",
-      "Replace all hyperscale cloud regions globally",
+      "Serve as a diesel storage yard",
+      "Replace hyperscale cloud regions globally",
       "Locate compute closer to users or devices to cut latency and backhaul needs",
-      "Eliminate the need for any cooling"
+      "Eliminate the need for cooling"
     ],
     "citation_ids": [],
     "correct": "C",
@@ -3184,10 +3184,10 @@
   {
     "bloom": "understand",
     "choices": [
-      "Redundancy is required only for offices, not IT",
+      "Redundancy is required for offices, not IT",
       "Redundancy reduces the business impact of single failures aligned to criticality and cost of downtime",
-      "Redundancy is only aesthetic and has no relationship to criticality, downtime cost, or the consequences of a single failure",
-      "Redundancy always eliminates human error completely"
+      "Redundancy is aesthetic and has little relationship to criticality, downtime cost, or the consequences of a single failure",
+      "Redundancy eliminates human error completely"
     ],
     "citation_ids": [],
     "correct": "B",
@@ -17001,10 +17001,10 @@
   {
     "bloom": "analyze",
     "choices": [
-      "Treat the cases as identical and conclude no makeup water, water rights, or permit review is needed for the dry-cooler design, regardless of site or jurisdiction",
+      "Treat the cases as identical and conclude makeup water, water rights, and permit review drop out for the dry-cooler design, independent of site or jurisdiction",
       "Reject the transfer: verify site-specific makeup, water rights, discharge, approvals, dry-loop boundary, and WUE under ISO/IEC 30134-9:2022",
-      "Assume every closed loop makes WUE zero and removes humidification, domestic, fire, and other site-water obligations",
-      "Reject dry coolers because every data centre must use evaporative towers and cannot use a different heat-rejection design"
+      "Assume a closed loop makes WUE unused and removes humidification, domestic, fire, and other site-water obligations",
+      "Reject dry coolers because a data centre must use evaporative towers and cannot use a different heat-rejection design"
     ],
     "citation_ids": [],
     "correct": "B",
@@ -17276,10 +17276,10 @@
   {
     "bloom": "analyze",
     "choices": [
-      "Copper always outruns single-mode fiber at campus distances and backbone links",
+      "Copper outruns single-mode fiber at campus distances and backbone links",
       "Cost, PoE options, and interfaces favor short copper",
-      "Copper is immune to all interference always",
-      "Copper never needs testing"
+      "Copper is immune to interference in this occupancy",
+      "Copper skips field testing once installed"
     ],
     "citation_ids": [],
     "correct": "B",
@@ -17670,10 +17670,10 @@
   {
     "bloom": "analyze",
     "choices": [
-      "Removing all need for any horizontal cabling design thought",
+      "Removing the need for horizontal cabling design thought",
       "Shorten rack copper and use structured uplinks",
-      "Forcing all servers onto wireless only",
-      "Eliminating MDA/HDA planning concepts entirely in every standard"
+      "Forcing servers onto wireless uplinks",
+      "Eliminating MDA/HDA planning concepts from structured-cabling standards"
     ],
     "citation_ids": [],
     "correct": "B",
@@ -17844,9 +17844,9 @@
     "bloom": "apply",
     "choices": [
       "Speed installation with factory-tested fit",
-      "Slow deployment and maximize field polishing always",
-      "Eliminate all polarity planning and testing for pre-terminated trunks",
-      "Avoid any pathway design and rely on the trunk manufacturer"
+      "Slow deployment and maximize field polishing",
+      "Eliminate polarity planning and testing for pre-terminated trunks",
+      "Avoid pathway design and rely on the trunk manufacturer"
     ],
     "citation_ids": [],
     "correct": "A",
@@ -17869,10 +17869,10 @@
   {
     "bloom": "apply",
     "choices": [
-      "Improved bend radius always, regardless of tray loading",
+      "Improved bend radius, independent of tray loading",
       "Mechanical stress, heat, and fill violations",
-      "Automatic category upgrades without testing or design review",
-      "Higher optical power budgets magically across every link"
+      "Category upgrades without testing or design review",
+      "Higher optical power budgets magically across the link"
     ],
     "citation_ids": [],
     "correct": "B",
@@ -19959,9 +19959,9 @@
   {
     "bloom": "understand",
     "choices": [
-      "Slow only visitors but never staff, regardless of portal design",
-      "Eliminate the need for camera coverage at all portals",
-      "Replace visitor escort policies always, even in sensitive zones",
+      "Slow visitors but skip staff, independent of portal design",
+      "Eliminate the need for camera coverage at portals",
+      "Replace visitor escort policies, even in sensitive zones",
       "Stronger asserted identity and authentication assurance"
     ],
     "citation_ids": [],
@@ -20154,9 +20154,9 @@
   {
     "bloom": "analyze",
     "choices": [
-      "Giving every vendor permanent full-site access for convenience",
-      "Prohibiting all maintenance forever",
-      "Removing locks during business hours only without logging",
+      "Giving vendors permanent full-site access for convenience",
+      "Prohibiting maintenance as a standing rule",
+      "Removing locks during business hours without logging",
       "Authorizing time-bounded access with supervision and return of credentials rather than permanent over-privilege"
     ],
     "citation_ids": [],
@@ -20376,10 +20376,10 @@
   {
     "bloom": "understand",
     "choices": [
-      "Maximum page storms for every warning bit",
+      "Maximum page storms for warning bits",
       "Actionable, prioritized alerts with clear ownership rather than undifferentiated floods of equal-severity noise",
-      "Silent failures with no local indication",
-      "Identical response for informational and critical events always"
+      "Silent failures that leave operators without a local indication",
+      "Identical response for informational and critical events"
     ],
     "citation_ids": [],
     "correct": "B",
@@ -20853,10 +20853,10 @@
   {
     "bloom": "analyze",
     "choices": [
-      "Maintenance always succeeds on first try",
-      "Rollback is never useful in any maintenance change",
+      "Maintenance succeeds on first try",
+      "Rollback is unused in a maintenance change",
       "Abort and restore a known-good state",
-      "Monitoring should be off during all maintenance"
+      "Monitoring should be off during the maintenance window"
     ],
     "citation_ids": [],
     "correct": "C",
