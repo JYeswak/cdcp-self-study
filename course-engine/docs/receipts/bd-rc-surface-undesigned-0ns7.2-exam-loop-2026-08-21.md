@@ -35,16 +35,17 @@ and `docs/ux/UX-FINDINGS-LOG.md` remained frozen.
 
 ## New close blocker found during verification
 
-The new review control is set to `hidden = true` when all 40 items are answered
-(`web/assets/js/mock.js:497-510`), but the browser computed `display: flex`,
-`visibility: visible`, a `228×44px` rectangle, and `tabIndex=0` because the
-author stylesheet's `.btn { display: inline-flex; }` at
+The new review control was initially set to `hidden = true` when all 40 items
+were answered (`web/assets/js/mock.js:497-510`), but the browser computed
+`display: flex`, `visibility: visible`, a `228×44px` rectangle, and `tabIndex=0`
+because the author stylesheet's `.btn { display: inline-flex; }` at
 `web/assets/css/course.css:325-337` overrides the user-agent `[hidden]` rule.
 It remained visible/focusable after `40 / 40 · 40 answered · 0 left` and retained
-the stale text `Review unanswered (Q40)`.  This is a real regression in the W3
-patch, not a reason to weaken a test.  The owning pane should add an explicit
-hidden-state rule or otherwise remove the control from the tab order; this pane
-did not edit the other pane's owned web files.
+the stale text `Review unanswered (Q40)`.  This was a real regression in the W3
+patch, not a reason to weaken a test.  Follow-up commit `88fc5086` now sets an
+explicit inline hidden-state display and clears the stale label; a fresh browser
+run measured `display:none`, a zero-sized rectangle, and no focus-order entry.
+The same explicit pre-grade hiding was applied to the Results recovery panel.
 
 The existing rendered-output smoke also reds before it can certify the patch:
 
@@ -55,8 +56,8 @@ smoke_rendered_output: ERROR: mock.unanswered: source marker missing
 ```
 
 That fixture still asserts the pre-W3 copy and must be updated by its owner in
-the same scoped product change.  Until that red and the hidden-control defect
-are resolved, W3 is not honestly closeable.
+the same scoped product change.  The hidden-control defect is now resolved, but
+this red and the human decisions below still prevent an honest W3 close.
 
 ## Decisions still requiring the operator
 
