@@ -1,0 +1,18 @@
+# Tick exemptions are deliberately empty by default.
+#
+# A temporary exception must be recorded as:
+#
+# [[exemption]]
+# commit = "<full or abbreviated commit object id>"
+# expires = "YYYY-MM-DD"
+# bead = "bd-..."
+# reason = "why this delivery cannot emit a tick yet"
+#
+# `cdcp_gate tick-guard` resolves the commit, requires a future expiry date,
+# and refuses malformed or expired rows. There are no permanent exemptions.
+
+[[exemption]]
+commit = "18ec55ecabf1d44d6988b05fbaa51315e94a8188"
+expires = "2026-09-04"
+bead = "bd-pqi3"
+reason = "loop-wave research crate; live ledger has another pane's uncommitted T31-T53 so emit-tick would mix receipts. Expires; re-emit or drop."
