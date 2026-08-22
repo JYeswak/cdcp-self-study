@@ -10,12 +10,12 @@ module = 6
 stem = "Power quality events that double-conversion UPS is meant to mitigate include:"
 choices = [
   "Sags, swells, and many input disturbances by regenerating output from the DC link",
-  "Only fire smoke density",
-  "Only underfloor static pressure",
-  "Only copper near-end crosstalk"
+  "Utility outages measured in days, by running the rectifier without a battery",
+  "CRAH fan harmonics, by acting as the hall's dedicated active filter",
+  "Lightning-induced transients on data pairs, as a substitute for signal SPDs"
 ]
 correct = "A"
-explanation = "Double-conversion regenerates output from the DC link to mitigate sags, swells, and other input disturbances; smoke, underfloor pressure, and fibre crosstalk are different signals."
+explanation = "Double-conversion regenerates output from the DC link to mitigate sags, swells, and other input disturbances; it is not a days-long standby plant, a CRAH harmonic filter, or a data-pair SPD."
 topic_ids = ["m06-power-quality", "m06-ups"]
 objective_ids = []
 bloom = "understand"

@@ -4665,14 +4665,14 @@
   {
     "bloom": "apply",
     "choices": [
-      "Tier labels never influence buyer risk perception, contractual interpretation, or the assurance communicated by a sales document",
-      "Self-assessment always equals formal certification, because a site's own checklist has the same program controls and assurance as an independent award",
+      "Buyers treat the label as informal colour and ignore it when they read the contract",
+      "A site's own checklist carries the same program controls as an independent Uptime award",
       "Uptime Tier terminology implies a defined program; misuse creates false assurance",
-      "Standards forbid writing the word tier in any language"
+      "The word Tier is reserved to TIA documents and is out of place in Uptime discussion"
     ],
     "citation_ids": [],
     "correct": "C",
-    "explanation": "Uptime Tier terminology implies a defined program, so an informal self-assessment can create false assurance and contract risk; it is not meaningless, self-certifying, or forbidden vocabulary.",
+    "explanation": "Uptime Tier terminology implies a defined program, so an informal self-assessment can create false assurance and contract risk; it is not ignored colour, a substitute award, or a TIA-only word.",
     "id": "m02-q206",
     "kind": "single-select",
     "module": 2,
@@ -5692,14 +5692,14 @@
   {
     "bloom": "apply",
     "choices": [
-      "Guaranteed free dark fibre, because transport corridors cannot affect contamination, vibration, pollution, or emergency access",
+      "Dark fibre along the corridor, offered as a reason to ignore contamination and vibration",
       "Accident, vibration, pollution, and emergency-access interference risks",
-      "Automatic Tier certification, because nearby transport hazards are converted into a facility rating rather than a site risk",
-      "Zero electromagnetic environment"
+      "A nearby transport corridor converting into a facility rating during design review",
+      "A quiet electromagnetic environment because vehicles screen radio energy"
     ],
     "citation_ids": [],
     "correct": "B",
-    "explanation": "Airports, rail, and highways can introduce accident, vibration, pollution, and emergency-access interference; a nearby corridor does not guarantee fibre, a facility rating, or a clean electromagnetic environment.",
+    "explanation": "Airports, rail, and highways can introduce accident, vibration, pollution, and emergency-access interference; a nearby corridor does not buy fibre, a facility rating, or a screened electromagnetic environment.",
     "id": "m03-q205",
     "kind": "single-select",
     "module": 3,
@@ -9049,14 +9049,14 @@
   {
     "bloom": "understand",
     "choices": [
-      "Floating every chassis with no ground path",
-      "Disabling SPD devices permanently",
+      "Leaving rack chassis isolated so fault current has to find a paint path",
+      "Turning surge protective devices off after installation to stop nuisance trips",
       "Safer fault and transient behaviour when bonded",
-      "Using water pipes as the only earthing electrode always"
+      "Bonding to a water pipe and treating that pipe as the earthing electrode"
     ],
     "citation_ids": [],
     "correct": "C",
-    "explanation": "Bonded infrastructure supports safer fault and transient behavior plus EMC; floating chassis, disabling SPDs, or relying on water pipes alone are not controlled bonding designs.",
+    "explanation": "Bonded infrastructure supports safer fault and transient behavior plus EMC; isolated chassis, disabled SPDs, or a water pipe used as the electrode are not controlled bonding designs.",
     "id": "m06-q082",
     "kind": "single-select",
     "module": 6,
@@ -9147,14 +9147,14 @@
   {
     "bloom": "understand",
     "choices": [
-      "Zero maintenance forever with no monitoring or inspection",
-      "Unlimited cycle life equal to lithium, regardless of chemistry",
+      "A maintenance-free life that removes inspection intervals",
+      "Cycle life matching lithium across chemistries",
       "Sealed/recombinant trade-offs versus flooded cells",
-      "Operating best at freezing temperatures only"
+      "Preferring rooms held below freezing for longer calendar life"
     ],
     "citation_ids": [],
     "correct": "C",
-    "explanation": "VRLA versus flooded cells is a sealed or recombinant maintenance, space, and lifecycle trade-off; neither offers zero maintenance, unlimited cycles, or freezing-temperature superiority.",
+    "explanation": "VRLA versus flooded cells is a sealed or recombinant maintenance, space, and lifecycle trade-off; neither removes inspection, matches lithium cycle life, nor prefers a freezing room.",
     "id": "m06-q086",
     "kind": "single-select",
     "module": 6,
@@ -11054,13 +11054,13 @@
     "bloom": "understand",
     "choices": [
       "Sags, swells, and many input disturbances by regenerating output from the DC link",
-      "Only fire smoke density",
-      "Only underfloor static pressure",
-      "Only copper near-end crosstalk"
+      "Utility outages measured in days, by running the rectifier without a battery",
+      "CRAH fan harmonics, by acting as the hall's dedicated active filter",
+      "Lightning-induced transients on data pairs, as a substitute for signal SPDs"
     ],
     "citation_ids": [],
     "correct": "A",
-    "explanation": "Double-conversion regenerates output from the DC link to mitigate sags, swells, and other input disturbances; smoke, underfloor pressure, and fibre crosstalk are different signals.",
+    "explanation": "Double-conversion regenerates output from the DC link to mitigate sags, swells, and other input disturbances; it is not a days-long standby plant, a CRAH harmonic filter, or a data-pair SPD.",
     "id": "m06-q252",
     "kind": "single-select",
     "module": 6,
@@ -14296,14 +14296,14 @@
   {
     "bloom": "apply",
     "choices": [
-      "Ignore airflow because power always wins",
+      "Give busway clearance priority and treat cooling discharge as a leftover",
       "Coordinate clearances, airflow, and service access",
-      "Place all cables as underfloor blockages intentionally",
-      "Eliminate aisle containment always when busway is used"
+      "Route copper underfloor in a way that chokes tile openings as a cooling assist",
+      "Drop aisle containment once busway is energized, to free the overhead"
     ],
     "citation_ids": [],
     "correct": "B",
-    "explanation": "Overhead power and cooling need coordinated clearances, airflow, and service access; energizing busway does not justify blocking discharge paths, deferring fire coordination, or removing containment.",
+    "explanation": "Overhead power and cooling need coordinated clearances, airflow, and service access; energizing busway does not justify leftover discharge paths, choking tiles, or dropping containment.",
     "id": "m09-q145",
     "kind": "single-select",
     "module": 9,
@@ -16822,14 +16822,14 @@
   {
     "bloom": "apply",
     "choices": [
-      "No site-access roads are needed because a tanker can deliver water from any public shoulder",
-      "Any roadside puddle may be used without quality checks, permits, or connection planning",
-      "Disconnect all level sensors permanently so truck filling cannot trip an alarm",
+      "A tanker waiting on a public shoulder, with the site fence treated as optional",
+      "A nearby drainage ditch may be used as the fill source, skipping quality checks and permits",
+      "Silencing tank-level alarms during the fill so operators are not paged",
       "Access routes, fill connections, water quality acceptance, and time-to-deploy logistics"
     ],
     "citation_ids": [],
     "correct": "D",
-    "explanation": "Tanker water only helps if the truck can reach a fill point, the connection exists, the water is acceptable for the loop, and the whole sequence fits inside the outage. Each alternative removes one of those and treats the remainder as sufficient, which is how emergency water plans fail on the day.",
+    "explanation": "Tanker water helps if the truck can reach a fill point, the connection exists, the water is acceptable for the loop, and the sequence fits inside the outage. A shoulder wait, a ditch source, or silenced level alarms each drop one of those.",
     "id": "m10-q210",
     "kind": "single-select",
     "module": 10,
@@ -16847,13 +16847,13 @@
     "bloom": "understand",
     "choices": [
       "Encourages measuring and managing water consumed relative to IT work done, alongside energy metrics",
-      "Replace electrical metering entirely and treat water as the only meaningful efficiency measure",
-      "Proves water is unnecessary for every plant, including evaporative cooling and fire protection",
-      "Is only a marketing acronym with no operational use or connection to measured IT work"
+      "A replacement for electrical metering, making water the efficiency number that matters",
+      "A demonstration that evaporative cooling and fire protection can run without water",
+      "A brochure term unconnected to measured IT work"
     ],
     "citation_ids": [],
     "correct": "A",
-    "explanation": "WUE makes water a managed quantity rather than an unexamined one by relating consumption to IT work, alongside energy metrics rather than instead of them. Dismissing it as marketing is the tempting position given how often it is quoted without a boundary -- the metric is boundary-sensitive, which is an argument for stating the boundary, not for discarding the measurement.",
+    "explanation": "WUE makes water a managed quantity rather than an unexamined one by relating consumption to IT work, alongside energy metrics rather than instead of them. It does not replace electrical metering, prove a plant can run dry, or remain a brochure term.",
     "id": "m10-q211",
     "kind": "single-select",
     "module": 10,
@@ -17227,14 +17227,14 @@
   {
     "bloom": "understand",
     "choices": [
-      "Only the cold aisle containment doors",
-      "UPS battery formation charging only",
-      "Raised floor pedestal torque specs only",
+      "The MDF where horizontal copper lands on patch panels for each cabinet row",
+      "The meet-me room that is required to sit inside the computer room for latency",
+      "The generator paralleling switchgear lineup, because utility service enters there",
       "Where external service provider pathways enter and are demised for the facility"
     ],
     "citation_ids": [],
     "correct": "D",
-    "explanation": "An entrance space receives external provider pathways and demarcation before internal distribution; cold-aisle doors, battery charging, and pedestal torque are unrelated controls.",
+    "explanation": "An entrance space receives external provider pathways and demarcation before internal distribution; it is not the horizontal MDF, a computer-room meet-me, or the generator switchgear.",
     "id": "m11-q107",
     "kind": "single-select",
     "module": 11,
@@ -17596,14 +17596,14 @@
   {
     "bloom": "apply",
     "choices": [
-      "Only indoor patch colors and documented labeling schemes",
-      "Only CRAH filter MERV ratings and maintenance intervals",
+      "A single carrier lateral, provided the indoor patch field is documented",
+      "Matching CRAH counts in each building so cooling, not connectivity, is the failover",
       "Diverse entrances, risks, latency, and failover",
-      "Only raised floor pedestal spacing"
+      "Identical raised-floor depths so the two halls can share one entrance pathway"
     ],
     "citation_ids": [],
     "correct": "C",
-    "explanation": "Inter-site planning weighs diverse entrances, risks, latency, providers, and failover; patch colors, CRAH filters, and pedestal spacing do not make sites resilient.",
+    "explanation": "Inter-site planning weighs diverse entrances, risks, latency, providers, and failover; a documented single lateral, a cooling-count failover, or a shared entrance pathway does not make sites resilient.",
     "id": "m11-q122",
     "kind": "single-select",
     "module": 11,
@@ -18191,14 +18191,14 @@
   {
     "bloom": "understand",
     "choices": [
-      "Only rack paint color and cabinet finish",
-      "Only generator fuel type and day-tank capacity",
-      "Only fire agent type",
+      "The number of rack units the access switch occupies",
+      "Whether the pathway is overhead tray or underfloor",
+      "The PoE budget advertised on the access switch, taken as a frequency rating",
       "Bandwidth, distance, and noise environment"
     ],
     "citation_ids": [],
     "correct": "D",
-    "explanation": "Copper category follows bandwidth, distance, and noise environment; paint, generator fuel, and fire-agent choices do not select the cable class.",
+    "explanation": "Copper category follows bandwidth, distance, and noise environment; switch RU count, tray versus underfloor, and PoE budget do not select the cable class.",
     "id": "m11-q206",
     "kind": "single-select",
     "module": 11,
@@ -18928,9 +18928,9 @@
   {
     "bloom": "analyze",
     "choices": [
-      "Correct: any shared conduit is a single point of failure, so no criteria document can permit two connections in one pathway",
-      "Correct, because concrete encasement is a fire-resistance measure and has no bearing on how a physical route is classified",
-      "Irrelevant: pathway diversity rules govern carrier laterals only, so node-to-node connections sit outside any diversity test",
+      "Correct: a shared conduit is a single point of failure, so a criteria document can refuse two connections in one pathway",
+      "Correct, because concrete encasement is a fire-resistance measure and does not classify a physical route",
+      "Irrelevant: pathway diversity rules govern carrier laterals, so node-to-node connections sit outside the diversity test",
       "Over-applied: this criterion allows node connections to share a conduit system where the shared pathway is concrete-encased"
     ],
     "citation_ids": [
@@ -20475,14 +20475,14 @@
   {
     "bloom": "analyze",
     "choices": [
-      "Correlation always proves the network team is at fault",
+      "Correlation assigns the incident to the network team as the default owner",
       "Cross-domain correlation speeds root-cause isolation when cooling plant and room environment interact",
-      "Systems should never share timestamps",
-      "It replaces mechanical expertise entirely"
+      "Each domain should keep its own clock so the traces stay independent",
+      "The overlay removes the need for mechanical plant knowledge"
     ],
     "citation_ids": [],
     "correct": "B",
-    "explanation": "Cross-domain correlation speeds root-cause isolation when cooling plant and room environment interact; it does not prove one team is at fault, eliminate timestamps, or replace mechanical expertise.",
+    "explanation": "Cross-domain correlation speeds root-cause isolation when cooling plant and room environment interact; it does not assign default blame, split the clocks, or replace mechanical plant knowledge.",
     "id": "m14-q209",
     "kind": "single-select",
     "module": 14,

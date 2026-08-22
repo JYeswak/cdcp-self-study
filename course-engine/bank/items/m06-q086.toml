@@ -9,13 +9,13 @@ kind = "single-select"
 module = 6
 stem = "VRLA batteries in UPS rooms are commonly chosen historically for:"
 choices = [
-  "Zero maintenance forever with no monitoring or inspection",
-  "Unlimited cycle life equal to lithium, regardless of chemistry",
+  "A maintenance-free life that removes inspection intervals",
+  "Cycle life matching lithium across chemistries",
   "Sealed/recombinant trade-offs versus flooded cells",
-  "Operating best at freezing temperatures only",
+  "Preferring rooms held below freezing for longer calendar life",
 ]
 correct = "C"
-explanation = "VRLA versus flooded cells is a sealed or recombinant maintenance, space, and lifecycle trade-off; neither offers zero maintenance, unlimited cycles, or freezing-temperature superiority."
+explanation = "VRLA versus flooded cells is a sealed or recombinant maintenance, space, and lifecycle trade-off; neither removes inspection, matches lithium cycle life, nor prefers a freezing room."
 topic_ids = ["m06-batteries"]
 objective_ids = []
 bloom = "understand"

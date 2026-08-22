@@ -20,9 +20,9 @@ kind = "single-select"
 module = 11
 stem = "A US DoD project is designed to UFC 3-580-01. Two node connections share one conduit system, and that shared pathway is concrete-encased. A reviewer whose background is commercial colo calls it an automatic diversity failure. Assess the reviewer."
 choices = [
-  "Correct: any shared conduit is a single point of failure, so no criteria document can permit two connections in one pathway",
-  "Correct, because concrete encasement is a fire-resistance measure and has no bearing on how a physical route is classified",
-  "Irrelevant: pathway diversity rules govern carrier laterals only, so node-to-node connections sit outside any diversity test",
+  "Correct: a shared conduit is a single point of failure, so a criteria document can refuse two connections in one pathway",
+  "Correct, because concrete encasement is a fire-resistance measure and does not classify a physical route",
+  "Irrelevant: pathway diversity rules govern carrier laterals, so node-to-node connections sit outside the diversity test",
   "Over-applied: this criterion allows node connections to share a conduit system where the shared pathway is concrete-encased",
 ]
 correct = "D"

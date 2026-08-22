@@ -7,13 +7,13 @@ kind = "single-select"
 module = 11
 stem = "Entrance room / carrier entrance concepts relate most closely to:"
 choices = [
-  "Only the cold aisle containment doors",
-  "UPS battery formation charging only",
-  "Raised floor pedestal torque specs only",
+  "The MDF where horizontal copper lands on patch panels for each cabinet row",
+  "The meet-me room that is required to sit inside the computer room for latency",
+  "The generator paralleling switchgear lineup, because utility service enters there",
   "Where external service provider pathways enter and are demised for the facility"
 ]
 correct = "D"
-explanation = "An entrance space receives external provider pathways and demarcation before internal distribution; cold-aisle doors, battery charging, and pedestal torque are unrelated controls."
+explanation = "An entrance space receives external provider pathways and demarcation before internal distribution; it is not the horizontal MDF, a computer-room meet-me, or the generator switchgear."
 topic_ids = ["m11-tia942-topology", "m11-site-to-site"]
 objective_ids = []
 bloom = "understand"

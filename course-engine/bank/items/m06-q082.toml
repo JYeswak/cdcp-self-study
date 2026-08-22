@@ -7,13 +7,13 @@ kind = "single-select"
 module = 6
 stem = "Equipotential bonding of racks and cable tray supports:"
 choices = [
-  "Floating every chassis with no ground path",
-  "Disabling SPD devices permanently",
+  "Leaving rack chassis isolated so fault current has to find a paint path",
+  "Turning surge protective devices off after installation to stop nuisance trips",
   "Safer fault and transient behaviour when bonded",
-  "Using water pipes as the only earthing electrode always",
+  "Bonding to a water pipe and treating that pipe as the earthing electrode",
 ]
 correct = "C"
-explanation = "Bonded infrastructure supports safer fault and transient behavior plus EMC; floating chassis, disabling SPDs, or relying on water pipes alone are not controlled bonding designs."
+explanation = "Bonded infrastructure supports safer fault and transient behavior plus EMC; isolated chassis, disabled SPDs, or a water pipe used as the electrode are not controlled bonding designs."
 topic_ids = ["m06-grounding-bonding"]
 objective_ids = []
 bloom = "understand"

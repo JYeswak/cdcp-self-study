@@ -7,13 +7,13 @@ kind = "single-select"
 module = 11
 stem = "Copper cabling category or class selection is driven mainly by:"
 choices = [
-  "Only rack paint color and cabinet finish",
-  "Only generator fuel type and day-tank capacity",
-  "Only fire agent type",
+  "The number of rack units the access switch occupies",
+  "Whether the pathway is overhead tray or underfloor",
+  "The PoE budget advertised on the access switch, taken as a frequency rating",
   "Bandwidth, distance, and noise environment"
 ]
 correct = "D"
-explanation = "Copper category follows bandwidth, distance, and noise environment; paint, generator fuel, and fire-agent choices do not select the cable class."
+explanation = "Copper category follows bandwidth, distance, and noise environment; switch RU count, tray versus underfloor, and PoE budget do not select the cable class."
 topic_ids = ["m11-copper", "m11-planning"]
 objective_ids = []
 bloom = "understand"

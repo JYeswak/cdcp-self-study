@@ -7,13 +7,13 @@ kind = "single-select"
 module = 9
 stem = "Overhead busway power and overhead cooling can coexist, but planners must still:"
 choices = [
-  "Ignore airflow because power always wins",
+  "Give busway clearance priority and treat cooling discharge as a leftover",
   "Coordinate clearances, airflow, and service access",
-  "Place all cables as underfloor blockages intentionally",
-  "Eliminate aisle containment always when busway is used"
+  "Route copper underfloor in a way that chokes tile openings as a cooling assist",
+  "Drop aisle containment once busway is energized, to free the overhead"
 ]
 correct = "B"
-explanation = "Overhead power and cooling need coordinated clearances, airflow, and service access; energizing busway does not justify blocking discharge paths, deferring fire coordination, or removing containment."
+explanation = "Overhead power and cooling need coordinated clearances, airflow, and service access; energizing busway does not justify leftover discharge paths, choking tiles, or dropping containment."
 topic_ids = ["m09-non-raised", "m09-supplemental"]
 objective_ids = []
 bloom = "apply"

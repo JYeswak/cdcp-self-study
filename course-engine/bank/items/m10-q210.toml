@@ -7,13 +7,13 @@ kind = "single-select"
 module = 10
 stem = "Truck-delivered water as an emergency measure requires advance planning for:"
 choices = [
-  "No site-access roads are needed because a tanker can deliver water from any public shoulder",
-  "Any roadside puddle may be used without quality checks, permits, or connection planning",
-  "Disconnect all level sensors permanently so truck filling cannot trip an alarm",
+  "A tanker waiting on a public shoulder, with the site fence treated as optional",
+  "A nearby drainage ditch may be used as the fill source, skipping quality checks and permits",
+  "Silencing tank-level alarms during the fill so operators are not paged",
   "Access routes, fill connections, water quality acceptance, and time-to-deploy logistics"
 ]
 correct = "D"
-explanation = "Tanker water only helps if the truck can reach a fill point, the connection exists, the water is acceptable for the loop, and the whole sequence fits inside the outage. Each alternative removes one of those and treats the remainder as sufficient, which is how emergency water plans fail on the day."
+explanation = "Tanker water helps if the truck can reach a fill point, the connection exists, the water is acceptable for the loop, and the sequence fits inside the outage. A shoulder wait, a ditch source, or silenced level alarms each drop one of those."
 topic_ids = ["m10-backup"]
 objective_ids = []
 bloom = "apply"
