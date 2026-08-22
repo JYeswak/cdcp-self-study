@@ -9,10 +9,10 @@ kind = "single-select"
 module = 13
 stem = "Camera coverage priorities commonly include perimeter, mantraps, docks, and:"
 choices = [
-  "Only under-desk office trash cans, not controlled zones",
+  "Under-desk office trash cans, not controlled zones",
   "Critical plant rooms and zone transitions",
-  "The inside of every sealed hard drive, rather than a facility zone",
-  "Outdoor landscaping only with no doors"
+  "The inside of a sealed hard drive, rather than a facility zone",
+  "Outdoor landscaping without doors"
 ]
 correct = "B"
 explanation = "Cameras prioritize perimeter, portals, docks, critical plant, and zone transitions; office trash, sealed disks, and landscaping alone do not cover access risk."

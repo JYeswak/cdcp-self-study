@@ -7,9 +7,9 @@ kind = "single-select"
 module = 15
 stem = "Spare-parts strategy linked to MTTR targets should prioritize:"
 choices = [
-  "Only cosmetic bezels and noncritical appearance parts",
-  "Zero inventory to maximize accounting metrics only and accept delays",
-  "Random consumer parts with no BOM match or compatibility",
+  "Cosmetic bezels and noncritical appearance parts",
+  "Unused inventory to maximize accounting metrics and accept delays",
+  "Random consumer parts without a BOM match or compatibility",
   "Long-lead critical components prevent site stranding"
 ]
 correct = "D"

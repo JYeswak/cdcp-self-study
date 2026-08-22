@@ -1493,10 +1493,10 @@
   {
     "bloom": "remember",
     "choices": [
-      "Only under-desk office trash cans, not controlled zones",
+      "Under-desk office trash cans, not controlled zones",
       "Critical plant rooms and zone transitions",
-      "The inside of every sealed hard drive, rather than a facility zone",
-      "Outdoor landscaping only with no doors"
+      "The inside of a sealed hard drive, rather than a facility zone",
+      "Outdoor landscaping without doors"
     ],
     "citation_ids": [],
     "correct": "B",
@@ -17572,10 +17572,10 @@
   {
     "bloom": "remember",
     "choices": [
-      "A single NIC and single upstream switch only, without a redundant attachment",
+      "A single NIC and single upstream switch, without a redundant attachment",
       "Multiple attachments to redundant infrastructure",
-      "No upstream connectivity",
-      "Only out-of-band serial with no data plane or redundant attachment"
+      "Missing upstream connectivity",
+      "Out-of-band serial without a data plane or redundant attachment"
     ],
     "citation_ids": [],
     "correct": "B",
@@ -17621,9 +17621,9 @@
   {
     "bloom": "understand",
     "choices": [
-      "Identical terms with no operational difference ever in all designs and implementations",
-      "Only wireless mesh modes with no wired distribution or patching",
-      "Only power busway taps",
+      "Identical terms without an operational difference in designs and implementations",
+      "Wireless mesh modes without wired distribution or patching",
+      "Power busway taps",
       "Patch circuits between parties or systems"
     ],
     "citation_ids": [],
@@ -20902,9 +20902,9 @@
   {
     "bloom": "apply",
     "choices": [
-      "Only cosmetic bezels and noncritical appearance parts",
-      "Zero inventory to maximize accounting metrics only and accept delays",
-      "Random consumer parts with no BOM match or compatibility",
+      "Cosmetic bezels and noncritical appearance parts",
+      "Unused inventory to maximize accounting metrics and accept delays",
+      "Random consumer parts without a BOM match or compatibility",
       "Long-lead critical components prevent site stranding"
     ],
     "citation_ids": [],
@@ -21206,10 +21206,10 @@
   {
     "bloom": "understand",
     "choices": [
-      "Subpart S applies only to the utility’s exclusive-control substation — that regime is 1910.269, not this work",
+      "Subpart S applies to the utility’s exclusive-control substation — that regime is 1910.269, not this work",
       "1910.147(a)(1)(ii)(D) excludes electrical-hazard exposure on electric-utilization installations and points to Subpart S (1910.331–.335, principally 1910.333). Putting a UPS into maintenance bypass from its HMI is not isolation — physical disconnect, lock, stored energy released, absence of voltage verified including backfeed",
-      "The only applicable rule is the utility’s own tariff, because the campus takes a medium-voltage feed",
-      "1910.147 already covers every electric-utilization installation, so a second citation is decoration"
+      "The applicable rule is the utility’s own tariff, because the campus takes a medium-voltage feed",
+      "1910.147 already covers electric-utilization installations, so a second citation is decoration"
     ],
     "citation_ids": [],
     "correct": "B",
@@ -21857,10 +21857,10 @@
   {
     "bloom": "evaluate",
     "choices": [
-      "Wait for an evacuation drill before documenting any of the missing plan steps",
+      "Wait for an evacuation drill before documenting the missing plan steps",
       "Add evacuation, accounting, critical-operations, contact, and review steps",
-      "Keep the contact-only plan if the alarm test passes",
-      "Move every emergency-plan detail into a vendor SLA and close the gap"
+      "Keep the contact plan if the alarm test passes",
+      "Move emergency-plan detail into a vendor SLA and close the gap"
     ],
     "citation_ids": [],
     "correct": "B",

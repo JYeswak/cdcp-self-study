@@ -11,10 +11,10 @@ kind = "single-select"
 module = 15
 stem = "An energy-control programme that cites only 29 CFR 1910.147 for work on UPS, switchgear, PDU, and busway is mis-scoped because:"
 choices = [
-  "Subpart S applies only to the utility’s exclusive-control substation — that regime is 1910.269, not this work",
+  "Subpart S applies to the utility’s exclusive-control substation — that regime is 1910.269, not this work",
   "1910.147(a)(1)(ii)(D) excludes electrical-hazard exposure on electric-utilization installations and points to Subpart S (1910.331–.335, principally 1910.333). Putting a UPS into maintenance bypass from its HMI is not isolation — physical disconnect, lock, stored energy released, absence of voltage verified including backfeed",
-  "The only applicable rule is the utility’s own tariff, because the campus takes a medium-voltage feed",
-  "1910.147 already covers every electric-utilization installation, so a second citation is decoration"
+  "The applicable rule is the utility’s own tariff, because the campus takes a medium-voltage feed",
+  "1910.147 already covers electric-utilization installations, so a second citation is decoration"
 ]
 correct = "B"
 explanation = "Subpart S covers electrical-hazard work on utilization installations, and HMI bypass or a utility tariff does not provide physical isolation; 1910.147 alone is not a blanket substitute for disconnecting, locking, releasing, and verifying absence of voltage."

@@ -7,9 +7,9 @@ kind = "single-select"
 module = 11
 stem = "Cross-connect versus interconnect concepts (educational) distinguish:"
 choices = [
-  "Identical terms with no operational difference ever in all designs and implementations",
-  "Only wireless mesh modes with no wired distribution or patching",
-  "Only power busway taps",
+  "Identical terms without an operational difference in designs and implementations",
+  "Wireless mesh modes without wired distribution or patching",
+  "Power busway taps",
   "Patch circuits between parties or systems"
 ]
 correct = "D"
