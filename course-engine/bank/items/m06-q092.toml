@@ -8,9 +8,9 @@ kind = "single-select"
 module = 6
 stem = "Double-conversion UPS helps power quality mainly by:"
 choices = [
-  "Removing all downstream loose connections automatically",
-  "Eliminating the need for any monitoring",
-  "Cooling batteries with refrigerant always",
+  "Removing downstream loose connections as a side effect of conversion",
+  "Eliminating the need for UPS and feeder monitoring",
+  "Cooling batteries with refrigerant as part of conversion",
   "Regenerates output and buffers disturbances",
 ]
 correct = "D"

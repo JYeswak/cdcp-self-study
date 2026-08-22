@@ -7,10 +7,10 @@ kind = "single-select"
 module = 8
 stem = "Rack-level security (doors, locks, sensors) is most relevant when:"
 choices = [
-  "The building has no perimeter at all and racks replace site security completely",
-  "Only outdoor generators need locks",
+  "The building skips a perimeter, and racks replace site security",
+  "Outdoor generators are the equipment that needs locks",
   "Compartmentalized access for mixed-sensitivity tenants",
-  "All staff should share one master key left in the door for access control"
+  "Staff share one master key left in the door for access control"
 ]
 correct = "C"
 explanation = "Cabinet doors and sensors compartmentalise access where tenants of differing sensitivity share a hall, giving a per-cabinet boundary inside a shared room. They complement facility access control rather than substituting for it -- and a master key left in the door is not an access control at all, it is the absence of one."

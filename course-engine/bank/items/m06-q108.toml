@@ -7,9 +7,9 @@ kind = "single-select"
 module = 6
 stem = "Wet stacking risk is associated with diesel generators that:"
 choices = [
-  "Always operate at full nameplate with load banks daily",
-  "Use only natural gas, regardless of fuel availability",
-  "Have no exhaust system",
+  "Operate at full nameplate with load banks daily",
+  "Use natural gas in place of diesel, independent of fuel availability",
+  "Lack an exhaust system",
   "Runs at light load without loaded exercise",
 ]
 correct = "D"

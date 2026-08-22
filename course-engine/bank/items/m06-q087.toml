@@ -8,10 +8,10 @@ kind = "single-select"
 module = 6
 stem = "Lithium-ion UPS/BESS chemistries often attract interest because of:"
 choices = [
-  "Zero fire design considerations",
+  "A chemistry that drops fire design out of the installation",
   "Footprint and weight advantages with fire controls",
-  "Elimination of all electrical codes and monitoring duties",
-  "No need for monitoring, ventilation, or fire controls",
+  "Elimination of electrical codes and monitoring duties",
+  "A design that skips monitoring, ventilation, and fire controls",
 ]
 correct = "B"
 explanation = "Li-ion can improve footprint and runtime density, but thermal runaway, monitoring, ventilation, and fire controls remain design obligations; density does not remove codes or fire risk."

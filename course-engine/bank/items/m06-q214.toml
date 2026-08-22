@@ -7,10 +7,10 @@ kind = "single-select"
 module = 6
 stem = "Paralleling generators helps availability and operations primarily by:"
 choices = [
-  "Removing the need for fuel storage forever, regardless of runtime planning",
-  "Making ATS unnecessary in all designs, regardless of source configuration",
+  "Removing the need for fuel storage, independent of runtime planning",
+  "Making ATS unnecessary, independent of source configuration",
   "Enables N+1 and maintenance",
-  "Converting harmonics to DC automatically, regardless of power topology"
+  "Converting harmonics to DC, independent of power topology"
 ]
 correct = "C"
 explanation = "Multiple paralleled sets create capacity and maintenance flexibility; they do not eliminate fuel storage, ATSs, or convert harmonics automatically."

@@ -8,9 +8,9 @@ kind = "single-select"
 module = 6
 stem = "Severe phase imbalance on a three-phase UPS output feeding mixed single-phase rack loads most often risks:"
 choices = [
-  "Automatic perfect balancing by the generator only",
-  "Higher battery amp-hours, regardless of phase loading",
-  "Lower heat in transformers always, regardless of loading",
+  "Perfect balancing by the standby generator",
+  "Higher battery amp-hours, independent of phase loading",
+  "Lower heat in transformers, independent of loading",
   "Overloaded phases and nuisance trips"
 ]
 correct = "D"

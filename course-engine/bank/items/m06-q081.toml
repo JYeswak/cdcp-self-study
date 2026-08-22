@@ -8,9 +8,9 @@ module = 6
 stem = "A classic field defect is creating extra neutral-ground bonds downstream of the designated point because:"
 choices = [
   "Circulating currents and nuisance issues",
-  "It always improves PUE",
-  "Codes require a bond at every rack PDU, regardless of bonding point",
-  "It removes all harmonics",
+  "It improves PUE by shortening the return path",
+  "Codes require a bond at each rack PDU, independent of the designated bonding point",
+  "It removes harmonics from the feeder",
 ]
 correct = "A"
 explanation = "Neutral-ground bonding belongs only at designated points; extra bonds cause circulating currents and nuisance issues, rather than improving PUE, removing harmonics, or being required at every PDU."

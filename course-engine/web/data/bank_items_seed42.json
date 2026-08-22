@@ -8929,9 +8929,9 @@
     "bloom": "apply",
     "choices": [
       "Wasted capacity and earlier tripping",
-      "Free extra capacity on all phases despite imbalance",
-      "Automatic dual-path creation",
-      "Zero impact on breakers"
+      "Free extra capacity on the loaded phases despite imbalance",
+      "Creation of a second independent power path",
+      "Breaker settings that stay unaffected by the imbalance"
     ],
     "citation_ids": [],
     "correct": "A",
@@ -9026,9 +9026,9 @@
     "bloom": "apply",
     "choices": [
       "Circulating currents and nuisance issues",
-      "It always improves PUE",
-      "Codes require a bond at every rack PDU, regardless of bonding point",
-      "It removes all harmonics"
+      "It improves PUE by shortening the return path",
+      "Codes require a bond at each rack PDU, independent of the designated bonding point",
+      "It removes harmonics from the feeder"
     ],
     "citation_ids": [],
     "correct": "A",
@@ -9171,10 +9171,10 @@
   {
     "bloom": "understand",
     "choices": [
-      "Zero fire design considerations",
+      "A chemistry that drops fire design out of the installation",
       "Footprint and weight advantages with fire controls",
-      "Elimination of all electrical codes and monitoring duties",
-      "No need for monitoring, ventilation, or fire controls"
+      "Elimination of electrical codes and monitoring duties",
+      "A design that skips monitoring, ventilation, and fire controls"
     ],
     "citation_ids": [],
     "correct": "B",
@@ -9293,9 +9293,9 @@
   {
     "bloom": "understand",
     "choices": [
-      "Removing all downstream loose connections automatically",
-      "Eliminating the need for any monitoring",
-      "Cooling batteries with refrigerant always",
+      "Removing downstream loose connections as a side effect of conversion",
+      "Eliminating the need for UPS and feeder monitoring",
+      "Cooling batteries with refrigerant as part of conversion",
       "Regenerates output and buffers disturbances"
     ],
     "citation_ids": [],
@@ -9342,10 +9342,10 @@
   {
     "bloom": "remember",
     "choices": [
-      "kVA and kW are always identical with no exceptions",
-      "PF is always zero in data centres",
+      "kVA and kW are identical numbers in this occupancy",
+      "PF is unused in data-centre electrical planning",
       "Real power = apparent power × PF",
-      "Generators rate only in lux, not electrical power"
+      "Generators rate in lux rather than electrical power"
     ],
     "citation_ids": [],
     "correct": "C",
@@ -9687,9 +9687,9 @@
   {
     "bloom": "understand",
     "choices": [
-      "Always operate at full nameplate with load banks daily",
-      "Use only natural gas, regardless of fuel availability",
-      "Have no exhaust system",
+      "Operate at full nameplate with load banks daily",
+      "Use natural gas in place of diesel, independent of fuel availability",
+      "Lack an exhaust system",
       "Runs at light load without loaded exercise"
     ],
     "citation_ids": [],
@@ -9987,10 +9987,10 @@
   {
     "bloom": "understand",
     "choices": [
-      "Eliminates all heat so cooling is unnecessary",
+      "Eliminates UPS heat so cooling of the hall is unnecessary",
       "Regenerates conditioned output",
-      "Removes the need for any grounding",
-      "Converts three-phase to single-phase only, regardless of load design"
+      "Removes the need for grounding at the UPS",
+      "Converts three-phase to single-phase, independent of load design"
     ],
     "citation_ids": [],
     "correct": "B",
@@ -10111,10 +10111,10 @@
   {
     "bloom": "apply",
     "choices": [
-      "Removing the need for fuel storage forever, regardless of runtime planning",
-      "Making ATS unnecessary in all designs, regardless of source configuration",
+      "Removing the need for fuel storage, independent of runtime planning",
+      "Making ATS unnecessary, independent of source configuration",
       "Enables N+1 and maintenance",
-      "Converting harmonics to DC automatically, regardless of power topology"
+      "Converting harmonics to DC, independent of power topology"
     ],
     "citation_ids": [],
     "correct": "C",
@@ -10234,9 +10234,9 @@
   {
     "bloom": "apply",
     "choices": [
-      "Automatic perfect balancing by the generator only",
-      "Higher battery amp-hours, regardless of phase loading",
-      "Lower heat in transformers always, regardless of loading",
+      "Perfect balancing by the standby generator",
+      "Higher battery amp-hours, independent of phase loading",
+      "Lower heat in transformers, independent of loading",
       "Overloaded phases and nuisance trips"
     ],
     "citation_ids": [],
@@ -10384,10 +10384,10 @@
   {
     "bloom": "understand",
     "choices": [
-      "They are always identical numbers, regardless of power factor",
+      "They are identical numbers, independent of power factor",
       "Power and apparent power differ by PF",
-      "Only kVA appears on every nameplate worldwide",
-      "kW only applies to cooling towers"
+      "kVA is the nameplate quantity that appears worldwide",
+      "kW applies to cooling towers rather than IT plant"
     ],
     "citation_ids": [],
     "correct": "B",
@@ -10533,9 +10533,9 @@
   {
     "bloom": "understand",
     "choices": [
-      "Zero need for any battery management or monitoring systems",
-      "Immunity from all fire and thermal concerns in any installation",
-      "Automatic 2N topology without path or capacity review",
+      "A design that skips battery management and monitoring",
+      "A chemistry that drops fire and thermal design out of the installation",
+      "A 2N topology that arrives without path or capacity review",
       "Higher density with design trade-offs"
     ],
     "citation_ids": [],
@@ -11317,10 +11317,10 @@
   {
     "bloom": "apply",
     "choices": [
-      "Proceed with path-A isolation immediately — dual cords guarantee ride-through regardless of landing",
+      "Proceed with path-A isolation immediately — dual cords provide ride-through even when both land on path A",
       "Stop and restore true A+B diversity (or migrate single-source loads) before de-energizing path A so isolation does not drop IT",
-      "Disable the generator ATS permanently so only utility remains during the work window",
-      "Remove all grounding bonds in the row to reduce touch voltage risk during battery work"
+      "Disable the generator ATS for the work window so utility remains the source",
+      "Remove grounding bonds in the row to reduce touch voltage during battery work"
     ],
     "citation_ids": [],
     "correct": "B",
@@ -12385,9 +12385,9 @@
     "bloom": "understand",
     "choices": [
       "600 mm is common; 800 mm adds side space for cable managers and dense copper/vertical PDUs",
-      "800 mm never fits any row",
-      "Width equals mounting depth always",
-      "IP rating forces 600 mm only"
+      "800 mm fails to fit a standard hot/cold row",
+      "Outer width equals mounting depth",
+      "IP rating forces a 600 mm outer width"
     ],
     "citation_ids": [],
     "correct": "A",
@@ -12869,10 +12869,10 @@
   {
     "bloom": "understand",
     "choices": [
-      "Zero need for grounding on open frames",
+      "Open frames skip grounding because they have less enclosure metal",
       "Service access and airflow versus physical security",
-      "Automatic higher fire resistance always for open frames",
-      "Enclosed cabinets never need cable management or containment interfaces"
+      "Higher fire resistance for open frames as a construction default",
+      "Enclosed cabinets skip cable management and containment interfaces"
     ],
     "citation_ids": [],
     "correct": "B",
@@ -12893,10 +12893,10 @@
   {
     "bloom": "apply",
     "choices": [
-      "The building has no perimeter at all and racks replace site security completely",
-      "Only outdoor generators need locks",
+      "The building skips a perimeter, and racks replace site security",
+      "Outdoor generators are the equipment that needs locks",
       "Compartmentalized access for mixed-sensitivity tenants",
-      "All staff should share one master key left in the door for access control"
+      "Staff share one master key left in the door for access control"
     ],
     "citation_ids": [],
     "correct": "C",

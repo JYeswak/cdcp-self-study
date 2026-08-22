@@ -7,10 +7,10 @@ kind = "single-select"
 module = 6
 stem = "kW versus kVA planning matters because:"
 choices = [
-  "They are always identical numbers, regardless of power factor",
+  "They are identical numbers, independent of power factor",
   "Power and apparent power differ by PF",
-  "Only kVA appears on every nameplate worldwide",
-  "kW only applies to cooling towers"
+  "kVA is the nameplate quantity that appears worldwide",
+  "kW applies to cooling towers rather than IT plant"
 ]
 correct = "B"
 explanation = "Power factor links kW and kVA, so designs must respect both limits; they are not always identical, kVA is not the only universal nameplate value, and kW is not limited to cooling towers."

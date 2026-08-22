@@ -9,9 +9,9 @@ module = 8
 stem = "Cabinet outer widths of about 600 mm vs 800 mm are often chosen because:"
 choices = [
   "600 mm is common; 800 mm adds side space for cable managers and dense copper/vertical PDUs",
-  "800 mm never fits any row",
-  "Width equals mounting depth always",
-  "IP rating forces 600 mm only",
+  "800 mm fails to fit a standard hot/cold row",
+  "Outer width equals mounting depth",
+  "IP rating forces a 600 mm outer width",
 ]
 correct = "A"
 explanation = "600 mm gives the denser footprint; 800 mm buys side channels for cable managers, dense copper and zero-U PDUs. Both take the same 19-inch equipment, which is why width is a cable-volume decision. Conflating it with mounting depth is the plausible error -- depth is set by chassis length plus bend radius and service clearance, and the two dimensions are chosen for different reasons."

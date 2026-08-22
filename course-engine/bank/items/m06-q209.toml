@@ -8,10 +8,10 @@ kind = "single-select"
 module = 6
 stem = "Double-conversion UPS is preferred for a sensitive hall mainly because it:"
 choices = [
-  "Eliminates all heat so cooling is unnecessary",
+  "Eliminates UPS heat so cooling of the hall is unnecessary",
   "Regenerates conditioned output",
-  "Removes the need for any grounding",
-  "Converts three-phase to single-phase only, regardless of load design"
+  "Removes the need for grounding at the UPS",
+  "Converts three-phase to single-phase, independent of load design"
 ]
 correct = "B"
 explanation = "Online double-conversion rebuilds conditioned output from the DC link; it does not remove heat, grounding, or all load-design decisions."
