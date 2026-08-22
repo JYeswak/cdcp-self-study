@@ -11,9 +11,9 @@ module = 12
 stem = "NFPA 72 is commonly associated with which system family (US-centric naming awareness)?"
 choices = [
   "Fire alarm and signaling systems",
-  "Clean-agent cylinder refill chemistry only",
-  "Raised-floor structural loading only",
-  "Copper Category testing only"
+  "Clean-agent cylinder refill chemistry",
+  "Raised-floor structural loading",
+  "Copper Category field testing"
 ]
 correct = "A"
 explanation = "NFPA 72 is associated with fire alarm and signaling systems; clean-agent chemistry, raised-floor loading, and copper testing belong to other subjects."

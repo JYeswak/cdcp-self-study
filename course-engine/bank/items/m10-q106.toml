@@ -7,10 +7,10 @@ kind = "single-select"
 module = 10
 stem = "On-site water storage tanks for cooling support are sized conceptually against:"
 choices = [
-  "Only the number of network racks, without considering water demand or outage duration",
-  "Only the facility's electrical peak, without considering water demand or outage duration",
+  "The number of network racks, used in place of water demand and outage duration",
+  "The facility electrical peak, used in place of water demand and outage duration",
   "Expected outage duration, makeup rates, and which plant modes need water",
-  "Only the occupied floor area, without considering water demand or outage duration"
+  "Occupied floor area, used in place of water demand and outage duration"
 ]
 correct = "C"
 explanation = "Storage is sized against the scenario: outage duration, makeup rate, usable volume, and the plant modes that need water. Rack count, electrical peak, and floor area are not substitutes for the water-demand calculation."

@@ -11,13 +11,13 @@ kind = "single-select"
 module = 1
 stem = "Which set best represents core physical elements of a data centre facility?"
 choices = [
-  "Only office furniture and parking",
-  "Only marketing dashboards",
+  "The office furniture layout and visitor parking count",
+  "The marketing dashboard and executive briefing pack",
   "Power, cooling, space, cabling, fire protection, and security layers supporting IT loads",
-  "Only application source code repositories",
+  "The application source-code repository and CI pipeline",
 ]
 correct = "C"
-explanation = "The data-centre facility combines power, cooling, space, connectivity, life safety, and security around the IT load; office furniture, dashboards, and application repositories do not provide those operating dependencies."
+explanation = "The data-centre facility combines power, cooling, space, connectivity, life safety, and security around the IT load; furniture, dashboards, and application repositories do not provide those operating dependencies."
 topic_ids = ["m01-elements"]
 objective_ids = []
 bloom = "remember"

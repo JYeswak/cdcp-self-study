@@ -688,9 +688,9 @@
     "bloom": "remember",
     "choices": [
       "Fire alarm and signaling systems",
-      "Clean-agent cylinder refill chemistry only",
-      "Raised-floor structural loading only",
-      "Copper Category testing only"
+      "Clean-agent cylinder refill chemistry",
+      "Raised-floor structural loading",
+      "Copper Category field testing"
     ],
     "citation_ids": [],
     "correct": "A",
@@ -2916,14 +2916,14 @@
   {
     "bloom": "remember",
     "choices": [
-      "Only office furniture and parking",
-      "Only marketing dashboards",
+      "The office furniture layout and visitor parking count",
+      "The marketing dashboard and executive briefing pack",
       "Power, cooling, space, cabling, fire protection, and security layers supporting IT loads",
-      "Only application source code repositories"
+      "The application source-code repository and CI pipeline"
     ],
     "citation_ids": [],
     "correct": "C",
-    "explanation": "The data-centre facility combines power, cooling, space, connectivity, life safety, and security around the IT load; office furniture, dashboards, and application repositories do not provide those operating dependencies.",
+    "explanation": "The data-centre facility combines power, cooling, space, connectivity, life safety, and security around the IT load; furniture, dashboards, and application repositories do not provide those operating dependencies.",
     "id": "m01-q045",
     "kind": "single-select",
     "module": 1,
@@ -3432,10 +3432,10 @@
   {
     "bloom": "remember",
     "choices": [
-      "Only the CRM software stack, because facility systems are outside the definition of the data-centre environment",
-      "Only outdoor landscaping",
+      "The CRM software stack, treating facility systems as outside the environment",
+      "The outdoor landscaping and site planting plan",
       "Power, cooling, space/structure, connectivity, and supporting life-safety systems",
-      "Only decorative lobby finishes, because the IT load is the sole physical feature that defines a data centre"
+      "Decorative lobby finishes, treating the IT load as the sole physical feature"
     ],
     "citation_ids": [],
     "correct": "C",
@@ -5473,9 +5473,9 @@
     "bloom": "remember",
     "choices": [
       "Utility, network, hazards, climate, logistics, and legal rights—before interior finishes",
-      "Only carpet colour and logo walls",
-      "Only number of vending machines, because utility, network, hazard, climate, logistics, and legal-rights checks belong after the shortlist",
-      "Only social media check-ins"
+      "Carpet colour and logo-wall finishes as the shortlist filter",
+      "Vending-machine count, with utility and hazard checks left until after the shortlist",
+      "Social-media check-in volume as a proxy for logistics"
     ],
     "citation_ids": [],
     "correct": "A",
@@ -5618,9 +5618,9 @@
   {
     "bloom": "understand",
     "choices": [
-      "Only the color of exterior cladding, because structural loading, clearances, delivery paths, and service access do not constrain plant",
-      "Only the brand of lobby coffee",
-      "Only the number of visitor parking stickers",
+      "Exterior cladding colour, treating structural loading and delivery paths as unconstrained",
+      "The brand of coffee served in the lobby",
+      "The count of visitor parking stickers issued at reception",
       "Structural loading, clearances, delivery paths, and service access for large equipment"
     ],
     "citation_ids": [],
@@ -11103,10 +11103,10 @@
   {
     "bloom": "understand",
     "choices": [
-      "Only the hot aisle",
-      "Only meet-me rooms",
+      "The hot aisle between cabinet rows",
+      "The carrier meet-me room used for cross-connects",
       "Electrical and mechanical support areas such as UPS, switchgear, and generators rather than IT white space",
-      "Only office space"
+      "The office floor used by facilities staff"
     ],
     "citation_ids": [],
     "correct": "C",
@@ -13807,10 +13807,10 @@
   {
     "bloom": "understand",
     "choices": [
-      "Only a local DX compressor inside each server, never a chilled-water plant",
+      "A local DX compressor inside each server, taking the place of a chilled-water plant",
       "Chillers and heat rejection serve the water loop",
-      "Only UPS battery chemistry, not upstream cooling plant",
-      "Only fiber patch panels"
+      "UPS battery chemistry as the upstream cooling plant",
+      "Fibre patch panels as the heat-rejection path"
     ],
     "citation_ids": [],
     "correct": "B",
@@ -14149,14 +14149,14 @@
   {
     "bloom": "understand",
     "choices": [
-      "Only supply temperature, ignoring return-air behavior",
-      "Only outdoor wind speed",
-      "Only diesel fuel polishing intervals",
+      "Supply temperature setpoints, with return-air behavior left out of the design",
+      "Outdoor wind speed at the cooling tower",
+      "Diesel fuel polishing intervals on the standby plant",
       "Capture warm air without short-circuiting"
     ],
     "citation_ids": [],
     "correct": "D",
-    "explanation": "CRAHs need a coherent return path that captures warm air; supply temperature alone, outdoor wind, and fuel maintenance do not replace return-path design.",
+    "explanation": "CRAHs need a coherent return path that captures warm air; supply temperature, outdoor wind, and fuel maintenance do not replace return-path design.",
     "id": "m09-q139",
     "kind": "single-select",
     "module": 9,
@@ -15859,14 +15859,14 @@
   {
     "bloom": "understand",
     "choices": [
-      "Storing packets on disk only",
-      "Replacing all chillers with batteries only",
-      "Only network call detail records",
+      "Storing packets on disk as a seasonal cooling buffer",
+      "Replacing chillers with batteries as the thermal store",
+      "Network call-detail records as the seasonal energy bank",
       "Storing cold or heat across seasons to shift cooling energy use when climate and design allow"
     ],
     "citation_ids": [],
     "correct": "D",
-    "explanation": "STER stores cold or heat across seasons to shift cooling energy; disk packets, batteries-only chiller replacement, and network records are not thermal storage.",
+    "explanation": "STER stores cold or heat across seasons to shift cooling energy; disk packets, battery-as-chiller, and network records are not thermal storage.",
     "id": "m09-q244",
     "kind": "single-select",
     "module": 9,
@@ -16336,10 +16336,10 @@
   {
     "bloom": "apply",
     "choices": [
-      "Only the number of network racks, without considering water demand or outage duration",
-      "Only the facility's electrical peak, without considering water demand or outage duration",
+      "The number of network racks, used in place of water demand and outage duration",
+      "The facility electrical peak, used in place of water demand and outage duration",
       "Expected outage duration, makeup rates, and which plant modes need water",
-      "Only the occupied floor area, without considering water demand or outage duration"
+      "Occupied floor area, used in place of water demand and outage duration"
     ],
     "citation_ids": [],
     "correct": "C",
@@ -17422,14 +17422,14 @@
   {
     "bloom": "remember",
     "choices": [
-      "Only cable color under UV light and labeling conventions",
-      "Only server CPU temperature",
-      "Only generator fuel quality",
+      "Cable colour under UV light and labeling conventions",
+      "Server CPU temperature at the time of the test",
+      "Generator fuel quality on the day of the test",
       "Length, insertion loss, and crosstalk limits"
     ],
     "citation_ids": [],
     "correct": "D",
-    "explanation": "Copper certification checks length, insertion loss, crosstalk, and related category limits; color, CPU temperature, and fuel quality do not establish cable performance.",
+    "explanation": "Copper certification checks length, insertion loss, crosstalk, and related category limits; colour, CPU temperature, and fuel quality do not establish cable performance.",
     "id": "m11-q115",
     "kind": "single-select",
     "module": 11,
@@ -17770,10 +17770,10 @@
   {
     "bloom": "remember",
     "choices": [
-      "Only a single patch cord within one rack, with no distribution elements or cross-connects",
+      "A single patch cord within one rack, treated as the distribution hierarchy",
       "Connect distribution elements across spaces",
-      "Only wireless access points to each other with no wire",
-      "Only CRAH condensate lines and other non-telecom services"
+      "Wireless access points linked to each other in place of wire",
+      "CRAH condensate lines treated as the telecom backbone"
     ],
     "citation_ids": [],
     "correct": "B",
@@ -18464,10 +18464,10 @@
   {
     "bloom": "understand",
     "choices": [
-      "Only the generator paralleling gear",
-      "Only the cold aisle and its containment doors",
+      "The generator paralleling switchgear lineup",
+      "The cold aisle and its containment doors",
       "Central cabling distribution hub",
-      "Only the fire riser and sprinkler distribution point"
+      "The fire riser and sprinkler distribution point"
     ],
     "citation_ids": [],
     "correct": "C",
@@ -19767,14 +19767,14 @@
   {
     "bloom": "remember",
     "choices": [
-      "Only a polite sign asking visitors to leave, without a barrier",
-      "Only CCTV without access control, identity, or audit trails",
-      "Only a shared PIN written on the door, with no accountability",
+      "A polite sign asking visitors to leave, with the barrier omitted",
+      "CCTV cameras, with access control, identity, and audit trails omitted",
+      "A shared PIN written on the door, with individual accountability omitted",
       "Layered perimeter, room, cabinet, and audit controls"
     ],
     "citation_ids": [],
     "correct": "D",
-    "explanation": "Layered physical security combines perimeter, room, cabinet, identity, and audit controls; a sign, CCTV-only system, or shared PIN lacks the layered accountability.",
+    "explanation": "Layered physical security combines perimeter, room, cabinet, identity, and audit controls; a sign, CCTV-alone, or shared PIN lacks the layered accountability.",
     "id": "m13-q200",
     "kind": "single-select",
     "module": 13,
@@ -20353,13 +20353,13 @@
     "bloom": "apply",
     "choices": [
       "Areas where leaks threaten electrical/IT assets: CRAH lines, humidifiers, above racks, and pipe routes",
-      "Only the executive kitchen",
-      "Random outdoor landscaping only",
-      "Only inside sealed transformer tanks"
+      "The executive kitchen, far from CRAH piping and IT halls",
+      "Outdoor landscaping beds chosen at random",
+      "The interior of sealed transformer tanks"
     ],
     "citation_ids": [],
     "correct": "A",
-    "explanation": "Sensors belong on credible leak paths that reach critical plant: CRAH piping, humidifier feeds, anything routed above racks. Each alternative places sensing where either the water or the consequence is missing -- a kitchen and landscaping have no critical plant beneath them, and a sealed transformer tank is a contained volume rather than a leak path across a floor.",
+    "explanation": "Sensors belong on credible leak paths that reach critical plant: CRAH piping, humidifier feeds, anything routed above racks. A kitchen and landscaping have no critical plant beneath them, and a sealed transformer tank is a contained volume rather than a leak path across a floor.",
     "id": "m14-q204",
     "kind": "single-select",
     "module": 14,

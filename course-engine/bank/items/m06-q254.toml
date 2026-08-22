@@ -7,10 +7,10 @@ kind = "single-select"
 module = 6
 stem = "Grey space supporting the power plant is best thought of as:"
 choices = [
-  "Only the hot aisle",
-  "Only meet-me rooms",
+  "The hot aisle between cabinet rows",
+  "The carrier meet-me room used for cross-connects",
   "Electrical and mechanical support areas such as UPS, switchgear, and generators rather than IT white space",
-  "Only office space"
+  "The office floor used by facilities staff"
 ]
 correct = "C"
 explanation = "Grey space hosts critical electrical and mechanical plant while white space hosts IT; a hot aisle, meet-me room, or office is not the power-plant support definition."

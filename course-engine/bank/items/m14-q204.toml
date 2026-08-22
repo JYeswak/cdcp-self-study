@@ -9,12 +9,12 @@ module = 14
 stem = "Water leak detection should be placed with priority near:"
 choices = [
   "Areas where leaks threaten electrical/IT assets: CRAH lines, humidifiers, above racks, and pipe routes",
-  "Only the executive kitchen",
-  "Random outdoor landscaping only",
-  "Only inside sealed transformer tanks"
+  "The executive kitchen, far from CRAH piping and IT halls",
+  "Outdoor landscaping beds chosen at random",
+  "The interior of sealed transformer tanks"
 ]
 correct = "A"
-explanation = "Sensors belong on credible leak paths that reach critical plant: CRAH piping, humidifier feeds, anything routed above racks. Each alternative places sensing where either the water or the consequence is missing -- a kitchen and landscaping have no critical plant beneath them, and a sealed transformer tank is a contained volume rather than a leak path across a floor."
+explanation = "Sensors belong on credible leak paths that reach critical plant: CRAH piping, humidifier feeds, anything routed above racks. A kitchen and landscaping have no critical plant beneath them, and a sealed transformer tank is a contained volume rather than a leak path across a floor."
 topic_ids = ["m14-leak"]
 objective_ids = []
 bloom = "apply"

@@ -10,13 +10,13 @@ kind = "single-select"
 module = 13
 stem = "Layered physical security for a data centre typically includes:"
 choices = [
-  "Only a polite sign asking visitors to leave, without a barrier",
-  "Only CCTV without access control, identity, or audit trails",
-  "Only a shared PIN written on the door, with no accountability",
+  "A polite sign asking visitors to leave, with the barrier omitted",
+  "CCTV cameras, with access control, identity, and audit trails omitted",
+  "A shared PIN written on the door, with individual accountability omitted",
   "Layered perimeter, room, cabinet, and audit controls"
 ]
 correct = "D"
-explanation = "Layered physical security combines perimeter, room, cabinet, identity, and audit controls; a sign, CCTV-only system, or shared PIN lacks the layered accountability."
+explanation = "Layered physical security combines perimeter, room, cabinet, identity, and audit controls; a sign, CCTV-alone, or shared PIN lacks the layered accountability."
 topic_ids = ["m13-security-components"]
 objective_ids = []
 bloom = "remember"

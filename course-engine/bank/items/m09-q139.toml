@@ -7,13 +7,13 @@ kind = "single-select"
 module = 9
 stem = "Return-air path design matters because CRAH performance depends on:"
 choices = [
-  "Only supply temperature, ignoring return-air behavior",
-  "Only outdoor wind speed",
-  "Only diesel fuel polishing intervals",
+  "Supply temperature setpoints, with return-air behavior left out of the design",
+  "Outdoor wind speed at the cooling tower",
+  "Diesel fuel polishing intervals on the standby plant",
   "Capture warm air without short-circuiting"
 ]
 correct = "D"
-explanation = "CRAHs need a coherent return path that captures warm air; supply temperature alone, outdoor wind, and fuel maintenance do not replace return-path design."
+explanation = "CRAHs need a coherent return path that captures warm air; supply temperature, outdoor wind, and fuel maintenance do not replace return-path design."
 topic_ids = ["m09-raised-floor-cooling", "m09-non-raised"]
 objective_ids = []
 bloom = "understand"

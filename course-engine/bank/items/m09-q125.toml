@@ -7,10 +7,10 @@ kind = "single-select"
 module = 9
 stem = "A chilled-water CRAH typically depends on which upstream plant element to reject heat?"
 choices = [
-  "Only a local DX compressor inside each server, never a chilled-water plant",
+  "A local DX compressor inside each server, taking the place of a chilled-water plant",
   "Chillers and heat rejection serve the water loop",
-  "Only UPS battery chemistry, not upstream cooling plant",
-  "Only fiber patch panels"
+  "UPS battery chemistry as the upstream cooling plant",
+  "Fibre patch panels as the heat-rejection path"
 ]
 correct = "B"
 explanation = "A chilled-water CRAH depends on chillers and heat rejection for the water loop; a local server compressor, UPS chemistry, or fibre panel is not the upstream cooling plant."

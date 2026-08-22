@@ -7,13 +7,13 @@ kind = "single-select"
 module = 11
 stem = "Copper field certification typically includes parameters such as:"
 choices = [
-  "Only cable color under UV light and labeling conventions",
-  "Only server CPU temperature",
-  "Only generator fuel quality",
+  "Cable colour under UV light and labeling conventions",
+  "Server CPU temperature at the time of the test",
+  "Generator fuel quality on the day of the test",
   "Length, insertion loss, and crosstalk limits"
 ]
 correct = "D"
-explanation = "Copper certification checks length, insertion loss, crosstalk, and related category limits; color, CPU temperature, and fuel quality do not establish cable performance."
+explanation = "Copper certification checks length, insertion loss, crosstalk, and related category limits; colour, CPU temperature, and fuel quality do not establish cable performance."
 topic_ids = ["m11-testing", "m11-copper"]
 objective_ids = []
 bloom = "remember"

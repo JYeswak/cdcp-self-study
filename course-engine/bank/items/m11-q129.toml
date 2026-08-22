@@ -7,10 +7,10 @@ kind = "single-select"
 module = 11
 stem = "A backbone cabling subsystem conceptually connects:"
 choices = [
-  "Only a single patch cord within one rack, with no distribution elements or cross-connects",
+  "A single patch cord within one rack, treated as the distribution hierarchy",
   "Connect distribution elements across spaces",
-  "Only wireless access points to each other with no wire",
-  "Only CRAH condensate lines and other non-telecom services"
+  "Wireless access points linked to each other in place of wire",
+  "CRAH condensate lines treated as the telecom backbone"
 ]
 correct = "B"
 explanation = "Backbone cabling connects distribution spaces such as MDA and HDA; a rack patch cord, wireless link, or condensate line is not that hierarchy."

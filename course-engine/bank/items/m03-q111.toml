@@ -12,9 +12,9 @@ module = 3
 stem = "Which combination best summarizes early site short-listing criteria?"
 choices = [
   "Utility, network, hazards, climate, logistics, and legal rights—before interior finishes",
-  "Only carpet colour and logo walls",
-  "Only number of vending machines, because utility, network, hazard, climate, logistics, and legal-rights checks belong after the shortlist",
-  "Only social media check-ins",
+  "Carpet colour and logo-wall finishes as the shortlist filter",
+  "Vending-machine count, with utility and hazard checks left until after the shortlist",
+  "Social-media check-in volume as a proxy for logistics",
 ]
 correct = "A"
 explanation = "Early short-listing weighs utility and network rights, hazards, climate, logistics, and legal constraints before finishes; carpet, vending machines, and social-media activity do not establish site feasibility."
