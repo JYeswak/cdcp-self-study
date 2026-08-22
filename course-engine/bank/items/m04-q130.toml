@@ -10,9 +10,9 @@ kind = "single-select"
 module = 4
 stem = "Why reference access-floor manufacturer data and applicable standards rather than guessing capacities?"
 choices = [
-  "Because ramps never need design or load review",
-  "Because AHJs ban all floors, ramps, and level changes",
-  "Because only PUE defines load ratings",
+  "Because ramps skip design and load review",
+  "Because AHJs ban floors, ramps, and level changes",
+  "Because PUE is the document that defines load ratings",
   "Load and system performance are product-specific",
 ]
 correct = "D"

@@ -10,10 +10,10 @@ kind = "single-select"
 module = 3
 stem = "Which statement about site security perimeter planning is most accurate?"
 choices = [
-  "Security starts and ends at the rack door only",
-  "Fencing is always illegal",
+  "Security starts and ends at the rack door",
+  "Fencing is illegal in this occupancy",
   "Site selection and layout should support controlled approach, vehicle management, and layered access",
-  "Cameras replace structural setbacks always",
+  "Cameras replace structural setbacks",
 ]
 correct = "C"
 explanation = "Site security needs controlled approach, vehicle management, and layered access from the campus inward; a rack-only lock, a blanket fence ban, or cameras alone cannot provide that perimeter strategy."

@@ -8,10 +8,10 @@ kind = "single-select"
 module = 6
 stem = "Cable-in-tray distribution versus busway is best framed as:"
 choices = [
-  "One is always universally better in every site",
+  "One topology is the better choice for this class of hall",
   "Agility, density, and failure domains",
-  "Cable eliminates all labeling needs",
-  "Busway removes all need for breakers",
+  "Cable-in-tray removes labeling needs",
+  "Busway removes the need for breakers",
 ]
 correct = "B"
 explanation = "Neither cable-in-tray nor busway is universally superior; density, AHJ, maintainability, and change rate drive the choice, and neither removes labeling or breakers."

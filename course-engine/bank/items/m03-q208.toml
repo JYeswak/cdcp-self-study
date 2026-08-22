@@ -9,9 +9,9 @@ module = 3
 stem = "Industrial neighbor hazards (chemical plants, heavy manufacturing emissions) are site factors because they can:"
 choices = [
   "Introduce contamination, explosion, or emergency-response risks that affect plant and staff",
-  "Only improve outdoor air quality, because industrial emissions cannot contaminate intakes or affect staff and plant safety",
-  "Only lower insurance premiums always, because neighboring hazards reduce rather than increase contamination, explosion, and response risk",
-  "Never affect cooling intake design"
+  "Improve outdoor air quality, because industrial emissions spare intakes and staff",
+  "Lower insurance premiums, because neighboring hazards reduce contamination and explosion risk",
+  "Leave cooling intake design unchanged"
 ]
 correct = "A"
 explanation = "Industrial neighbours can introduce contamination, explosion, and emergency-response risks affecting plant and staff; they do not reliably improve air quality, lower insurance, or leave cooling intakes untouched."

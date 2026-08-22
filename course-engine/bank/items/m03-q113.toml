@@ -9,10 +9,10 @@ kind = "single-select"
 module = 3
 stem = "Future expansion land or floor plate options are site criteria because:"
 choices = [
-  "Data centres never grow, so future power, cooling, and floor-plate options cannot affect the initial site decision or relocation risk",
-  "Expansion only needs software licenses",
+  "Data centres do not grow, so future power, cooling, and floor-plate options drop out of the initial site decision",
+  "Expansion is a software-licence problem",
   "Power, cooling, and space upgrades have long lead times; growth without room forces costly relocation",
-  "AHJs forbid expansion always",
+  "AHJs forbid later expansion as a matter of occupancy",
 ]
 correct = "C"
 explanation = "Future land or floor-plate options preserve room for long-lead power, cooling, and space upgrades; software licences, a no-growth assumption, or an AHJ prohibition do not solve physical expansion."

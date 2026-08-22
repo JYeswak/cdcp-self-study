@@ -10,10 +10,10 @@ kind = "single-select"
 module = 1
 stem = "Colocation customers should still understand facility design because:"
 choices = [
-  "AHJ rules never apply in colo",
-  "Customers never own any IT risk",
+  "AHJ rules stop at the colo property line",
+  "Customers shed IT risk once they sign the colo contract",
   "Contractual SLAs, power/cooling limits, and concurrent maintainability affect their own availability",
-  "They never share risk with the landlord because the customer contract transfers every facility dependency and operating decision",
+  "The customer contract transfers facility dependencies and operating decisions to the landlord",
 ]
 correct = "C"
 explanation = "The colo customer still depends on contracted limits, SLA boundaries, and maintainability of landlord plant; AHJ rules still apply and transferring facility ownership does not transfer every service risk."

@@ -3037,10 +3037,10 @@
   {
     "bloom": "understand",
     "choices": [
-      "Only multi-tenant sites need fire detection because enterprise operators control their own facility hazards",
+      "Fire detection is a multi-tenant requirement, because enterprise operators control their own hazards",
       "Governance, shared risk, and SLA boundaries differ; both still need robust facility design",
-      "Multi-tenant sites never meter power because shared infrastructure makes power accountability impossible to define",
-      "Enterprise sites never need redundant power because internal ownership removes the consequences of a facility interruption"
+      "Multi-tenant sites skip power metering, because shared infrastructure makes accountability too hard to define",
+      "Enterprise sites skip redundant power, because internal ownership removes the cost of an interruption"
     ],
     "citation_ids": [],
     "correct": "B",
@@ -3234,10 +3234,10 @@
   {
     "bloom": "understand",
     "choices": [
-      "AHJ rules never apply in colo",
-      "Customers never own any IT risk",
+      "AHJ rules stop at the colo property line",
+      "Customers shed IT risk once they sign the colo contract",
       "Contractual SLAs, power/cooling limits, and concurrent maintainability affect their own availability",
-      "They never share risk with the landlord because the customer contract transfers every facility dependency and operating decision"
+      "The customer contract transfers facility dependencies and operating decisions to the landlord"
     ],
     "citation_ids": [],
     "correct": "C",
@@ -3310,9 +3310,9 @@
     "bloom": "understand",
     "choices": [
       "Enterprise, colo, cloud, and edge share physics needs but differ in ownership, scale, and service boundaries",
-      "Edge sites never need physical security",
-      "Only cloud sites need cooling, while enterprise, colo, and edge facilities can rely on the IT architecture for heat removal",
-      "All types have identical risk profiles and SLAs, because ownership and service boundaries do not change facility obligations"
+      "Edge sites skip physical security because the IT load is small",
+      "Cloud sites are the sites that need cooling, while enterprise, colo, and edge rely on IT architecture for heat",
+      "Types share identical risk profiles and SLAs, because ownership does not change facility obligations"
     ],
     "citation_ids": [],
     "correct": "A",
@@ -3579,9 +3579,9 @@
   {
     "bloom": "analyze",
     "choices": [
-      "Guaranteed lower energy cost forever, even when maintenance ownership and operational boundaries are left undefined",
-      "Elimination of all physical security needs because an IT-only organization has no facility-facing responsibilities",
-      "Faster automatic compliance with all building codes, because facilities and operations do not need to participate in change decisions",
+      "Lower energy cost, even when maintenance ownership stays undefined",
+      "Physical security needs drop away, because an IT-led organization has little facility-facing work",
+      "Faster code compliance, because facilities and operations skip change decisions",
       "Gaps in change control, maintenance ownership, and incident response across trades"
     ],
     "citation_ids": [],
@@ -3785,9 +3785,9 @@
     "bloom": "understand",
     "choices": [
       "Codes are adopted and enforced by an AHJ; many standards are voluntary unless referenced into code",
-      "Codes never address electrical safety",
-      "Standards always supersede local law",
-      "Codes are always free PDF white papers"
+      "Codes skip electrical safety, which belongs to product datasheets",
+      "Standards supersede local law once published",
+      "Codes are free PDF white papers by definition"
     ],
     "citation_ids": [],
     "correct": "A",
@@ -4715,10 +4715,10 @@
   {
     "bloom": "understand",
     "choices": [
-      "Assume one brochure covers power, cooling, fire, and security completely, so no framework or AHJ boundary needs to be checked",
+      "Assume one brochure covers power, cooling, fire, and security, so framework and AHJ boundaries go unchecked",
       "Know major families (TIA/Uptime naming, ISO/IEC 22237, EN 50600, codes) and when each applies",
-      "Ignore all documents outside one country, because TIA, ISO/IEC 22237, EN 50600, and local codes cannot coexist in one project",
-      "Memorize every clause number of every series before day one on site, rather than recognize which family applies to the question"
+      "Ignore documents written outside one country, treating TIA, ISO/IEC 22237, EN 50600, and local codes as mutually exclusive",
+      "Memorize clause numbers of each series before day one on site, rather than recognize which family applies"
     ],
     "citation_ids": [],
     "correct": "B",
@@ -5274,10 +5274,10 @@
   {
     "bloom": "understand",
     "choices": [
-      "Security starts and ends at the rack door only",
-      "Fencing is always illegal",
+      "Security starts and ends at the rack door",
+      "Fencing is illegal in this occupancy",
       "Site selection and layout should support controlled approach, vehicle management, and layered access",
-      "Cameras replace structural setbacks always"
+      "Cameras replace structural setbacks"
     ],
     "citation_ids": [],
     "correct": "C",
@@ -5520,10 +5520,10 @@
   {
     "bloom": "apply",
     "choices": [
-      "Data centres never grow, so future power, cooling, and floor-plate options cannot affect the initial site decision or relocation risk",
-      "Expansion only needs software licenses",
+      "Data centres do not grow, so future power, cooling, and floor-plate options drop out of the initial site decision",
+      "Expansion is a software-licence problem",
       "Power, cooling, and space upgrades have long lead times; growth without room forces costly relocation",
-      "AHJs forbid expansion always"
+      "AHJs forbid later expansion as a matter of occupancy"
     ],
     "citation_ids": [],
     "correct": "C",
@@ -5766,9 +5766,9 @@
     "bloom": "understand",
     "choices": [
       "Introduce contamination, explosion, or emergency-response risks that affect plant and staff",
-      "Only improve outdoor air quality, because industrial emissions cannot contaminate intakes or affect staff and plant safety",
-      "Only lower insurance premiums always, because neighboring hazards reduce rather than increase contamination, explosion, and response risk",
-      "Never affect cooling intake design"
+      "Improve outdoor air quality, because industrial emissions spare intakes and staff",
+      "Lower insurance premiums, because neighboring hazards reduce contamination and explosion risk",
+      "Leave cooling intake design unchanged"
     ],
     "citation_ids": [],
     "correct": "A",
@@ -6529,10 +6529,10 @@
   {
     "bloom": "apply",
     "choices": [
-      "Improved concurrent maintainability, regardless of movement safety",
-      "Increase electrical-path diversity regardless of movement safety",
+      "Improved concurrent maintainability during equipment moves",
+      "Increased electrical-path diversity during equipment moves",
       "Tip-over, tile damage, and injury during moves",
-      "Automatic code approval"
+      "A shortcut to code approval"
     ],
     "citation_ids": [],
     "correct": "C",
@@ -6727,9 +6727,9 @@
   {
     "bloom": "remember",
     "choices": [
-      "Because ramps never need design or load review",
-      "Because AHJs ban all floors, ramps, and level changes",
-      "Because only PUE defines load ratings",
+      "Because ramps skip design and load review",
+      "Because AHJs ban floors, ramps, and level changes",
+      "Because PUE is the document that defines load ratings",
       "Load and system performance are product-specific"
     ],
     "citation_ids": [],
@@ -6948,10 +6948,10 @@
   {
     "bloom": "understand",
     "choices": [
-      "Only hide structural defects from inspectors permanently",
-      "Replace fire detection entirely, including suppression coordination",
+      "Hide structural defects from inspectors",
+      "Replace fire detection, including suppression coordination",
       "Conceal services",
-      "Eliminate all cable trays forever"
+      "Remove cable trays from the space"
     ],
     "citation_ids": [],
     "correct": "C",
@@ -7750,9 +7750,9 @@
     "bloom": "remember",
     "choices": [
       "Adequate visibility for safe operation, inspection, and maintenance",
-      "That glare is maximised on every display",
-      "That the site reaches zero lighting energy consumption regardless of task needs",
-      "That only a single lamp technology is legally permitted across jurisdictions"
+      "That glare is maximised on displays",
+      "That lighting energy consumption drops out of the task budget",
+      "That a single lamp technology is legally permitted across jurisdictions"
     ],
     "citation_ids": [],
     "correct": "A",
@@ -8635,9 +8635,9 @@
     "bloom": "understand",
     "choices": [
       "Long-duration power after start and transfer",
-      "Instantaneous zero-gap power with no transfer delay",
-      "A full substitute for UPS batteries in all designs",
-      "Used only for decorative lighting, not critical facility backup"
+      "Instantaneous power filling the transfer gap",
+      "A full substitute for UPS batteries in typical designs",
+      "Decorative lighting support, not critical facility backup"
     ],
     "citation_ids": [],
     "correct": "A",
@@ -8879,10 +8879,10 @@
   {
     "bloom": "analyze",
     "choices": [
-      "One is always universally better in every site",
+      "One topology is the better choice for this class of hall",
       "Agility, density, and failure domains",
-      "Cable eliminates all labeling needs",
-      "Busway removes all need for breakers"
+      "Cable-in-tray removes labeling needs",
+      "Busway removes the need for breakers"
     ],
     "citation_ids": [],
     "correct": "B",

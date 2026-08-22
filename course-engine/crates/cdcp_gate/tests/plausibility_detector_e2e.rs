@@ -15,9 +15,9 @@ fn live_gate_runs_product_detector_and_names_measured_branch() {
     );
     assert!(output.contains("bank-wide: scanned=957"), "{output}");
     assert!(
-        output.contains("applicable_exactly_three=107")
-            && output.contains("key_is_lone_plausible=98")
-            && output.contains("rate=91.6%"),
+        output.contains("applicable_exactly_three=92")
+            && output.contains("key_is_lone_plausible=83")
+            && output.contains("rate=90.2%"),
         "{output}"
     );
     assert!(output.contains(cdcp_bank::plausibility::BRANCH), "{output}");

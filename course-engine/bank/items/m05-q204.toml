@@ -8,9 +8,9 @@ module = 5
 stem = "Lighting standards and guidance for workplaces exist to help ensure:"
 choices = [
   "Adequate visibility for safe operation, inspection, and maintenance",
-  "That glare is maximised on every display",
-  "That the site reaches zero lighting energy consumption regardless of task needs",
-  "That only a single lamp technology is legally permitted across jurisdictions",
+  "That glare is maximised on displays",
+  "That lighting energy consumption drops out of the task budget",
+  "That a single lamp technology is legally permitted across jurisdictions",
 ]
 correct = "A"
 explanation = "Workplace lighting guidance protects visibility for operation, inspection, and maintenance; maximizing glare, demanding zero energy, or imposing one lamp technology defeats that purpose."

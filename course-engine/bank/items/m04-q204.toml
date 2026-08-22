@@ -10,10 +10,10 @@ kind = "single-select"
 module = 4
 stem = "Suspended ceilings in technical spaces may be used to:"
 choices = [
-  "Only hide structural defects from inspectors permanently",
-  "Replace fire detection entirely, including suppression coordination",
+  "Hide structural defects from inspectors",
+  "Replace fire detection, including suppression coordination",
   "Conceal services",
-  "Eliminate all cable trays forever"
+  "Remove cable trays from the space"
 ]
 correct = "C"
 explanation = "Suspended ceilings can conceal services and organize return air when the plenum is listed and coordinated; they do not permanently hide defects, replace fire detection, or eliminate cable trays."

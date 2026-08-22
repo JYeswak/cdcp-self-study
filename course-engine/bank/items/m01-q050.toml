@@ -10,10 +10,10 @@ kind = "single-select"
 module = 1
 stem = "Which statement about enterprise vs multi-tenant facilities is most accurate?"
 choices = [
-  "Only multi-tenant sites need fire detection because enterprise operators control their own facility hazards",
+  "Fire detection is a multi-tenant requirement, because enterprise operators control their own hazards",
   "Governance, shared risk, and SLA boundaries differ; both still need robust facility design",
-  "Multi-tenant sites never meter power because shared infrastructure makes power accountability impossible to define",
-  "Enterprise sites never need redundant power because internal ownership removes the consequences of a facility interruption",
+  "Multi-tenant sites skip power metering, because shared infrastructure makes accountability too hard to define",
+  "Enterprise sites skip redundant power, because internal ownership removes the cost of an interruption",
 ]
 correct = "B"
 explanation = "Enterprise and multi-tenant models change governance, shared risk, and SLA boundaries, while both still need resilient facility systems; fire detection, metering, and redundancy do not disappear because ownership differs."
