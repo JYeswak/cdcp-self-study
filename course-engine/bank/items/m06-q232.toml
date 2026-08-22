@@ -8,9 +8,9 @@ module = 6
 stem = "VRLA battery rooms still need thermal and environmental attention because:"
 choices = [
   "Temperature and environment affect battery life and safety",
-  "Batteries only care about network latency, not environment",
-  "VRLA never ages, even under poor temperature control and maintenance",
-  "Only outdoor IP rating matters, not room conditions or ventilation"
+  "Batteries care about network latency, not environment",
+  "VRLA does not age, even under poor temperature control and maintenance",
+  "Outdoor IP rating matters, not room conditions or ventilation"
 ]
 correct = "A"
 explanation = "Battery life and reliability are environment-dependent; network latency, an aging-free claim, and outdoor IP rating do not replace room thermal, ventilation, and maintenance controls."

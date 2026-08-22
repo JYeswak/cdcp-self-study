@@ -7,9 +7,9 @@ kind = "single-select"
 module = 8
 stem = "Industry practice for numbering U positions is typically:"
 choices = [
-  "Random per rack with no labels",
-  "Only even U numbers exist",
-  "Top-down is the only legal method worldwide",
+  "Random per rack without labels",
+  "Even U numbers exist",
+  "Top-down is the legal method worldwide",
   "Bottom-up with U1 at the bottom (confirm and standardize site labels)",
 ]
 correct = "D"

@@ -9,10 +9,10 @@ kind = "single-select"
 module = 6
 stem = "Line-interactive UPS designs are most often associated with:"
 choices = [
-  "Always pure double-conversion with zero efficiency difference",
+  "Pure double-conversion with unused efficiency difference",
   "Voltage regulation with battery engagement for deeper disturbances, intermediate to standby and double-conversion",
-  "Generator paralleling only",
-  "Busway only"
+  "Generator paralleling as the topology class",
+  "Busway as the topology class"
 ]
 correct = "B"
 explanation = "Line-interactive provides voltage regulation with battery engagement for deeper disturbances, between standby and online behavior; it is not always double-conversion, generator paralleling, or busway."

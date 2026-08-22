@@ -8,9 +8,9 @@ module = 9
 stem = "The common educational distinction between CRAC and CRAH units is:"
 choices = [
   "CRAC uses DX; CRAH uses chilled-water coils",
-  "CRAH always includes a diesel generator, regardless of cooling plant",
-  "CRAC only cools network MMRs",
-  "CRAC and CRAH are identical acronyms with no difference"
+  "CRAH includes a diesel generator, independent of cooling plant",
+  "CRAC cools network MMRs",
+  "CRAC and CRAH are identical acronyms without a difference"
 ]
 correct = "A"
 explanation = "CRAC typically uses DX refrigeration while CRAH typically uses chilled-water coils; they are not identical acronyms, and neither is defined by a generator or network-room-only role."

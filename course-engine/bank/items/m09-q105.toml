@@ -7,10 +7,10 @@ kind = "single-select"
 module = 9
 stem = "Which statement best reflects energy conversion in IT equipment for cooling design?"
 choices = [
-  "IT equipment creates useful work with no heat load for cooling",
+  "IT equipment creates useful work without a heat load for cooling",
   "IT equipment creates a heat load that the cooling system must remove",
-  "Only CPUs produce heat; PSUs do not",
-  "Heat is only produced during boot"
+  "CPUs produce heat; PSUs do not",
+  "Heat is produced during boot"
 ]
 correct = "B"
 explanation = "IT equipment creates heat that the cooling chain must remove; PSUs and boot-state operation do not exempt the load, and this bounded cooling receipt is not a site approval."

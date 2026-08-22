@@ -10559,9 +10559,9 @@
     "bloom": "apply",
     "choices": [
       "Temperature and environment affect battery life and safety",
-      "Batteries only care about network latency, not environment",
-      "VRLA never ages, even under poor temperature control and maintenance",
-      "Only outdoor IP rating matters, not room conditions or ventilation"
+      "Batteries care about network latency, not environment",
+      "VRLA does not age, even under poor temperature control and maintenance",
+      "Outdoor IP rating matters, not room conditions or ventilation"
     ],
     "citation_ids": [],
     "correct": "A",
@@ -10781,10 +10781,10 @@
   {
     "bloom": "understand",
     "choices": [
-      "Always pure double-conversion with zero efficiency difference",
+      "Pure double-conversion with unused efficiency difference",
       "Voltage regulation with battery engagement for deeper disturbances, intermediate to standby and double-conversion",
-      "Generator paralleling only",
-      "Busway only"
+      "Generator paralleling as the topology class",
+      "Busway as the topology class"
     ],
     "citation_ids": [],
     "correct": "B",
@@ -10903,10 +10903,10 @@
   {
     "bloom": "apply",
     "choices": [
-      "Generator first, then UPS batteries must discharge fully before any transfer",
-      "All IT shuts down until manual restart next day",
+      "Generator first, then UPS batteries must discharge fully before the transfer",
+      "IT shuts down until manual restart next day",
       "UPS carries load on storage while generator starts and transfer completes, then UPS recharges",
-      "Only CRAH units transfer automatically"
+      "CRAH units transfer automatically"
     ],
     "citation_ids": [],
     "correct": "C",
@@ -12360,9 +12360,9 @@
   {
     "bloom": "understand",
     "choices": [
-      "Random per rack with no labels",
-      "Only even U numbers exist",
-      "Top-down is the only legal method worldwide",
+      "Random per rack without labels",
+      "Even U numbers exist",
+      "Top-down is the legal method worldwide",
       "Bottom-up with U1 at the bottom (confirm and standardize site labels)"
     ],
     "citation_ids": [],
@@ -12674,9 +12674,9 @@
     "bloom": "apply",
     "choices": [
       "Code, receptacle ratings, and continuous-load planning",
-      "Brochure aesthetics only",
-      "Only the colour of the cord",
-      "Whether the cabinet is 600 or 800 mm, regardless of electrical design"
+      "Brochure aesthetics",
+      "The colour of the cord",
+      "Whether the cabinet is 600 or 800 mm, independent of electrical design"
     ],
     "citation_ids": [],
     "correct": "A",
@@ -13222,10 +13222,10 @@
   {
     "bloom": "understand",
     "choices": [
-      "Only dehumidifies the air",
+      "Dehumidifies the air",
       "Removes heat without changing moisture content of the air",
-      "Only heats the supply air",
-      "Is always equal to latent capacity"
+      "Heats the supply air",
+      "Is equal to latent capacity"
     ],
     "citation_ids": [],
     "correct": "B",
@@ -13318,10 +13318,10 @@
   {
     "bloom": "remember",
     "choices": [
-      "IT equipment creates useful work with no heat load for cooling",
+      "IT equipment creates useful work without a heat load for cooling",
       "IT equipment creates a heat load that the cooling system must remove",
-      "Only CPUs produce heat; PSUs do not",
-      "Heat is only produced during boot"
+      "CPUs produce heat; PSUs do not",
+      "Heat is produced during boot"
     ],
     "citation_ids": [],
     "correct": "B",
@@ -13784,9 +13784,9 @@
     "bloom": "remember",
     "choices": [
       "CRAC uses DX; CRAH uses chilled-water coils",
-      "CRAH always includes a diesel generator, regardless of cooling plant",
-      "CRAC only cools network MMRs",
-      "CRAC and CRAH are identical acronyms with no difference"
+      "CRAH includes a diesel generator, independent of cooling plant",
+      "CRAC cools network MMRs",
+      "CRAC and CRAH are identical acronyms without a difference"
     ],
     "citation_ids": [],
     "correct": "A",
@@ -14685,10 +14685,10 @@
   {
     "bloom": "analyze",
     "choices": [
-      "Air has infinite heat-carrying capacity at any density or rack power",
+      "Air has infinite heat-carrying capacity at each density or rack power",
       "Direct-to-chip or rear-door cooling supports high density",
-      "Liquids eliminate all electrical power draw and distribution constraints",
-      "Only lighting needs liquid assist in high-density facilities"
+      "Liquids eliminate electrical power draw and distribution constraints",
+      "Lighting needs liquid assist in high-density facilities"
     ],
     "citation_ids": [],
     "correct": "B",
@@ -15444,10 +15444,10 @@
   {
     "bloom": "understand",
     "choices": [
-      "Cools only the room air with no liquid near IT",
-      "Replaces all electrical grounding",
+      "Cools the room air without liquid near IT",
+      "Replaces electrical grounding",
       "Brings coolant close to high-heat components via cold plates or loops",
-      "Is identical to hot-aisle containment only"
+      "Is identical to hot-aisle containment"
     ],
     "citation_ids": [],
     "correct": "C",
@@ -15516,10 +15516,10 @@
   {
     "bloom": "apply",
     "choices": [
-      "Stop all heat rejection",
+      "Stop heat rejection",
       "Reject the heat ultimately to the outdoor environment",
-      "Only cool network packets",
-      "Remove generators only"
+      "Cool network packets",
+      "Remove generators"
     ],
     "citation_ids": [],
     "correct": "B",
@@ -15591,9 +15591,9 @@
     "bloom": "understand",
     "choices": [
       "Indoor air becomes too dry relative to the environmental control strategy",
-      "Only when temperature is high",
-      "Only during generator tests",
-      "Never, if containment exists"
+      "When temperature is high",
+      "During generator tests",
+      "Not needed, if containment exists"
     ],
     "citation_ids": [],
     "correct": "A",
@@ -16506,10 +16506,10 @@
   {
     "bloom": "apply",
     "choices": [
-      "Tracks rainfall for landscaping only, not makeup, leaks, blowdown, or supply problems",
+      "Tracks rainfall for landscaping, not makeup, leaks, blowdown, or supply problems",
       "Detects abnormal water loss (leaks, excessive blowdown, supply issues) before cooling is compromised",
-      "Replaces rack-inlet temperature sensors by inferring all thermal conditions from basin data alone",
-      "Measures only copper resistance in electrical conductors and cannot describe water-system behavior"
+      "Replaces rack-inlet temperature sensors by inferring thermal conditions from basin data alone",
+      "Measures copper resistance in electrical conductors and cannot describe water-system behavior"
     ],
     "citation_ids": [],
     "correct": "B",
@@ -16700,10 +16700,10 @@
   {
     "bloom": "understand",
     "choices": [
-      "A single municipal tap with no isolation valves ever, because common piping is more resilient",
-      "Ignoring drought restrictions in planning because conservation modes reduce only comfort loads, without affecting critical operations",
+      "A single municipal tap without isolation valves, because common piping is more resilient",
+      "Ignoring drought restrictions in planning because conservation modes reduce comfort loads, without affecting critical operations",
       "On-site storage, alternate feeds where available, and operational conservation modes during shortage",
-      "Draining all storage every day to maximize truck traffic and keep tanks visibly empty"
+      "Draining storage each day to maximize truck traffic and keep tanks visibly empty"
     ],
     "citation_ids": [],
     "correct": "C",
@@ -17105,10 +17105,10 @@
   {
     "bloom": "understand",
     "choices": [
-      "Random patching with no pathways",
-      "Copper only forever with no fiber",
+      "Random patching without pathways",
+      "Copper forever without fiber",
       "Planned pathways, media, and topologies that support growth without chaos",
-      "No labeling ever"
+      "Labeling is unused"
     ],
     "citation_ids": [],
     "correct": "C",

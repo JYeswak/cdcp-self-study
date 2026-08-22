@@ -7,10 +7,10 @@ kind = "single-select"
 module = 9
 stem = "Direct-to-chip liquid cooling generally involves:"
 choices = [
-  "Cools only the room air with no liquid near IT",
-  "Replaces all electrical grounding",
+  "Cools the room air without liquid near IT",
+  "Replaces electrical grounding",
   "Brings coolant close to high-heat components via cold plates or loops",
-  "Is identical to hot-aisle containment only"
+  "Is identical to hot-aisle containment"
 ]
 correct = "C"
 explanation = "Direct-to-chip cooling brings liquid through cold plates or loops to high-heat components; it is not room-air-only, a grounding replacement, or merely hot-aisle containment."

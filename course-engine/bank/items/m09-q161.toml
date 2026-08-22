@@ -12,10 +12,10 @@ kind = "single-select"
 module = 9
 stem = "Liquid cooling is increasingly discussed for high-density AI/HPC racks because:"
 choices = [
-  "Air has infinite heat-carrying capacity at any density or rack power",
+  "Air has infinite heat-carrying capacity at each density or rack power",
   "Direct-to-chip or rear-door cooling supports high density",
-  "Liquids eliminate all electrical power draw and distribution constraints",
-  "Only lighting needs liquid assist in high-density facilities"
+  "Liquids eliminate electrical power draw and distribution constraints",
+  "Lighting needs liquid assist in high-density facilities"
 ]
 correct = "B"
 explanation = "Direct-to-chip and rear-door cooling support high density where air delivery is limiting; liquids do not eliminate electrical power, constrain cooling to lighting, or define a universal rack class."

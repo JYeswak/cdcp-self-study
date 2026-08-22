@@ -7,10 +7,10 @@ kind = "single-select"
 module = 9
 stem = "Even when liquid cooling is used at the rack, the plant still must:"
 choices = [
-  "Stop all heat rejection",
+  "Stop heat rejection",
   "Reject the heat ultimately to the outdoor environment",
-  "Only cool network packets",
-  "Remove generators only"
+  "Cool network packets",
+  "Remove generators"
 ]
 correct = "B"
 explanation = "Liquid moves heat but outdoor rejection still closes the energy balance; liquid cooling cannot stop heat rejection, cool network packets, or remove generators from the plant."

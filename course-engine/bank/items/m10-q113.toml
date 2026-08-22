@@ -10,10 +10,10 @@ kind = "single-select"
 module = 10
 stem = "Monitoring basin level and makeup flow is operationally useful because it:"
 choices = [
-  "Tracks rainfall for landscaping only, not makeup, leaks, blowdown, or supply problems",
+  "Tracks rainfall for landscaping, not makeup, leaks, blowdown, or supply problems",
   "Detects abnormal water loss (leaks, excessive blowdown, supply issues) before cooling is compromised",
-  "Replaces rack-inlet temperature sensors by inferring all thermal conditions from basin data alone",
-  "Measures only copper resistance in electrical conductors and cannot describe water-system behavior"
+  "Replaces rack-inlet temperature sensors by inferring thermal conditions from basin data alone",
+  "Measures copper resistance in electrical conductors and cannot describe water-system behavior"
 ]
 correct = "B"
 explanation = "Basin level and makeup flow are a water balance: an unexplained rise in makeup means loss somewhere -- a leak, excessive blowdown, or a supply problem -- and it shows up before thermal performance degrades. It does not replace rack-inlet sensing, though: it is an upstream plant signal, and inferring hall conditions from it would miss anything downstream of the loop."

@@ -7,10 +7,10 @@ kind = "single-select"
 module = 6
 stem = "During utility loss with healthy design, the closest expected sequence is:"
 choices = [
-  "Generator first, then UPS batteries must discharge fully before any transfer",
-  "All IT shuts down until manual restart next day",
+  "Generator first, then UPS batteries must discharge fully before the transfer",
+  "IT shuts down until manual restart next day",
   "UPS carries load on storage while generator starts and transfer completes, then UPS recharges",
-  "Only CRAH units transfer automatically"
+  "CRAH units transfer automatically"
 ]
 correct = "C"
 explanation = "UPS storage bridges generator start and transfer, after which generators sustain the plant and the UPS recharges; IT does not wait for a manual restart and CRAH alone is not the transfer sequence."

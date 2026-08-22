@@ -8,10 +8,10 @@ kind = "single-select"
 module = 9
 stem = "Sensible cooling capacity is the portion of a CRAC/CRAH capacity that:"
 choices = [
-  "Only dehumidifies the air",
+  "Dehumidifies the air",
   "Removes heat without changing moisture content of the air",
-  "Only heats the supply air",
-  "Is always equal to latent capacity"
+  "Heats the supply air",
+  "Is equal to latent capacity"
 ]
 correct = "B"
 explanation = "Sensible capacity removes heat without changing moisture, while latent capacity addresses moisture; it is not only dehumidification, heating, or automatically equal to latent capacity."

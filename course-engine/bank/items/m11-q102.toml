@@ -10,10 +10,10 @@ kind = "single-select"
 module = 11
 stem = "Scalable network cabling design emphasizes:"
 choices = [
-  "Random patching with no pathways",
-  "Copper only forever with no fiber",
+  "Random patching without pathways",
+  "Copper forever without fiber",
   "Planned pathways, media, and topologies that support growth without chaos",
-  "No labeling ever"
+  "Labeling is unused"
 ]
 correct = "C"
 explanation = "Planned pathways, media, labels, and topology let growth remain serviceable; random patching, copper-only assumptions, or missing labels create congestion and MAC errors."

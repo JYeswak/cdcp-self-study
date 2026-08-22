@@ -7,10 +7,10 @@ kind = "single-select"
 module = 10
 stem = "A diversified water strategy might include:"
 choices = [
-  "A single municipal tap with no isolation valves ever, because common piping is more resilient",
-  "Ignoring drought restrictions in planning because conservation modes reduce only comfort loads, without affecting critical operations",
+  "A single municipal tap without isolation valves, because common piping is more resilient",
+  "Ignoring drought restrictions in planning because conservation modes reduce comfort loads, without affecting critical operations",
   "On-site storage, alternate feeds where available, and operational conservation modes during shortage",
-  "Draining all storage every day to maximize truck traffic and keep tanks visibly empty"
+  "Draining storage each day to maximize truck traffic and keep tanks visibly empty"
 ]
 correct = "C"
 explanation = "Diversification means more than one way to keep water reaching the process: stored volume, an alternate feed where the site can get one, and defined conservation modes to stretch what is available. Treating conservation as a comfort-only measure is the subtle error -- conservation modes change how the plant runs, which is why they belong in the plan rather than in an improvised response."

@@ -1,6 +1,6 @@
 {
   "answer_key_policy": "Learner pack omits correct letters. Keys live in keys_seed42.json (e2e/harness + post-grade explanations only). WASM grade uses full BankItem array in bank_items_seed42.json (includes correct; required for client-side GradeExact).",
-  "bank_hash": "1b8dd80ee11d3b33c0dafcf17044609ebfd55ffee68dc8f85215fbfb0b4c3103",
+  "bank_hash": "c3928d059762f335a296c591bbce472d7453315d2d67a99aae54035492d1cb3c",
   "exam_id": "mock40",
   "items": [
     {
@@ -115,10 +115,10 @@
     },
     {
       "choices": [
-        "Cools only the room air with no liquid near IT",
-        "Replaces all electrical grounding",
+        "Cools the room air without liquid near IT",
+        "Replaces electrical grounding",
         "Brings coolant close to high-heat components via cold plates or loops",
-        "Is identical to hot-aisle containment only"
+        "Is identical to hot-aisle containment"
       ],
       "id": "m09-q227",
       "stem": "Direct-to-chip liquid cooling generally involves:"
@@ -155,10 +155,10 @@
     },
     {
       "choices": [
-        "Tracks rainfall for landscaping only, not makeup, leaks, blowdown, or supply problems",
+        "Tracks rainfall for landscaping, not makeup, leaks, blowdown, or supply problems",
         "Detects abnormal water loss (leaks, excessive blowdown, supply issues) before cooling is compromised",
-        "Replaces rack-inlet temperature sensors by inferring all thermal conditions from basin data alone",
-        "Measures only copper resistance in electrical conductors and cannot describe water-system behavior"
+        "Replaces rack-inlet temperature sensors by inferring thermal conditions from basin data alone",
+        "Measures copper resistance in electrical conductors and cannot describe water-system behavior"
       ],
       "id": "m10-q113",
       "stem": "Monitoring basin level and makeup flow is operationally useful because it:"

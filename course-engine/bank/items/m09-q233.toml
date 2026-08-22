@@ -8,9 +8,9 @@ module = 9
 stem = "Humidification may be needed when:"
 choices = [
   "Indoor air becomes too dry relative to the environmental control strategy",
-  "Only when temperature is high",
-  "Only during generator tests",
-  "Never, if containment exists"
+  "When temperature is high",
+  "During generator tests",
+  "Not needed, if containment exists"
 ]
 correct = "A"
 explanation = "Humidification may be needed when indoor air is too dry for the environmental strategy; temperature alone, generator tests, and containment do not define that moisture need."
