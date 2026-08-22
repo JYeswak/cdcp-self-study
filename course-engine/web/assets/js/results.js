@@ -415,6 +415,7 @@ function renderWeakModules(el, weak, byModule) {
 function renderRecovery(el, presentation) {
   if (!el) return;
   el.hidden = false;
+  el.style.display = "";
   const missed = presentation.item_results.filter(function (row) {
     return !row.is_correct;
   }).length;
@@ -525,6 +526,13 @@ async function run() {
   const digestEl = $("r-digest");
   const scoreEl = $("r-score");
   const engineEl = $("r-engine");
+
+  // `.results-recovery` has a display rule of its own. Keep the empty/error
+  // state out of the visual and tab trees until grading has produced a route.
+  if (recoveryEl) {
+    recoveryEl.hidden = true;
+    recoveryEl.style.display = "none";
+  }
 
   // Clear e2e hook until graded.
   window.__cdcp_last_digest = null;

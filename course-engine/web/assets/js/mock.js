@@ -500,6 +500,9 @@
         if (!answers[pack.items[mi].id]) missing.push(mi + 1);
       }
       el.reviewUnanswered.hidden = missing.length === 0;
+      // `.btn` supplies a display rule, so do not rely on the UA [hidden]
+      // stylesheet rule to remove this control from the visual and tab trees.
+      el.reviewUnanswered.style.display = missing.length === 0 ? "none" : "";
       if (missing.length > 0) {
         el.reviewUnanswered.textContent =
           "Review unanswered (Q" + missing.join(", Q") + ")";
@@ -507,6 +510,9 @@
           "aria-label",
           "Review unanswered questions: " + missing.join(", ")
         );
+      } else {
+        el.reviewUnanswered.textContent = "Review unanswered";
+        el.reviewUnanswered.removeAttribute("aria-label");
       }
     }
 
