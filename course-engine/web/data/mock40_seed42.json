@@ -1,6 +1,6 @@
 {
   "answer_key_policy": "Learner pack omits correct letters. Keys live in keys_seed42.json (e2e/harness + post-grade explanations only). WASM grade uses full BankItem array in bank_items_seed42.json (includes correct; required for client-side GradeExact).",
-  "bank_hash": "2d1a9f3eabb121979cc1bbf03c6fc9fd6544e19581a3baaab2157547f31e8a05",
+  "bank_hash": "d6f10648dc699bb42c47bf9c7fad9cc32e7abab4cb815c57d2c986cb5b1d36d3",
   "exam_id": "mock40",
   "items": [
     {

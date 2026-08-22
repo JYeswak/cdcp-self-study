@@ -8,10 +8,10 @@ kind = "single-select"
 module = 9
 stem = "Server inlet temperature is generally preferred over room return temperature as a health metric because:"
 choices = [
-  "Return temperature is always higher than outdoor wet-bulb",
-  "Inlet sensors are illegal in every data hall, regardless of monitoring policy",
+  "Return temperature is higher than outdoor wet-bulb as a rule",
+  "Inlet sensors are illegal in a data hall, independent of monitoring policy",
   "Inlet conditions reflect health",
-  "Return air never contains heat, regardless of airflow"
+  "Return air contains little heat, independent of airflow"
 ]
 correct = "C"
 explanation = "Equipment reliability depends on air entering the server; mixed return can hide an inlet hotspot, while return air is not defined by outdoor wet-bulb or a universal prohibition on inlet sensors."

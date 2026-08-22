@@ -5,9 +5,9 @@ module = 9
 stem = "When comparing environmental guidance classes for IT, the educational takeaway is:"
 choices = [
   "Equipment classes have different envelopes",
-  "All equipment classes share one identical envelope worldwide by law",
-  "Only tape libraries have envelopes; servers do not, regardless of class",
-  "Classes only define rack U-height"
+  "Equipment classes share one identical envelope worldwide by law",
+  "Tape libraries have envelopes; servers do not, independent of class",
+  "Classes define rack U-height rather than thermal range"
 ]
 correct = "A"
 explanation = "ASHRAE-style guidance is class-aware, so equipment envelopes differ; one worldwide envelope, a tape-library-only rule, and rack U-height are not thermal classes."

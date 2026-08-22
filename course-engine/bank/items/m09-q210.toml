@@ -7,10 +7,10 @@ kind = "single-select"
 module = 9
 stem = "Perforated tiles placed in the hot aisle of a classic raised-floor hot and cold design are generally:"
 choices = [
-  "Hot-aisle tile placement is always required by liquid cooling and airflow design",
+  "Hot-aisle tile placement is required by liquid cooling and airflow design",
   "Counterproductive hot-aisle tile placement",
-  "The only correct placement always",
-  "Used only for network racks with special cooling"
+  "The correct default placement in a raised-floor hall",
+  "Used for network racks with special cooling"
 ]
 correct = "B"
 explanation = "Supply openings belong where cold air is needed, typically cold aisles; hot-aisle tiles are not universally required, uniquely correct, or limited to network racks."

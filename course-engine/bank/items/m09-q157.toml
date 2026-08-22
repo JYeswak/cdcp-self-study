@@ -7,10 +7,10 @@ kind = "single-select"
 module = 9
 stem = "Direct-to-chip liquid cooling generally:"
 choices = [
-  "Direct-to-chip cooling immerses entire servers in dielectric fluid always",
+  "Direct-to-chip cooling immerses entire servers in dielectric fluid",
   "Use cold plates and liquid loops",
-  "Cools only the raised-floor plenum air",
-  "Eliminates all facility heat rejection needs"
+  "Cools the raised-floor plenum air rather than the chip",
+  "Eliminates facility heat rejection needs"
 ]
 correct = "B"
 explanation = "Direct-to-chip cooling uses cold plates and liquid loops near high-heat devices; it is not whole-server immersion, room-air-only cooling, or a way to delete outdoor heat rejection."

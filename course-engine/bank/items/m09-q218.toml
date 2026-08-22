@@ -6,10 +6,10 @@ kind = "single-select"
 module = 9
 stem = "Sensible cooling capacity matters for IT rooms because IT load is mostly:"
 choices = [
-  "Only latent humidity load always, regardless of IT power",
+  "Latent humidity load, independent of IT power",
   "Sensible heat as temperature rise",
-  "Only radiative heat from the sun indoors and building envelope",
-  "Zero heat if PUE is low and cooling is efficient"
+  "Radiative heat from the sun indoors and building envelope",
+  "Little heat if PUE is low and cooling is efficient"
 ]
 correct = "B"
 explanation = "Electronics dissipate mainly sensible heat as temperature rise; latent humidity, solar radiation, and low PUE do not make the IT heat load disappear."

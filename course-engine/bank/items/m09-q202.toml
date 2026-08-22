@@ -4,10 +4,10 @@ kind = "single-select"
 module = 9
 stem = "Operating continuously at the extreme edge of an allowable envelope versus recommended is generally associated with:"
 choices = [
-  "Guaranteed higher hardware reliability headroom at every allowable envelope load",
+  "Higher hardware reliability headroom at allowable-envelope load",
   "Less reliability headroom at the envelope edge",
-  "Elimination of all hot spots by definition",
-  "No impact on fans or component stress"
+  "Elimination of hot spots by definition of the envelope",
+  "Little impact on fans or component stress"
 ]
 correct = "B"
 explanation = "Living at the allowable edge leaves less reliability headroom when conditions drift; it does not guarantee higher reliability, eliminate hotspots, or remove fan and component stress."

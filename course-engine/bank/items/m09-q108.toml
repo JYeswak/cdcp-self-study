@@ -13,9 +13,9 @@ module = 9
 stem = "Free cooling / economization concepts aim to:"
 choices = [
   "Uses favorable airside or waterside economization",
-  "Always run compressors at maximum load",
-  "Replace all redundancy with a single fan",
-  "Eliminate the need for any heat rejection path, regardless of cooling mode"
+  "Run compressors at maximum load as the default economizer mode",
+  "Replace redundant heat-rejection paths with a single fan",
+  "Eliminate the heat rejection path once economizer mode is available"
 ]
 correct = "A"
 explanation = "Economizers use favorable airside, waterside, or refrigerant conditions to reduce compressor work; they do not require maximum compressors, remove redundancy, or eliminate ultimate heat rejection."

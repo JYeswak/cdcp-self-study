@@ -7,10 +7,10 @@ kind = "single-select"
 module = 9
 stem = "Close-coupled cooling approaches (in-row, overhead, rear-door) share the idea of:"
 choices = [
-  "Cooling only the parking lot, not the equipment heat source",
+  "Cooling the parking lot rather than the equipment heat source",
   "Moves cooling near the IT heat",
-  "Removing all fans from the facility, regardless of airflow needs",
-  "Using only natural convection with zero design"
+  "Removing fans from the facility, independent of airflow needs",
+  "Using natural convection with little design"
 ]
 correct = "B"
 explanation = "Close-coupled designs move cooling near IT heat and shorten airflow paths; they do not cool parking lots, remove all fans, or rely on zero-design natural convection."

@@ -7,10 +7,10 @@ kind = "single-select"
 module = 9
 stem = "A practical raised-floor airflow management practice is to:"
 choices = [
-  "Open every tile to maximum free area everywhere",
-  "Block all cold aisles permanently",
+  "Open tiles to maximum free area throughout the floor",
+  "Block cold aisles to force air through the IT",
   "Match tile open area to IT load and layout",
-  "Remove all CRAH filters forever"
+  "Remove CRAH filters to raise airflow"
 ]
 correct = "C"
 explanation = "Tile open area should match IT load and layout; random openings, permanently blocked cold aisles, and removed filters create bypass or starve equipment."

@@ -13393,9 +13393,9 @@
     "bloom": "understand",
     "choices": [
       "Uses favorable airside or waterside economization",
-      "Always run compressors at maximum load",
-      "Replace all redundancy with a single fan",
-      "Eliminate the need for any heat rejection path, regardless of cooling mode"
+      "Run compressors at maximum load as the default economizer mode",
+      "Replace redundant heat-rejection paths with a single fan",
+      "Eliminate the heat rejection path once economizer mode is available"
     ],
     "citation_ids": [],
     "correct": "A",
@@ -13492,9 +13492,9 @@
     "bloom": "understand",
     "choices": [
       "Separate preferred and tolerable operating ranges",
-      "Replace all local building codes",
-      "Define only generator outdoor temperatures",
-      "Mandate a single global setpoint for every facility"
+      "Replace local building codes for thermal design",
+      "Define generator outdoor temperatures rather than IT inlets",
+      "Mandate a single global setpoint for facilities"
     ],
     "citation_ids": [],
     "correct": "A",
@@ -13636,10 +13636,10 @@
   {
     "bloom": "apply",
     "choices": [
-      "Return temperature is always higher than outdoor wet-bulb",
-      "Inlet sensors are illegal in every data hall, regardless of monitoring policy",
+      "Return temperature is higher than outdoor wet-bulb as a rule",
+      "Inlet sensors are illegal in a data hall, independent of monitoring policy",
       "Inlet conditions reflect health",
-      "Return air never contains heat, regardless of airflow"
+      "Return air contains little heat, independent of airflow"
     ],
     "citation_ids": [],
     "correct": "C",
@@ -13687,9 +13687,9 @@
     "bloom": "understand",
     "choices": [
       "Equipment classes have different envelopes",
-      "All equipment classes share one identical envelope worldwide by law",
-      "Only tape libraries have envelopes; servers do not, regardless of class",
-      "Classes only define rack U-height"
+      "Equipment classes share one identical envelope worldwide by law",
+      "Tape libraries have envelopes; servers do not, independent of class",
+      "Classes define rack U-height rather than thermal range"
     ],
     "citation_ids": [],
     "correct": "A",
@@ -14003,10 +14003,10 @@
   {
     "bloom": "understand",
     "choices": [
-      "Cooling only the parking lot, not the equipment heat source",
+      "Cooling the parking lot rather than the equipment heat source",
       "Moves cooling near the IT heat",
-      "Removing all fans from the facility, regardless of airflow needs",
-      "Using only natural convection with zero design"
+      "Removing fans from the facility, independent of airflow needs",
+      "Using natural convection with little design"
     ],
     "citation_ids": [],
     "correct": "B",
@@ -14052,9 +14052,9 @@
   {
     "bloom": "apply",
     "choices": [
-      "Perforated tiles in the hot aisle are ideal for maximum cooling efficiency always",
-      "Required by every electrical code",
-      "The only way to cool batteries",
+      "Perforated tiles in the hot aisle are ideal for maximum cooling efficiency",
+      "Required by electrical code for raised-floor halls",
+      "The way to cool batteries in a raised-floor hall",
       "Counterproductive in classic aisle layouts"
     ],
     "citation_ids": [],
@@ -14125,10 +14125,10 @@
   {
     "bloom": "apply",
     "choices": [
-      "Open every tile to maximum free area everywhere",
-      "Block all cold aisles permanently",
+      "Open tiles to maximum free area throughout the floor",
+      "Block cold aisles to force air through the IT",
       "Match tile open area to IT load and layout",
-      "Remove all CRAH filters forever"
+      "Remove CRAH filters to raise airflow"
     ],
     "citation_ids": [],
     "correct": "C",
@@ -14588,10 +14588,10 @@
   {
     "bloom": "understand",
     "choices": [
-      "Direct-to-chip cooling immerses entire servers in dielectric fluid always",
+      "Direct-to-chip cooling immerses entire servers in dielectric fluid",
       "Use cold plates and liquid loops",
-      "Cools only the raised-floor plenum air",
-      "Eliminates all facility heat rejection needs"
+      "Cools the raised-floor plenum air rather than the chip",
+      "Eliminates facility heat rejection needs"
     ],
     "citation_ids": [],
     "correct": "B",
@@ -14636,9 +14636,9 @@
   {
     "bloom": "apply",
     "choices": [
-      "There are never leak, water quality, or material compatibility considerations",
-      "Liquid cooling removes all need for electrical safety and isolation",
-      "Only copper cabling is affected, never fluid components or safety controls",
+      "Leak, water quality, and material compatibility drop out of the design",
+      "Liquid cooling removes electrical safety and isolation from the hall",
+      "Copper cabling is the affected system, not fluid components or safety controls",
       "Leak detection, chemistry, isolation, and maintainability"
     ],
     "citation_ids": [],
@@ -14760,9 +14760,9 @@
     "bloom": "understand",
     "choices": [
       "Shift mechanical cooling energy with stored seasonal capacity",
-      "Guaranteed zero capital cost always, regardless of storage design",
-      "Removing the need for any outdoor heat rejection ever",
-      "Replacing all IT with ice blocks"
+      "A capital-cost saving, independent of storage design",
+      "Removing outdoor heat rejection once storage is charged",
+      "Replacing IT heat with ice blocks as the cooling plant"
     ],
     "citation_ids": [],
     "correct": "A",
@@ -14832,10 +14832,10 @@
   {
     "bloom": "apply",
     "choices": [
-      "Guaranteed higher hardware reliability headroom at every allowable envelope load",
+      "Higher hardware reliability headroom at allowable-envelope load",
       "Less reliability headroom at the envelope edge",
-      "Elimination of all hot spots by definition",
-      "No impact on fans or component stress"
+      "Elimination of hot spots by definition of the envelope",
+      "Little impact on fans or component stress"
     ],
     "citation_ids": [],
     "correct": "B",
@@ -15029,10 +15029,10 @@
   {
     "bloom": "apply",
     "choices": [
-      "Hot-aisle tile placement is always required by liquid cooling and airflow design",
+      "Hot-aisle tile placement is required by liquid cooling and airflow design",
       "Counterproductive hot-aisle tile placement",
-      "The only correct placement always",
-      "Used only for network racks with special cooling"
+      "The correct default placement in a raised-floor hall",
+      "Used for network racks with special cooling"
     ],
     "citation_ids": [],
     "correct": "B",
@@ -15126,10 +15126,10 @@
   {
     "bloom": "understand",
     "choices": [
-      "CRAC and CRAH always mean immersion tanks and chilled-water refrigeration loops",
+      "CRAC and CRAH mean immersion tanks and chilled-water refrigeration loops",
       "CRAC refrigeration versus CRAH chilled water",
-      "CRAC never cools air in any operating mode or design",
-      "They differ only in paint color and equipment branding"
+      "CRAC cools air in neither operating mode nor design",
+      "They differ in paint color and equipment branding"
     ],
     "citation_ids": [],
     "correct": "B",
@@ -15224,10 +15224,10 @@
   {
     "bloom": "understand",
     "choices": [
-      "Only latent humidity load always, regardless of IT power",
+      "Latent humidity load, independent of IT power",
       "Sensible heat as temperature rise",
-      "Only radiative heat from the sun indoors and building envelope",
-      "Zero heat if PUE is low and cooling is efficient"
+      "Radiative heat from the sun indoors and building envelope",
+      "Little heat if PUE is low and cooling is efficient"
     ],
     "citation_ids": [],
     "correct": "B",
@@ -16968,10 +16968,10 @@
   {
     "bloom": "analyze",
     "choices": [
-      "Accept the claim: a closed loop self-permits and removes every water use, so no fill, fire, domestic, discharge, chemistry, or site-approval review is needed",
+      "Accept the claim: a closed loop self-permits and removes fill, fire, domestic, discharge, chemistry, and site-approval review",
       "Reject the absolute claim: verify fill, humidification, fire/domestic water, discharge, chemistry, approvals, and M03 water-rights interfaces",
-      "Use EPA Quincy case-study volumes as universal permit thresholds and treat them as sufficient for every closed-loop site, regardless of design and jurisdiction",
-      "Treat WUE as PUE and omit the site-water measurement boundary because non-evaporative heat rejection makes all water obligations disappear"
+      "Use EPA Quincy case-study volumes as permit thresholds sufficient for this closed-loop site, independent of design and jurisdiction",
+      "Treat WUE as PUE and omit the site-water measurement boundary because non-evaporative heat rejection makes water obligations disappear"
     ],
     "citation_ids": [
       "src-epi-cdcp-page",

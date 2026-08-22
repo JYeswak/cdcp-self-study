@@ -8,9 +8,9 @@ module = 9
 stem = "A qualitative benefit sometimes sought from seasonal cold storage strategies is:"
 choices = [
   "Shift mechanical cooling energy with stored seasonal capacity",
-  "Guaranteed zero capital cost always, regardless of storage design",
-  "Removing the need for any outdoor heat rejection ever",
-  "Replacing all IT with ice blocks"
+  "A capital-cost saving, independent of storage design",
+  "Removing outdoor heat rejection once storage is charged",
+  "Replacing IT heat with ice blocks as the cooling plant"
 ]
 correct = "A"
 explanation = "Seasonal cold storage can shift mechanical cooling energy when climate and design allow; it does not guarantee zero capital cost, remove heat rejection, or replace IT with ice."
