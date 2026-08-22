@@ -42,3 +42,20 @@ are now measured green at the current revision; the binary path-leak criterion
 is red at 165 occurrences. This receipt does not claim a Rust-free operating
 system or Windows parity, and it does not close the bead. The release/installer
 source was not changed in this audit because that surface is owned by pane 3.
+
+## Path-remap diagnosis
+
+As a controlled follow-up, the same producer was run at the same source revision
+with the inherited build flag
+`RUSTFLAGS='--remap-path-prefix=/Users/josh='`.
+
+- Remapped archive SHA-256: `f4322d779830723c1bb90807e32b911f06ae249e75fe34bc8a0bf8041f3dcd17`.
+- `cdcp release verify`: PASS.
+- Installer selftest: PASS, `INJECTIONS=5 SUITE=installer`.
+- `strings <release cdcp> | grep -c '/Users/'`: `0`.
+- `strings <release cdcp> | grep -c '/private/tmp/cdcp-installability-audit'`: `0`.
+
+This isolates the 165-string failure to the producer's missing path-remap build
+flag. The flag was supplied externally for diagnosis; the producer source was not
+changed, so the epic remains open until the release command applies and verifies
+the remap itself.
