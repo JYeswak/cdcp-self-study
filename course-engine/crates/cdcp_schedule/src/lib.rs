@@ -26,6 +26,11 @@ pub const DAY_MS: i64 = 86_400_000;
 /// Practiced threshold in parts per thousand (800 = 0.80).
 pub const PRACTICED_MILLI: u32 = 800;
 
+/// Mastery evidence is admissible only when every item in the attempt was
+/// answered. This is a product contract, not a presentation preference:
+/// unanswered items cannot evidence practiced/mastered study signals.
+pub const MASTERY_REQUIRES_COMPLETE_ATTEMPT: bool = true;
+
 /// Mastered per-attempt threshold in parts per thousand (900 = 0.90).
 pub const MASTERED_MILLI: u32 = 900;
 
@@ -69,6 +74,10 @@ const _: () = assert!(
     "INTERVAL_STEPS must be non-empty, strictly increasing, every step > 0"
 );
 const _: () = assert!(PRACTICED_MILLI > 0, "practiced threshold 0 is an ERROR");
+const _: () = assert!(
+    MASTERY_REQUIRES_COMPLETE_ATTEMPT,
+    "partial attempts must never be admissible mastery evidence"
+);
 const _: () = assert!(MASTERED_MILLI > 0, "mastered threshold 0 is an ERROR");
 const _: () = assert!(
     PRACTICED_MILLI <= MASTERED_MILLI,
@@ -273,6 +282,16 @@ pub fn is_practiced_ratio(best_ratio: f64) -> bool {
     is_practiced_milli(ratio_to_milli(best_ratio))
 }
 
+/// Whether an attempt may provide practiced/mastered evidence.
+///
+/// `total == 0` is not a quiz, and `answered < total` is a partial attempt;
+/// neither can move a module mastery bar. The browser calls this contract
+/// before persisting a quiz result, while this pure function keeps the rule
+/// pinned beside the threshold constants.
+pub const fn attempt_is_complete(answered: u32, total: u32) -> bool {
+    MASTERY_REQUIRES_COMPLETE_ATTEMPT && total > 0 && answered == total
+}
+
 /// mastered: ≥2 attempts with `ratio_milli ≥ MASTERED_MILLI` whose timestamps
 /// are ≥ [`MASTERED_MIN_GAP_MS`] apart (earliest vs latest qualifying).
 pub fn is_mastered(attempts: &[ReviewAttempt]) -> bool {
@@ -408,6 +427,13 @@ mod tests {
         assert!(!is_practiced_ratio(0.79));
         assert!(is_practiced_ratio(0.80));
         assert!(!is_practiced_ratio(f64::NAN));
+    }
+
+    #[test]
+    fn partial_attempt_is_not_mastery_evidence() {
+        assert!(!attempt_is_complete(0, 0));
+        assert!(!attempt_is_complete(39, 40));
+        assert!(attempt_is_complete(40, 40));
     }
 
     #[test]

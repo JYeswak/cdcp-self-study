@@ -82,19 +82,30 @@
 
       <div class="exam-submit-bar">
         <p id="unanswered-hint" class="unanswered-hint" tabindex="-1">
-          Answer all items to enable grade.
+          Submit remains available; unanswered items will be counted separately.
         </p>
-        <button type="button" id="btn-submit" class="btn btn--primary" disabled>
-          Grade quiz
+        <button type="button" id="btn-submit" class="btn btn--primary">
+          Submit · 0 of 0
         </button>
       </div>
     </div>
+
+    <section id="quiz-submit-confirm" class="question-card submit-confirm" role="dialog" aria-modal="true" aria-labelledby="quiz-submit-confirm-title" hidden>
+      <h2 id="quiz-submit-confirm-title" class="question-card__stem" style="font-size:1.1rem">Submit quiz?</h2>
+      <p id="quiz-submit-confirm-copy"></p>
+      <ul id="quiz-submit-confirm-gaps" class="submit-confirm__gaps"></ul>
+      <div class="question-card__actions">
+        <button type="button" id="quiz-submit-confirm-review" class="btn btn--ghost">Review unanswered</button>
+        <button type="button" id="quiz-submit-confirm-cancel" class="btn btn--ghost">Keep working</button>
+        <button type="button" id="quiz-submit-confirm-accept" class="btn btn--primary">Submit as-is</button>
+      </div>
+    </section>
 
     <section id="quiz-results" class="question-card" hidden>
       <h2 class="question-card__stem" style="font-size:1.1rem">Quiz results</h2>
       <p class="results-score-line">
         <span id="quiz-score" class="results-score-value mono">—</span>
-        <span class="results-score-label">correct / total</span>
+        <span id="quiz-score-label" class="results-score-label">correct / total</span>
       </p>
       <p class="meta" style="margin:0 0 0.5rem;border:0;padding:0">
         Digest: <span id="quiz-digest" class="mono results-hash">—</span>

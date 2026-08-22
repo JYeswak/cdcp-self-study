@@ -108,15 +108,26 @@
 
     <div class="exam-submit-bar">
       <p id="unanswered-hint" class="unanswered-hint" tabindex="-1">
-        Answer all 40 items to enable submit.
+        Submit remains available; unanswered items will be counted separately.
       </p>
       <button type="button" id="btn-review-unanswered" class="btn btn--ghost" hidden>
         Review unanswered
       </button>
-      <button type="button" id="btn-submit" class="btn btn--primary" disabled>
-        Submit attempt
+      <button type="button" id="btn-submit" class="btn btn--primary">
+        Submit · 0 of 40 — 40 unanswered
       </button>
     </div>
+
+    <section id="submit-confirm" class="question-card submit-confirm" role="dialog" aria-modal="true" aria-labelledby="submit-confirm-title" hidden>
+      <h2 id="submit-confirm-title" class="question-card__stem" style="font-size:1.1rem">Submit attempt?</h2>
+      <p id="submit-confirm-copy"></p>
+      <ul id="submit-confirm-gaps" class="submit-confirm__gaps"></ul>
+      <div class="question-card__actions">
+        <button type="button" id="submit-confirm-review" class="btn btn--ghost">Review unanswered</button>
+        <button type="button" id="submit-confirm-cancel" class="btn btn--ghost">Keep working</button>
+        <button type="button" id="submit-confirm-accept" class="btn btn--primary">Submit as-is</button>
+      </div>
+    </section>
 
     <div class="jump-panel">
       <p class="jump-panel__label" id="jump-label">Question map</p>

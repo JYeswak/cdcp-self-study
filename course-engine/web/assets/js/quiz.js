@@ -62,6 +62,12 @@ const el = {
   digestLine: null,
   modeLine: null,
   itemList: null,
+  submitConfirm: null,
+  submitConfirmCopy: null,
+  submitConfirmGaps: null,
+  submitConfirmReview: null,
+  submitConfirmCancel: null,
+  submitConfirmAccept: null,
 };
 
 function $(id) {
@@ -290,15 +296,19 @@ export function sampleItems(items, seed, minN, maxN) {
 export function gradeByKeys(items, answerMap) {
   const rows = [];
   let correct = 0;
+  let unanswered = 0;
   for (let i = 0; i < items.length; i++) {
     const it = items[i];
     const chosen = answerMap[it.id] || null;
     const ok = !!(chosen && it.correct && chosen === it.correct);
     if (ok) correct += 1;
+    if (!chosen) unanswered += 1;
     rows.push({
       item_id: it.id,
       chosen: chosen || "—",
       correct: it.correct || "—",
+      is_answered: !!chosen,
+      unanswered: !chosen,
       is_correct: ok,
       explanation: it.explanation || "",
       stem: it.stem || "",
@@ -308,6 +318,8 @@ export function gradeByKeys(items, answerMap) {
   return {
     score_correct: correct,
     score_total: items.length,
+    unanswered_count: unanswered,
+    is_partial: unanswered > 0,
     item_results: rows,
   };
 }
@@ -379,8 +391,56 @@ function buildAttempt() {
     exam_id: pack.exam_id,
     seed: pack.seed,
     bank_hash: pack.bank_hash,
+    item_ids: pack.items.map(function (it) { return it.id; }),
+    total_items: pack.items.length,
+    answered_count: list.length,
     answers: list,
   };
+}
+
+function missingIndices() {
+  const missing = [];
+  if (!pack) return missing;
+  for (let i = 0; i < pack.items.length; i++) {
+    if (!answers[pack.items[i].id]) missing.push(i);
+  }
+  return missing;
+}
+
+function hideSubmitConfirm() {
+  if (!el.submitConfirm) return;
+  el.submitConfirm.hidden = true;
+  el.submitConfirm.style.display = "none";
+}
+
+function showSubmitConfirm() {
+  if (!el.submitConfirm || !pack) return;
+  const missing = missingIndices();
+  const answered = pack.items.length - missing.length;
+  el.submitConfirmCopy.textContent = missing.length
+    ? "You answered " + answered + " of " + pack.items.length + ". Review the unanswered items, or submit this partial quiz as-is."
+    : "All " + pack.items.length + " items are answered. Submit this quiz for grading?";
+  el.submitConfirmGaps.innerHTML = "";
+  for (let i = 0; i < missing.length; i++) {
+    const link = document.createElement("a");
+    link.href = "#question-card";
+    link.className = "submit-confirm__gap-link";
+    link.setAttribute("data-jump", String(missing[i]));
+    link.textContent = "Item " + String(missing[i] + 1);
+    link.addEventListener("click", function (ev) {
+      ev.preventDefault();
+      hideSubmitConfirm();
+      goTo(parseInt(ev.currentTarget.getAttribute("data-jump"), 10));
+    });
+    const li = document.createElement("li");
+    li.appendChild(link);
+    el.submitConfirmGaps.appendChild(li);
+  }
+  el.submitConfirmReview.hidden = missing.length === 0;
+  el.submitConfirmGaps.hidden = missing.length === 0;
+  el.submitConfirm.hidden = false;
+  el.submitConfirm.style.display = "block";
+  el.submitConfirmCancel.focus();
 }
 
 function updateChrome() {
@@ -394,13 +454,17 @@ function updateChrome() {
     "Question " + n + " of " + total + ", " + answered + " answered"
   );
   const allDone = answered === total;
-  el.submit.disabled = !allDone;
+  el.submit.disabled = false;
+  el.submit.setAttribute("aria-disabled", "false");
+  el.submit.textContent = allDone
+    ? "Submit · " + total + " of " + total
+    : "Submit · " + answered + " of " + total + " — " + (total - answered) + " unanswered";
   el.unanswered.textContent = allDone
     ? "All " + total + " answered — ready to grade."
     : answered +
       " of " +
       total +
-      " answered. Grade unlocks when every item has a choice.";
+      " answered · " + (total - answered) + " unanswered. Submit remains available.";
   el.prev.disabled = index <= 0;
   el.next.disabled = index >= total - 1;
 }
@@ -501,19 +565,30 @@ function renderResults(presentation, digest, modeNote) {
   window.__cdcp_quiz_last_digest = digest;
   el.scoreLine.textContent =
     presentation.score_correct + " / " + presentation.score_total;
+  const scoreLabel = document.getElementById("quiz-score-label");
+  if (scoreLabel) {
+    scoreLabel.textContent = presentation.is_partial
+      ? "· " + presentation.unanswered_count + " unanswered · partial attempt"
+      : "correct / total";
+  }
   el.digestLine.textContent = digest || "— (no WASM digest; key-compare only)";
   el.modeLine.textContent = modeNote;
   const parts = ['<ol class="results-item-list">'];
   for (let i = 0; i < presentation.item_results.length; i++) {
     const r = presentation.item_results[i];
     const ok = r.is_correct;
-    const cls = ok
-      ? "results-item results-item--ok"
-      : "results-item results-item--bad";
-    const mark = ok ? "Correct" : "Incorrect";
-    const markCls = ok
-      ? "results-item__mark results-item__mark--ok"
-      : "results-item__mark results-item__mark--bad";
+    const unanswered = r.is_answered === false || r.unanswered;
+    const cls = unanswered
+      ? "results-item results-item--unanswered"
+      : ok
+        ? "results-item results-item--ok"
+        : "results-item results-item--bad";
+    const mark = unanswered ? "Unanswered" : ok ? "Correct" : "Incorrect";
+    const markCls = unanswered
+      ? "results-item__mark"
+      : ok
+        ? "results-item__mark results-item__mark--ok"
+        : "results-item__mark results-item__mark--bad";
     parts.push(
       '<li class="' +
         cls +
@@ -530,9 +605,8 @@ function renderResults(presentation, digest, modeNote) {
         (r.stem
           ? '<p class="results-item__stem">' + escapeHtml(r.stem) + "</p>"
           : "") +
-        '<p class="results-item__letters mono">chosen ' +
-        escapeHtml(r.chosen) +
-        " · correct " +
+        '<p class="results-item__letters mono">' +
+        (unanswered ? "not answered · correct " : "chosen " + escapeHtml(r.chosen) + " · correct ") +
         escapeHtml(r.correct) +
         "</p>" +
         (r.explanation
@@ -547,15 +621,9 @@ function renderResults(presentation, digest, modeNote) {
   el.itemList.innerHTML = parts.join("");
 }
 
-async function onSubmit(ev) {
-  ev.preventDefault();
-  if (!pack || answeredCount() !== pack.items.length) {
-    el.unanswered.focus();
-    return;
-  }
-  if (!window.confirm("Grade this quiz? You will see the study signal and review route below.")) {
-    return;
-  }
+async function finishSubmit() {
+  if (!pack) return;
+  hideSubmitConfirm();
   setStatus("", "Grading module quiz…");
   const attempt = buildAttempt();
   const presentation = gradeByKeys(pack.items, answers);
@@ -596,29 +664,44 @@ async function onSubmit(ev) {
     module: pack.module,
     correct: presentation.score_correct,
     total: presentation.score_total,
+    answered: presentation.score_total - presentation.unanswered_count,
+    complete: !presentation.is_partial,
     atMs: Date.now(),
   });
 
   const modeNote =
     gradeMode === "wasm"
-      ? "Graded via WASM (" +
+      ? (presentation.is_partial
+        ? "Partial quiz graded via WASM (" +
+          ENGINE_IDENTITY_SUBJECT +
+          "). Unanswered items are separate; this attempt does not update module mastery. Study signal only — not a CDCP credential."
+        : "Graded via WASM (" +
         ENGINE_IDENTITY_SUBJECT +
-        "). Same GradeExact letter law as mock. Study signal only — not a CDCP credential."
+        "). Same GradeExact letter law as mock. Study signal only — not a CDCP credential.")
       : "WASM unavailable — pedagogy score via key-compare only (no GradeExact digest). " +
+        (presentation.is_partial
+          ? "Partial attempt; unanswered items are separate and module mastery is unchanged. "
+          : "") +
         "Study signal only — not a CDCP credential. Never claims certification.";
 
   renderResults(presentation, digest, modeNote);
   setStatus(
     "ok",
     gradeMode === "wasm"
-      ? "Quiz graded (WASM). Missed items sent to Drill."
-      : "Quiz scored (key-compare). Missed items sent to Drill."
+      ? "Quiz graded (WASM). " + (presentation.is_partial ? "Partial attempt; " : "") + "answered misses sent to Drill."
+      : "Quiz scored (key-compare). " + (presentation.is_partial ? "Partial attempt; " : "") + "answered misses sent to Drill."
   );
   try {
     sessionStorage.removeItem(STORAGE_DRAFT);
   } catch (_) {
     /* ignore */
   }
+}
+
+async function onSubmit(ev) {
+  ev.preventDefault();
+  if (!pack) return;
+  showSubmitConfirm();
 }
 
 function onKeydown(ev) {
@@ -844,6 +927,12 @@ function bind() {
   el.digestLine = $("quiz-digest");
   el.modeLine = $("quiz-mode");
   el.itemList = $("quiz-item-list");
+  el.submitConfirm = $("quiz-submit-confirm");
+  el.submitConfirmCopy = $("quiz-submit-confirm-copy");
+  el.submitConfirmGaps = $("quiz-submit-confirm-gaps");
+  el.submitConfirmReview = $("quiz-submit-confirm-review");
+  el.submitConfirmCancel = $("quiz-submit-confirm-cancel");
+  el.submitConfirmAccept = $("quiz-submit-confirm-accept");
 
   el.prev.addEventListener("click", function () {
     goTo(index - 1);
@@ -852,6 +941,13 @@ function bind() {
     goTo(index + 1);
   });
   el.submit.addEventListener("click", onSubmit);
+  el.submitConfirmAccept.addEventListener("click", finishSubmit);
+  el.submitConfirmCancel.addEventListener("click", hideSubmitConfirm);
+  el.submitConfirmReview.addEventListener("click", function () {
+    const missing = missingIndices();
+    hideSubmitConfirm();
+    if (missing.length) goTo(missing[0]);
+  });
   el.startBtn.addEventListener("click", function () {
     const m = parseInt(el.moduleSelect.value, 10);
     if (!isFinite(m)) return;

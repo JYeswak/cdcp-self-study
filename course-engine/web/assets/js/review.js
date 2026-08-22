@@ -685,7 +685,15 @@ export function recordGradedWrongs(graded, opts) {
   const missed = [];
   for (let i = 0; i < results.length; i++) {
     const r = results[i];
-    if (r && r.is_correct === false && typeof r.item_id === "string") {
+    // A missing answer is a distinct learner fact, not a wrong answer. It
+    // belongs in the partial result, but must not be silently folded into the
+    // wrong-answer review queue.
+    if (
+      r &&
+      r.is_correct === false &&
+      r.is_answered !== false &&
+      typeof r.item_id === "string"
+    ) {
       missed.push(r.item_id);
     }
   }

@@ -55,10 +55,61 @@ import {
   getState,
   loadState,
 } from "./mastery.js";
+import { listDue, loadMissed } from "./review.js";
 
 /** Weak modules from last graded mock attempt. */
 export const WEAK_STORAGE_KEY = "cdcp.last_weak.v1";
 export const WEAK_SCHEMA_VERSION = 1;
+
+/** The measured empty-state copy is a KEEP: preserve its next action. */
+export const EMPTY_DRILL_COPY =
+  "No cards due. Take a mock or quiz, then come back for a 90-second loop.";
+
+/**
+ * Choose the single Drill entry shown on the hub from learner state.
+ *
+ * The route is deliberately a projection of the two product stores, not a
+ * third queue. A due card wins over old misses; an empty queue keeps the
+ * measured action-oriented copy and points at the module mode.
+ *
+ * @param {{ store?: Storage, nowMs?: number }} [opts]
+ * @returns {{kind: "due"|"missed"|"empty", count: number, href: string, label: string, description: string}}
+ */
+export function drillRecommendation(opts) {
+  const o = opts || {};
+  const due = listDue({ store: o.store, nowMs: o.nowMs });
+  if (due.length > 0) {
+    return {
+      kind: "due",
+      count: due.length,
+      href: "drill.html?mode=due",
+      label: "Drill · " + due.length + " cards due",
+      description:
+        "90-second loop: due cards first (cap 10) + one diagram.",
+    };
+  }
+  const missed = loadMissed(o.store);
+  const missedCount = missed && Array.isArray(missed.item_ids)
+    ? missed.item_ids.length
+    : 0;
+  if (missedCount > 0) {
+    return {
+      kind: "missed",
+      count: missedCount,
+      href: "drill.html?mode=missed",
+      label: "Review " + missedCount + " missed items",
+      description:
+        "Misses from your last graded attempt are ready for explanation-led review.",
+    };
+  }
+  return {
+    kind: "empty",
+    count: 0,
+    href: "drill.html?mode=module&m=1",
+    label: "Drill · nothing due",
+    description: EMPTY_DRILL_COPY,
+  };
+}
 
 /**
  * Projection of one Learn-registry row onto a mastery-dashboard entry.
@@ -496,6 +547,30 @@ export function paintRecommend(el, opts) {
 }
 
 /**
+ * Paint the one stateful Drill card on the hub.
+ * @param {HTMLElement | null} [el]
+ * @param {{ store?: Storage, nowMs?: number }} [opts]
+ */
+export function paintHubDrill(el, opts) {
+  const target =
+    el ||
+    (typeof document !== "undefined"
+      ? document.getElementById("hub-drill-card")
+      : null);
+  if (!target) return null;
+  const rec = drillRecommendation(opts);
+  target.setAttribute("href", rec.href);
+  const label = target.querySelector(".card__label");
+  const title = target.querySelector(".card__title");
+  const desc = target.querySelector(".card__desc");
+  if (label) label.textContent = rec.kind === "missed" ? "Recovery" : "Practice";
+  if (title) title.textContent = rec.label;
+  if (desc) desc.textContent = rec.description;
+  target.setAttribute("data-drill-kind", rec.kind);
+  return rec;
+}
+
+/**
  * Paint hub mastery grid (#mastery-grid) + recommend.
  * @param {{ store?: Storage, root?: Document|HTMLElement }} [opts]
  */
@@ -506,6 +581,11 @@ export function paintHub(opts) {
 
   const state = o.state || getState({ store: o.store });
   const masteryOpts = { state: state, store: o.store };
+
+  paintHubDrill(
+    root.getElementById ? root.getElementById("hub-drill-card") : null,
+    { store: o.store, nowMs: o.nowMs }
+  );
 
   paintRecommend(
     root.getElementById
@@ -676,6 +756,8 @@ if (typeof globalThis !== "undefined") {
     loadLastWeak,
     saveLastWeak,
     recommendNext,
+    drillRecommendation,
+    paintHubDrill,
     moduleBadgeState,
     badgeHtml,
     paintRecommend,

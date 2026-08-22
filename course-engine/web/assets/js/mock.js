@@ -74,6 +74,12 @@
     packMeta: null,
     closedNotesToggle: null,
     closedNotesHint: null,
+    submitConfirm: null,
+    submitConfirmCopy: null,
+    submitConfirmGaps: null,
+    submitConfirmReview: null,
+    submitConfirmCancel: null,
+    submitConfirmAccept: null,
   };
 
   function $(id) {
@@ -407,8 +413,56 @@
       exam_id: pack.exam_id,
       seed: pack.seed,
       bank_hash: pack.bank_hash,
+      item_ids: pack.items.map(function (item) { return item.id; }),
+      total_items: pack.items.length,
+      answered_count: list.length,
       answers: list,
     };
+  }
+
+  function missingIndices() {
+    var missing = [];
+    if (!pack) return missing;
+    for (var i = 0; i < pack.items.length; i++) {
+      if (!answers[pack.items[i].id]) missing.push(i);
+    }
+    return missing;
+  }
+
+  function hideSubmitConfirm() {
+    if (!el.submitConfirm) return;
+    el.submitConfirm.hidden = true;
+    el.submitConfirm.style.display = "none";
+  }
+
+  function showSubmitConfirm() {
+    if (!el.submitConfirm || !pack) return;
+    var missing = missingIndices();
+    var answered = pack.items.length - missing.length;
+    el.submitConfirmCopy.textContent = missing.length
+      ? "You answered " + answered + " of " + pack.items.length + ". Review the unanswered items, or submit this partial attempt as-is."
+      : "All " + pack.items.length + " items are answered. Submit this attempt for grading?";
+    el.submitConfirmGaps.innerHTML = "";
+    for (var i = 0; i < missing.length; i++) {
+      var link = document.createElement("a");
+      link.href = "#question-card";
+      link.className = "submit-confirm__gap-link";
+      link.setAttribute("data-jump", String(missing[i]));
+      link.textContent = "Item " + String(missing[i] + 1);
+      link.addEventListener("click", function (ev) {
+        ev.preventDefault();
+        hideSubmitConfirm();
+        goTo(parseInt(ev.currentTarget.getAttribute("data-jump"), 10));
+      });
+      var li = document.createElement("li");
+      li.appendChild(link);
+      el.submitConfirmGaps.appendChild(li);
+    }
+    el.submitConfirmReview.hidden = missing.length === 0;
+    el.submitConfirmGaps.hidden = missing.length === 0;
+    el.submitConfirm.hidden = false;
+    el.submitConfirm.style.display = "block";
+    el.submitConfirmCancel.focus();
   }
 
   function formatTime(totalSec) {
@@ -481,11 +535,12 @@
     );
 
     var allDone = answered === total;
-    el.submit.disabled = !allDone;
-    el.submit.setAttribute(
-      "aria-disabled",
-      allDone ? "false" : "true"
-    );
+    var remaining = total - answered;
+    el.submit.disabled = false;
+    el.submit.setAttribute("aria-disabled", "false");
+    el.submit.textContent = allDone
+      ? "Submit · " + total + " of " + total
+      : "Submit · " + answered + " of " + total + " — " + remaining + " unanswered";
     el.unanswered.textContent = allDone
       ? "All " + total + " answered — ready to submit."
       : answered +
@@ -493,7 +548,7 @@
         total +
         " answered · " +
         remaining +
-        " remaining. Submit unlocks when every item has a choice.";
+        " unanswered. Submit remains available.";
     if (el.reviewUnanswered) {
       var missing = [];
       for (var mi = 0; mi < pack.items.length; mi++) {
@@ -657,18 +712,7 @@
     renderQuestion();
   }
 
-  function onSubmit(ev) {
-    ev.preventDefault();
-    if (!pack) return;
-    if (answeredCount() !== pack.items.length) {
-      el.unanswered.focus();
-      return;
-    }
-    if (!window.confirm(
-      "Submit this attempt? You will see your study signal and review route on Results."
-    )) {
-      return;
-    }
+  function commitAttempt() {
     var attempt = buildAttempt();
     try {
       sessionStorage.setItem(STORAGE_ATTEMPT, JSON.stringify(attempt));
@@ -680,10 +724,17 @@
       el.status.hidden = false;
       return;
     }
+    hideSubmitConfirm();
     // Closed-notes must not block submit → results (results still work).
     allowLeave = true;
     applyClosedNotesChrome();
     window.location.href = "results.html";
+  }
+
+  function onSubmit(ev) {
+    ev.preventDefault();
+    if (!pack) return;
+    showSubmitConfirm();
   }
 
   function onKeydown(ev) {
@@ -757,7 +808,13 @@
     el.status.className = "exam-status exam-status--error";
     el.status.textContent = msg;
     if (el.card) el.card.hidden = true;
-    if (el.submit) el.submit.disabled = true;
+    // Submit is intentionally never disabled by answer completeness (or by
+    // an error branch). The button remains the stable, always-available
+    // control; with no pack loaded onSubmit simply has no attempt to commit.
+    if (el.submit) {
+      el.submit.disabled = false;
+      el.submit.setAttribute("aria-disabled", "false");
+    }
   }
 
   function updatePackMeta() {
@@ -803,6 +860,12 @@
     el.packMeta = $("pack-meta");
     el.closedNotesToggle = $("closed-notes-toggle");
     el.closedNotesHint = $("closed-notes-hint");
+    el.submitConfirm = $("submit-confirm");
+    el.submitConfirmCopy = $("submit-confirm-copy");
+    el.submitConfirmGaps = $("submit-confirm-gaps");
+    el.submitConfirmReview = $("submit-confirm-review");
+    el.submitConfirmCancel = $("submit-confirm-cancel");
+    el.submitConfirmAccept = $("submit-confirm-accept");
 
     el.prev.addEventListener("click", function () {
       goTo(index - 1);
@@ -811,6 +874,13 @@
       goTo(index + 1);
     });
     el.submit.addEventListener("click", onSubmit);
+    el.submitConfirmAccept.addEventListener("click", commitAttempt);
+    el.submitConfirmCancel.addEventListener("click", hideSubmitConfirm);
+    el.submitConfirmReview.addEventListener("click", function () {
+      var missing = missingIndices();
+      hideSubmitConfirm();
+      if (missing.length) goTo(missing[0]);
+    });
     el.flag.addEventListener("click", toggleFlag);
     el.reviewUnanswered.addEventListener("click", function () {
       if (!pack) return;

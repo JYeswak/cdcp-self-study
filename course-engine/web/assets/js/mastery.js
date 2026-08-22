@@ -84,6 +84,23 @@ export function ratioOf(correct, total) {
 }
 
 /**
+ * Mastery evidence contract mirrored by `cdcp_schedule::attempt_is_complete`.
+ * A caller may omit `answered` for the historical complete-result API; an
+ * explicit shortfall is always rejected.
+ * @param {number} answered
+ * @param {number} total
+ * @returns {boolean}
+ */
+export function attemptIsComplete(answered, total) {
+  return (
+    Number.isFinite(answered) &&
+    Number.isFinite(total) &&
+    total > 0 &&
+    answered === total
+  );
+}
+
+/**
  * @param {unknown} raw
  * @returns {{ schema_version: number, modules: Record<string, object> }}
  */
@@ -247,6 +264,16 @@ export function recordQuizResult(result, opts) {
     typeof result.total === "number" && isFinite(result.total)
       ? result.total
       : 0;
+  const answered =
+    typeof result.answered === "number" && isFinite(result.answered)
+      ? result.answered
+      : total;
+  const complete =
+    result.complete !== false && attemptIsComplete(answered, total);
+  // Partial attempts remain visible in Results, but never become evidence for
+  // practiced/mastered module state. This is the product-level call site for
+  // cdcp_schedule::attempt_is_complete.
+  if (!complete) return null;
   const ratio = ratioOf(correct, total);
 
   const state = loadState(o.store);
@@ -395,6 +422,7 @@ if (typeof globalThis !== "undefined") {
     saveState,
     getState,
     recordQuizResult,
+    attemptIsComplete,
     bestRatio,
     isPracticed,
     isMastered,

@@ -43,10 +43,21 @@
 
     <div id="drill-status" class="exam-status" role="status">Loading…</div>
 
+    <nav class="drill-mode-picker" aria-label="Drill mode">
+      <span class="drill-mode-picker__label">Choose a mode:</span>
+      <a id="drill-mode-due" href="drill.html?mode=due">Due now</a>
+      <a id="drill-mode-missed" href="drill.html?mode=missed">Missed from last attempt</a>
+      <label for="drill-module-select">Module
+        <select id="drill-module-select">
+          <option value="">Choose module…</option>
+        </select>
+      </label>
+    </nav>
+
     <p class="meta">
       <a class="btn btn--primary" href="quiz.html">Start module quiz</a>
       · <a href="drill.html?mode=due">Drill due</a>
-      · <a href="drill.html?mode=miss">Miss review</a>
+      · <a href="drill.html?mode=missed">Miss review</a>
       · <a href="mock.html">Mock exam</a>
       · <a href="learn.html">Learn</a>
     </p>
@@ -72,11 +83,17 @@
       <div id="srs-all-list"></div>
     </section>
 
+    <section id="section-module" class="question-card" aria-labelledby="module-title" hidden>
+      <h2 id="module-title" class="results-section-title">Module practice</h2>
+      <p id="module-meta" class="meta" style="margin:0 0 0.75rem;border:0;padding:0"></p>
+      <div id="module-list"></div>
+    </section>
+
     <p class="meta">
       <a href="index.html">← Hub</a>
       · <a href="drill.html">Full drill</a>
       · <a href="drill.html?mode=due">Drill due</a>
-      · <a href="drill.html?mode=miss">Miss review</a>
+      · <a href="drill.html?mode=missed">Miss review</a>
       · Storage: <span class="mono">cdcp.drill.missed.v1</span>,
       <span class="mono">cdcp.srs.v1</span>
     </p>

@@ -1,9 +1,10 @@
 /**
  * Drill + short-interval review surface (L5-S7 / L6-S6).
  *
- * Modes via ?mode= query (charter session shapes):
- *   due  — Drill-10: review cards with due_at ≤ now, first 10 only
- *   miss — Miss-review: list from cdcp.drill.missed.v1 only
+ * Modes via ?mode= query (one surface, three learner-visible modes):
+ *   due    — Drill-10: review cards with due_at ≤ now, first 10 only
+ *   missed — items from cdcp.drill.missed.v1 only
+ *   module — approved items from one module (?m=NN)
  *   (default / omitted) — full dashboard: missed + due + all cards
  *
  * Explanations from keys/bank export — never from an LLM grader.
@@ -38,8 +39,9 @@ let byId = Object.create(null);
 /** @type {Record<string, {correct:string, explanation:string}>} */
 let keyById = Object.create(null);
 
-/** @type {"due" | "miss" | "default"} */
+/** @type {"due" | "miss" | "module" | "default"} */
 let pageMode = "default";
+let pageModule = null;
 
 function $(id) {
   return document.getElementById(id);
@@ -59,9 +61,9 @@ function escapeHtml(s) {
 }
 
 /**
- * Parse ?mode=due | ?mode=miss | default.
+ * Parse ?mode=due | ?mode=missed | ?mode=module | default.
  * @param {string} [search] — location.search (injectable for tests)
- * @returns {"due" | "miss" | "default"}
+ * @returns {"due" | "miss" | "module" | "default"}
  */
 export function parseDrillMode(search) {
   const q =
@@ -79,8 +81,26 @@ export function parseDrillMode(search) {
   } catch (_) {
     mode = "";
   }
-  if (mode === "due" || mode === "miss") return mode;
+  if (mode === "due") return mode;
+  if (mode === "missed" || mode === "miss") return "miss";
+  if (mode === "module") return "module";
   return "default";
+}
+
+/** Parse the module number for the module drill mode. */
+export function parseDrillModule(search) {
+  const q =
+    typeof search === "string"
+      ? search
+      : typeof window !== "undefined" && window.location
+        ? window.location.search
+        : "";
+  try {
+    const n = parseInt(new URLSearchParams(q).get("m") || "", 10);
+    return Number.isFinite(n) && n >= 1 && n <= 99 ? n : null;
+  } catch (_) {
+    return null;
+  }
 }
 
 function setStatus(kind, text) {
@@ -153,12 +173,13 @@ function formatDue(dueAt, now) {
 
 /**
  * Show/hide dashboard sections and retitle for session shape.
- * @param {"due" | "miss" | "default"} mode
+ * @param {"due" | "miss" | "module" | "default"} mode
  */
 function applyModeChrome(mode) {
   const missedSec = $("section-missed");
   const dueSec = $("section-srs-due");
   const allSec = $("section-srs-all");
+  const moduleSec = $("section-module");
   const title = document.querySelector("main h1");
   const lede = document.querySelector("main .lede");
 
@@ -166,6 +187,7 @@ function applyModeChrome(mode) {
     if (missedSec) missedSec.hidden = true;
     if (dueSec) dueSec.hidden = false;
     if (allSec) allSec.hidden = true;
+    if (moduleSec) moduleSec.hidden = true;
     if (title) title.textContent = "Drill-10 (due only)";
     if (lede) {
       lede.textContent =
@@ -179,15 +201,27 @@ function applyModeChrome(mode) {
     if (missedSec) missedSec.hidden = false;
     if (dueSec) dueSec.hidden = true;
     if (allSec) allSec.hidden = true;
+    if (moduleSec) moduleSec.hidden = true;
     if (title) title.textContent = "Miss review";
     if (lede) {
       lede.textContent =
         "Only items you missed on the last mock or module quiz. Explanations from keys/bank — never an LLM grader.";
     }
+  } else if (mode === "module") {
+    if (missedSec) missedSec.hidden = true;
+    if (dueSec) dueSec.hidden = true;
+    if (allSec) allSec.hidden = true;
+    if (moduleSec) moduleSec.hidden = false;
+    if (title) title.textContent = "Module drill";
+    if (lede) {
+      lede.textContent =
+        "Practice approved items from one module. Explanations come from the keys/bank export — never an LLM grader.";
+    }
   } else {
     if (missedSec) missedSec.hidden = false;
     if (dueSec) dueSec.hidden = false;
     if (allSec) allSec.hidden = false;
+    if (moduleSec) moduleSec.hidden = true;
     if (title) title.textContent = "Drill / short-interval review";
     if (lede) {
       lede.textContent =
@@ -196,6 +230,71 @@ function applyModeChrome(mode) {
     const dueTitle = $("srs-due-title");
     if (dueTitle) dueTitle.textContent = "Due now";
   }
+}
+
+function populateModuleSelect() {
+  const select = $("drill-module-select");
+  if (!select) return;
+  const modules = Object.keys(byId)
+    .map((id) => byId[id])
+    .filter((it) => it && it.status === "approved" && Number.isFinite(it.module))
+    .map((it) => it.module)
+    .filter((value, index, arr) => arr.indexOf(value) === index)
+    .sort((a, b) => a - b);
+  for (let i = 0; i < modules.length; i++) {
+    const option = document.createElement("option");
+    option.value = String(modules[i]);
+    option.textContent = "Module " + String(modules[i]).padStart(2, "0");
+    select.appendChild(option);
+  }
+  if (pageModule != null && modules.indexOf(pageModule) !== -1) {
+    select.value = String(pageModule);
+  }
+  select.addEventListener("change", function () {
+    const n = parseInt(select.value, 10);
+    if (!Number.isFinite(n)) return;
+    window.location.href = "drill.html?mode=module&m=" + n;
+  });
+}
+
+function renderModule() {
+  const host = $("module-list");
+  const meta = $("module-meta");
+  if (!host) return;
+  const moduleItems = Object.keys(byId)
+    .map((id) => byId[id])
+    .filter((it) => it && it.status === "approved" && it.module === pageModule);
+  if (meta) {
+    meta.textContent =
+      pageModule == null
+        ? "Choose a module above to begin."
+        : "Module " + String(pageModule).padStart(2, "0") + " · " + moduleItems.length + " approved item(s)";
+  }
+  if (!moduleItems.length) {
+    host.innerHTML =
+      '<p class="meta" style="margin:0;border:0;padding:0">No approved items are available for this module.</p>';
+    return;
+  }
+  const parts = ['<ul class="results-item-list">'];
+  for (let i = 0; i < moduleItems.length; i++) {
+    const it = lookupItem(moduleItems[i].id);
+    const panel = "module-expl-" + i;
+    parts.push(
+      '<li class="results-item drill-card" data-item-id="' + escapeHtml(it.item_id) + '">' +
+        '<div class="results-item__head"><span class="results-item__id mono">' + escapeHtml(it.item_id) +
+        '</span><span class="results-item__mod mono">M' + String(pageModule).padStart(2, "0") + '</span></div>' +
+        '<p class="results-item__stem">' + escapeHtml(it.stem) + '</p>' +
+        '<button type="button" class="btn btn--ghost drill-flip" data-expl="' + panel +
+        '" aria-expanded="false">Show explanation</button>' +
+        '<div id="' + panel + '" class="drill-expl" hidden><p class="results-item__letters mono">correct ' +
+        escapeHtml(it.correct) + '</p>' + (it.explanation ? '<p class="results-item__expl">' + escapeHtml(it.explanation) + '</p>' : '') + '</div>' +
+      '</li>'
+    );
+  }
+  parts.push("</ul>");
+  host.innerHTML = parts.join("");
+  const flips = host.querySelectorAll(".drill-flip");
+  for (let i = 0; i < flips.length; i++) flips[i].addEventListener("click", onFlip);
 }
 
 function renderMissed() {
@@ -477,6 +576,7 @@ async function loadBank() {
 
 async function init() {
   pageMode = parseDrillMode();
+  pageModule = parseDrillModule();
   applyModeChrome(pageMode);
 
   try {
@@ -492,6 +592,7 @@ async function init() {
   setStatus("", "Loading bank + keys for stems/explanations…");
   try {
     await loadBank();
+    populateModuleSelect();
     // Sweep residue AFTER the pack is in byId. Do not filter byId —
     // that map resolves already-answered ids, including withdrawn ones
     // if we ever render a "withdrawn" card. The schedule/missed stores
@@ -529,6 +630,14 @@ async function init() {
         (missed ? missed.item_ids.length : 0) +
         " item(s). Study only — not a credential."
     );
+  } else if (pageMode === "module") {
+    renderModule();
+    setStatus(
+      "ok",
+      "Module drill · " +
+        (pageModule == null ? "choose a module" : "M" + String(pageModule).padStart(2, "0")) +
+        ". Study only — not a credential."
+    );
   } else {
     renderMissed();
     renderSrs("default");
@@ -552,6 +661,7 @@ if (typeof window !== "undefined") {
     listDue,
     listDueDrill,
     listAllCards,
+    parseDrillModule,
     reviewCard,
     selectDueOnly,
     parseDrillMode,

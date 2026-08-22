@@ -171,12 +171,13 @@ export function buildAllWrongAttempt(keysPack, overrides) {
  * Per-item + aggregate presentation from keys + bank items (display only).
  * Grade-of-record remains the WASM digest; this never runs when WASM failed.
  *
- * @param {{ answers: Array<{item_id:string, chosen:string}> }} attempt
+ * @param {{ answers: Array<{item_id:string, chosen:string}>, item_ids?: string[], total_items?: number }} attempt
  * @param {{ keys: Array<{item_id:string, correct:string, explanation?:string}> }} keysPack
  * @param {Array<{id:string, module:number, stem?:string, choices?:string[], topic_ids?:string[]}>| {items:Array}} bank
  * @param {{topics?: Record<string, object>}|null|undefined} [topicAnchors] optional L7-S2 map
+ * @param {{items?: Array<{id:string}>}|null|undefined} [formPack] optional mock form pack
  */
-export function buildPresentation(attempt, keysPack, bank, topicAnchors) {
+export function buildPresentation(attempt, keysPack, bank, topicAnchors, formPack) {
   const itemsArr = Array.isArray(bank) ? bank : bank && bank.items ? bank.items : [];
   const byId = Object.create(null);
   for (let i = 0; i < itemsArr.length; i++) {
@@ -188,18 +189,37 @@ export function buildPresentation(attempt, keysPack, bank, topicAnchors) {
     keyById[keys[i].item_id] = keys[i];
   }
 
+  const answerById = Object.create(null);
+  const answerList = Array.isArray(attempt.answers) ? attempt.answers : [];
+  for (let i = 0; i < answerList.length; i++) {
+    const answer = answerList[i];
+    if (answer && typeof answer.item_id === "string") {
+      answerById[answer.item_id] = answer;
+    }
+  }
+  const expectedIds = Array.isArray(attempt.item_ids) && attempt.item_ids.length
+    ? attempt.item_ids.slice()
+    : formPack && Array.isArray(formPack.items) && formPack.items.length
+      ? formPack.items.map(function (item) { return item.id; })
+      : answerList.map(function (answer) { return answer.item_id; });
+
   const itemRows = [];
   let scoreCorrect = 0;
+  let unansweredCount = 0;
   /** @type {Record<number, {correct:number, total:number}>} */
   const modMap = Object.create(null);
 
-  for (let i = 0; i < attempt.answers.length; i++) {
-    const ans = attempt.answers[i];
-    const key = keyById[ans.item_id];
-    const bankItem = byId[ans.item_id];
+  for (let i = 0; i < expectedIds.length; i++) {
+    const itemId = expectedIds[i];
+    const ans = answerById[itemId] || null;
+    const key = keyById[itemId];
+    const bankItem = byId[itemId];
     const correctLetter = key ? key.correct : null;
-    const isCorrect = !!(correctLetter && ans.chosen === correctLetter);
+    const chosen = ans && typeof ans.chosen === "string" ? ans.chosen : "—";
+    const isAnswered = !!ans && !!ans.chosen;
+    const isCorrect = isAnswered && !!(correctLetter && ans.chosen === correctLetter);
     if (isCorrect) scoreCorrect += 1;
+    if (!isAnswered) unansweredCount += 1;
 
     const module =
       bankItem && typeof bankItem.module === "number" ? bankItem.module : null;
@@ -214,9 +234,11 @@ export function buildPresentation(attempt, keysPack, bank, topicAnchors) {
     const learnHref = itemLearnHref(module, topicIds, topicAnchors);
 
     itemRows.push({
-      item_id: ans.item_id,
-      chosen: ans.chosen,
+      item_id: itemId,
+      chosen: chosen,
       correct: correctLetter || "—",
+      is_answered: isAnswered,
+      unanswered: !isAnswered,
       is_correct: isCorrect,
       explanation: key && key.explanation ? key.explanation : "",
       module: module,
@@ -226,7 +248,7 @@ export function buildPresentation(attempt, keysPack, bank, topicAnchors) {
     });
   }
 
-  const scoreTotal = attempt.answers.length;
+  const scoreTotal = expectedIds.length;
   const weakModules = [];
   const modNums = Object.keys(modMap)
     .map(Number)
@@ -245,6 +267,9 @@ export function buildPresentation(attempt, keysPack, bank, topicAnchors) {
   return {
     score_correct: scoreCorrect,
     score_total: scoreTotal,
+    unanswered_count: unansweredCount,
+    wrong_count: itemRows.filter(function (row) { return row.is_answered && !row.is_correct; }).length,
+    is_partial: unansweredCount > 0,
     weak_modules: weakModules,
     by_module: modNums.map(function (m) {
       return {
@@ -303,6 +328,20 @@ function renderStudySignal(el, presentation) {
   const n = presentation.score_correct;
   const total = presentation.score_total;
   const bar = presentation.study_pass_correct;
+
+  if (presentation.is_partial) {
+    el.className = "study-signal study-signal--below";
+    el.innerHTML =
+      "<strong>Partial attempt:</strong> " +
+      n +
+      " / " +
+      total +
+      " · " +
+      presentation.unanswered_count +
+      " unanswered. Unanswered items count as incorrect for the score, but this attempt does not update module mastery. " +
+      "<em>This is not EPI/EXIN certification and is never a CDCP credential.</em>";
+    return;
+  }
 
   // Honesty: never claim certification. Amber study language only.
   if (presentation.met_study_bar) {
@@ -416,13 +455,16 @@ function renderRecovery(el, presentation) {
   if (!el) return;
   el.hidden = false;
   el.style.display = "";
-  const missed = presentation.item_results.filter(function (row) {
-    return !row.is_correct;
-  }).length;
+  const missed = presentation.wrong_count;
+  const unanswered = presentation.unanswered_count;
   const drill = document.getElementById("results-recovery-drill");
   if (drill) {
-    drill.href = missed > 0 ? "drill.html?mode=miss" : "drill.html";
-    drill.textContent = missed > 0 ? "Review " + missed + " missed item(s)" : "Open Drill";
+    drill.href = missed > 0 ? "drill.html?mode=missed" : "drill.html";
+    drill.textContent = missed > 0
+      ? "Review " + missed + " missed item(s)" + (unanswered > 0 ? " · " + unanswered + " unanswered" : "")
+      : unanswered > 0
+        ? "Review " + unanswered + " unanswered item(s)"
+        : "Open Drill";
   }
   const learn = document.getElementById("results-recovery-learn");
   const firstWeak = presentation.weak_modules.length > 0
@@ -443,9 +485,18 @@ function renderItemList(el, rows) {
   for (let i = 0; i < rows.length; i++) {
     const r = rows[i];
     const ok = r.is_correct;
-    const cls = ok ? "results-item results-item--ok" : "results-item results-item--bad";
-    const mark = ok ? "Correct" : "Incorrect";
-    const markCls = ok ? "results-item__mark results-item__mark--ok" : "results-item__mark results-item__mark--bad";
+    const unanswered = r.is_answered === false || r.unanswered;
+    const cls = unanswered
+      ? "results-item results-item--unanswered"
+      : ok
+        ? "results-item results-item--ok"
+        : "results-item results-item--bad";
+    const mark = unanswered ? "Unanswered" : ok ? "Correct" : "Incorrect";
+    const markCls = unanswered
+      ? "results-item__mark"
+      : ok
+        ? "results-item__mark results-item__mark--ok"
+        : "results-item__mark results-item__mark--bad";
     const stem = r.stem
       ? '<p class="results-item__stem">' + escapeHtml(r.stem) + "</p>"
       : "";
@@ -493,9 +544,10 @@ function renderItemList(el, rows) {
           : "") +
         "</div>" +
         stem +
-        '<p class="results-item__letters mono">chosen ' +
-        escapeHtml(r.chosen) +
-        " · correct " +
+        '<p class="results-item__letters mono">' +
+        (unanswered
+          ? "not answered · correct "
+          : "chosen " + escapeHtml(r.chosen) + " · correct ") +
         escapeHtml(r.correct) +
         "</p>" +
         expl +
@@ -581,6 +633,8 @@ async function run() {
   let bankParsed;
   /** @type {object|null} */
   let topicAnchors = null;
+  /** @type {{items?: Array}|null} */
+  let formPack = null;
   try {
     const fetches = [
       fetchText(BANK_URL),
@@ -593,12 +647,21 @@ async function run() {
         .catch(function () {
           return null;
         }),
+      fetch("data/mock40_seed" + seed + ".json", { cache: "no-store" })
+        .then(function (r) {
+          if (!r.ok) return null;
+          return r.json();
+        })
+        .catch(function () {
+          return null;
+        }),
     ];
-    const [bankText, keysText, anchors] = await Promise.all(fetches);
+    const [bankText, keysText, anchors, mockPack] = await Promise.all(fetches);
     bankJson = bankText;
     keysPack = JSON.parse(keysText);
     bankParsed = JSON.parse(bankText);
     topicAnchors = anchors;
+    formPack = mockPack;
     if (!keysPack || !Array.isArray(keysPack.keys)) {
       throw new Error("keys pack missing keys[]");
     }
@@ -671,12 +734,27 @@ async function run() {
     attempt,
     keysPack,
     bankParsed,
-    topicAnchors
+    topicAnchors,
+    formPack
   );
+
+  $("r-count").textContent =
+    presentation.score_total +
+    " total · " +
+    (presentation.score_total - presentation.unanswered_count) +
+    " answered · " +
+    presentation.unanswered_count +
+    " unanswered";
 
   scorePanel.hidden = false;
   scoreEl.textContent =
     String(presentation.score_correct) + " / " + String(presentation.score_total);
+  const scoreLabel = $("r-score-label");
+  if (scoreLabel) {
+    scoreLabel.textContent = presentation.is_partial
+      ? "· " + presentation.unanswered_count + " unanswered · partial attempt"
+      : "correct / total";
+  }
   digestEl.textContent = digest;
   digestEl.title = digest;
   if (engineEl) {
@@ -698,7 +776,7 @@ async function run() {
     console.warn("last_weak persist failed:", errMsg(weakErr));
   }
 
-  // L5-S7: feed Drill / short-interval review with missed item_ids.
+  // L5-S7: feed Drill / short-interval review with answered misses only.
   try {
     const rec = recordGradedWrongs({
       source: "mock",
@@ -707,14 +785,6 @@ async function run() {
       bank_hash: attempt.bank_hash,
       item_results: presentation.item_results,
     });
-    const drillLink = document.getElementById("results-drill-link");
-    if (drillLink) {
-      drillLink.hidden = false;
-      drillLink.textContent =
-        rec.missed_ids.length > 0
-          ? "Drill " + rec.missed_ids.length + " missed item(s) →"
-          : "Open Drill →";
-    }
   } catch (srsErr) {
     console.warn("review/missed record failed:", errMsg(srsErr));
   }

@@ -117,6 +117,13 @@ evidence = "exam_form.toml pass_correct=27 CONFIRMED live 2026-08-17 from src-ep
 # study_signal_27 ≠ epi_certified
 
 [[claim]]
+id = "claim-complete-attempt-mastery"
+strength = "invariant"
+text = "Only complete attempts with every drawn item answered are admissible evidence for practiced/mastered study signals"
+enforcement = "cdcp_schedule::attempt_is_complete + web/assets/js/mastery.js precondition"
+evidence = "quiz.js passes answered/complete; partial results remain visible but do not update module mastery"
+
+[[claim]]
 id = "claim-interview-ready"
 strength = "benchmark"
 text = "interview_ready is a buyer outcome / study signal, never epi_certified"
