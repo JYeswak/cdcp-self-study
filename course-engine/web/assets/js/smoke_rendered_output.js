@@ -197,7 +197,7 @@ function learnDocument() {
   const d = new Document();
   const shell = add(d, "learn-unit-shell", "section", "learn-unit-shell");
   add(d, "unit-status", "p", "learn-unit-shell__status", shell);
-  add(d, "unit-title", "h2", "learn-unit-shell__title", shell);
+  add(d, "unit-title", "p", "learn-unit-shell__title", shell);
   const prev = add(d, "unit-prev", "button", "", shell); prev.setAttribute("data-unit-prev", "1");
   const next = add(d, "unit-next", "button", "", shell); next.setAttribute("data-unit-next", "1");
   const full = add(d, "unit-full", "button", "", shell); full.setAttribute("data-unit-full", "1");

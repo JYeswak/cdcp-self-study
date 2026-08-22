@@ -1,8 +1,8 @@
-# CDCP Self-Study Glossary
+## CDCP Self-Study Glossary
 
-Crisp definitions for interview-ready data-centre facilities language. Terms track this program’s 14 modules (mission-critical site → auxiliary systems). Not an official EPI dictionary.
+Crisp definitions for interview-ready data-centre facilities language. Terms track this program’s 15 Learn modules (14 public facility domains plus Module 15 operations). Not an official EPI dictionary.
 
-**How to use:** Skim once after Module 1–2; drill with [`../practice/DRILL-CARDS.md`](../practice/DRILL-CARDS.md) before the practice exam.
+**How to use:** Skim once after Module 1–2; drill with [Drill cards](../practice/DRILL-CARDS.md) before the practice exam.
 
 ---
 

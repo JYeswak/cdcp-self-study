@@ -17,6 +17,7 @@
       gap: 0.85rem;
     }
     .vignette {
+      min-width: 0;
       background: var(--surface);
       border: 1px solid var(--line);
       border-radius: var(--r);
@@ -42,14 +43,18 @@
       color: var(--fg);
       font-size: 0.98rem;
       line-height: 1.5;
+      overflow-wrap: anywhere;
     }
     .vignette__actions {
       display: flex;
       flex-wrap: wrap;
       gap: 0.45rem;
+      min-width: 0;
     }
     .vignette__actions a {
       font-size: 0.88rem;
+      min-width: 0;
+      overflow-wrap: anywhere;
     }
   </style>
 </head>
@@ -94,11 +99,11 @@
 
     <ol class="vignette-list">
       <li class="vignette" id="m06-q300">
-        <p class="vignette__meta">
+        <h2 class="vignette__meta">
           <span class="vignette__tag">runbook · vignette</span>
           <span>module 06 · power</span>
           <span class="mono">m06-q300</span>
-        </p>
+        </h2>
         <p class="vignette__stem">
           During a planned UPS battery string replacement on path A of a dual-path hall, a tech notices
           both cords of several dual-corded servers land on the same path-A rPDU. Before continuing
@@ -112,11 +117,11 @@
       </li>
 
       <li class="vignette" id="m06-q301">
-        <p class="vignette__meta">
+        <h2 class="vignette__meta">
           <span class="vignette__tag">runbook · vignette</span>
           <span>module 06 · power</span>
           <span class="mono">m06-q301</span>
-        </p>
+        </h2>
         <p class="vignette__stem">
           Utility voltage sags; generators start and the ATS transfers the critical bus as designed.
           After utility stabilizes, a junior tech wants to force an immediate retransfer to utility
@@ -130,11 +135,11 @@
       </li>
 
       <li class="vignette" id="m09-q300">
-        <p class="vignette__meta">
+        <h2 class="vignette__meta">
           <span class="vignette__tag">runbook · vignette</span>
           <span>module 09 · cooling</span>
           <span class="mono">m09-q300</span>
-        </p>
+        </h2>
         <p class="vignette__stem">
           Night ops reports rising inlet temperatures on one cold aisle after a network team opened
           several blanking panels and containment doors for a cable pull. CRAH setpoints are unchanged.
@@ -148,11 +153,11 @@
       </li>
 
       <li class="vignette" id="m10-q300">
-        <p class="vignette__meta">
+        <h2 class="vignette__meta">
           <span class="vignette__tag">runbook · vignette</span>
           <span>module 10 · water</span>
           <span class="mono">m10-q300</span>
-        </p>
+        </h2>
         <p class="vignette__stem">
           A zone leak detector under a CRAC/CRAH hydronic connection alarms during a humid weekend.
           Visual inspection shows a slow drip at a valve packing, not a ruptured pipe. What is the best
@@ -166,11 +171,11 @@
       </li>
 
       <li class="vignette" id="m12-q300">
-        <p class="vignette__meta">
+        <h2 class="vignette__meta">
           <span class="vignette__tag">runbook · vignette</span>
           <span>module 12 · fire</span>
           <span class="mono">m12-q300</span>
-        </p>
+        </h2>
         <p class="vignette__stem">
           ASD indicates a low-level alert in a dense white-space zone. Spot detectors have not reached
           alarm; no visible smoke. The night operator is alone. Per a layered-detection runbook mindset,
@@ -184,11 +189,11 @@
       </li>
 
       <li class="vignette" id="m13-q300">
-        <p class="vignette__meta">
+        <h2 class="vignette__meta">
           <span class="vignette__tag">runbook · vignette</span>
           <span>module 13 · security</span>
           <span class="mono">m13-q300</span>
-        </p>
+        </h2>
         <p class="vignette__stem">
           A vendor arrives for emergency breaker work. Their escort badge is valid, but a second person
           without credentials tries to tailgate through the mantrap behind them carrying tools. Security

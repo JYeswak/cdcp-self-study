@@ -1,4 +1,4 @@
-# Power & Redundancy Cheatsheet (One-Pager)
+## Power & Redundancy Cheatsheet (One-Pager)
 
 Print or keep side-by-side with Module 6 / 9 study. Interview-ready shorthand — not a design manual.
 

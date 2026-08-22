@@ -2,11 +2,10 @@
 //!
 //! Two decisions, both gated:
 //!
-//! 1. Hub copy "14 curriculum modules + ops expansions" is DELIBERATE. The
-//!    numeral is the EPI syllabus count (`domains.toml` rows without
-//!    `exam_weight_unknown`), not the Learn catalog size. Module 15 is the
-//!    "+ ops expansions". A new EPI domain, or a vanished ops row, turns
-//!    this RED so the copy cannot silently lie.
+//! 1. Hub copy names the complete Learn catalog and its split: 15 pages made
+//!    up of 14 public facility domains plus one operations module. A changed
+//!    domain registry or vanished ops row should make this contract RED rather
+//!    than silently changing the learner-facing count.
 //! 2. `web/data/coverage.json` is DELETED. It had no product consumer and
 //!    drifted. Restoring it without a reader turns this RED.
 //!
@@ -22,8 +21,13 @@ fn engine_root() -> PathBuf {
     cdcp_learn::resolve_engine_root(Path::new(env!("CARGO_MANIFEST_DIR"))).expect("engine root")
 }
 
-fn expected_card(epi_n: usize) -> String {
-    format!("{epi_n} curriculum modules + ops expansions")
+fn expected_card(epi_n: usize, ops_n: usize) -> String {
+    format!(
+        "{} Learn modules ({} public facility domains + {} ops module)",
+        epi_n + ops_n,
+        epi_n,
+        ops_n
+    )
 }
 
 /// `(epi_count, ops_count)` from a domains.toml body.
@@ -91,16 +95,16 @@ exam_weight_unknown = true
     )
     .expect("planted pair");
     assert_eq!((epi, ops), (1, 1));
-    let want = expected_card(epi);
+    let want = expected_card(epi, ops);
     assert!(
-        !"13 curriculum modules + ops expansions".contains(&want),
+        !"14 Learn modules (13 public facility domains + 1 ops module)".contains(&want),
         "a stale numeral must not satisfy the derived card {want:?}"
     );
-    assert_eq!(want, "1 curriculum modules + ops expansions");
+    assert_eq!(want, "2 Learn modules (1 public facility domains + 1 ops module)");
 }
 
 #[test]
-fn hub_card_fourteen_is_the_epi_count_not_the_catalog() {
+fn hub_card_names_the_full_catalog_split() {
     let root = engine_root();
     let domains = std::fs::read_to_string(root.join("knowledge/domains.toml"))
         .expect("knowledge/domains.toml readable");
@@ -108,16 +112,16 @@ fn hub_card_fourteen_is_the_epi_count_not_the_catalog() {
     assert!(epi > 0 && ops > 0, "vacuous split: epi={epi} ops={ops}");
 
     let html = std::fs::read_to_string(root.join("web/index.html")).expect("web/index.html");
-    let want = expected_card(epi);
+    let want = expected_card(epi, ops);
     assert!(
         html.contains(&want),
-        "hub copy must carry the derived EPI count {epi} (ops expansions={ops}); \
+        "hub copy must carry the derived catalog split (EPI={epi}, ops={ops}); \
          missing {want:?} in web/index.html"
     );
     assert!(
         html.contains("bd-smvb"),
-        "the deliberate-framing comment must stay next to the numeral so the \
-         next editor does not 'fix' 14 up to the catalog size"
+        "the catalog-split comment must stay next to the numeral so the next \
+         editor does not silently change the learner-facing count"
     );
 }
 

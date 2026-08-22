@@ -746,7 +746,7 @@ fn render_module_page(m: &Module, prev: Option<&Module>, next: Option<&Module>) 
             <p class="unit-here-bar__label mono">You are here · unit 1 · 5–8 min target</p>
           </div>
           <p class="learn-unit-shell__status mono"></p>
-          <h2 class="learn-unit-shell__title"></h2>
+          <p class="learn-unit-shell__title"></p>
           <div class="learn-unit-shell__controls">
             <button type="button" data-unit-prev>← Prev unit</button>
             <button type="button" data-unit-next>Next unit →</button>

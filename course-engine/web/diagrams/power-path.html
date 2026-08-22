@@ -266,15 +266,15 @@
           One complete chain sized for full design load. A single failure or maintenance on the chain can drop IT.
         </p>
         <ol class="path-flow" id="flow-n" data-path="n">
-          <li><button type="button" class="path-node" data-slot="n-0" data-answer="Utility feed" data-revealed="0">?</button></li>
+          <li><button type="button" class="path-node" data-slot="n-0" data-answer="Utility feed" data-revealed="0" aria-label="Reveal Utility feed">?</button></li>
           <li class="path-arrow" aria-hidden="true">↓</li>
-          <li><button type="button" class="path-node" data-slot="n-1" data-answer="ATS / transfer" data-revealed="0">?</button></li>
+          <li><button type="button" class="path-node" data-slot="n-1" data-answer="ATS / transfer" data-revealed="0" aria-label="Reveal ATS / transfer">?</button></li>
           <li class="path-arrow" aria-hidden="true">↓</li>
-          <li><button type="button" class="path-node" data-slot="n-2" data-answer="UPS (N capacity)" data-revealed="0">?</button></li>
+          <li><button type="button" class="path-node" data-slot="n-2" data-answer="UPS (N capacity)" data-revealed="0" aria-label="Reveal UPS (N capacity)">?</button></li>
           <li class="path-arrow" aria-hidden="true">↓</li>
-          <li><button type="button" class="path-node" data-slot="n-3" data-answer="PDU / distribution" data-revealed="0">?</button></li>
+          <li><button type="button" class="path-node" data-slot="n-3" data-answer="PDU / distribution" data-revealed="0" aria-label="Reveal PDU / distribution">?</button></li>
           <li class="path-arrow" aria-hidden="true">↓</li>
-          <li><button type="button" class="path-node" data-slot="n-4" data-answer="Rack (single source risk)" data-revealed="0">?</button></li>
+          <li><button type="button" class="path-node" data-slot="n-4" data-answer="Rack (single source risk)" data-revealed="0" aria-label="Reveal Rack (single source risk)">?</button></li>
         </ol>
       </section>
 
@@ -289,26 +289,26 @@
           <div>
             <p class="join-label mono">Path A</p>
             <ol class="path-flow" id="flow-a">
-              <li><button type="button" class="path-node" data-slot="a-0" data-answer="Source A (utility/plant)" data-revealed="0">?</button></li>
+              <li><button type="button" class="path-node" data-slot="a-0" data-answer="Source A (utility/plant)" data-revealed="0" aria-label="Reveal Source A (utility/plant)">?</button></li>
               <li class="path-arrow" aria-hidden="true">↓</li>
-              <li><button type="button" class="path-node" data-slot="a-1" data-answer="UPS system A" data-revealed="0">?</button></li>
+              <li><button type="button" class="path-node" data-slot="a-1" data-answer="UPS system A" data-revealed="0" aria-label="Reveal UPS system A">?</button></li>
               <li class="path-arrow" aria-hidden="true">↓</li>
-              <li><button type="button" class="path-node" data-slot="a-2" data-answer="Distro / rPDU A" data-revealed="0">?</button></li>
+              <li><button type="button" class="path-node" data-slot="a-2" data-answer="Distro / rPDU A" data-revealed="0" aria-label="Reveal Distro / rPDU A">?</button></li>
             </ol>
           </div>
           <div>
             <p class="join-label mono">Path B</p>
             <ol class="path-flow" id="flow-b">
-              <li><button type="button" class="path-node" data-slot="b-0" data-answer="Source B (independent)" data-revealed="0">?</button></li>
+              <li><button type="button" class="path-node" data-slot="b-0" data-answer="Source B (independent)" data-revealed="0" aria-label="Reveal Source B (independent)">?</button></li>
               <li class="path-arrow" aria-hidden="true">↓</li>
-              <li><button type="button" class="path-node" data-slot="b-1" data-answer="UPS system B" data-revealed="0">?</button></li>
+              <li><button type="button" class="path-node" data-slot="b-1" data-answer="UPS system B" data-revealed="0" aria-label="Reveal UPS system B">?</button></li>
               <li class="path-arrow" aria-hidden="true">↓</li>
-              <li><button type="button" class="path-node" data-slot="b-2" data-answer="Distro / rPDU B" data-revealed="0">?</button></li>
+              <li><button type="button" class="path-node" data-slot="b-2" data-answer="Distro / rPDU B" data-revealed="0" aria-label="Reveal Distro / rPDU B">?</button></li>
             </ol>
           </div>
         </div>
         <p class="join-label" style="margin-top:0.75rem">Dual-corded IT equipment</p>
-        <button type="button" class="path-node" data-slot="ab-join" data-answer="Server PSUs on A + B cords" data-revealed="0" style="width:100%">?</button>
+        <button type="button" class="path-node" data-slot="ab-join" data-answer="Server PSUs on A + B cords" data-revealed="0" aria-label="Reveal Server PSUs on A + B cords" style="width:100%">?</button>
       </section>
     </div>
 
@@ -431,6 +431,7 @@
       function setNode(node, text, ok) {
         node.textContent = text;
         node.setAttribute("data-revealed", ok ? "1" : "0");
+        node.setAttribute("aria-label", ok ? text : "Reveal " + node.getAttribute("data-answer"));
         node.classList.toggle("is-wrong-flash", false);
       }
 
