@@ -659,6 +659,21 @@ body.closed-notes-on .hub-nav a.hub-nav__locked:focus-visible {
   line-height: 1.45;
 }
 
+.question-card__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.65rem;
+  margin-top: 1rem;
+  padding-top: 0.85rem;
+  border-top: 1px solid var(--line);
+}
+
+.question-card__action-status {
+  color: var(--amber);
+  font-size: 0.85rem;
+}
+
 .exam-nav {
   display: flex;
   flex-wrap: wrap;
@@ -707,6 +722,11 @@ body.closed-notes-on .hub-nav a.hub-nav__locked:focus-visible {
   color: var(--accent);
 }
 
+.jump-chip--flagged {
+  border-color: rgba(251, 191, 36, 0.7);
+  color: var(--amber);
+}
+
 .jump-chip--current {
   background: var(--accent);
   color: var(--accent-ink);
@@ -722,6 +742,18 @@ body.closed-notes-on .hub-nav a.hub-nav__locked:focus-visible {
   padding: 1rem 0;
   border-top: 1px solid var(--line);
   margin-bottom: 0.5rem;
+}
+
+.exam-submit-bar .btn--primary {
+  order: 3;
+}
+
+.exam-submit-bar .unanswered-hint {
+  order: 1;
+}
+
+.exam-submit-bar #btn-review-unanswered {
+  order: 2;
 }
 
 .unanswered-hint {
@@ -793,6 +825,50 @@ body.closed-notes-on .hub-nav a.hub-nav__locked:focus-visible {
   color: var(--fg-faint);
   text-transform: uppercase;
   letter-spacing: 0.05em;
+}
+
+.results-recovery {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1rem;
+  margin: 0 0 1rem;
+  padding: 0.9rem 1.1rem;
+  border: 1px solid rgba(251, 191, 36, 0.35);
+  border-radius: var(--r);
+  background: rgba(251, 191, 36, 0.06);
+}
+
+.results-recovery__copy {
+  flex: 1 1 18rem;
+  margin: 0;
+  color: var(--fg-mid);
+}
+
+.results-recovery__copy strong {
+  display: block;
+  margin-bottom: 0.15rem;
+  color: var(--amber);
+}
+
+.results-recovery__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.results-recovery__actions a {
+  min-height: var(--touch-min);
+}
+
+.weak-chip {
+  gap: 0.25rem;
+}
+
+.weak-chip__detail {
+  color: var(--fg-mid);
+  font-size: 0.72rem;
+  font-weight: 500;
 }
 
 /* Study signal — amber caution language; never green “certified” */

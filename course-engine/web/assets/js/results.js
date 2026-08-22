@@ -340,7 +340,7 @@ function renderStudySignal(el, presentation) {
  * @param {HTMLElement} el
  * @param {number[]} weak
  */
-function renderWeakModules(el, weak) {
+function renderWeakModules(el, weak, byModule) {
   el.hidden = false;
   if (!weak.length) {
     el.innerHTML =
@@ -350,12 +350,29 @@ function renderWeakModules(el, weak) {
       "</p>";
     return;
   }
-  const chips = weak
-    .map(function (m) {
+  const stats = Array.isArray(byModule) ? byModule : [];
+  const details = weak.map(function (m) {
+    const row = stats.find(function (candidate) {
+      return Number(candidate.module) === Number(m);
+    });
+    const total = row ? Number(row.total) : 0;
+    const correct = row ? Number(row.correct) : 0;
+    const missed = Math.max(0, total - correct);
+    const rate = total > 0 ? Math.round((correct / total) * 100) : 0;
+    return { module: m, total: total, correct: correct, missed: missed, rate: rate };
+  });
+  details.sort(function (a, b) {
+    return a.rate - b.rate || b.missed - a.missed || a.module - b.module;
+  });
+  const chips = details
+    .map(function (detail) {
+      const m = detail.module;
       const label = "M" + String(m).padStart(2, "0");
       const href = moduleLearnHref(m);
       const title =
-        "Module " + m + " correctness rate &lt; 3/5 — open Learn";
+        "Module " + m + " is " + detail.rate + "% correct with " + detail.missed + " missed item(s) — open Learn";
+      const detailText =
+        detail.correct + "/" + detail.total + " · " + detail.rate + "% · " + detail.missed + " missed";
       if (href) {
         return (
           '<a class="weak-chip weak-chip--link mono" role="listitem" href="' +
@@ -364,14 +381,21 @@ function renderWeakModules(el, weak) {
           title +
           '">' +
           label +
+          '<span class="weak-chip__detail">' +
+          escapeHtml(detailText) +
+          "</span>" +
           "</a>"
         );
       }
       return (
         '<span class="weak-chip mono" role="listitem" title="Module ' +
         m +
-        ' correctness rate &lt; 3/5 (no Learn page)">' +
+        ' correctness rate &lt; 3/5 (no Learn page)"' +
+        '>' +
         label +
+        '<span class="weak-chip__detail">' +
+        escapeHtml(detailText) +
+        "</span>" +
         "</span>"
       );
     })
@@ -380,12 +404,33 @@ function renderWeakModules(el, weak) {
     "<h2 class=\"results-section-title\">Weak modules</h2>" +
     "<p class=\"results-weak-cta\">Review weak modules in Learn</p>" +
     "<p class=\"meta\" style=\"margin:0 0 0.65rem;border:0;padding:0\">" +
-    "Modules with correctness rate strictly below 3/5 on items you answered. " +
+    "Modules are ordered by lowest correctness first. Each row shows correct/attempted, rate, and missed count. " +
     "Tap a module to open its Learn page." +
     "</p>" +
     '<div class="weak-chip-row" role="list">' +
     chips +
     "</div>";
+}
+
+function renderRecovery(el, presentation) {
+  if (!el) return;
+  el.hidden = false;
+  const missed = presentation.item_results.filter(function (row) {
+    return !row.is_correct;
+  }).length;
+  const drill = document.getElementById("results-recovery-drill");
+  if (drill) {
+    drill.href = missed > 0 ? "drill.html?mode=miss" : "drill.html";
+    drill.textContent = missed > 0 ? "Review " + missed + " missed item(s)" : "Open Drill";
+  }
+  const learn = document.getElementById("results-recovery-learn");
+  const firstWeak = presentation.weak_modules.length > 0
+    ? moduleLearnHref(presentation.weak_modules[0])
+    : null;
+  if (learn) {
+    learn.href = firstWeak || "learn.html";
+    learn.textContent = firstWeak ? "Review weakest module" : "Open Learn";
+  }
 }
 
 function renderItemList(el, rows) {
@@ -474,6 +519,7 @@ async function run() {
   const summary = $("results-summary");
   const scorePanel = $("results-score");
   const studyEl = $("results-study-signal");
+  const recoveryEl = $("results-recovery");
   const weakEl = $("results-weak");
   const itemsEl = $("results-items");
   const digestEl = $("r-digest");
@@ -630,7 +676,8 @@ async function run() {
   }
 
   renderStudySignal(studyEl, presentation);
-  renderWeakModules(weakEl, presentation.weak_modules);
+  renderRecovery(recoveryEl, presentation);
+  renderWeakModules(weakEl, presentation.weak_modules, presentation.by_module);
   renderItemList(itemsEl, presentation.item_results);
 
   // L6-S4: persist weak modules for hub recommend (cdcp.last_weak.v1).

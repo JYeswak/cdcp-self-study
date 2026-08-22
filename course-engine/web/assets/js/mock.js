@@ -43,6 +43,10 @@
   var expiredAnnounced = false;
   /** Active pack seed (resolved at init). */
   var activeSeed = DEFAULT_SEED;
+  /** Items marked for review in the current draft. */
+  var flags = Object.create(null);
+  /** True when this page starts a fresh attempt after a prior submission. */
+  var priorAttemptFound = false;
   /** Closed-notes preference (sessionStorage). */
   var closedNotes = false;
   /**
@@ -63,6 +67,9 @@
     jump: null,
     submit: null,
     unanswered: null,
+    reviewUnanswered: null,
+    flag: null,
+    flagStatus: null,
     seedSelect: null,
     packMeta: null,
     closedNotesToggle: null,
@@ -344,6 +351,9 @@
       if (draft.answers && typeof draft.answers === "object") {
         answers = draft.answers;
       }
+      if (draft.flags && typeof draft.flags === "object") {
+        flags = draft.flags;
+      }
       if (typeof draft.index === "number" && draft.index >= 0) {
         index = draft.index;
       }
@@ -364,6 +374,7 @@
           seed: pack ? pack.seed : null,
           bank_hash: pack ? pack.bank_hash : null,
           answers: answers,
+          flags: flags,
           index: index,
           timerStartedAt: timerStartedAt,
           saved_at: Date.now(),
@@ -460,11 +471,13 @@
     var total = pack.items.length;
     var answered = answeredCount();
     var n = index + 1;
+    var remaining = total - answered;
 
-    el.progress.textContent = n + " / " + total;
+    el.progress.textContent =
+      n + " / " + total + " · " + answered + " answered · " + remaining + " left";
     el.progress.setAttribute(
       "aria-label",
-      "Question " + n + " of " + total + ", " + answered + " answered"
+      "Question " + n + " of " + total + ", " + answered + " answered, " + remaining + " remaining"
     );
 
     var allDone = answered === total;
@@ -475,7 +488,27 @@
     );
     el.unanswered.textContent = allDone
       ? "All " + total + " answered — ready to submit."
-      : answered + " of " + total + " answered. Submit unlocks when every item has a choice.";
+      : answered +
+        " of " +
+        total +
+        " answered · " +
+        remaining +
+        " remaining. Submit unlocks when every item has a choice.";
+    if (el.reviewUnanswered) {
+      var missing = [];
+      for (var mi = 0; mi < pack.items.length; mi++) {
+        if (!answers[pack.items[mi].id]) missing.push(mi + 1);
+      }
+      el.reviewUnanswered.hidden = missing.length === 0;
+      if (missing.length > 0) {
+        el.reviewUnanswered.textContent =
+          "Review unanswered (Q" + missing.join(", Q") + ")";
+        el.reviewUnanswered.setAttribute(
+          "aria-label",
+          "Review unanswered questions: " + missing.join(", ")
+        );
+      }
+    }
 
     el.prev.disabled = index <= 0;
     el.next.disabled = index >= total - 1;
@@ -489,14 +522,17 @@
         var id = pack.items[ji].id;
         var isCurrent = ji === index;
         var isAnswered = !!answers[id];
+        var isFlagged = !!flags[id];
         chip.classList.toggle("jump-chip--current", isCurrent);
         chip.classList.toggle("jump-chip--answered", isAnswered && !isCurrent);
+        chip.classList.toggle("jump-chip--flagged", isFlagged && !isCurrent);
         chip.setAttribute("aria-current", isCurrent ? "true" : "false");
         chip.setAttribute(
           "aria-label",
           "Question " +
             (ji + 1) +
             (isAnswered ? ", answered" : ", unanswered") +
+            (isFlagged ? ", flagged for review" : "") +
             (isCurrent ? ", current" : "")
         );
       }
@@ -560,6 +596,18 @@
     el.card.querySelector(".question-card__meta").textContent =
       "Item " + n + " of " + total + " · " + item.id;
 
+    if (el.flag) {
+      var isFlagged = !!flags[item.id];
+      el.flag.textContent = isFlagged ? "Remove flag" : "Flag for review";
+      el.flag.setAttribute("aria-pressed", isFlagged ? "true" : "false");
+      if (el.flagStatus) {
+        el.flagStatus.hidden = !isFlagged;
+        el.flagStatus.textContent = isFlagged
+          ? "Flagged for review — use the question map to return here."
+          : "";
+      }
+    }
+
     updateChrome();
   }
 
@@ -591,11 +639,28 @@
     el.stem.focus({ preventScroll: false });
   }
 
+  function toggleFlag() {
+    if (!pack) return;
+    var item = pack.items[index];
+    if (flags[item.id]) {
+      delete flags[item.id];
+    } else {
+      flags[item.id] = true;
+    }
+    saveDraft();
+    renderQuestion();
+  }
+
   function onSubmit(ev) {
     ev.preventDefault();
     if (!pack) return;
     if (answeredCount() !== pack.items.length) {
       el.unanswered.focus();
+      return;
+    }
+    if (!window.confirm(
+      "Submit this attempt? You will see your study signal and review route on Results."
+    )) {
       return;
     }
     var attempt = buildAttempt();
@@ -725,6 +790,9 @@
     el.jump = $("jump-strip");
     el.submit = $("btn-submit");
     el.unanswered = $("unanswered-hint");
+    el.reviewUnanswered = $("btn-review-unanswered");
+    el.flag = $("btn-flag");
+    el.flagStatus = $("flag-status");
     el.seedSelect = $("seed-select");
     el.packMeta = $("pack-meta");
     el.closedNotesToggle = $("closed-notes-toggle");
@@ -737,6 +805,16 @@
       goTo(index + 1);
     });
     el.submit.addEventListener("click", onSubmit);
+    el.flag.addEventListener("click", toggleFlag);
+    el.reviewUnanswered.addEventListener("click", function () {
+      if (!pack) return;
+      for (var i = 0; i < pack.items.length; i++) {
+        if (!answers[pack.items[i].id]) {
+          goTo(i);
+          return;
+        }
+      }
+    });
     document.addEventListener("keydown", onKeydown);
     document.addEventListener("click", onDocumentClick, true);
     window.addEventListener("beforeunload", onBeforeUnload);
@@ -772,7 +850,9 @@
 
     el.status.hidden = false;
     el.status.className = "exam-status";
-    el.status.textContent = "Loading exam pack (seed " + seed + ")…";
+    el.status.textContent = priorAttemptFound
+      ? "Starting a fresh attempt after the previous submission (seed " + seed + ")…"
+      : "Loading exam pack (seed " + seed + ")…";
     if (el.card) el.card.hidden = true;
 
     fetch(url, { cache: "no-store" })
@@ -821,6 +901,7 @@
                 draft.bank_hash !== pack.bank_hash)
             ) {
               answers = Object.create(null);
+              flags = Object.create(null);
               index = 0;
               timerStartedAt = null;
             }
@@ -862,7 +943,13 @@
     }
     // Chrome before pack load: toggle reflects preference; lock applies once attempt active.
     applyClosedNotesChrome();
-    loadDraft();
+    try {
+      priorAttemptFound = !!sessionStorage.getItem(STORAGE_ATTEMPT);
+      if (priorAttemptFound) sessionStorage.removeItem(STORAGE_DRAFT);
+    } catch (_) {
+      priorAttemptFound = false;
+    }
+    if (!priorAttemptFound) loadDraft();
     var seed = resolveSeed();
     loadPack(seed);
   }

@@ -91,6 +91,14 @@
       <p class="question-card__meta mono" aria-hidden="true"></p>
       <h2 id="q-stem" class="question-card__stem"> </h2>
       <div id="q-choices" class="choices"></div>
+      <div class="question-card__actions">
+        <button type="button" id="btn-flag" class="btn btn--ghost" aria-pressed="false">
+          Flag for review
+        </button>
+        <span id="flag-status" class="question-card__action-status" role="status" hidden>
+          Flagged for review
+        </span>
+      </div>
     </article>
 
     <div class="exam-nav">
@@ -98,18 +106,21 @@
       <button type="button" id="btn-next" class="btn btn--ghost">Next</button>
     </div>
 
-    <div class="jump-panel">
-      <p class="jump-panel__label" id="jump-label">Jump to question</p>
-      <div id="jump-strip" class="jump-strip" role="navigation" aria-labelledby="jump-label"></div>
-    </div>
-
     <div class="exam-submit-bar">
       <p id="unanswered-hint" class="unanswered-hint" tabindex="-1">
         Answer all 40 items to enable submit.
       </p>
+      <button type="button" id="btn-review-unanswered" class="btn btn--ghost" hidden>
+        Review unanswered
+      </button>
       <button type="button" id="btn-submit" class="btn btn--primary" disabled>
         Submit attempt
       </button>
+    </div>
+
+    <div class="jump-panel">
+      <p class="jump-panel__label" id="jump-label">Question map</p>
+      <div id="jump-strip" class="jump-strip" role="navigation" aria-labelledby="jump-label"></div>
     </div>
 
     <p class="meta">

@@ -553,6 +553,9 @@ async function onSubmit(ev) {
     el.unanswered.focus();
     return;
   }
+  if (!window.confirm("Grade this quiz? You will see the study signal and review route below.")) {
+    return;
+  }
   setStatus("", "Grading module quiz…");
   const attempt = buildAttempt();
   const presentation = gradeByKeys(pack.items, answers);
