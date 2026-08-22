@@ -192,8 +192,8 @@ fn topic_labels(root: &Path) -> BTreeMap<String, String> {
 fn prior_adjudication(id: &str) -> Option<(Classification, &'static str)> {
     match id {
         "m10-q300" => Some((
-            Classification::Absent,
-            "the module does not teach the applied leak-response sequence",
+            Classification::Taught,
+            "10-water.md now names contain/isolate, protect nearby electrical/IT, notify, and document",
         )),
         "m15-q350" => Some((
             Classification::Absent,

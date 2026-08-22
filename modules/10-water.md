@@ -80,6 +80,15 @@ Without makeup, the **tower basin level drops**. Low level → pumps cavitate or
 
 **Closed-loop systems** (e.g. dry coolers, air-cooled chillers, sealed glycol loops) need **little ongoing water** but still need **fill water quality**, freeze protection, and leak response. They shift risk from municipal water continuity to **electrical capacity and ambient wet-/dry-bulb limits**.
 
+**Hydronic leak — immediate sequence.** A zone leak alarm at a CRAC/CRAH hydronic connection (a slow packing drip, not a ruptured pipe) is still an electrical and IT-plant hazard. The immediate sequence is:
+
+1. **Contain and isolate** the leak (stop the source from feeding the drip; catch what is already out).
+2. **Protect nearby electrical and IT assets** (power, cable, and equipment in the splash/drip path).
+3. **Notify the response chain** (do not wait for Monday staffing).
+4. **Document** what was found and what was done.
+
+Deferring a “small” weekend drip is the realistic wrong choice: packing leaks worsen unattended, and the risk is electrical continuity, not waiting until the puddle is impressive. Do not use CRAH airflow as an evaporator while the valve stays in service, and do not discharge fire pre-action water as a cleanup tool.
+
 **Humidification dependency.** ASHRAE thermal guidelines (TC 9.9 family—use current published envelopes for design) address temperature and humidity ranges for IT equipment. Very low RH raises ESD risk and can affect some media/tape environments; very high RH raises condensation risk. Sites that actively humidify depend on **treated water** (often reverse osmosis / deionized for steam canisters—mineralized water scales equipment). A boil-water notice or dirty feed can foul humidifiers even when cooling towers still run.
 
 **Water quality (process), not just quantity.** Cooling towers concentrate minerals. Control programs manage:
@@ -243,7 +252,7 @@ These are **order-of-magnitude ops/design intuition**, not substitutes for engin
    \]  
    Compare like-for-like (same boundary: source water vs including energy-water upstream—be explicit).
 
-5. **Closed-loop ≠ zero risk.** Small makeup still required; a major CHW leak can empty a buffer tank quickly—leak detection and isolation matter.
+5. **Closed-loop ≠ zero risk.** Small makeup still required; a major CHW leak can empty a buffer tank quickly. Detection matters, and the immediate response is contain/isolate, protect nearby electrical/IT, notify, and document—not “leave it until Monday.”
 
 6. **Fire water is not free cooling water.** Code, pressure, and cleanliness requirements differ; never assume cross-use.
 
@@ -260,6 +269,7 @@ These are **order-of-magnitude ops/design intuition**, not substitutes for engin
 | Ignoring water **quality** | Scaling/biofouling derates the plant while “flow looks normal.” |
 | Using fire tanks for process makeup casually | Often illegal/unsafe without engineered dual-purpose design and AHJ approval. |
 | No low-level alarming / no runbook | Operators discover empty basins after chillers trip—too late. |
+| “Small packing drip, IT still up — wait until Monday.” | Contain and isolate, protect nearby electrical/IT, notify, document. Packing leaks worsen unattended; the hazard is electrical, not volumetric. |
 | Humidifier scale after water event | Boil-water / turbidity events foul RO and canisters; track water incidents in change log. |
 | “Liquid-cooled IT removes water risk.” | Liquid cooling moves heat to a CDU/plant; the **plant** may still be evaporative. Ask where heat ultimately goes. |
 | Confusing WUE optimization with availability | Zero water use can still fail on power or dry-cooler ambient limits. Optimize both dimensions. |
