@@ -334,6 +334,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "cdcp_loop_wave"
+version = "0.1.0"
+dependencies = [
+ "hex",
+ "serde",
+ "serde_json",
+ "sha2",
+ "tempfile",
+]
+
+[[package]]
 name = "cdcp_metrics"
 version = "0.1.0"
 dependencies = [

@@ -25,6 +25,7 @@ members = [
   "crates/cdcp_data",
   "crates/cdcp_site",
   "crates/cdcp_metrics",
+  "crates/cdcp_loop_wave",
 ]
 exclude = ["fuzz"]
 
@@ -64,4 +65,5 @@ cdcp_evidence = { path = "crates/cdcp_evidence" }
 cdcp_data = { path = "crates/cdcp_data" }
 cdcp_site = { path = "crates/cdcp_site" }
 cdcp_metrics = { path = "crates/cdcp_metrics" }
+cdcp_loop_wave = { path = "crates/cdcp_loop_wave" }
 proptest = { version = "1", default-features = false, features = ["std"] }

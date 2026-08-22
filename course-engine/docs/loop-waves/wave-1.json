@@ -1,0 +1,84 @@
+{
+  "wave": 1,
+  "harvest_path": "/Users/josh/.claude/references/franken-harvest.md",
+  "harvest_sha256": "9b7e3e793a19e40ac665e0e7e600e5e3d6642108750cc25434b3a97167b2a662",
+  "prior": null,
+  "grades": [
+    {
+      "skill": "loop-enforcement",
+      "finding": "comment-only emit-tick choke: scripts/check.sh calls emit-tick 'not a verdict-producing gate'; hooks/pre-commit execs substrate-guard --staged only. emit_tick / tick_guard exist in crates/cdcp_bank/src/tick_emitter.rs but a commit can land with no ledger row. BUILT ≠ WIRED.",
+      "probes": [
+        {
+          "id": "emit-tick-forbidden-phrases",
+          "skill": "loop-enforcement",
+          "path": "crates/cdcp_bank/src/tick_emitter.rs",
+          "claim": "ticks pass emit_tick / tick_guard; fabricated standing-by prose is rejected",
+          "wiring": "wired",
+          "citation": "standing by"
+        },
+        {
+          "id": "check-sh-comment-only-choke",
+          "skill": "loop-enforcement",
+          "path": "scripts/check.sh",
+          "claim": "every loop tick goes through the emit_tick choke-point as a live gate",
+          "wiring": "contradicted",
+          "citation": "not a verdict-producing gate"
+        },
+        {
+          "id": "pre-commit-is-substrate-guard",
+          "skill": "loop-enforcement",
+          "path": "hooks/pre-commit",
+          "claim": "the installed hook is the tick choke-point (emit_tick / tick_guard)",
+          "wiring": "unwired",
+          "citation": "substrate-guard --staged (no emit-tick)"
+        },
+        {
+          "id": "gate-wrapper-emit-tick",
+          "skill": "loop-enforcement",
+          "path": "crates/cdcp_gate/src/gates/emit_tick.rs",
+          "claim": "cdcp_gate emit-tick is the live writer of the ledger",
+          "wiring": "wired",
+          "citation": "tick_emitter"
+        }
+      ]
+    },
+    {
+      "skill": "loop-engineering",
+      "finding": "Rule Zero is Charter-stated and product_moved is COMPUTED in tick_emitter.rs (product_moved_disagreement when claim ≠ compute). A tick still counts only if it changed the product; the classifier decides, the agent proposes. The choke that would refuse a no-tick commit is unwired — see loop-enforcement grade.",
+      "probes": [
+        {
+          "id": "emit-tick-computes-product-moved",
+          "skill": "loop-engineering",
+          "path": "crates/cdcp_bank/src/tick_emitter.rs",
+          "claim": "a tick counts only if the product moved — product_moved is COMPUTED from the commit, not claimed",
+          "wiring": "wired",
+          "citation": "computed_product_moved"
+        },
+        {
+          "id": "charter-rule-zero",
+          "skill": "loop-engineering",
+          "path": ".flywheel/CHARTER.md",
+          "claim": "a tick counts only if it changed the product (CHARTER value_bar)",
+          "wiring": "wired",
+          "citation": "PRODUCT MOVED"
+        },
+        {
+          "id": "tick-ledger-exists",
+          "skill": "loop-engineering",
+          "path": ".flywheel/tick-ledger.jsonl",
+          "claim": "the flywheel ledger is the durable tick audit trail",
+          "wiring": "wired",
+          "citation": "zs.tick-receipt"
+        },
+        {
+          "id": "harvest-ledger-is-standing",
+          "skill": "loop-engineering",
+          "path": "__HARVEST__",
+          "claim": "mine the standing franken-harvest ledger, not GitHub",
+          "wiring": "wired",
+          "citation": "FRANKEN HARVEST"
+        }
+      ]
+    }
+  ]
+}
