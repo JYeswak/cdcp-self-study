@@ -8,9 +8,9 @@ kind = "single-select"
 module = 6
 stem = "Line-interactive (VI) UPS designs are most often associated with:"
 choices = [
-  "Only nuclear EMP hardening, not ordinary power-quality or outage protection",
-  "Replacing generators entirely, with no fuel or transfer planning",
-  "Three-phase-only mega-plants exclusively, regardless of facility size or load",
+  "Nuclear EMP hardening, not ordinary power-quality or outage protection",
+  "Replacing generators, without fuel or transfer planning",
+  "Three-phase mega-plants exclusively, independent of facility size or load",
   "Battery support for deeper events in SMB/edge settings",
 ]
 correct = "D"

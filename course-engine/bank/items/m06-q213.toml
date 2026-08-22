@@ -7,10 +7,10 @@ kind = "single-select"
 module = 6
 stem = "Wet stacking concerns on diesel generators typically arise when sets:"
 choices = [
-  "Always run at continuous overload, without respecting generator limits",
+  "Run at continuous overload, without respecting generator limits",
   "Run lightly loaded without loaded exercise",
-  "Use only natural gas",
-  "Feed only lighting panels"
+  "Use natural gas",
+  "Feed lighting panels"
 ]
 correct = "B"
 explanation = "Chronic light load can foul diesel exhaust paths, so loaded exercise mitigates the risk; overload, natural gas, and lighting-only operation are different conditions."

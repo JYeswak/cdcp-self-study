@@ -8,9 +8,9 @@ module = 5
 stem = "Which is true about normal vs emergency lighting circuits?"
 choices = [
   "Emergency lighting has distinct power-path and performance expectations for life safety",
-  "Normal lighting is switched while emergency lighting is left permanently on",
-  "Emergency lighting is decorative and carries no performance requirement",
-  "They share one branch circuit with no segregation between the two paths",
+  "Normal lighting is switched while emergency lighting is left on",
+  "Emergency lighting is decorative and carries little performance requirement",
+  "They share one branch circuit without segregation between the two paths",
 ]
 correct = "A"
 explanation = "Emergency lighting has distinct power-path and performance requirements for life safety; leaving it permanently on or sharing an unsegregated branch is not the design principle."

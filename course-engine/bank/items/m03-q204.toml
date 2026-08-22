@@ -10,9 +10,9 @@ module = 3
 stem = "Seismic and geotechnical risk assessment for a candidate site is important because:"
 choices = [
   "Ground motion and soil conditions influence structural design, equipment anchorage, and outage risk",
-  "Seismic zones never affect data centres, because structure, anchorage, and outage risk are independent of ground motion and soil conditions",
-  "Only network latency depends on soil type, so structural design and equipment anchorage need no geotechnical input",
-  "Geotech reports only serve landscaping"
+  "Seismic zones do not affect data centres, because structure, anchorage, and outage risk are independent of ground motion and soil conditions",
+  "Network latency depends on soil type, so structural design and equipment anchorage need little geotechnical input",
+  "Geotech reports serve landscaping"
 ]
 correct = "A"
 explanation = "Ground motion and soil conditions affect structural design, equipment anchorage, and outage risk; seismic conditions are not irrelevant to data centres, limited to networking, or a landscaping-only concern."

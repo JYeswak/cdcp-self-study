@@ -10,10 +10,10 @@ kind = "single-select"
 module = 1
 stem = "A single point of failure in facility design is best characterized as:"
 choices = [
-  "Any sensor that reports humidity, because a measurement point is itself a single point of failure",
+  "A humidity sensor, because a measurement point is itself a single point of failure",
   "A component or path whose failure alone can interrupt the critical load",
-  "Any dual-path system by definition, even when one path cannot carry the critical load during maintenance",
-  "Any redundant UPS string is typically a single point of failure, regardless of whether another independent path reaches the critical load"
+  "A dual-path system by definition, even when one path cannot carry the critical load during maintenance",
+  "A redundant UPS string is typically a single point of failure, even when another independent path reaches the critical load"
 ]
 correct = "B"
 explanation = "The single point of failure is a component or path whose lone failure can interrupt the protected load; a sensor, a dual-path system with inadequate capacity, or a redundant UPS string is not automatically such a point."

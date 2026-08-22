@@ -12,9 +12,9 @@ module = 3
 stem = "A vendor claims 'TIA-942 Tier III certified.' The terminology defect is:"
 choices = [
   "TIA-942 uses 'Rated' (Rated-1 through Rated-4), not 'Tier' — Tier is an Uptime Institute term",
-  "No defect — TIA-942 and Uptime Institute use the same Tier terminology interchangeably, with identical labels and assessment meanings",
-  "Minor defect — Tier III and Rated-3 are identical, so the label is functionally correct for both standards and needs no correction",
-  "No defect — TIA adopted Uptime's Tier terminology in the 942-B revision, making the two rating systems interchangeable",
+  "Not a defect — TIA-942 and Uptime Institute use the same Tier terminology interchangeably, with identical labels and assessment meanings",
+  "Minor defect — Tier III and Rated-3 are identical, so the label is functionally correct for both standards",
+  "Not a defect — TIA adopted Uptime's Tier terminology in the 942-B revision, making the two rating systems interchangeable",
 ]
 correct = "A"
 explanation = "TIA-942-B §5.3 defines 'Rated-1' through 'Rated-4' for infrastructure rating levels. 'Tier I' through 'Tier IV' is Uptime Institute's terminology from their Tier Standard. The two systems have similar intent but different requirements and assessment processes. Calling a site 'TIA-942 Tier III' conflates two separate standards. A design consultant must distinguish Rated (TIA) from Tier (Uptime) and cite the correct standard for each claim."

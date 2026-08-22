@@ -10,9 +10,9 @@ kind = "single-select"
 module = 2
 stem = "Which is the most accurate “landscape” view of data-centre guidance?"
 choices = [
-  "One global document covers every jurisdiction and product",
-  "Only blog posts are authoritative",
-  "Only PUE marketing scores are required",
+  "One global document covers each jurisdiction and product",
+  "Blog posts are the authoritative source",
+  "PUE marketing scores are the required landscape",
   "A mix of codes, facility series (TIA/ISO/EN), product standards, and owner specs—with AHJ as the legal floor",
 ]
 correct = "D"

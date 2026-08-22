@@ -3505,10 +3505,10 @@
   {
     "bloom": "apply",
     "choices": [
-      "Any sensor that reports humidity, because a measurement point is itself a single point of failure",
+      "A humidity sensor, because a measurement point is itself a single point of failure",
       "A component or path whose failure alone can interrupt the critical load",
-      "Any dual-path system by definition, even when one path cannot carry the critical load during maintenance",
-      "Any redundant UPS string is typically a single point of failure, regardless of whether another independent path reaches the critical load"
+      "A dual-path system by definition, even when one path cannot carry the critical load during maintenance",
+      "A redundant UPS string is typically a single point of failure, even when another independent path reaches the critical load"
     ],
     "citation_ids": [],
     "correct": "B",
@@ -3531,9 +3531,9 @@
     "bloom": "apply",
     "choices": [
       "Matching redundancy and operating discipline to the impact of loss for the served services",
-      "Using marketing slogans as the only design input, without connecting facility controls to the impact of service loss",
-      "Ignoring RTO/RPO when siting and designing, because business continuity belongs only to application owners",
-      "Spending the same capital on every closet regardless of impact, service dependency, or the cost of an outage"
+      "Using marketing slogans as the design input, without connecting facility controls to the impact of service loss",
+      "Ignoring RTO/RPO when siting and designing, because business continuity belongs to application owners",
+      "Spending the same capital on each closet independent of impact, service dependency, or the cost of an outage"
     ],
     "citation_ids": [],
     "correct": "A",
@@ -3630,9 +3630,9 @@
   {
     "bloom": "understand",
     "choices": [
-      "GPU colo is just retail colo with more kW; the rest are Tier names with no separate market or facility meaning",
-      "Four new names for retail colo cages, with no meaningful distinction in ownership, density, energization, or operating model",
-      "All four are Uptime plaques that describe a rating level rather than a product, ownership model, or energization path",
+      "GPU colo is just retail colo with more kW; the rest are Tier names without a separate market or facility meaning",
+      "Four new names for retail colo cages, with little meaningful distinction in ownership, density, energization, or operating model",
+      "These four are Uptime plaques that describe a rating level rather than a product, ownership model, or energization path",
       "Neocloud rents GPU capacity; GPU colo offers dense colocation; AI factory is owner-operated; BTM is an energization path"
     ],
     "citation_ids": [],
@@ -4002,9 +4002,9 @@
   {
     "bloom": "understand",
     "choices": [
-      "One global document covers every jurisdiction and product",
-      "Only blog posts are authoritative",
-      "Only PUE marketing scores are required",
+      "One global document covers each jurisdiction and product",
+      "Blog posts are the authoritative source",
+      "PUE marketing scores are the required landscape",
       "A mix of codes, facility series (TIA/ISO/EN), product standards, and owner specs—with AHJ as the legal floor"
     ],
     "citation_ids": [],
@@ -4641,9 +4641,9 @@
   {
     "bloom": "understand",
     "choices": [
-      "They replace the need for any system-level design, because listed components make facility integration, coordination, and protection unnecessary",
-      "They only apply to furniture, so cabling, firestop, and equipment safety marks do not affect facility assemblies",
-      "They forbid all redundant paths",
+      "They replace the need for system-level design, because listed components make facility integration, coordination, and protection unnecessary",
+      "They apply to furniture, so cabling, firestop, and equipment safety marks do not affect facility assemblies",
+      "They forbid redundant paths",
       "They help ensure assemblies and products meet defined performance/safety criteria used in the facility"
     ],
     "citation_ids": [],
@@ -5127,10 +5127,10 @@
   {
     "bloom": "remember",
     "choices": [
-      "Only the CEO office artwork",
-      "Only hot-aisle posters",
+      "The CEO office artwork",
+      "Hot-aisle posters",
       "Security/NOC spaces, loading/staging, generator/fuel yard, and utility intake areas",
-      "A single shared restroom with no other spaces"
+      "A single shared restroom as the supporting-facility set"
     ],
     "citation_ids": [],
     "correct": "C",
@@ -5668,9 +5668,9 @@
     "bloom": "understand",
     "choices": [
       "Ground motion and soil conditions influence structural design, equipment anchorage, and outage risk",
-      "Seismic zones never affect data centres, because structure, anchorage, and outage risk are independent of ground motion and soil conditions",
-      "Only network latency depends on soil type, so structural design and equipment anchorage need no geotechnical input",
-      "Geotech reports only serve landscaping"
+      "Seismic zones do not affect data centres, because structure, anchorage, and outage risk are independent of ground motion and soil conditions",
+      "Network latency depends on soil type, so structural design and equipment anchorage need little geotechnical input",
+      "Geotech reports serve landscaping"
     ],
     "citation_ids": [],
     "correct": "A",
@@ -5888,10 +5888,10 @@
   {
     "bloom": "understand",
     "choices": [
-      "The facility uses only passive cooling with no outdoor plant ever, so water rights and discharge planning cannot affect the site decision",
+      "The facility uses passive cooling without outdoor plant, so water rights and discharge planning cannot affect the site decision",
       "Evaporative or water-dependent heat rejection and fire water supplies are part of the design concept",
-      "IT load is zero, so water availability and wastewater rights remain irrelevant even if the proposed site includes water-dependent plant",
-      "The site is purely a dry storage warehouse with no IT"
+      "IT load is unused, so water availability and wastewater rights remain irrelevant even if the proposed site includes water-dependent plant",
+      "The site is a dry storage warehouse without IT"
     ],
     "citation_ids": [],
     "correct": "B",
@@ -6135,9 +6135,9 @@
     "bloom": "understand",
     "choices": [
       "TIA-942 uses 'Rated' (Rated-1 through Rated-4), not 'Tier' — Tier is an Uptime Institute term",
-      "No defect — TIA-942 and Uptime Institute use the same Tier terminology interchangeably, with identical labels and assessment meanings",
-      "Minor defect — Tier III and Rated-3 are identical, so the label is functionally correct for both standards and needs no correction",
-      "No defect — TIA adopted Uptime's Tier terminology in the 942-B revision, making the two rating systems interchangeable"
+      "Not a defect — TIA-942 and Uptime Institute use the same Tier terminology interchangeably, with identical labels and assessment meanings",
+      "Minor defect — Tier III and Rated-3 are identical, so the label is functionally correct for both standards",
+      "Not a defect — TIA adopted Uptime's Tier terminology in the 942-B revision, making the two rating systems interchangeable"
     ],
     "citation_ids": [],
     "correct": "A",
@@ -6850,10 +6850,10 @@
   {
     "bloom": "remember",
     "choices": [
-      "Identical forces applied the same way, regardless of load distribution",
-      "Only aesthetic tile patterns, not structural load behavior",
+      "Identical forces applied the same way, independent of load distribution",
+      "Aesthetic tile patterns, not structural load behavior",
       "Area, point, and wheeled-equipment loads differ",
-      "Only underfloor cable weight"
+      "Underfloor cable weight"
     ],
     "citation_ids": [],
     "correct": "C",
@@ -7576,9 +7576,9 @@
     "bloom": "understand",
     "choices": [
       "Emergency lighting has distinct power-path and performance expectations for life safety",
-      "Normal lighting is switched while emergency lighting is left permanently on",
-      "Emergency lighting is decorative and carries no performance requirement",
-      "They share one branch circuit with no segregation between the two paths"
+      "Normal lighting is switched while emergency lighting is left on",
+      "Emergency lighting is decorative and carries little performance requirement",
+      "They share one branch circuit without segregation between the two paths"
     ],
     "citation_ids": [],
     "correct": "A",
@@ -8343,9 +8343,9 @@
     "bloom": "remember",
     "choices": [
       "Two independent paths for the full load",
-      "A single path with thicker cable only, with no independent source or bus",
-      "N capacity with no path diversity, regardless of maintenance claim",
-      "Generator redundancy without any UPS"
+      "A single path with thicker cable, without an independent source or bus",
+      "N capacity without path diversity, independent of maintenance claim",
+      "Generator redundancy without a UPS"
     ],
     "citation_ids": [],
     "correct": "A",
@@ -8511,9 +8511,9 @@
   {
     "bloom": "understand",
     "choices": [
-      "Only nuclear EMP hardening, not ordinary power-quality or outage protection",
-      "Replacing generators entirely, with no fuel or transfer planning",
-      "Three-phase-only mega-plants exclusively, regardless of facility size or load",
+      "Nuclear EMP hardening, not ordinary power-quality or outage protection",
+      "Replacing generators, without fuel or transfer planning",
+      "Three-phase mega-plants exclusively, independent of facility size or load",
       "Battery support for deeper events in SMB/edge settings"
     ],
     "citation_ids": [],
@@ -10087,10 +10087,10 @@
   {
     "bloom": "understand",
     "choices": [
-      "Always run at continuous overload, without respecting generator limits",
+      "Run at continuous overload, without respecting generator limits",
       "Run lightly loaded without loaded exercise",
-      "Use only natural gas",
-      "Feed only lighting panels"
+      "Use natural gas",
+      "Feed lighting panels"
     ],
     "citation_ids": [],
     "correct": "B",
@@ -10334,9 +10334,9 @@
   {
     "bloom": "apply",
     "choices": [
-      "A basic PDU with locking outlets and no network interface",
-      "An automatic transfer switch feeding the rack from two independent sources",
-      "A metered-inlet PDU reporting only total rack current",
+      "A basic PDU with locking outlets, without a network interface",
+      "A transfer switch feeding the rack from two independent sources",
+      "A metered-inlet PDU reporting total rack current",
       "A switched PDU with per-outlet control and branch-level metering"
     ],
     "citation_ids": [],

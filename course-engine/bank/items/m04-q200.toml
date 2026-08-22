@@ -10,10 +10,10 @@ kind = "single-select"
 module = 4
 stem = "Uniform, concentrated, and rolling load ratings for access floors differ because they describe:"
 choices = [
-  "Identical forces applied the same way, regardless of load distribution",
-  "Only aesthetic tile patterns, not structural load behavior",
+  "Identical forces applied the same way, independent of load distribution",
+  "Aesthetic tile patterns, not structural load behavior",
   "Area, point, and wheeled-equipment loads differ",
-  "Only underfloor cable weight"
+  "Underfloor cable weight"
 ]
 correct = "C"
 explanation = "Uniform, concentrated, and rolling ratings describe area, point, and wheeled-equipment forces respectively; they are not identical aesthetic categories or merely cable weight."

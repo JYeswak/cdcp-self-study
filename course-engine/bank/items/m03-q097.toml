@@ -9,10 +9,10 @@ kind = "single-select"
 module = 3
 stem = "Supporting facilities that enable operations typically include:"
 choices = [
-  "Only the CEO office artwork",
-  "Only hot-aisle posters",
+  "The CEO office artwork",
+  "Hot-aisle posters",
   "Security/NOC spaces, loading/staging, generator/fuel yard, and utility intake areas",
-  "A single shared restroom with no other spaces",
+  "A single shared restroom as the supporting-facility set",
 ]
 correct = "C"
 explanation = "Supporting facilities include generator and fuel yards, loading or staging, utility intake, and security or NOC spaces; executive artwork, posters, and a lone restroom do not make a site operable."

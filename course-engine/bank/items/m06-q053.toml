@@ -8,9 +8,9 @@ module = 6
 stem = "In conceptual terms, a 2N power architecture provides:"
 choices = [
   "Two independent paths for the full load",
-  "A single path with thicker cable only, with no independent source or bus",
-  "N capacity with no path diversity, regardless of maintenance claim",
-  "Generator redundancy without any UPS",
+  "A single path with thicker cable, without an independent source or bus",
+  "N capacity without path diversity, independent of maintenance claim",
+  "Generator redundancy without a UPS",
 ]
 correct = "A"
 explanation = "2N is two independent systems or paths, each sized for N; thicker cable, generator-only redundancy, or spare capacity without path separation is not 2N."
